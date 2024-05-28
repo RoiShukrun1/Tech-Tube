@@ -2,6 +2,8 @@
     <string name="app_name">Tech Titans App</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
+    <string name="passwordConfirm_hint">Confirm password</string>
+    <string name="nickname_hint">Nickname</string>
     <string name="login_button_text">Login</string>
     <string name="login_success">Login successful</string>
     <string name="login_error">Please enter both username and password</string>
