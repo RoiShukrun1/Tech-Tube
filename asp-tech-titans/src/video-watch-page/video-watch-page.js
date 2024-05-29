@@ -1,6 +1,6 @@
 // src/pages/video-watch-page.js
 import React from 'react';
-import VideoPlayer from '../components/VideoPlayer';
+import VideoPlayer from './components/video-player/VideoPlayer';
 // import VideoInfo from '../components/VideoInfo';
 // import RelatedVideos from '../components/RelatedVideos';
 // import Comments from '../components/Comments';

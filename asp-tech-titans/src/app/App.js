@@ -1,5 +1,5 @@
 import './App.css';
-import VideoWatchPage from '../video-watch-page/video-watch-page.js';
+import VideoWatchPage from '../video-watch-page/video-watch-page';
 
 function App() {
   const videoUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
