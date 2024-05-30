@@ -1,9 +1,8 @@
-// src/pages/video-watch-page.js
 import React from 'react';
 import VideoPlayer from './components/video-player/VideoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
-// import RelatedVideos from '../components/RelatedVideos';
-// import Comments from '../components/Comments';
+import Comment from './components/comments/comment';
+
 
 const VideoWatchPage = ({ videoUrl }) => {
   //   const videoTitle = 'Sample Video Title';
@@ -23,7 +22,8 @@ const VideoWatchPage = ({ videoUrl }) => {
 
           <div className="video-watch-page">
             <VideoPlayer url={videoUrl} />
-            <VideoInfo videoTitle="Sample Video Title" views="100" date="2021-10-01" />
+            <VideoInfo videoTitle="First Video Test" views="100" date="2021-10-01" />
+            <Comment username="Aviel Segev" date="30-05-2024" comment="חרא" likes={5} />
 
 
           </div>
