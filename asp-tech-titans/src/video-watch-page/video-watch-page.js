@@ -1,18 +1,16 @@
 import React from 'react';
 import VideoPlayer from './components/video-player/VideoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
-import Comment from './components/comments/comment';
+import Comments from './components/comments/comments';
+import jsonData from '../db/videos.json';
 
+function getObjectByUrl(jsonData, url) {
+  return jsonData.find(obj => obj.videoUrl === url);
+}
 
 const VideoWatchPage = ({ videoUrl }) => {
-  //   const videoTitle = 'Sample Video Title';
-  //   const videoDescription = 'This is a sample video description.';
-  //   const relatedVideos = ['Related video 1', 'Related video 2', 'Related video 3'];
-  //   const comments = ['User1: Comment 1', 'User2: Comment 2', 'User3: Comment 3'];
-  {/* <VideoInfo title={videoTitle} description={videoDescription} />
-      <RelatedVideos videos={relatedVideos} />
-      <Comments comments={comments} /> */}
 
+  const videoCorrispondingData = getObjectByUrl(jsonData, videoUrl); 
 
   return (
 
@@ -22,8 +20,10 @@ const VideoWatchPage = ({ videoUrl }) => {
 
           <div className="video-watch-page">
             <VideoPlayer url={videoUrl} />
-            <VideoInfo videoTitle="First Video Test" views="100" date="2021-10-01" />
-            <Comment username="Aviel Segev" date="30-05-2024" comment="חרא" likes={5} />
+            <VideoInfo videoTitle={videoCorrispondingData.videoTitle}
+              views={videoCorrispondingData.views}
+              date={videoCorrispondingData.date} />
+            <Comments comments={videoCorrispondingData.Comments}  />
 
 
           </div>
@@ -45,3 +45,4 @@ const VideoWatchPage = ({ videoUrl }) => {
 };
 
 export default VideoWatchPage;
+

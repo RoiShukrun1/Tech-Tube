@@ -34,7 +34,7 @@ function Comment({ username, date, comment, likes }) {
                         setLikesNumber(likesNumber - 1);
                         setIsLiked(-1);
                     }
-                }} type="button" class="btn btn-outline-secondary dislike-icon-button">
+                }} type="button" className="btn btn-outline-secondary dislike-icon-button">
                     <Dislike className='icon' style={{ margin: '0px', backgroundColor: isLiked == -1 ? 'red' : 'transparent' }} />
                 </button>
 
