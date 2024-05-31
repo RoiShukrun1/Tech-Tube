@@ -30,9 +30,9 @@ function Comment({ username, date, comment, likes }) {
                 <h3 className="likesNumber">{likesNumber}</h3>
 
                 <button onClick={() => {
+                    setIsLiked(-1);
                     if (likesNumber == likes + 1) {
                         setLikesNumber(likesNumber - 1);
-                        setIsLiked(-1);
                     }
                 }} type="button" className="btn btn-outline-secondary dislike-icon-button">
                     <Dislike className='icon' style={{ margin: '0px', backgroundColor: isLiked == -1 ? 'red' : 'transparent' }} />

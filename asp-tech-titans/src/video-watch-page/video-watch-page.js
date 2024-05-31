@@ -23,7 +23,7 @@ const VideoWatchPage = ({ videoUrl }) => {
             <VideoInfo videoTitle={videoCorrispondingData.videoTitle}
               views={videoCorrispondingData.views}
               date={videoCorrispondingData.date} />
-            <Comments comments={videoCorrispondingData.Comments}  />
+            <Comments comments={ videoCorrispondingData.comments }  />
 
 
           </div>
