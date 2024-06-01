@@ -9,7 +9,7 @@ function videoCard({ video, setUrl }) {
       
     return (
         <div className="video-card">
-            <div className="card mb-3">
+            <div className="card">
                 <div className="row g-0">
                     <div className="col-md-6">
                         <img src={video.imgUrl} className="img-fluid rounded-start"
