@@ -1,15 +1,14 @@
 import './videoInfo.css';
 
-function videoInfo({ videoTitle, views, date, publisherImg, publisher }) {
+function videoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
+    console.log(info);
     return (
-        
-
         <div>
             <h1 className="title">{videoTitle}</h1>
             <span>
-            <img className="publisher-photo" src={publisherImg} />
-            <h1 className='publisher'>{publisher}</h1>
-            <button type="button" className="btn btn-dark subscribe-button">subscribe</button>
+                <img className="publisher-photo" src={publisherImg} />
+                <h1 className='publisher'>{publisher}</h1>
+                <button type="button" className="btn btn-dark subscribe-button">subscribe</button>
             </span>
 
 
@@ -22,7 +21,7 @@ function videoInfo({ videoTitle, views, date, publisherImg, publisher }) {
                 </button>
                 <div className="collapse" id="collapseExample">
                     <div className="more-info">
-                        this is the place to put all the extra info about the video
+                        {info}
                     </div>
                 </div>
 

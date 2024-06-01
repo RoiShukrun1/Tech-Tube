@@ -11,15 +11,15 @@ function videoCard({ video, setUrl }) {
         <div className="video-card">
             <div className="card">
                 <div className="row g-0">
-                    <div className="col-md-6">
+                    <div className="col-md-5">
                         <img src={video.imgUrl} className="img-fluid rounded-start"
                             onClick={handleClick} />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-7">
                         <div className="card-body">
                             <h5 className="card-title">{video.videoTitle}</h5>
                             <p className="card-text">{video.publisher}</p>
-                            <p className="card-text"><small className="text-body-secondary">{video.views} {video.date}</small></p>
+                            <p className="card-text"><small className="text-body-secondary">{video.views} • {video.date}</small></p>
                         </div>
                     </div>
                 </div>

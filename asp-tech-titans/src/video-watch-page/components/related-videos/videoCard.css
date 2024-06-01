@@ -3,3 +3,12 @@
     border: none;
     margin-bottom: 5px;
 }
+.card-title{
+    font-size: medium;
+    text-align: left;
+    font-weight: bold;
+}
+.card-text{
+    font-size: medium;
+    text-align: left;
+}

@@ -25,7 +25,8 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
               views={videoCorrispondingData.views}
               date={videoCorrispondingData.date}
               publisherImg={videoCorrispondingData.publisherImg}
-              publisher={videoCorrispondingData.publisher} />
+              publisher={videoCorrispondingData.publisher}
+              info={videoCorrispondingData.info} />
             <Comments comments={videoCorrispondingData.comments} />
 
           </div>
