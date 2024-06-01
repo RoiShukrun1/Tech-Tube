@@ -14,17 +14,18 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
   const videoCorrispondingData = getObjectByUrl(jsonData, videoUrl);
 
   return (
-    
-
-    <div className="container text-center">
+    <div className="container">
       <div className="row">
         <div className="col">
 
           <div className="video-watch-page">
             <VideoPlayer url={videoUrl} />
-            <VideoInfo videoTitle={videoCorrispondingData.videoTitle}
+            <VideoInfo
+              videoTitle={videoCorrispondingData.videoTitle}
               views={videoCorrispondingData.views}
-              date={videoCorrispondingData.date} />
+              date={videoCorrispondingData.date}
+              publisherImg={videoCorrispondingData.publisherImg}
+              publisher={videoCorrispondingData.publisher} />
             <Comments comments={videoCorrispondingData.comments} />
 
           </div>

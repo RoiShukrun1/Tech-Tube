@@ -1,10 +1,17 @@
 import './videoInfo.css';
 
-function videoInfo({ videoTitle, views, date }) {
+function videoInfo({ videoTitle, views, date, publisherImg, publisher }) {
     return (
+        
 
         <div>
             <h1 className="title">{videoTitle}</h1>
+            <span>
+            <img className="publisher-photo" src={publisherImg} />
+            <h1 className='publisher'>{publisher}</h1>
+            <button type="button" className="btn btn-dark subscribe-button">subscribe</button>
+            </span>
+
 
             <div className="alert alert-secondary" role="alert">
                 <h2 className='views'>Views: {views}</h2>
