@@ -31,7 +31,6 @@ const VideoWatchPage = ({ videoUrl }) => {
         </div>
 
         <div className="col">
-          {/* {console.log(videoCorrispondingData.RelatedVideos)} */}
           <RelatedVideos RelatedVideos={videoCorrispondingData.RelatedVideos}/>
 
         </div>
