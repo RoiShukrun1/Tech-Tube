@@ -2,6 +2,7 @@ import React from 'react';
 import VideoPlayer from './components/video-player/VideoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
 import Comments from './components/comments/comments';
+import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
 
 function getObjectByUrl(jsonData, url) {
@@ -30,8 +31,8 @@ const VideoWatchPage = ({ videoUrl }) => {
         </div>
 
         <div className="col">
-          <h1>ALong video</h1>
-
+          {/* {console.log(videoCorrispondingData.RelatedVideos)} */}
+          <RelatedVideos RelatedVideos={videoCorrispondingData.RelatedVideos}/>
 
         </div>
       </div>

@@ -1,9 +1,12 @@
 [
     {
         "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "videoTitle": "First Video Test",
-        "views": "100",
+        "imgUrl": "http://i3.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+        "videoTitle": "Rick Astley - Never Gonna Give You Up (Official Music Video)",
+        "publisher": "Rick Astley",
+        "views": "100K",
         "date": "2021-10-01",
+        "RelatedVideos":[{"videoTitle":"החברים של נאור עונה 3 פרק 5 פרק מלא"}],
         "comments": [
             {
                 "username": "Aviel Segev",
@@ -16,14 +19,29 @@
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
                 "likes": 0
+            },
+            {
+                "username": "Roi shukrun",
+                "date": "2024-02-01",
+                "comment": "מסכים עם אביאל",
+                "likes": 90
+            },
+            {
+                "username": "anonymous",
+                "date": "2024-09-01",
+                "comment": "קטלני",
+                "likes": 0
             }
         ]
     },
     {
         "videoUrl": "https://www.youtube.com/watch?v=cla5fWoB3OQ",
-        "videoTitle": "Second Video Test",
+        "imgUrl": "http://i3.ytimg.com/vi/cla5fWoB3OQ/hqdefault.jpg",
+        "videoTitle": "החברים של נאור עונה 3 פרק 5 פרק מלא",
+        "publisher": "Naor zion",
         "views": "10K",
         "date": "2021-10-01",
+        "RelatedVideos":[{"videoTitle":"Rick Astley - Never Gonna Give You Up (Official Music Video)"}],
         "comments": [
             {
                 "username": "Aviel Segev",
