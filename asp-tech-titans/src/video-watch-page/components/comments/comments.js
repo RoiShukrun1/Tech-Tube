@@ -6,7 +6,6 @@ import './comments.css';
 function Comments({ comments }) { 
 
     // const [nuberOfComments, setNumberOfComments] = useState(comments.length);
-    console.log(nuberOfComments)
 
     return (
         <div className="comments">
