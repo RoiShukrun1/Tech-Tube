@@ -6,7 +6,6 @@ import './comments.css';
 function Comments({ comments }) { 
 
     // const [nuberOfComments, setNumberOfComments] = useState(comments.length);
-
     return (
         <div className="comments">
             <h1 className="headline">{comments.length} Comments</h1>
@@ -17,6 +16,7 @@ function Comments({ comments }) {
                     comment={comment.comment}
                     likes={comment.likes}
                     profilePicture={comment.image}
+                    key={comment.id}
                 />
             ))}
         </div>

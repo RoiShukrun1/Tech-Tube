@@ -12,8 +12,10 @@ function relatedVideos({ RelatedVideos, setUrl }) {
         <div className="related-videos">
             <div className="video-list">
                 {RelatedVideos.map((relateVideo) => (
-                    <VideoCard video={getVideoByTitle(jsonData, relateVideo.videoTitle)}
-                    setUrl={setUrl} />
+                    <VideoCard
+                    video={getVideoByTitle(jsonData, relateVideo.videoTitle)}
+                    setUrl={setUrl} 
+                    key={getVideoByTitle(jsonData, relateVideo.videoTitle).id} />
                 ))}
             </div>
         </div>

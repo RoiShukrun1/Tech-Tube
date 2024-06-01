@@ -6,7 +6,7 @@ function videoCard({ video, setUrl }) {
     const handleClick = () => {
         setUrl(video.videoUrl);
       };
-
+      
     return (
         <div className="video-card">
             <div className="card mb-3">
@@ -19,7 +19,7 @@ function videoCard({ video, setUrl }) {
                         <div className="card-body">
                             <h5 className="card-title">{video.videoTitle}</h5>
                             <p className="card-text">{video.publisher}</p>
-                            <p className="card-text"><small class="text-body-secondary">{video.views} {video.date}</small></p>
+                            <p className="card-text"><small className="text-body-secondary">{video.views} {video.date}</small></p>
                         </div>
                     </div>
                 </div>

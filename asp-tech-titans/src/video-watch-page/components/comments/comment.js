@@ -10,12 +10,12 @@ function Comment({ username, date, comment, likes, profilePicture }) {
 
     return (
 
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
+        <div className="container text-center">
+            <div className="row">
+                <div className="col">
                     <img className="circle-image" src={profilePicture} alt="profile picture" />
                 </div>
-                <div class="col">
+                <div className="col">
 
                     <div className="comment">
                         <h2 className="username">{username}</h2>
