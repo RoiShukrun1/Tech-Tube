@@ -13,7 +13,7 @@ function Comments({ comments }) { // Default to an empty array if comments is un
 
     return (
         <div className="comments">
-            <h1 className="headline">{nuberOfComments} Comments</h1>
+            <h1 className="headline">{comments.length} Comments</h1>
             {comments.map((comment) => (
                 <Comment 
                     username={comment.username}

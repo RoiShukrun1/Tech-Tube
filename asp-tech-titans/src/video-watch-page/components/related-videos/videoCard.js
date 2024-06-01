@@ -1,13 +1,19 @@
 import React from 'react';
 import './videoCard.css';
 
-function videoCard({ video }) {
+function videoCard({ video, setUrl }) {
+
+    const handleClick = () => {
+        setUrl(video.videoUrl);
+      };
+
     return (
         <div className="video-card">
             <div className="card mb-3">
                 <div className="row g-0">
                     <div className="col-md-6">
-                        <img src={video.imgUrl} className="img-fluid rounded-start"></img>
+                        <img src={video.imgUrl} className="img-fluid rounded-start"
+                            onClick={handleClick} />
                     </div>
                     <div className="col-md-6">
                         <div className="card-body">

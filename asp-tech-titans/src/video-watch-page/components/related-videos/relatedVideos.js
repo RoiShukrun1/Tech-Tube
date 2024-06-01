@@ -7,12 +7,13 @@ function getVideoByTitle(jsonData, title) {
     return jsonData.find(obj => obj.videoTitle === title);
 }
 
-function relatedVideos({ RelatedVideos }) {
+function relatedVideos({ RelatedVideos, setUrl }) {
     return (
         <div className="related-videos">
             <div className="video-list">
                 {RelatedVideos.map((relateVideo) => (
-                    <VideoCard video={getVideoByTitle(jsonData, relateVideo.videoTitle)} />
+                    <VideoCard video={getVideoByTitle(jsonData, relateVideo.videoTitle)}
+                    setUrl={setUrl} />
                 ))}
             </div>
         </div>
