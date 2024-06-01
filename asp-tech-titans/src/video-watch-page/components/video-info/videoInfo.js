@@ -10,12 +10,12 @@ function videoInfo({ videoTitle, views, date }) {
                 <h2 className='views'>Views: {views}</h2>
                 <h2 className='date'>Date: {date}</h2>
 
-                <button className="btn btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button className="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     ...more
                 </button>
                 <div className="collapse" id="collapseExample">
-                    <div className="card card-body">
-                        creator details
+                    <div className="more-info">
+                        this is the place to put all the extra info about the video
                     </div>
                 </div>
 
