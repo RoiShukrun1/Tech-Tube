@@ -26,7 +26,6 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
               date={videoCorrispondingData.date} />
             <Comments comments={videoCorrispondingData.comments} />
 
-
           </div>
         </div>
 
