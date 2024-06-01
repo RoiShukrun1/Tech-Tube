@@ -1,15 +1,12 @@
 import React from 'react';
-import Comment from './comment'; // Make sure this path is correct
+import Comment from './comment';
 import './comments.css';
-import { useState } from 'react';
+// import { useState } from 'react';
 
-function getNumberOfComments(comments) {
-    return comments.length;
-}
+function Comments({ comments }) { 
 
-function Comments({ comments }) { // Default to an empty array if comments is undefined
-
-    const [nuberOfComments, setNumberOfComments] = useState(getNumberOfComments(comments));
+    // const [nuberOfComments, setNumberOfComments] = useState(comments.length);
+    console.log(nuberOfComments)
 
     return (
         <div className="comments">
