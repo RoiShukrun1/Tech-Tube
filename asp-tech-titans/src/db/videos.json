@@ -8,8 +8,7 @@
         "publisherImg": "https://yt3.googleusercontent.com/coJBIm7rugfAkdb9_cw5Lry2NDnfSYDjL5MBu_R2st_YCLsZtDxYu28h2EAJzPfY8qudaF8U=s160-c-k-c0x00ffffff-no-rj",
         "views": "100K",
         "date": "2021-10-01",
-        "RelatedVideos":[{"videoTitle":"החברים של נאור עונה 3 פרק 5 פרק מלא"}, 
-        {"videoTitle":"עומר אדם & שרק - ראיתי עולם"}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
         "comments": [
             {
                 "id": 1,
@@ -54,8 +53,7 @@
         "publisherImg": "https://yt3.googleusercontent.com/ytc/AIdro_k_gRroJHBbnId9B8cnzCyhnDPHXTFO11rRn7a07Dr5fa5a=s160-c-k-c0x00ffffff-no-rj",
         "views": "10K",
         "date": "2021-10-01",
-        "RelatedVideos":[{"videoTitle":"Rick Astley - Never Gonna Give You Up (Official Music Video)"},
-        {"videoTitle": "שחר טבוך X אגם בוחבוט - נאדי באדי (Prod. By Triangle)"}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
         "comments": [
             {
                 "id": 1,
@@ -84,7 +82,7 @@
         "publisherImg": "https://yt3.googleusercontent.com/dO8Cceik6juhmVVlsXPyu8ziO5ozc0kw8DI07uxxraplE9IawqLWXSrOJziCqmg-Y3E8ttkmEzo=s160-c-k-c0x00ffffff-no-rj",
         "views": "1.5M",
         "date": "2021-10-01",
-        "RelatedVideos":[{"videoTitle":"החברים של נאור עונה 3 פרק 5 פרק מלא"}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
         "comments": [
             {
                 "id": 1,
@@ -105,7 +103,7 @@
         "publisherImg": "https://yt3.googleusercontent.com/vZNyCeVQwTQb4QbRxgXEaaUF8grFOozlrcJ1gZVHrTXIbyu72KrlaPNCiJU507erdBVlo1mn1c8=s160-c-k-c0x00ffffff-no-rj",
         "views": "51M",
         "date": "2024-03-13",
-        "RelatedVideos":[{"videoTitle":"החברים של נאור עונה 3 פרק 5 פרק מלא"}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
         "comments": [
             {
                 "id": 1,

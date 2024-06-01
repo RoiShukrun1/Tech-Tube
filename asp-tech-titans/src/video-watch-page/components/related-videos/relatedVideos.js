@@ -3,8 +3,8 @@ import VideoCard from "./videoCard";
 import "./relatedVideos.css";
 import jsonData from "../../../db/videos.json";
 
-function getVideoByTitle(jsonData, title) {
-    return jsonData.find(obj => obj.videoTitle === title);
+function getVideoById(jsonData, id) {
+    return jsonData.find(obj => obj.id === id);
 }
 
 function relatedVideos({ RelatedVideos, setUrl }) {
@@ -13,9 +13,9 @@ function relatedVideos({ RelatedVideos, setUrl }) {
             <div className="video-list">
                 {RelatedVideos.map((relateVideo) => (
                     <VideoCard
-                    video={getVideoByTitle(jsonData, relateVideo.videoTitle)}
+                    video={getVideoById(jsonData, relateVideo.id)}
                     setUrl={setUrl} 
-                    key={getVideoByTitle(jsonData, relateVideo.videoTitle).id} />
+                    key={getVideoById(jsonData, relateVideo.id).id} />
                 ))}
             </div>
         </div>
