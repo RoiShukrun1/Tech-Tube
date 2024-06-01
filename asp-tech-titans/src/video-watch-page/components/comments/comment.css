@@ -49,3 +49,10 @@
     text-align: left;
     padding: 0;
 }
+.circle-image {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid #000; 
+}

@@ -14,6 +14,7 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
   const videoCorrispondingData = getObjectByUrl(jsonData, videoUrl);
 
   return (
+    
 
     <div className="container text-center">
       <div className="row">

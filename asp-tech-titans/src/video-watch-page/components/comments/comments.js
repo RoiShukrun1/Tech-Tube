@@ -16,6 +16,7 @@ function Comments({ comments }) {
                     date={comment.date}
                     comment={comment.comment}
                     likes={comment.likes}
+                    profilePicture={comment.image}
                 />
             ))}
         </div>
