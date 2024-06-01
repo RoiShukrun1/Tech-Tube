@@ -18,7 +18,7 @@ function Comment({ username, date, comment, likes, profilePicture }) {
                 <div className="col">
 
                     <div className="comment">
-                        <h2 className="username">{username}</h2>
+                        <h2 className="username">@{username}</h2>
                         <h3 className="date">{date}</h3>
                         <h3 className="content">{comment}</h3>
 
