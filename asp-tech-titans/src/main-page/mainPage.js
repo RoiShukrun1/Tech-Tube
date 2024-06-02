@@ -6,6 +6,7 @@ import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
 import Recommended from './components/video-thumbnail/recommended-videos/recommended';
+import VideoCard from '../video-watch-page/components/related-videos/videoCard.js'
 
 const MainPage = ({ setUrl }) => {
   return (
