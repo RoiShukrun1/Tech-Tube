@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
+import Recommended from './components/video-thumbnail/recommended-videos/recommended';
 
 const MainPage = ({ setUrl }) => {
   return (
@@ -17,6 +18,14 @@ const MainPage = ({ setUrl }) => {
           <Header />
           <div className="container-fluid">
             <Filters />
+            <Recommended />
+            <div className="row">
+              {jsonData.map((video, index) => (
+                <div key={index} className="col-md-3 mb-4">
+                  <VideoThumbnail video={video} onClick={() => setUrl(video.videoUrl)} />
+                </div>
+              ))}
+            </div>
             <div className="row">
               {jsonData.map((video, index) => (
                 <div key={index} className="col-md-3 mb-4">

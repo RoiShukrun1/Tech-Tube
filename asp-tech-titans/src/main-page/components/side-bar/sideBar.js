@@ -20,7 +20,7 @@ function Sidebar() {
         <li className="list-group-item"> <img src={forYouIcon} alt="For You" />
         For you</li>
         <div className="divider"></div>
-        <div className="categories-label">Categories</div> {/* Add Categories label here */}
+        <div className="categories-label">Categories</div> 
         <li className="list-group-item no-icon">Sitcoms</li>
         <li className="list-group-item no-icon">Music</li>
         <li className="list-group-item no-icon">Restaurants</li>
