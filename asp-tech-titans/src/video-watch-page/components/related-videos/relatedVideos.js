@@ -1,5 +1,5 @@
 import React from "react";
-import VideoCard from "./VideoCard";
+import VideoCard from "./videoCard";
 import "./relatedVideos.css";
 import jsonData from "../../../db/videos.json";
 
