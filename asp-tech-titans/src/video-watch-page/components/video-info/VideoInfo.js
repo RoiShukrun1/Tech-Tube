@@ -4,8 +4,6 @@ import './VideoInfo.css';
 function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
 
     const [susbscribeButtonIsVisible, setSusbscribeButtonIsVisible] = useState(true);
-    // const [isLiked, setIsLiked] = useState(0);
-
 
     const swtichButtons = () => {
         setSusbscribeButtonIsVisible(!susbscribeButtonIsVisible);
