@@ -1,14 +1,33 @@
-import './videoInfo.css';
+import { useState } from 'react';
+import './VideoInfo.css';
 
-function videoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
-    console.log(info);
+function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
+
+    const [susbscribeButtonIsVisible, setSusbscribeButtonIsVisible] = useState(true);
+    // const [isLiked, setIsLiked] = useState(0);
+
+
+    const swtichButtons = () => {
+        setSusbscribeButtonIsVisible(!susbscribeButtonIsVisible);
+    }
+
     return (
         <div>
             <h1 className="title">{videoTitle}</h1>
             <span>
                 <img className="publisher-photo" src={publisherImg} />
                 <h1 className='publisher'>{publisher}</h1>
-                <button type="button" className="btn btn-dark subscribe-button">subscribe</button>
+                {susbscribeButtonIsVisible ? (
+                    <button type="button"
+                    className="btn btn-dark subscribe-button"
+                    onClick={swtichButtons}
+                    >subscribe</button>
+                ) : (
+                    <button type="button"
+                    className="btn btn-dark subscribe-button"
+                    onClick={swtichButtons}
+                    >unsubscribe</button>
+                )}
             </span>
 
 
@@ -31,4 +50,4 @@ function videoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
     );
 }
 
-export default videoInfo;
+export default VideoInfo;

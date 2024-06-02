@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoPlayer from './components/video-player/VideoPlayer';
-import VideoInfo from './components/video-info/videoInfo';
+import VideoInfo from './components/video-info/VideoInfo';
 import Comments from './components/comments/comments';
 import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
