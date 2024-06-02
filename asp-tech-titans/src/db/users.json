@@ -1,0 +1,9 @@
+[{
+    "id": 1,
+    "username": "aviel281999",
+    "password":"",
+    "first name": "Aviel",
+    "last name": "Segev",
+    "age": 25,
+    "subscriptions": ["Rick Astley", "Omer Adam"]
+}]
