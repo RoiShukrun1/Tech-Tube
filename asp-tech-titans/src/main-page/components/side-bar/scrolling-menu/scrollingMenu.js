@@ -1,24 +1,15 @@
-import React, { useState } from 'react';
-import './sideBar.css';
-import Logo from './logo-icon/logo';
-import homeIcon from './home-icon.svg';
-import forYouIcon from './for-you-icon.svg';
-import Subscriptions from './subscription-icon.svg';
-import ScrollingMenuButton from './scrolling-menu-button/scrollingMenuButton';
-import ScrollingMenu from './scrolling-menu/scrollingMenu';
+import React from 'react';
+import './scrollingMenu.css';
+import Logo from '../logo-icon/logo';
+import homeIcon from '../home-icon.svg';
+import forYouIcon from '../for-you-icon.svg';
+import Subscriptions from '../subscription-icon.svg';
 
-function Sidebar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+const ScrollingMenu = ({ isOpen, toggleMenu }) => {
   return (
-    <div>
-      <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <div className="sidebar" id="sidebar-wrapper">
+    <>
+      <div className={`overlay ${isOpen ? 'show' : ''}`} onClick={toggleMenu}></div>
+      <div className={`scrolling-menu ${isOpen ? 'open' : ''}`}>
         <div className="logo-container">
           <Logo />
         </div>
@@ -42,8 +33,8 @@ function Sidebar() {
           <li className="list-group-item no-icon">More</li>
         </ul>
       </div>
-    </div>
+    </>
   );
-}
+};
 
-export default Sidebar;
+export default ScrollingMenu;
