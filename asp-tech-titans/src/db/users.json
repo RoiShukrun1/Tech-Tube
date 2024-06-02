@@ -5,5 +5,5 @@
     "first name": "Aviel",
     "last name": "Segev",
     "age": 25,
-    "subscriptions": [{"publisher": "Rick Astley"}]
+    "subscriptions": ["Rick Astley"]
 }]

@@ -7,7 +7,7 @@ function getVideoById(jsonData, id) {
     return jsonData.find(obj => obj.id === id);
 }
 
-function relatedVideos({ RelatedVideos, setUrl }) {
+function relatedVideos({ RelatedVideos, setUrl, setSusbscribeButtonIsVisible, currentUser }) {
     return (
         <div className="related-videos">
             <div className="video-list">
@@ -15,7 +15,9 @@ function relatedVideos({ RelatedVideos, setUrl }) {
                     <VideoCard
                     video={getVideoById(jsonData, relateVideo.id)}
                     setUrl={setUrl} 
-                    key={getVideoById(jsonData, relateVideo.id).id} />
+                    key={getVideoById(jsonData, relateVideo.id).id}
+                    setSusbscribeButtonIsVisible={setSusbscribeButtonIsVisible}
+                    currentUser={currentUser} />
                 ))}
             </div>
         </div>
