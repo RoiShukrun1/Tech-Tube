@@ -31,8 +31,12 @@ function Comment({ username, date, comment, likes, profilePicture }) {
                                 setUNIsLiked(false);
                                 isLiked ? setLikesNumber(likesNumber - 1) : setLikesNumber(likesNumber + 1);
                             }}
-                                type="button" className="btn btn-outline-secondary like-icon-button">
-                                {isLiked ? <LikeSelected className='icon' /> : <Like className='icon'/>}
+                                type="button"
+                                className={isLiked ? "btn like-icon-button" :
+                                    "btn btn-outline-secondary like-icon-button"}
+                            >
+                                {isLiked ? <LikeSelected className='icon' style={{ margin: 0 }} /> :
+                                    <Like className='icon' style={{ margin: 0 }} />}
                             </button>
 
                             <h3 className="likesNumber">{likesNumber}</h3>
@@ -43,8 +47,13 @@ function Comment({ username, date, comment, likes, profilePicture }) {
                                 if (likesNumber == likes + 1) {
                                     setLikesNumber(likesNumber - 1);
                                 }
-                            }} type="button" className="btn btn-outline-secondary dislike-icon-button">
-                                {isUnLiked ? <DislikeSelected className='icon' /> : <Dislike className='icon'/>}
+                            }} type="button"
+
+                                className={isUnLiked ? "btn like-icon-button" :
+                                    "btn btn-outline-secondary like-icon-button"}>
+
+                                {isUnLiked ? <DislikeSelected className='icon' style={{ margin: 0 }} /> :
+                                    <Dislike className='icon' style={{ margin: 0 }} />}
                             </button>
 
                             <button type="button" className="btn btn-outline-secondary reply-button">Reply</button>

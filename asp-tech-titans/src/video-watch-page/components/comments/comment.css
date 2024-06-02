@@ -23,6 +23,7 @@
     font-size: 15px;
     text-align: left;
     display: inline-flex;
+    margin-right: 6px;
 }
 .dislike-icon-button {
     padding: 0;
