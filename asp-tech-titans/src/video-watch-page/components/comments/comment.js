@@ -6,7 +6,8 @@ import { useState } from 'react';
 function Comment({ username, date, comment, likes, profilePicture }) {
 
     const [likesNumber, setLikesNumber] = useState(likes);
-    const [isLiked, setIsLiked] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isUnLiked, setUNIsLiked] = useState(false);
 
     return (
 
@@ -24,28 +25,27 @@ function Comment({ username, date, comment, likes, profilePicture }) {
 
                         <div className='container'>
                             <button onClick={() => {
-                                if (likesNumber == likes + 1) {
-                                    return
-                                }
-                                setLikesNumber(likesNumber + 1);
-                                setIsLiked(1);
+                                setIsLiked(!isLiked);
+                                setUNIsLiked(false);
+                                isLiked ? setLikesNumber(likesNumber - 1) : setLikesNumber(likesNumber + 1);
                             }}
                                 type="button" className="btn btn-outline-secondary like-icon-button">
-                                <Like className='icon' style={{ margin: '0px', backgroundColor: isLiked == 1 ? 'green' : 'transparent' }} />
+                                <Like className='icon' style={{ margin: '0px', backgroundColor: isLiked == true ? 'green' : 'transparent' }} />
                             </button>
 
                             <h3 className="likesNumber">{likesNumber}</h3>
 
                             <button onClick={() => {
-                                setIsLiked(-1);
+                                setIsLiked(false);
+                                setUNIsLiked(!isUnLiked);
                                 if (likesNumber == likes + 1) {
                                     setLikesNumber(likesNumber - 1);
                                 }
                             }} type="button" className="btn btn-outline-secondary dislike-icon-button">
-                                <Dislike className='icon' style={{ margin: '0px', backgroundColor: isLiked == -1 ? 'red' : 'transparent' }} />
+                                <Dislike className='icon' style={{ margin: '0px', backgroundColor: isUnLiked == true ? 'red' : 'transparent' }} />
                             </button>
 
-                            <button type="button" className="btn btn-outline-secondary">reply</button>
+                            <button type="button" className="btn btn-outline-secondary reply-button">Reply</button>
                         </div>
                     </div>
 

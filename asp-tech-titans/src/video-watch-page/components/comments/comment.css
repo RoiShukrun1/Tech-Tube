@@ -62,3 +62,7 @@
     padding: 10px;
     margin-top: 10px;
 }
+.reply-button{
+    border: none;
+    color: black;
+}
