@@ -37,3 +37,12 @@
     margin-left: 40px;
     background-color: black;
 }
+.unsubscribe-button{
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    margin-left: 40px;
+    background-color: white;
+}
+

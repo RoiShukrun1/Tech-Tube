@@ -12,3 +12,12 @@
     font-size: medium;
     text-align: left;
 }
+.play-icon {
+    position: absolute;
+    /* bottom: 70%;
+    left: 0; */
+    /* right: 30%; */
+    top: 65px;
+    left: 100px;
+
+  }

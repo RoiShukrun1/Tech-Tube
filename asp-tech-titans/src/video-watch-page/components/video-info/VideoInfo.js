@@ -22,7 +22,7 @@ function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
                     >subscribe</button>
                 ) : (
                     <button type="button"
-                    className="btn btn-dark subscribe-button"
+                    className="btn btn-light unsubscribe-button"
                     onClick={swtichButtons}
                     >unsubscribe</button>
                 )}
