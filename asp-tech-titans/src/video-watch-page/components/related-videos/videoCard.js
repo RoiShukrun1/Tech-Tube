@@ -1,5 +1,5 @@
 import React from 'react';
-import './VideoCard.css';
+import './videoCard.css';
 import { useState } from 'react';
 import { checkIfUserIsSubscribed } from '../../video-watch-page';
 
