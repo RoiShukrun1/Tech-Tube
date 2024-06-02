@@ -1,9 +1,20 @@
 import { useState } from 'react';
 import './VideoInfo.css';
+import usersData from "../../../db/users.json";
+
+function getUserObjById(usersData, id) {
+    return usersData.find(obj => obj.id === id);
+}
+
+function checkIfUserIsSubscribed(currentUser, publisher) {
+    return currentUser.subscriptions.includes(publisher);
+}
+
 
 function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
+    const currentUser = getUserObjById(usersData, 1); // the current user for now is the first user in the users.json file
 
-    const [susbscribeButtonIsVisible, setSusbscribeButtonIsVisible] = useState(true);
+    const [susbscribeButtonIsVisible, setSusbscribeButtonIsVisible] = useState(checkIfUserIsSubscribed(currentUser, publisher));
 
     const swtichButtons = () => {
         setSusbscribeButtonIsVisible(!susbscribeButtonIsVisible);
@@ -27,7 +38,6 @@ function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info }) {
                     >unsubscribe</button>
                 )}
             </span>
-
 
             <div className="alert alert-secondary" role="alert">
                 <h2 className='views'>Views: {views}</h2>

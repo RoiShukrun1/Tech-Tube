@@ -16,11 +16,11 @@ function Comments({ comments }) {
     return (
         <div className="comments">
 
-                <div class="row">
-                    <div class="col">
+                <div className="row">
+                    <div className="col">
                         add a comment
                     </div>
-                    <div class="col-9">
+                    <div className="col-9">
 
                     <input type="text" className="form-control" id="searchInput" onChange={handleInputChange} />
                     </div>
