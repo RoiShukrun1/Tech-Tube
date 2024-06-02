@@ -1,0 +1,35 @@
+/* filters.css */
+.video-categories {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.filter-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  background-color: #e7e7e7;
+  color: #333;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: #ccc;
+}
+
+.filter-button.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.filter-button:last-child {
+  margin-right: 0;
+}

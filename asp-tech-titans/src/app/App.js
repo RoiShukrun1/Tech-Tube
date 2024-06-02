@@ -1,6 +1,9 @@
 import './App.css';
-import VideoWatchPage from '../video-watch-page/video-watch-page';
+// import VideoWatchPage from '../video-watch-page/video-watch-page';
+import MainPage from '../main-page/mainPage';
 import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
 
@@ -12,7 +15,8 @@ function App() {
 
   return (
     <div>
-      <VideoWatchPage videoUrl={videoUrl} setUrl={setUrl} />
+      {/* <VideoWatchPage videoUrl={videoUrl} setUrl={setUrl} /> */}
+      <MainPage setUrl={setUrl} />
     </div>
   );
 }

@@ -1,0 +1,14 @@
+/* headerButtons.css */
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-buttons .login-button,
+.header-buttons .dark-mode-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
