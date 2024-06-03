@@ -6,7 +6,7 @@ import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
 import usersData from "../db/users.json";
 import { useState } from 'react';
-import SearchBar from '../main-page/components/header/search-bar/searchBar';
+import Header from '../main-page/components/header/header';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
@@ -31,7 +31,7 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
 
   return (
     <div>
-    <SearchBar />
+    <Header />
     <div className="container">
       <div className="row">
         <div className="col">

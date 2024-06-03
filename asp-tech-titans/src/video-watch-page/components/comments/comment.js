@@ -61,6 +61,7 @@ function Comment({ username, date, comment, likes, profilePicture }) {
                     </div>
                 </div>
             </div>
+
         </div>
 
     );
