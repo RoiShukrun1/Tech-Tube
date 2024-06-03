@@ -16,7 +16,7 @@ function Comment({ username, date, comment, likes, profilePicture }) {
         <div className="container text-center border">
             <div className="row">
                 <div className="col">
-                    <img className="circle-image" src={profilePicture} alt="profile picture" />
+                    <img className="circle-image" src={profilePicture} />
                 </div>
                 <div className="col">
 

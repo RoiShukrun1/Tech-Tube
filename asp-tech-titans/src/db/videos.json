@@ -14,7 +14,7 @@
             {
                 "id": 1,
                 "username": "Aviel Segev",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
                 "likes": 5
@@ -22,7 +22,7 @@
             {
                 "id": 2,
                 "username": "Kobi Hadad",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
                 "likes": 0
@@ -30,7 +30,7 @@
             {
                 "id": 3,
                 "username": "Roi shukrun",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
                 "likes": 90
@@ -38,7 +38,7 @@
             {
                 "id": 4,
                 "username": "anonymous",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
                 "likes": 0
@@ -60,7 +60,7 @@
             {
                 "id": 1,
                 "username": "Aviel Segev",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
                 "likes": 5
@@ -68,7 +68,7 @@
             {
                 "id": 2,
                 "username": "Aviel Segev",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/7.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
                 "likes": 5
@@ -90,7 +90,7 @@
             {
                 "id": 1,
                 "username": "Aviel Segev",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/9.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
                 "likes": 5
@@ -112,7 +112,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/6.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
@@ -134,7 +134,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/10.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
@@ -156,7 +156,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/5.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
@@ -169,7 +169,7 @@
         "imgUrl": "/db/photos/7.jpg",
         "videoTitle": "Sci-fi Hologram UI Sound Design",
         "publisher": "שחר טבוך",
-        "publisherImg": "https://yt3.googleusercontent.com/vZNyCeVQwTQb4QbRxgXEaaUF8grFOozlrcJ1gZVHrTXIbyu72KrlaPNCiJU507erdBVlo1mn1c8=s160-c-k-c0x00ffffff-no-rj",
+        "image": "/db/photos/9.jpg",
         "views": "51M",
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
@@ -178,7 +178,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
@@ -200,7 +200,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
@@ -222,7 +222,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
@@ -244,7 +244,7 @@
             {
                 "id": 1,
                 "username": "Natali Levich",
-                "image": "https://yt3.googleusercontent.com/ytc/AIdro_lgc0FWvqzHcPWLvYhyWf2MVYMjSd5zREJ6uhRrfYdfFCw=s160-c-k-c0x00ffffff-no-rj",
+                "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
                 "likes": 2800
