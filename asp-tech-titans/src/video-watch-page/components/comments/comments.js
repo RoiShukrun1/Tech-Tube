@@ -1,27 +1,30 @@
 import React from 'react';
 import Comment from './comment';
 import './comments.css';
-// import { useState } from 'react';
+import { useState } from 'react';
 
-const handleInputChange = () => {
 
-};
 
-function Comments({ comments }) {
+function Comments({ comments, currentUserPhoto }) {
+
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
 
     // const [nuberOfComments, setNumberOfComments] = useState(comments.length);
     return (
-        <div className="comments">
+        <div>
 
-                <div className="row">
-                    <div className="col">
-                        add a comment
-                    </div>
-                    <div className="col-9">
-
-                    <input type="text" className="form-control" id="searchInput" onChange={handleInputChange} />
-                    </div>
+            <div className="row">
+                <div className="col-1">
+                <img className="circle-image" src={currentUserPhoto} style={{ marginLeft: '35%' }} />
                 </div>
+                <div className="col">
+                <input type="text" className="addComment" placeholder="Add a comment" onFocus={handleFocus} />
+                </div>
+            </div>
 
             <h1 className="headline">{comments.length} Comments</h1>
             {comments.map((comment) => (

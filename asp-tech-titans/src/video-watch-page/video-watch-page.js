@@ -6,6 +6,7 @@ import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
 import usersData from "../db/users.json";
 import { useState } from 'react';
+import SearchBar from '../main-page/components/header/search-bar/searchBar';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
@@ -29,6 +30,8 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
   useState(!checkIfUserIsSubscribed(currentUser, videoCorrispondingData.publisher));
 
   return (
+    <div>
+    <SearchBar />
     <div className="container">
       <div className="row">
         <div className="col">
@@ -44,7 +47,9 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
               info={videoCorrispondingData.info}
               setSusbscribeButtonIsVisible={setSusbscribeButtonIsVisible}
               susbscribeButtonIsVisible={susbscribeButtonIsVisible} />
-            <Comments comments={videoCorrispondingData.comments} />
+            <Comments 
+            comments={videoCorrispondingData.comments}
+            currentUserPhoto={currentUser.profilePicture} />
 
           </div>
         </div>
@@ -59,7 +64,7 @@ const VideoWatchPage = ({ videoUrl, setUrl }) => {
       </div>
     </div>
 
-
+    </div>
 
 
 

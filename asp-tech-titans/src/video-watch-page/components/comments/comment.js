@@ -59,11 +59,8 @@ function Comment({ username, date, comment, likes, profilePicture }) {
                             <button type="button" className="btn btn-outline-secondary reply-button">Reply</button>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
         </div>
 
     );

@@ -4,8 +4,10 @@
     text-align: left;
     margin-top: 22px;
 }
-/* .form-control{
+.addComment{
+    width: 100%;
     border: none;
     border-bottom: 1px solid #000; 
     border-radius: 0px;
-} */
+    outline: none;
+}
