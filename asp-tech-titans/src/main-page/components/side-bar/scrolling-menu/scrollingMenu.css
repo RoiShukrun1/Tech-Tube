@@ -1,7 +1,7 @@
 .scrolling-menu {
-    width: 420px;
+    width: 450px;
     position: fixed;
-    left: -420px; /* Start off-screen */
+    left: -500px; /* Start off-screen */
     top: 0;
     height: 100%;
     background-color: #ffffff;
@@ -17,7 +17,7 @@
   .logo-container {
     display: flex;
     justify-content: flex-start;
-    padding-left: 20px;
+    padding-left: 45px;
     margin-bottom: 20px; /* Add some space below the logo */
   }
   

@@ -6,6 +6,16 @@ import forYouIcon from './for-you-icon.svg';
 import Subscriptions from './subscription-icon.svg';
 import ScrollingMenuButton from './scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from './scrolling-menu/scrollingMenu';
+import music from '../../../db/icons/headphone-icon.svg';
+import trending from '../../../db/icons/fast-speed-icon.svg';
+import gaming from '../../../db/icons/gamepad-icon.svg';
+import news from '../../../db/icons/newspaper-icon.svg';
+import podcast from '../../../db/icons/podcast-icon.svg';
+import settings from '../../../db/icons/setting-line-icon.svg';
+import report from '../../../db/icons/comment-blog-icon.svg';
+import help from '../../../db/icons/question-mark-circle-outline-icon.svg';
+import feedback from '../../../db/icons/pencil-icon.svg';
+
 
 function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,7 +49,18 @@ function Sidebar() {
           <li className="list-group-item no-icon">Tech House</li>
           <li className="list-group-item no-icon">Playlists</li>
           <li className="list-group-item no-icon">Computer History</li>
-          <li className="list-group-item no-icon">More</li>
+          <div className="divider"></div>
+          <div className="categories-label">Explore</div>
+          <li className="list-group-item"><img src={music} alt="Home" />Music</li>
+          <li className="list-group-item"><img src={trending} alt="Home" />Trending</li>
+          <li className="list-group-item"><img src={gaming} alt="Home" />Gaming</li>
+          <li className="list-group-item"><img src={news} alt="Home" />News</li>
+          <li className="list-group-item"><img src={podcast} alt="Home" />Podcast</li>
+          <div className="divider"></div>
+          <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
+          <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
+          <li className="list-group-item"><img src={help} alt="Home" />Help</li>
+          <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>
         </ul>
       </div>
     </div>
