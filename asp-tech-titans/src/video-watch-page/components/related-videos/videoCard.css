@@ -1,5 +1,4 @@
 .card{
-    max-width: 540px;
     border: none;
     margin-bottom: 5px;
 }
@@ -14,10 +13,6 @@
 }
 .play-icon {
     position: absolute;
-    /* bottom: 70%;
-    left: 0; */
-    /* right: 30%; */
-    top: 65px;
-    left: 100px;
-
+    top: 42%;
+    left: 45%;
   }

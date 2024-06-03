@@ -10,9 +10,6 @@ const handleInputChange = () => {
 function Comments({ comments }) {
 
     // const [nuberOfComments, setNumberOfComments] = useState(comments.length);
-
-
-
     return (
         <div className="comments">
 
