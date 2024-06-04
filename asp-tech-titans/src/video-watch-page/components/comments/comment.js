@@ -5,7 +5,13 @@ import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
 import { useState } from 'react';
 
-function Comment({ username, date, comment, likes, profilePicture }) {
+function Comment({ commentObj }) {
+
+    var username=commentObj.username
+    var date=commentObj.date
+    var comment=commentObj.comment
+    var likes=commentObj.likes
+    var profilePicture=commentObj.image
 
     const [likesNumber, setLikesNumber] = useState(likes);
     const [isLiked, setIsLiked] = useState(false);

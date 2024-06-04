@@ -11,7 +11,6 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
     // Function to handle changes in the input field
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
-        console.log(inputValue);
     };
 
     const handleFocus = () => {
@@ -38,6 +37,7 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
             thisVideo.comments.unshift(newComment);
 
             return updatedVideos;
+
         });
     };
 
@@ -72,11 +72,7 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
             <h1 className="headline">{comments.length} Comments</h1>
             {comments.map((comment) => (
                 <Comment
-                    username={comment.username}
-                    date={comment.date}
-                    comment={comment.comment}
-                    likes={comment.likes}
-                    profilePicture={comment.image}
+                    commentObj={comment}
                     key={comment.id}
                 />
             ))}
