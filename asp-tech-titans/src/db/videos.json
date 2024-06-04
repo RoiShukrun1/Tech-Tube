@@ -9,7 +9,7 @@
         "views": 500,
         "date": "2021-10-01",
         "info": "Never Gonna Give You Up” was a global smash on its release in July 1987, topping the charts in 25 countries including Rick’s native UK and the US Billboard Hot 100.  It also won the Brit Award for Best single in 1988. Stock Aitken and Waterman wrote and produced the track which was the lead-off single and lead track from Rick’s debut LP “Whenever You Need Somebody”.  The album was itself a UK number one and would go on to sell over 15 million copies worldwide.",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
+        "RelatedVideos":[{"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
@@ -55,23 +55,39 @@
         "views": 10,
         "date": "2021-10-01",
         "info": "החברים של נאור עונה 3 פרק 5 פרק מלא",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
+        "RelatedVideos":[{"id":1}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
                 "username": "Aviel Segev",
-                "image": "/db/photos/2.jpg",
+                "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
                 "likes": 5
             },
             {
                 "id": 2,
-                "username": "Aviel Segev",
-                "image": "/db/photos/7.jpg",
+                "username": "Kobi Hadad",
+                "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
-                "comment": "חרא",
-                "likes": 5
+                "comment": "דווקא יפה",
+                "likes": 0
+            },
+            {
+                "id": 3,
+                "username": "Roi shukrun",
+                "image": "/db/photos/3.jpg",
+                "date": "2024-02-01",
+                "comment": "מסכים עם אביאל",
+                "likes": 90
+            },
+            {
+                "id": 4,
+                "username": "anonymous",
+                "image": "/db/photos/4.jpg",
+                "date": "2024-09-01",
+                "comment": "קטלני",
+                "likes": 0
             }
         ]
     },
@@ -85,15 +101,39 @@
         "views": 999,
         "date": "2021-10-01",
         "info":"ביצוע מילים ולחן: עומר אדם, שי ״שרק״ הורוביץ ואבי אוחיון",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
                 "username": "Aviel Segev",
-                "image": "/db/photos/9.jpg",
+                "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
                 "likes": 5
+            },
+            {
+                "id": 2,
+                "username": "Kobi Hadad",
+                "image": "/db/photos/2.jpg",
+                "date": "2021-10-01",
+                "comment": "דווקא יפה",
+                "likes": 0
+            },
+            {
+                "id": 3,
+                "username": "Roi shukrun",
+                "image": "/db/photos/3.jpg",
+                "date": "2024-02-01",
+                "comment": "מסכים עם אביאל",
+                "likes": 90
+            },
+            {
+                "id": 4,
+                "username": "anonymous",
+                "image": "/db/photos/4.jpg",
+                "date": "2024-09-01",
+                "comment": "קטלני",
+                "likes": 0
             }
         ]
     },
@@ -107,15 +147,39 @@
         "views": 0,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
-                "username": "Natali Levich",
-                "image": "/db/photos/6.jpg",
-                "date": "2024-06-01",
-                "comment": "מצוין",
-                "likes": 2800
+                "username": "Aviel Segev",
+                "image": "/db/photos/1.jpg",
+                "date": "2021-10-01",
+                "comment": "חרא",
+                "likes": 5
+            },
+            {
+                "id": 2,
+                "username": "Kobi Hadad",
+                "image": "/db/photos/2.jpg",
+                "date": "2021-10-01",
+                "comment": "דווקא יפה",
+                "likes": 0
+            },
+            {
+                "id": 3,
+                "username": "Roi shukrun",
+                "image": "/db/photos/3.jpg",
+                "date": "2024-02-01",
+                "comment": "מסכים עם אביאל",
+                "likes": 90
+            },
+            {
+                "id": 4,
+                "username": "anonymous",
+                "image": "/db/photos/4.jpg",
+                "date": "2024-09-01",
+                "comment": "קטלני",
+                "likes": 0
             }
         ]
     },
@@ -129,15 +193,39 @@
         "views": 3,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
-                "username": "Natali Levich",
-                "image": "/db/photos/10.jpg",
-                "date": "2024-06-01",
-                "comment": "מצוין",
-                "likes": 2800
+                "username": "Aviel Segev",
+                "image": "/db/photos/1.jpg",
+                "date": "2021-10-01",
+                "comment": "חרא",
+                "likes": 5
+            },
+            {
+                "id": 2,
+                "username": "Kobi Hadad",
+                "image": "/db/photos/2.jpg",
+                "date": "2021-10-01",
+                "comment": "דווקא יפה",
+                "likes": 0
+            },
+            {
+                "id": 3,
+                "username": "Roi shukrun",
+                "image": "/db/photos/3.jpg",
+                "date": "2024-02-01",
+                "comment": "מסכים עם אביאל",
+                "likes": 90
+            },
+            {
+                "id": 4,
+                "username": "anonymous",
+                "image": "/db/photos/4.jpg",
+                "date": "2024-09-01",
+                "comment": "קטלני",
+                "likes": 0
             }
         ]
     },
@@ -151,7 +239,7 @@
         "views": 78,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
@@ -173,7 +261,7 @@
         "views": 1,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
@@ -195,7 +283,7 @@
         "views": 6,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
@@ -217,7 +305,7 @@
         "views": 9,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":10}],
         "comments": [
             {
                 "id": 1,
@@ -239,7 +327,7 @@
         "views": 27,
         "date": "2024-03-13",
         "info":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
-        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4}],
+        "RelatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}],
         "comments": [
             {
                 "id": 1,
