@@ -1,13 +1,14 @@
+// Header.js
 import React from 'react';
 import './header.css';
 import SearchBar from './search-bar/searchBar';
 import HeaderButtons from './header-buttons/headerButtons';
 
-function Header() {
+function Header({ onSearch }) {
   return (
     <header className="main-page-header">
       <div className="flex-grow-1 mx-3">
-        <SearchBar />
+        <SearchBar onSearch={onSearch} />
       </div>
       <HeaderButtons />
     </header>
@@ -15,4 +16,3 @@ function Header() {
 }
 
 export default Header;
-

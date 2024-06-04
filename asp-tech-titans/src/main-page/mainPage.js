@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VideoThumbnail from './components/video-thumbnail/videoThumbnail';
 import jsonData from '../db/videos.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
+import searchVideos from './components/header/search-bar/searchVideos'; // Adjust the path if necessary
 
 const MainPage = ({ setUrl }) => {
+  const [videos, setVideos] = useState(jsonData);
+
+  const handleSearch = (query) => {
+    const filteredVideos = searchVideos(jsonData, query);
+    setVideos(filteredVideos);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row no-gutters">
@@ -14,19 +22,12 @@ const MainPage = ({ setUrl }) => {
           <Sidebar />
         </div>
         <div className="col-md-10 p-0">
-          <Header />
+          <Header onSearch={handleSearch} />
           <div className="container-fluid p-0">
             <Filters />
             <div className="row no-gutters">
-              {jsonData.map((video, index) => (
-                <div key={index} className="col-md-3 p-1"> {/* Adjust padding to reduce space */}
-                  <VideoThumbnail video={video} onClick={() => setUrl(video.videoUrl)} />
-                </div>
-              ))}
-            </div>
-            <div className="row no-gutters">
-              {jsonData.map((video, index) => (
-                <div key={index} className="col-md-3 p-1"> {/* Adjust padding to reduce space */}
+              {videos.map((video, index) => (
+                <div key={index} className="col-md-3 p-1">
                   <VideoThumbnail video={video} onClick={() => setUrl(video.videoUrl)} />
                 </div>
               ))}
