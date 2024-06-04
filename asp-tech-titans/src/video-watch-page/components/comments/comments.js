@@ -8,7 +8,6 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
     const [isFocused, setIsFocused] = useState(false);
     const [inputValue, setInputValue] = useState('');
 
-    // Function to handle changes in the input field
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
@@ -39,6 +38,8 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
             return updatedVideos;
 
         });
+        setIsFocused(false);
+        setInputValue('');
     };
 
     return (
@@ -54,6 +55,7 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
                         placeholder="Add a comment"
                         onFocus={handleFocus}
                         onChange={handleInputChange}
+                        value={inputValue}
                     />
                     {isFocused && <button
                         onClick={() => setIsFocused(false)}
@@ -64,6 +66,7 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
                         <button type="button"
                             className="btn btn-light comment-add-button"
                             onClick={submitComment}
+                            disabled={inputIsEmpty()}
                         >comment</button>}
                 </div>
             </div>
