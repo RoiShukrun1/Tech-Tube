@@ -43,7 +43,9 @@ const VideoWatchPage = ({ initVideoUrl }) => {
               />
               <Comments
                 comments={currentVideo.comments}
-                currentUserPhoto={currentUser.profilePicture} />
+                currentUser={currentUser}
+                setVideos={setVideos}
+                currentVideoId={currentVideo.id} />
             </div>
           </div>
 
