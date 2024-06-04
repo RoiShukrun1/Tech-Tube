@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './scrollingMenu.css';
 import Logo from '../logo-icon/logo';
 import homeIcon from '../../../../db/icons/home-icon.svg';
@@ -19,11 +19,6 @@ import report from '../../../../db/icons/comment-blog-icon.svg';
 import help from '../../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../../db/icons/pencil-icon.svg';
 
-
-
-
-
-
 const ScrollingMenu = ({ isOpen, toggleMenu }) => {
   return (
     <>
@@ -32,37 +27,39 @@ const ScrollingMenu = ({ isOpen, toggleMenu }) => {
         <div className="logo-container">
           <Logo />
         </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
-          <li className="list-group-item"><img src={subscriptions} alt="Subscriptions" /> Subscriptions</li>
-          <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
-          <div className="divider"></div>
-          <div className="categories-label">You</div>
-          <li className="list-group-item"><img src={yourChannel} alt="Home" />Your channel</li>
-          <li className="list-group-item"><img src={history} alt="Home" />History</li>
-          <li className="list-group-item"><img src={playlists} alt="Home" />Playlists</li>
-          <li className="list-group-item"><img src={watchLater} alt="Home" />Watch later</li>
-          <li className="list-group-item"><img src={likedVideos} alt="Home" />Liked videos</li>
-          <div className="divider"></div>
-          <div className="categories-label">Subscriptions</div>
-          <li className="list-group-item no-icon">Tech love</li>
-          <li className="list-group-item no-icon">Food Porn</li>
-          <li className="list-group-item no-icon">Niv Gilboa</li>
-          <li className="list-group-item no-icon">Confusius Junior</li>
-          <li className="list-group-item no-icon">Lonley peleg</li>
-          <div className="divider"></div>
-          <div className="categories-label">Explore</div>
-          <li className="list-group-item"><img src={music} alt="Home" />Music</li>
-          <li className="list-group-item"><img src={trending} alt="Home" />Trending</li>
-          <li className="list-group-item"><img src={gaming} alt="Home" />Gaming</li>
-          <li className="list-group-item"><img src={news} alt="Home" />News</li>
-          <li className="list-group-item"><img src={podcast} alt="Home" />Podcast</li>
-          <div className="divider"></div>
-          <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
-          <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
-          <li className="list-group-item"><img src={help} alt="Home" />Help</li>
-          <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>
-        </ul>
+        <div className="scrollable-menu">
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
+            <li className="list-group-item"><img src={subscriptions} alt="Subscriptions" /> Subscriptions</li>
+            <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
+            <div className="divider"></div>
+            <div className="categories-label">You</div>
+            <li className="list-group-item"><img src={yourChannel} alt="Home" />Your channel</li>
+            <li className="list-group-item"><img src={history} alt="Home" />History</li>
+            <li className="list-group-item"><img src={playlists} alt="Home" />Playlists</li>
+            <li className="list-group-item"><img src={watchLater} alt="Home" />Watch later</li>
+            <li className="list-group-item"><img src={likedVideos} alt="Home" />Liked videos</li>
+            <div className="divider"></div>
+            <div className="categories-label">Subscriptions</div>
+            <li className="list-group-item no-icon">Tech love</li>
+            <li className="list-group-item no-icon">Food Porn</li>
+            <li className="list-group-item no-icon">Niv Gilboa</li>
+            <li className="list-group-item no-icon">Confusius Junior</li>
+            <li className="list-group-item no-icon">Lonley peleg</li>
+            <div className="divider"></div>
+            <div className="categories-label">Explore</div>
+            <li className="list-group-item"><img src={music} alt="Home" />Music</li>
+            <li className="list-group-item"><img src={trending} alt="Home" />Trending</li>
+            <li className="list-group-item"><img src={gaming} alt="Home" />Gaming</li>
+            <li className="list-group-item"><img src={news} alt="Home" />News</li>
+            <li className="list-group-item"><img src={podcast} alt="Home" />Podcast</li>
+            <div className="divider"></div>
+            <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
+            <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
+            <li className="list-group-item"><img src={help} alt="Home" />Help</li>
+            <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>
+          </ul>
+        </div>
       </div>
     </>
   );

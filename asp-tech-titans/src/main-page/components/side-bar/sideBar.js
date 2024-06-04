@@ -16,7 +16,6 @@ import report from '../../../db/icons/comment-blog-icon.svg';
 import help from '../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../db/icons/pencil-icon.svg';
 
-
 function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -32,36 +31,38 @@ function Sidebar() {
         <div className="logo-container">
           <Logo />
         </div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
-          <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
-          <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
-          <div className="divider"></div>
-          <div className="categories-label">Categories</div>
-          <li className="list-group-item no-icon">Sitcoms</li>
-          <li className="list-group-item no-icon">Music</li>
-          <li className="list-group-item no-icon">Restaurants</li>
-          <li className="list-group-item no-icon">Gaming</li>
-          <li className="list-group-item no-icon">Mixes</li>
-          <li className="list-group-item no-icon">Computer Programming</li>
-          <li className="list-group-item no-icon">Satire</li>
-          <li className="list-group-item no-icon">News</li>
-          <li className="list-group-item no-icon">Tech House</li>
-          <li className="list-group-item no-icon">Playlists</li>
-          <li className="list-group-item no-icon">Computer History</li>
-          <div className="divider"></div>
-          <div className="categories-label">Explore</div>
-          <li className="list-group-item"><img src={music} alt="Home" />Music</li>
-          <li className="list-group-item"><img src={trending} alt="Home" />Trending</li>
-          <li className="list-group-item"><img src={gaming} alt="Home" />Gaming</li>
-          <li className="list-group-item"><img src={news} alt="Home" />News</li>
-          <li className="list-group-item"><img src={podcast} alt="Home" />Podcast</li>
-          <div className="divider"></div>
-          <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
-          <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
-          <li className="list-group-item"><img src={help} alt="Home" />Help</li>
-          <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>
-        </ul>
+        <div className="scrollable-menu">
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
+            <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
+            <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
+            <div className="divider"></div>
+            <div className="categories-label">Categories</div>
+            <li className="list-group-item no-icon">Sitcoms</li>
+            <li className="list-group-item no-icon">Music</li>
+            <li className="list-group-item no-icon">Restaurants</li>
+            <li className="list-group-item no-icon">Gaming</li>
+            <li className="list-group-item no-icon">Mixes</li>
+            <li className="list-group-item no-icon">Computer Programming</li>
+            <li className="list-group-item no-icon">Satire</li>
+            <li className="list-group-item no-icon">News</li>
+            <li className="list-group-item no-icon">Tech House</li>
+            <li className="list-group-item no-icon">Playlists</li>
+            <li className="list-group-item no-icon">Computer History</li>
+            <div className="divider"></div>
+            <div className="categories-label">Explore</div>
+            <li className="list-group-item"><img src={music} alt="Home" />Music</li>
+            <li className="list-group-item"><img src={trending} alt="Home" />Trending</li>
+            <li className="list-group-item"><img src={gaming} alt="Home" />Gaming</li>
+            <li className="list-group-item"><img src={news} alt="Home" />News</li>
+            <li className="list-group-item"><img src={podcast} alt="Home" />Podcast</li>
+            <div className="divider"></div>
+            <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
+            <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
+            <li className="list-group-item"><img src={help} alt="Home" />Help</li>
+            <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
