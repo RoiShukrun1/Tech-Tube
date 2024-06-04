@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './sideBar.css';
 import Logo from './logo-icon/logo';
-import homeIcon from './home-icon.svg';
-import forYouIcon from './for-you-icon.svg';
-import Subscriptions from './subscription-icon.svg';
+import homeIcon from '../../../db/icons/home-icon.svg';
+import forYouIcon from '../../../db/icons/for-you-icon.svg';
+import Subscriptions from '../../../db/icons/subscription-icon.svg';
 import ScrollingMenuButton from './scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from './scrolling-menu/scrollingMenu';
 import music from '../../../db/icons/headphone-icon.svg';

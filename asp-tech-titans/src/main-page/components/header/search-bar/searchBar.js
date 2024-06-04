@@ -2,7 +2,7 @@
 
 import React from 'react';
 import './searchBar.css';
-import searchIcon from './search-icon.svg'; // Adjust the path if necessary
+import searchIcon from '../../../../db/icons/search-icon.svg'; // Adjust the path if necessary
 
 
 const SearchBar = () => {
