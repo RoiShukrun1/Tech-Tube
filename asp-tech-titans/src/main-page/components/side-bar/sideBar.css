@@ -1,12 +1,11 @@
 /* sidebar.css */
 .sidebar {
-  width: 420px;
+  width: 13%;
   position: fixed;
-  left: 0;
-  top: 0;
   height: 100%;
   background-color: #ffffff;
   padding: 20px;
+  margin-left: 1%;;
   /* border-style: dashed; */
 }
 

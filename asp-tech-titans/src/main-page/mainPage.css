@@ -22,7 +22,7 @@
 .video-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 5px;
   justify-content: center;
 }
 
@@ -33,6 +33,6 @@
 .news-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 5px;
   justify-content: center;
 }

@@ -1,7 +1,7 @@
 .scrolling-menu {
-    width: 450px;
+    width: 15%;
     position: fixed;
-    left: -500px; /* Start off-screen */
+    left: -15%; /* Start off-screen */
     top: 0;
     height: 100%;
     background-color: #ffffff;
@@ -31,7 +31,7 @@
   }
   
   .list-group-item img {
-    margin-right: 20px;
+    margin-right: 30px;
     width: 30px;
     height: 30px;
   }
@@ -42,7 +42,7 @@
   }
   
   .list-group-item.no-icon {
-    padding-left: 50px; /* Add padding to align text with items that have icons */
+    padding-left: 60px; /* Add padding to align text with items that have icons */
   }
   
   .divider {
