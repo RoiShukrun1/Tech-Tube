@@ -34,7 +34,7 @@
   }
 
   .search-bar input:focus {
-    border-color: blue; /* Ensure border stays blue on focus */
+    border-color: blue;
     width: 850px;
 
 }

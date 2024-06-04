@@ -1,4 +1,3 @@
-// searchVideos.js
 
 const searchVideos = (videos, query) => {
     if (query === '') {

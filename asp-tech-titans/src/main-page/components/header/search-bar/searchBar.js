@@ -1,8 +1,7 @@
-// SearchBar.js
 
 import React, { useState } from 'react';
 import './searchBar.css';
-import searchIcon from '../../../../db/icons/search-icon.svg'; // Adjust the path if necessary
+import searchIcon from '../../../../db/icons/search-icon.svg';
 
 function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');

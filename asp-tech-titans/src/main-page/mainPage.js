@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
-import searchVideos from './components/header/search-bar/searchVideos'; // Adjust the path if necessary
+import searchVideos from './components/header/search-bar/searchVideos'; 
 
 const MainPage = ({ setUrl }) => {
   const [videos, setVideos] = useState(jsonData);

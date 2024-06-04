@@ -1,4 +1,3 @@
-// Header.js
 import React from 'react';
 import './header.css';
 import SearchBar from './search-bar/searchBar';

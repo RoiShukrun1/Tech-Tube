@@ -7,7 +7,7 @@
   background-color: #ffffff;
   padding: 20px;
   transition: left 0.3s ease; /* Smooth transition */
-  z-index: 1001; /* Ensure it is above the sidebar */
+  z-index: 1001; 
   display: flex;
   flex-direction: column;
 }
@@ -18,14 +18,14 @@
 
 .logo-container {
   flex-shrink: 0; /* Prevents the logo from shrinking */
-  margin-bottom: 20px; /* Add some space below the logo */
+  margin-bottom: 20px; 
   margin-left: 7.5%;
 }
 
 .scrollable-menu {
-  flex-grow: 1; /* Allows the scrollable area to grow and fill the space */
+  flex-grow: 1; 
   overflow-y: auto; /* Enable vertical scrolling */
-  margin-top: 10px; /* Adjust this margin to match the height of the logo */
+  margin-top: 10px; 
 }
 
 .list-group {
@@ -37,8 +37,8 @@
   align-items: center;
   padding: 10px 0;
   cursor: pointer;
-  border: none; /* Remove default borders */
-  font-size: 20px; /* Set the font size of the text */
+  border: none; 
+  font-size: 20px; 
 }
 
 .list-group-item img {
@@ -48,7 +48,7 @@
 }
 
 .list-group-item:hover {
-  border: 1px solid #ccc; /* Add border on hover */
+  border: 1px solid #ccc; 
   border-radius: 4px;
 }
 
