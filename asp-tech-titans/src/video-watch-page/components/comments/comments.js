@@ -76,6 +76,8 @@ function Comments({ comments, currentVideoId, currentUser, setVideos }) {
             {comments.map((comment) => (
                 <Comment
                     commentObj={comment}
+                    setVideos={setVideos}
+                    currentVideoId={currentVideoId}
                     key={comment.id}
                 />
             ))}

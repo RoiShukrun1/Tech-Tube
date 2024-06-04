@@ -25,3 +25,4 @@ function relatedVideos( {relatedVideos, setUrl, setVideos} ) {
 }
 
 export default relatedVideos;
+export { getVideoById };

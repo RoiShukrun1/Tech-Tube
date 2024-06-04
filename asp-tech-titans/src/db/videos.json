@@ -17,7 +17,7 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 5
+                "likes": 0
             },
             {
                 "id": 2,
@@ -25,7 +25,7 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 0
+                "likes": 1
             },
             {
                 "id": 3,
@@ -33,7 +33,7 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 90
+                "likes": 2
             },
             {
                 "id": 4,
@@ -41,7 +41,7 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 0
+                "likes": 3
             }
         ]
     },
@@ -63,7 +63,7 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 5
+                "likes": 4
             },
             {
                 "id": 2,
@@ -71,7 +71,7 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 0
+                "likes": 5
             },
             {
                 "id": 3,
@@ -79,7 +79,7 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 90
+                "likes": 6
             },
             {
                 "id": 4,
@@ -87,7 +87,7 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 0
+                "likes": 7
             }
         ]
     },
