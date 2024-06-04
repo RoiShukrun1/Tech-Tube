@@ -1,10 +1,9 @@
 import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
-import { checkIfUserIsSubscribed } from '../../video-watch-page';
 
 
-function VideoCard({ video, setUrl, setSusbscribeButtonIsVisible, currentUser }) {
+function VideoCard({ video, setUrl, setVideos }) {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -18,7 +17,24 @@ function VideoCard({ video, setUrl, setSusbscribeButtonIsVisible, currentUser })
 
     const handleClick = () => {
         setUrl(video.videoUrl);
-        setSusbscribeButtonIsVisible(!checkIfUserIsSubscribed(currentUser, video.publisher));
+        incrementViews();
+    };
+
+    const incrementViews = () => {
+        setVideos(prevVideos => {
+            const updatedVideos = [...prevVideos];
+
+            var thisVideoTitle = video.videoTitle;
+            const index = updatedVideos.findIndex(video => video.videoTitle === thisVideoTitle);
+
+            const updatedVideo = { ...updatedVideos[index] };
+
+            updatedVideo.views++;
+
+            updatedVideos[index] = updatedVideo;
+
+            return updatedVideos;
+        });
     };
 
     const renderPlayIcon = () => {

@@ -1,11 +1,49 @@
 import './VideoInfo.css';
 
+function checkIfUserIsSubscribed(currentUser, publisher) {
+    return currentUser.subscriptions.includes(publisher);
+}
 
-function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info,
-    setSusbscribeButtonIsVisible, susbscribeButtonIsVisible }) {
+function VideoInfo({ currentVideo, currentUser, setUsers }) {
+
+    var susbscribeButtonIsVisible = !checkIfUserIsSubscribed(currentUser, currentVideo.publisher);
+
+    const removeSubscription = () => {
+        setUsers(prevUsers => {
+            // Create a copy of the users array to avoid mutating state directly
+            const updatedUsers = [...prevUsers];
+
+            if (currentUser && currentUser.subscriptions) {
+                currentUser.subscriptions = 
+                currentUser.subscriptions.filter(sub => sub !== currentVideo.publisher);
+            }
+
+            return updatedUsers;
+        });
+    };
+
+    const addSubscription = () => {
+        setUsers(prevUsers => {
+            // Create a copy of the users array to avoid mutating state directly
+            const updatedUsers = [...prevUsers];
+
+            if (currentUser && currentUser.subscriptions) {
+                currentUser.subscriptions.push(currentVideo.publisher);
+            }
+
+            return updatedUsers;
+        });
+    };
+
+    var videoTitle = currentVideo.videoTitle, views = currentVideo.views, date = currentVideo.date, 
+    publisherImg = currentVideo.publisherImg, publisher = currentVideo.publisher, info = currentVideo.info;
 
     const swtichButtons = () => {
-        setSusbscribeButtonIsVisible(!susbscribeButtonIsVisible);
+        if (currentUser.subscriptions.includes(publisher)) {
+            removeSubscription()
+        } else {
+            addSubscription()
+        }
     }
 
     return (
@@ -16,13 +54,13 @@ function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info,
                 <h1 className='publisher'>{publisher}</h1>
                 {susbscribeButtonIsVisible ? (
                     <button type="button"
-                    className="btn btn-dark subscribe-button"
-                    onClick={swtichButtons}
+                        className="btn btn-dark subscribe-button"
+                        onClick={swtichButtons}
                     >subscribe</button>
                 ) : (
                     <button type="button"
-                    className="btn btn-light unsubscribe-button"
-                    onClick={swtichButtons}
+                        className="btn btn-light unsubscribe-button"
+                        onClick={swtichButtons}
                     >unsubscribe</button>
                 )}
             </span>
@@ -39,9 +77,7 @@ function VideoInfo({ videoTitle, views, date, publisherImg, publisher, info,
                         {info}
                     </div>
                 </div>
-
             </div>
-
         </div>
     );
 }
