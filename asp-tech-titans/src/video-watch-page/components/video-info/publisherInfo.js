@@ -1,6 +1,6 @@
 import React from 'react';
 import './publisherInfo.css';
-import SubscribeButton from './subscribeButton';
+import SubscribeButton from './SubscribeButton';
 
 function publisherInfo({ publisherImg, publisher, setUsers, currentUser }) {
     return (
