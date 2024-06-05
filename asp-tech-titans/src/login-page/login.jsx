@@ -26,7 +26,18 @@ export const Login = () => {
       return;
     }
     alert('Login successful');
+    const logInInfo = {
+      nickname: searchResults[0].nickname,
+      image: searchResults[0].image
+    };
+    // Retrieve existing data from storage or initialize an empty array
+    const info = JSON.parse(sessionStorage.getItem('loggedIn')) || [];
+    // Add the new data to the existing array
+    info.push(logInInfo);
+    // Save the updated array back to storage
+    sessionStorage.setItem('loggedIn', JSON.stringify(info));
   }
+  
   return (
     <div className='login-container'>
         <img src={logo} alt="Logo" />
