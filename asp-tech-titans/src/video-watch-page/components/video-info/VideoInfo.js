@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './videoInfo.css';
-import PublisherInfo from './PublisherInfo';
+import PublisherInfo from './publisherInfo';
 import { ReactComponent as Download } from './download.svg';
 import { ReactComponent as Share } from './share.svg';
 
