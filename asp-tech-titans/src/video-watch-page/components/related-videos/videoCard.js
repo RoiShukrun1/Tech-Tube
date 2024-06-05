@@ -58,7 +58,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
                     <img src={video.imgUrl}
-                        className="img-fluid rounded-start"
+                        className="img-fluid rounded-start videoCard-image"
                         onClick={handleClick}
                     />
                     {isHovered && renderPlayIcon()}
