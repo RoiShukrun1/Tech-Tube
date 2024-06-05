@@ -1,3 +1,4 @@
+/* filters.css */
 .video-categories {
   display: flex;
   overflow-x: auto;
@@ -6,20 +7,6 @@
   background-color: #ffffff;
   border-radius: 10px;
   width: 100%;
-}
-
-/* Custom scrollbar styling */
-.video-categories::-webkit-scrollbar {
-  height: 12px; /* Height of the scrollbar */
-}
-
-.video-categories::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Color of the scrollbar handle */
-  border-radius: 6px; /* Rounded corners for the scrollbar handle */
-}
-
-.video-categories::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
 }
 
 .filter-button {
@@ -32,8 +19,6 @@
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: large;
-  font-weight: bold;
 }
 
 .filter-button:hover {
