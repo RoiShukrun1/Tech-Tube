@@ -3,10 +3,8 @@ import Comment from './comment';
 import './comments.css';
 import { useState } from 'react';
 
-function Comments({ comments, currentVideoId, currentUser, setVideos }) {
-
-    const [isFocused, setIsFocused] = useState(false);
-    const [inputValue, setInputValue] = useState('');
+function Comments({ comments, currentVideoId, currentUser,
+     setVideos, inputValue, setInputValue, isFocused, setIsFocused }) {
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);

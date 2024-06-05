@@ -21,8 +21,10 @@ const VideoWatchPage = ({ initVideoUrl }) => {
   const [videoUrl, setVideoUrl] = useState(initVideoUrl);
 
   const [users, setUsers] = useState(usersData); // the current user for now is the first user in the users.json file
-
   const [videos, setVideos] = useState(jsonData);
+  const [isFocused, setIsFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [moreInfoPressed, setMoreInfoPressed] = useState(false);
 
   const currentVideo = getObjectByUrl(videos, videoUrl);
   const currentUser = getUserObjById(users, 1);
@@ -40,12 +42,18 @@ const VideoWatchPage = ({ initVideoUrl }) => {
                 currentVideo={currentVideo}
                 currentUser={currentUser}
                 setUsers={setUsers}
+                setMoreInfoPressed={setMoreInfoPressed}
+                moreInfoPressed={moreInfoPressed}
               />
               <Comments
                 comments={currentVideo.comments}
                 currentUser={currentUser}
                 setVideos={setVideos}
-                currentVideoId={currentVideo.id} />
+                currentVideoId={currentVideo.id}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+                isFocused={isFocused}
+                setIsFocused={setIsFocused} />
             </div>
           </div>
 
@@ -54,6 +62,7 @@ const VideoWatchPage = ({ initVideoUrl }) => {
               relatedVideos={currentVideo.RelatedVideos}
               setUrl={setVideoUrl}
               setVideos={setVideos}
+              setMoreInfoPressed={setMoreInfoPressed}
             />
           </div>
         </div>

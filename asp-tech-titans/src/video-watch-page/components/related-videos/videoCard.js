@@ -3,7 +3,7 @@ import './videoCard.css';
 import { useState } from 'react';
 
 
-function VideoCard({ video, setUrl, setVideos }) {
+function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed }) {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -18,6 +18,7 @@ function VideoCard({ video, setUrl, setVideos }) {
     const handleClick = () => {
         setUrl(video.videoUrl);
         incrementViews();
+        setMoreInfoPressed(false);
     };
 
     const incrementViews = () => {

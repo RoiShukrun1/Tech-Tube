@@ -34,7 +34,8 @@ function subscribeButton({ onClick, setUsers, currentUser, publisher }) {
     };
 
     return (
-        <button type="button" onClick={switchButtons} className={ isSubscribed ? "btn btn-light unsubscribe-button" : "btn btn-dark subscribe-button"}>
+        <button type="button" onClick={switchButtons}
+            className={isSubscribed ? "btn btn-light unsubscribe-button" : "btn btn-dark subscribe-button"}>
             {isSubscribed ? "unsubscribe" : "subscribe"}
         </button>
     );
