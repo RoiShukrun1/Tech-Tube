@@ -2,8 +2,23 @@ import React, { useEffect } from 'react';
 import './videoInfo.css';
 import PublisherInfo from './publisherInfo';
 import SubscribeButton from './subscribeButton';
+import { ReactComponent as Download } from './download.svg';
+import { ReactComponent as Share } from './share.svg';
 
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
+
+    const download = () => {
+        const downloadUrl = '/db/videos/' + currentVideo.videoTitle + '.mp4';
+        console.log(downloadUrl);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        console.log(link.href)
+        link.setAttribute('download', currentVideo.videoTitle);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     const { videoTitle, views, date, publisherImg, publisher, info } = currentVideo;
 
     // Generate a unique ID for each instance of the component
@@ -19,6 +34,8 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             <h1 className="title">{videoTitle}</h1>
             <PublisherInfo publisherImg={publisherImg} publisher={publisher}
                 setUsers={setUsers} currentUser={currentUser} />
+            <button type="button"className="btn btn-light download-button" onClick={download}><Download/> Download </button>
+            <button type="button"className="btn btn-light share-button"><Share/> Share </button>
             <div className="alert alert-secondary" role="alert">
                 <h2 className='views'>Views: {views}</h2>
                 <h2 className='date'>Date: {date}</h2>

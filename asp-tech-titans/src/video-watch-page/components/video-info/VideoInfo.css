@@ -14,4 +14,19 @@
 }
 .btn{
     padding: 0%;
+}.download-button{
+    border: none;
+    border-radius: 20px;
+    width: 120px;
+    height: 35px;
+    background-color: rgb(226, 226, 226);
+    float: right;
+}.share-button{
+    border: none;
+    border-radius: 20px;
+    width: 80px;
+    height: 35px;
+    background-color: rgb(226, 226, 226);
+    float: right;
+    margin-right: 1%;
 }
