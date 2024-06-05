@@ -52,7 +52,7 @@ function VideoCard({ video, setUrl, setVideos }) {
     return (
         <div className="card">
             <div className="row g-0">
-                <div className="col-md-5"
+                <div className="col"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
                     <img src={video.imgUrl}
@@ -61,7 +61,7 @@ function VideoCard({ video, setUrl, setVideos }) {
                     />
                     {isHovered && renderPlayIcon()}
                 </div>
-                <div className="col-md-7">
+                <div className="col">
                     <div className="card-body">
                         <h5 className="card-title">{video.videoTitle}</h5>
                         <p className="card-text">{video.publisher}</p>

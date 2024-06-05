@@ -1,6 +1,6 @@
 import React from 'react';
 import VideoPlayer from './components/video-player/VideoPlayer';
-import VideoInfo from './components/video-info/VideoInfo';
+import VideoInfo from './components/video-info/videoInfo';
 import Comments from './components/comments/comments';
 import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
@@ -49,7 +49,7 @@ const VideoWatchPage = ({ initVideoUrl }) => {
             </div>
           </div>
 
-          <div className="col">
+          <div className="col-5">
             <RelatedVideos
               relatedVideos={currentVideo.RelatedVideos}
               setUrl={setVideoUrl}

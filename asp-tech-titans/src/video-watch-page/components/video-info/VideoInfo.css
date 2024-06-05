@@ -15,34 +15,3 @@
 .btn{
     padding: 0%;
 }
-.publisher-photo{
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    object-fit: cover;
-    border: none; 
-    margin-bottom: 10px;
-    text-align: left;
-}
-.publisher{
-    font-size: medium;
-    text-align: left;
-    display: inline-flex;
-    margin-left: 8px;
-}
-.subscribe-button{
-    border-radius: 20px;
-    width: 100px;
-    height: 35px;
-    margin-left: 40px;
-    background-color: black;
-}
-.unsubscribe-button{
-    border: 1px solid black;
-    border-radius: 20px;
-    width: 100px;
-    height: 35px;
-    margin-left: 40px;
-    background-color: white;
-}
-
