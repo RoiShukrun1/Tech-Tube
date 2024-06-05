@@ -64,6 +64,7 @@ const VideoWatchPage = ({ initVideoUrl }) => {
               setVideos={setVideos}
               setMoreInfoPressed={setMoreInfoPressed}
               videos={videos}
+              setInputValue={setInputValue}
             />
           </div>
         </div>

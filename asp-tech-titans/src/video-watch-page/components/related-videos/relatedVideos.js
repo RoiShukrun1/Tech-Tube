@@ -6,7 +6,7 @@ function getVideoById(jsonData, id) {
     return jsonData.find(obj => obj.id === id);
 }
 
-function relatedVideos( {videos, relatedVideos, setUrl, setVideos, setMoreInfoPressed} ) {
+function relatedVideos( {videos, relatedVideos, setUrl, setVideos, setMoreInfoPressed, setInputValue} ) {
     return (
         <div className="related-videos">
             <div className="video-list">
@@ -16,6 +16,7 @@ function relatedVideos( {videos, relatedVideos, setUrl, setVideos, setMoreInfoPr
                         setUrl={setUrl}
                         setVideos={setVideos}
                         setMoreInfoPressed={setMoreInfoPressed}
+                        setInputValue={setInputValue}
                         key={getVideoById(videos, relateVideo.id).id}
                     />
                 ))}
