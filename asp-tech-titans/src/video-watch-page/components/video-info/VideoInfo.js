@@ -8,12 +8,10 @@ import { ReactComponent as Share } from './share.svg';
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
 
     const download = () => {
-        const downloadUrl = '/db/videos/' + currentVideo.videoTitle + '.mp4';
-        console.log(downloadUrl);
+        const downloadUrl = currentVideo.videoUrl;
         const link = document.createElement('a');
         link.href = downloadUrl;
-        console.log(link.href)
-        link.setAttribute('download', currentVideo.videoTitle);
+        link.setAttribute('download', '');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
