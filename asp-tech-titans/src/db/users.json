@@ -2,8 +2,10 @@
     "id": 1,
     "username": "aviel281999",
     "password":"",
-    "first name": "Aviel",
-    "last name": "Segev",
+    "firstName": "Aviel",
+    "lastName": "Segev",
     "age": 25,
-    "subscriptions": ["Rick Astley", "Omer Adam"]
-}]
+    "subscriptions": ["Rick Astley", "Omer Adam"],
+    "profilePicture": "/db/techTitansLogo.png"
+}
+]

@@ -55,7 +55,6 @@
     height: 40px; 
     border-radius: 50%; 
     object-fit: cover;
-    border: 2px solid #000; 
 }
 .border{
     border: 2px solid black;

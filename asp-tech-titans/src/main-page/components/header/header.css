@@ -1,0 +1,21 @@
+/* header.css */
+.main-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px; /* Reduce padding */
+  background-color: #ffffff;
+  color: white;
+  height: auto; /* Ensure height is auto */
+  border: none; /* Remove border */
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}

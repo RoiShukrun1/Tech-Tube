@@ -1,11 +1,10 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
 import './VideoPlayer.css';
 
 const VideoPlayer = ({ url }) => {
   return (
-    <div className="video-player">
-      <ReactPlayer url={url}/>
+    <div>
+      <video className="video-player" src={url} controls></video> 
     </div>
   );
 };
