@@ -18,7 +18,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     var username = commentObj.username
     var date = commentObj.date
     var comment = commentObj.comment
-    var likes = commentObj.likes
     var profilePicture = commentObj.image
     var likesNumber = commentObj.likes
 

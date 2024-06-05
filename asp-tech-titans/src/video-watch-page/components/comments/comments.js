@@ -23,6 +23,8 @@ function Comments({ comments, currentVideoId, currentUser,
             date: new Date().toLocaleString(),
             comment: inputValue,
             likes: 0,
+            usersLikedId: [],
+            usersUnLikedId:[]
         };
 
         setVideos(prevVideos => {
