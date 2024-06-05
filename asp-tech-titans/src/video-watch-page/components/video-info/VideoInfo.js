@@ -5,6 +5,11 @@ import SubscribeButton from './subscribeButton';
 import { ReactComponent as Download } from './download.svg';
 import { ReactComponent as Share } from './share.svg';
 
+function copyUrl() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+}
+
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
 
     const download = () => {
@@ -32,8 +37,21 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             <h1 className="title">{videoTitle}</h1>
             <PublisherInfo publisherImg={publisherImg} publisher={publisher}
                 setUsers={setUsers} currentUser={currentUser} />
-            <button type="button"className="btn btn-light download-button" onClick={download}><Download/> Download </button>
-            <button type="button"className="btn btn-light share-button"><Share/> Share </button>
+            <button type="button" className="btn btn-light download-button"
+                onClick={download}><Download /> Download
+            </button>
+
+            <div className="btn-group" role="group" style={{float: 'right'}}>
+                <button type="button"
+                    className="btn btn-light share-button dropdown-toggle"
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false"><Share /> Share
+                </button>
+                <ul className="dropdown-menu">
+                    <li><button className="dropdown-item" href="#" onClick={copyUrl}>Copy Url</button></li>
+                </ul>
+            </div>
+
             <div className="alert alert-secondary" role="alert">
                 <h2 className='views'>Views: {views}</h2>
                 <h2 className='date'>Date: {date}</h2>
