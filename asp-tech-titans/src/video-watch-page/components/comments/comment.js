@@ -3,45 +3,109 @@ import { ReactComponent as Like } from './like.svg';
 import { ReactComponent as Dislike } from './dislike.svg';
 import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
-import { useState } from 'react';
 
-function Comment({ commentObj, setVideos, currentVideoId }) {
 
-    var username=commentObj.username
-    var date=commentObj.date
-    var comment=commentObj.comment
-    var likes=commentObj.likes
-    var profilePicture=commentObj.image
-    var likesNumber=commentObj.likes
+function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
-    const [isLiked, setIsLiked] = useState(false);
-    const [isUnLiked, setUNIsLiked] = useState(false);
+    const userLike = () => {
+        return commentObj.usersLikedId.some(user => user.id === currentUser.id);
+    }
+
+    const userUnLike = () => {
+        return commentObj.usersUnLikedId.some(user => user.id === currentUser.id);
+    }
+
+    var username = commentObj.username
+    var date = commentObj.date
+    var comment = commentObj.comment
+    var likes = commentObj.likes
+    var profilePicture = commentObj.image
+    var likesNumber = commentObj.likes
+
+    var isLiked = userLike();
+    var isUnLiked = userUnLike();
+
+    const setIsLiked = () => {
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video => {
+                if (video.id !== currentVideoId) return video;
+
+                return {
+                    ...video,
+                    comments: video.comments.map(comment => {
+                        if (comment.id !== commentObj.id) return comment;
+
+                        const userLikedIndex = comment.usersLikedId.findIndex(user => user.id === currentUser.id);
+
+                        return {
+                            ...comment,
+                            usersLikedId: userLikedIndex !== -1
+                                ? comment.usersLikedId.filter(user => user.id !== currentUser.id)
+                                : [...comment.usersLikedId, { id: currentUser.id }]
+                        };
+                    })
+                };
+            });
+
+            console.log(updatedVideos);
+
+            return updatedVideos;
+        });
+    };
+
+    const setIsUnLiked = () => {
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video => {
+                if (video.id !== currentVideoId) return video;
+
+                return {
+                    ...video,
+                    comments: video.comments.map(comment => {
+                        if (comment.id !== commentObj.id) return comment;
+
+                        const userLikedIndex = comment.usersUnLikedId.findIndex(user => user.id === currentUser.id);
+
+                        return {
+                            ...comment,
+                            usersUnLikedId: userLikedIndex !== -1
+                                ? comment.usersUnLikedId.filter(user => user.id !== currentUser.id)
+                                : [...comment.usersUnLikedId, { id: currentUser.id }]
+                        };
+                    })
+                };
+            });
+
+            console.log(updatedVideos);
+
+            return updatedVideos;
+        });
+    };
 
     const increaseLikeNumber = () => {
         setVideos(prevVideos => {
 
             const updatedVideos = [...prevVideos];
-    
+
             const video = updatedVideos.find(video => video.id === currentVideoId);
-    
+
             if (video) {
                 const commentIndex = video.comments.findIndex(comment => comment.id === commentObj.id);
-    
+
                 if (commentIndex !== -1) {
 
                     const updatedComment = { ...video.comments[commentIndex], likes: video.comments[commentIndex].likes + 1 };
-    
+
                     const updatedComments = [...video.comments];
                     updatedComments[commentIndex] = updatedComment;
-    
+
                     const updatedVideo = { ...video, comments: updatedComments };
-    
+
                     const videoIndex = updatedVideos.findIndex(video => video.id === currentVideoId);
-    
+
                     updatedVideos[videoIndex] = updatedVideo;
                 }
             }
-    
+
             return updatedVideos;
         });
     };
@@ -49,21 +113,21 @@ function Comment({ commentObj, setVideos, currentVideoId }) {
     const decreaseLikeNumber = () => {
         setVideos(prevVideos => {
             const updatedVideos = [...prevVideos];
-    
+
             const video = updatedVideos.find(video => video.id === currentVideoId);
-    
+
             if (video) {
                 const commentIndex = video.comments.findIndex(comment => comment.id === commentObj.id);
-    
+
                 if (commentIndex !== -1) {
-                    const updatedComment = { 
-                        ...video.comments[commentIndex], 
-                        likes: Math.max(video.comments[commentIndex].likes - 1, 0) 
+                    const updatedComment = {
+                        ...video.comments[commentIndex],
+                        likes: Math.max(video.comments[commentIndex].likes - 1, 0)
                     };
-    
+
                     const updatedComments = [...video.comments];
                     updatedComments[commentIndex] = updatedComment;
-    
+
                     const updatedVideo = { ...video, comments: updatedComments };
                     const videoIndex = updatedVideos.findIndex(video => video.id === currentVideoId);
                     updatedVideos[videoIndex] = updatedVideo;
@@ -72,8 +136,8 @@ function Comment({ commentObj, setVideos, currentVideoId }) {
             return updatedVideos;
         });
     };
-    
-    
+
+
 
     return (
 
@@ -91,8 +155,10 @@ function Comment({ commentObj, setVideos, currentVideoId }) {
 
                         <div className='container'>
                             <button onClick={() => {
-                                setIsLiked(!isLiked);
-                                setUNIsLiked(false);
+                                if (isUnLiked) {
+                                    setIsUnLiked();
+                                }
+                                setIsLiked();
                                 isLiked ? decreaseLikeNumber() : increaseLikeNumber();
                             }}
                                 type="button"
@@ -106,10 +172,12 @@ function Comment({ commentObj, setVideos, currentVideoId }) {
                             <h3 className="likesNumber">{likesNumber}</h3>
 
                             <button onClick={() => {
-                                setIsLiked(false);
-                                setUNIsLiked(!isUnLiked);
-                                if (likesNumber == likes + 1) {
-                                    // setLikesNumber(likesNumber - 1);
+                                if (isLiked) {
+                                    setIsLiked();
+                                }
+                                setIsUnLiked();
+                                if (isLiked) {
+                                    decreaseLikeNumber();
                                 }
                             }} type="button"
 
@@ -129,7 +197,6 @@ function Comment({ commentObj, setVideos, currentVideoId }) {
         </div>
 
     );
-
 }
 
 export default Comment;

@@ -75,6 +75,7 @@ function Comments({ comments, currentVideoId, currentUser,
                     commentObj={comment}
                     setVideos={setVideos}
                     currentVideoId={currentVideoId}
+                    currentUser={currentUser}
                     key={comment.id}
                 />
             ))}

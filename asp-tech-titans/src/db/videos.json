@@ -17,7 +17,9 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":3}],
+                "usersUnLikedId":[{"id":1}]
             },
             {
                 "id": 2,
@@ -25,7 +27,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 1
+                "likes": 1,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 3,
@@ -33,7 +37,9 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 2
+                "likes": 2,
+                "usersLikedId": [],
+                "usersUnLikedId":[]
             },
             {
                 "id": 4,
@@ -41,7 +47,9 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 3
+                "likes": 3,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -63,7 +71,9 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 4
+                "likes": 4,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 2,
@@ -71,7 +81,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 5
+                "likes": 5,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 3,
@@ -79,7 +91,9 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 6
+                "likes": 6,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 4,
@@ -87,7 +101,9 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 7
+                "likes": 7,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -109,7 +125,9 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 5
+                "likes": 5,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 2,
@@ -117,7 +135,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 3,
@@ -125,7 +145,9 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 90
+                "likes": 90,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 4,
@@ -133,7 +155,9 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -155,7 +179,9 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 5
+                "likes": 5,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 2,
@@ -163,7 +189,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 3,
@@ -171,7 +199,9 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 90
+                "likes": 90,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 4,
@@ -179,7 +209,9 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -201,7 +233,9 @@
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
                 "comment": "חרא",
-                "likes": 5
+                "likes": 5,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 2,
@@ -209,7 +243,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2021-10-01",
                 "comment": "דווקא יפה",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 3,
@@ -217,7 +253,9 @@
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
                 "comment": "מסכים עם אביאל",
-                "likes": 90
+                "likes": 90,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             },
             {
                 "id": 4,
@@ -225,7 +263,9 @@
                 "image": "/db/photos/4.jpg",
                 "date": "2024-09-01",
                 "comment": "קטלני",
-                "likes": 0
+                "likes": 0,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -247,7 +287,9 @@
                 "image": "/db/photos/5.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
-                "likes": 2800
+                "likes": 2800,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -269,7 +311,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
-                "likes": 2800
+                "likes": 2800,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -291,7 +335,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
-                "likes": 2800
+                "likes": 2800,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -313,7 +359,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
-                "likes": 2800
+                "likes": 2800,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     },
@@ -335,7 +383,9 @@
                 "image": "/db/photos/2.jpg",
                 "date": "2024-06-01",
                 "comment": "מצוין",
-                "likes": 2800
+                "likes": 2800,
+                "usersLikedId": [{"id":1}, {"id":3}],
+                "usersUnLikedId":[]
             }
         ]
     }

@@ -1,6 +1,5 @@
 import './App.css';
 import VideoWatchPage from '../video-watch-page/video-watch-page';
-import { useState } from 'react';
 
 function App() {
 
