@@ -1,5 +1,5 @@
 import React from 'react';
-import techTitansLogo from '../../../../db/techTitansLogo.png';
+import techTitansLogo from './techTitansLogo.png';
 
 
 function Logo() {
