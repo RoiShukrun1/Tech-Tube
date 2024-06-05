@@ -63,6 +63,7 @@ const VideoWatchPage = ({ initVideoUrl }) => {
               setUrl={setVideoUrl}
               setVideos={setVideos}
               setMoreInfoPressed={setMoreInfoPressed}
+              videos={videos}
             />
           </div>
         </div>
