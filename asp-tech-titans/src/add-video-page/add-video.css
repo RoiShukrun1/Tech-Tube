@@ -1,0 +1,94 @@
+
+.container {
+  width: 1000px;
+  height: 900px;
+  margin: 0 auto;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d; 
+}
+.title-container {
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 50%; /* Adjust as needed */
+    height: 5%; /* Adjust as needed */
+}
+  .description-container {
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    width: 50%; /* Adjust as needed */
+    height: 16%; /* Adjust as needed */
+    top: 16%;
+    left: 10%;
+  }
+  .tags-container {
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    width: 50%; /* Adjust as needed */
+    height: 8%; /* Adjust as needed */
+    top: 33%;
+    left: 10%;
+  }
+  .addVideo {
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #4d4d4d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 30%; /* Adjust as needed */
+    height: 30%; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the icon horizontally */
+    overflow: hidden;  }
+
+
+  .thumbnail-label {
+    position: absolute;
+    top: 42%; /* Adjust the top value to position it vertically */
+    left: 10%; /* Adjust the right value to position it horizontally */
+    }
+    .thumbnail {
+        display: flex;
+        align-items: center;
+        
+    }
+    .thumbnail p {
+        margin-right: 10px; /* Space between text and image */
+        font-size: 25px;
+        font-weight: normal;
+      }
+    .ImageIcon {
+        width: 50px; /* Adjust as needed */
+        height: 50px; /* Adjust as needed */
+        cursor: pointer;
+    }
+  .addicon {
+    width: 20%; /* Adjust as needed */
+    height: 20%; /* Adjust as needed */
+  }
+  #videoTitle {
+    border: none; /* Removes the border */
+    outline: none; /* Removes the outline */
+}
+h1 {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    text-align: center;
+    font-size: 30px;
+}
