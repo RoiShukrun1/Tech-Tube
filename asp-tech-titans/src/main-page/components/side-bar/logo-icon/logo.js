@@ -1,11 +1,11 @@
 import React from 'react';
-import techTitansLogo from './techTitansLogo.png';
+import techTitansLogo from '../../../../db/techTitansLogo.png';
 
 
 function Logo() {
     return (
         <div className="logo-container">
-            <img src={techTitansLogo} alt="Logo" style={{ height: '130px', filter: 'none', WebkitFilter: 'none' }}/>
+            <img src={techTitansLogo} alt="Logo" style={{ height: '140px', filter: 'none', WebkitFilter: 'none' }}/>
         </div>
     );
 }

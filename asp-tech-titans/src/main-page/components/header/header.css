@@ -1,13 +1,12 @@
-/* header.css */
 .main-page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 10px; /* Reduce padding */
+  padding: 5px 10px; 
   background-color: #ffffff;
   color: white;
-  height: auto; /* Ensure height is auto */
-  border: none; /* Remove border */
+  height: auto; 
+  border: none; 
 }
 
 .flex-grow-1 {

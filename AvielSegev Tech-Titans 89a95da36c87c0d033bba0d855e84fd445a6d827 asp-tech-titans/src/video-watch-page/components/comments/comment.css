@@ -1,0 +1,69 @@
+.content{
+    font-size: medium;
+    font-weight: bold;
+    text-align: left;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+.username{
+    font-size: small;
+    font-weight: bold;
+    text-align: left;
+    display: flex;
+}
+.date{
+    font-size: small;
+    text-align: left;
+}
+.likesNumber{
+    font-size: 15px;
+    text-align: left;
+    display: inline-flex;
+    margin-right: 6px;
+}
+.dislike-icon-button {
+    padding: 0;
+    --bs-btn-padding-y: '.0rem';
+    --bs-btn-padding-x: '.0rem';
+    --bs-btn-font-size: '.50rem';
+    float: left;
+    margin: 6px;
+    border: none;
+}
+.like-icon-button {
+
+    --bs-btn-padding-y: '.0rem';
+    --bs-btn-padding-x: '.0rem';
+    --bs-btn-font-size: '.50rem';
+    float: left;
+    margin-right: 5px;
+    border: none;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    text-align: left;
+    padding: 0;
+}
+.circle-image {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid #000; 
+}
+.border{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+.reply-button{
+    border: none;
+    color: black;
+}
