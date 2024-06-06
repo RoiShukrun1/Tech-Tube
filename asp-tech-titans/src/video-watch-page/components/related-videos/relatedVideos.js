@@ -1,23 +1,24 @@
 import React from "react";
 import VideoCard from "./videoCard";
 import "./relatedVideos.css";
-import jsonData from "../../../db/videos.json";
 
 function getVideoById(jsonData, id) {
     return jsonData.find(obj => obj.id === id);
 }
 
-function relatedVideos({ RelatedVideos, setUrl, setSusbscribeButtonIsVisible, currentUser }) {
+function relatedVideos( {videos, relatedVideos, setUrl, setVideos, setMoreInfoPressed, setInputValue} ) {
     return (
         <div className="related-videos">
             <div className="video-list">
-                {RelatedVideos.map((relateVideo) => (
+                {relatedVideos.map((relateVideo) => (
                     <VideoCard
-                    video={getVideoById(jsonData, relateVideo.id)}
-                    setUrl={setUrl} 
-                    key={getVideoById(jsonData, relateVideo.id).id}
-                    setSusbscribeButtonIsVisible={setSusbscribeButtonIsVisible}
-                    currentUser={currentUser} />
+                        video={getVideoById(videos, relateVideo.id)}
+                        setUrl={setUrl}
+                        setVideos={setVideos}
+                        setMoreInfoPressed={setMoreInfoPressed}
+                        setInputValue={setInputValue}
+                        key={getVideoById(videos, relateVideo.id).id}
+                    />
                 ))}
             </div>
         </div>
@@ -25,3 +26,4 @@ function relatedVideos({ RelatedVideos, setUrl, setSusbscribeButtonIsVisible, cu
 }
 
 export default relatedVideos;
+export { getVideoById };
