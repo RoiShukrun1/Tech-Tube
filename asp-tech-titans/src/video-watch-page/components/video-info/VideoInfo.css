@@ -14,35 +14,19 @@
 }
 .btn{
     padding: 0%;
-}
-.publisher-photo{
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    object-fit: cover;
-    border: 2px solid #000; 
-    margin-bottom: 10px;
-    text-align: left;
-}
-.publisher{
-    font-size: medium;
-    text-align: left;
-    display: inline-flex;
-    margin-left: 8px;
-}
-.subscribe-button{
+}.download-button{
+    border: none;
     border-radius: 20px;
-    width: 100px;
+    width: 120px;
     height: 35px;
-    margin-left: 40px;
-    background-color: black;
-}
-.unsubscribe-button{
-    border: 1px solid black;
+    background-color: rgb(226, 226, 226);
+    float: right;
+}.share-button{
+    border: none;
     border-radius: 20px;
-    width: 100px;
+    width: 90px;
     height: 35px;
-    margin-left: 40px;
-    background-color: white;
+    background-color: rgb(226, 226, 226);
+    float: right;
+    margin-right: 1%;
 }
-
