@@ -1,19 +1,25 @@
 package com.example.tech_titans_app.ui.mainActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
+import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    private MainVideoViewModel videoViewModel;
     private RecyclerView lstVideos;
     private VideosListAdapter adapter;
     private List<Video> videoList;
@@ -29,20 +35,22 @@ public class MainActivity extends AppCompatActivity {
         lstVideos = findViewById(R.id.lstVideos);
         lstVideos.setLayoutManager(new LinearLayoutManager(this));
 
-        videoList = new ArrayList<>();
-        // Add some sample videos
-        videoList.add(new Video(R.drawable.image1, "Video 1 Title", "Publisher 1",  R.drawable.image1, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image2, "Video 2 Title", "Publisher 2",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image3, "Video 3 Title", "Publisher 3",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image4, "Video 4 Title", "Publisher 4",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image5, "Video 5 Title", "Publisher 4",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image6, "Video 6 Title", "Publisher 4",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image7, "Video 7 Title", "Publisher 5",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image8, "Video 8 Title", "Publisher 6",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image9, "Video 9 Title", "Publisher 7",  R.drawable.image2, "1M views", "10/10/2020"));
-        videoList.add(new Video(R.drawable.image10, "Video 10 Title", "Publisher 7",  R.drawable.image2, "1M views", "10/10/2020"));
-
-        adapter = new VideosListAdapter(videoList);
+        adapter = new VideosListAdapter();
         lstVideos.setAdapter(adapter);
+
+        videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
+        videoViewModel.getAllVideos().observe(this, videos -> {
+            adapter.setVideos(videos);
+        });
+
+
+        TextView homeButton = findViewById(R.id.home);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

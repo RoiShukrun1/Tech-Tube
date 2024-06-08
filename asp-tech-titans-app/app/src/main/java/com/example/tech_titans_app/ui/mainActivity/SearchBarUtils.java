@@ -16,8 +16,6 @@ public class SearchBarUtils {
     private final ImageView darkMode;
     private final ImageView logo;
 
-
-
     public SearchBarUtils(View rootView) {
         searchIcon = rootView.findViewById(R.id.search);
         backButton = rootView.findViewById(R.id.back_button);

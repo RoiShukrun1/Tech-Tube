@@ -17,11 +17,11 @@ import java.util.List;
 
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
 
-    private final List<Video> videoList;
+    private List<Video> videoList;
 
-    public VideosListAdapter(List<Video> videoList) {
-        this.videoList = videoList;
-    }
+//    public VideosListAdapter(List<Video> videoList) {
+//        this.videoList = videoList;
+//    }
 
     @NonNull
     @Override
@@ -33,7 +33,6 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Video video = videoList.get(position);
-
         holder.videoTitle.setText(video.getTitle());
         holder.publisher.setText(video.getPublisher());
         holder.views.setText(video.getViews());
@@ -45,6 +44,11 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     @Override
     public int getItemCount() {
         return videoList.size();
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videoList = videos;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
