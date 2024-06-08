@@ -23,7 +23,8 @@
         layout="@layout/main_video_scrolling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/filters" />
+        android:layout_below="@id/filters"
+        android:layout_above="@id/menu_bar"/>
 
     <include
         android:id="@+id/menu_bar"
