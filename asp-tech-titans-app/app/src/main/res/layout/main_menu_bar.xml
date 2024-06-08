@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="@string/home"
+        android:textSize="11sp"
+        app:drawableTopCompat="@drawable/home_icon" />
+
+    <TextView
+        android:id="@+id/shorts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="@string/for_you"
+        android:textSize="11sp"
+        app:drawableTopCompat="@drawable/for_you_icon" />
+
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:paddingBottom="18dp"
+        android:src="@drawable/main_add_new_video_icon"
+        android:contentDescription="@string/add_new_video" />
+
+    <TextView
+        android:id="@+id/subscriptions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="@string/subscriptions"
+        android:textSize="11sp"
+        app:drawableTopCompat="@drawable/subscriptions_icon" />
+
+    <TextView
+        android:id="@+id/you"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="@string/you"
+        android:textSize="11sp"
+        app:drawableTopCompat="@drawable/for_you_icon" />
+</LinearLayout>
