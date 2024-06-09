@@ -9,9 +9,8 @@ import java.util.List;
 
 public class MainVideoViewModel extends ViewModel {
 
-    private MutableLiveData<List<Video>> videos;
-    private List<Video> allVideos;
-    private VideosRepository repository;
+    private final MutableLiveData<List<Video>> videos;
+    private final VideosRepository repository;
 
     public MainVideoViewModel() {
         repository = new VideosRepository();
@@ -23,7 +22,6 @@ public class MainVideoViewModel extends ViewModel {
     }
 
     public void setVideos(List<Video> videoList) {
-        allVideos = videoList;
         videos.setValue(videoList);
     }
 
