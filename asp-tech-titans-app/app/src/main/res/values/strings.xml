@@ -7,4 +7,14 @@
     <string name="login_button_text">Login</string>
     <string name="login_success">Login successful</string>
     <string name="login_error">Please enter both username and password</string>
+    <string name="channel_name_views_time">Channel Name • Views • Time</string>
+    <string name="video_title">Video Title</string>
+    <string name="all">All</string>
+    <string name="music">Music</string>
+    <string name="home">Home</string>
+    <string name="for_you">For you</string>
+    <string name="add_new_video" />
+    <string name="subscriptions">Subscriptions</string>
+    <string name="you">You</string>
+    <string name="search_techtube">Search TechTube</string>
 </resources>
