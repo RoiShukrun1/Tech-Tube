@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class VideosRepository {
 
-    private MutableLiveData<List<Video>> videos;
+    private final MutableLiveData<List<Video>> videos;
     private List<Video> allVideos;
 
 
