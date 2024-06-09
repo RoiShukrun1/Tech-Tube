@@ -1,6 +1,6 @@
 import React from 'react';
 import './addNewVideo.css';
-import addVideoIcon from './add-video-icon.svg'; // Adjust the path if necessary
+import addVideoIcon from './add-video-icon.svg'; 
 
 function AddNewVideo() {
   return (
