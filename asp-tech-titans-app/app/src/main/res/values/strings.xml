@@ -13,4 +13,14 @@
         <item>Sport</item>
         <item>Study</item>
     </string-array>
+    <string name="channel_name_views_time">Channel Name • Views • Time</string>
+    <string name="video_title">Video Title</string>
+    <string name="all">All</string>
+    <string name="music">Music</string>
+    <string name="home">Home</string>
+    <string name="for_you">For you</string>
+    <string name="add_new_video" />
+    <string name="subscriptions">Subscriptions</string>
+    <string name="you">You</string>
+    <string name="search_techtube">Search TechTube</string>
 </resources>
