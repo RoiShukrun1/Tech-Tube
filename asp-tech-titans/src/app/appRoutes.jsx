@@ -6,8 +6,16 @@ import Registration from '../registration-page/registration';
 import VideoWatchPage from '../video-watch-page/video-watch-page';
 import UploadPage from '../add-video-page/upload-video';
 import AddPage from '../add-video-page/add-video';
+import VideoList from '../contexts/contextCheck';
+import { VideoProvider } from '../contexts/videoContext'; // Import the VideoContext
+import { AccountProvider } from '../contexts/accountContext'; // Import the AccountContext
+import { LoginProvider } from '../contexts/loginContext'; // Import the LoginContext
+
 const AppRoutes = () => {
   return (
+    <LoginProvider>
+    <AccountProvider>
+    <VideoProvider>
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/registration" element={<Registration />} />
@@ -16,7 +24,11 @@ const AppRoutes = () => {
       <Route path="/video" element={<VideoWatchPage />} />
       <Route path="/uploadPage" element={<UploadPage />} />
       <Route path="/addVideo" element={<AddPage />} />
+      <Route path="/videoList" element={<VideoList />} />
     </Routes>
+    </VideoProvider>
+    </AccountProvider>
+    </LoginProvider>
   );
 };
 

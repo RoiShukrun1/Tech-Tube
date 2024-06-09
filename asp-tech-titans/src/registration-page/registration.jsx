@@ -7,6 +7,8 @@ import { ReactComponent as ImageIcon } from '../images/addimage.svg'; // Replace
 import { ReactComponent as XIcon } from '../images/X.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { ReactComponent as VIcon } from '../images/V.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AccountContext } from '../contexts/accountContext';
 export const Registration = () => {
     const [image, setImage] = useState(null);
     const handleImageUpload = (event) => {
@@ -23,6 +25,7 @@ export const Registration = () => {
     const [nicknameImage, setNicknameImage] = useState(true);
     const [usernameImage, setUsernameImage] = useState(true);
     const navigate = useNavigate();
+    const { addAccount } = useContext(AccountContext);
 
     const handleNickname = (event) => {
         const newNickname = event.target.value;
@@ -122,12 +125,7 @@ export const Registration = () => {
             password: document.getElementById("password").value,
             image: image // Assuming you have the image state defined somewhere
         };
-        // Retrieve existing data from storage or initialize an empty array
-        const existingData = JSON.parse(sessionStorage.getItem('formData')) || [];
-        // Add the new data to the existing array
-        existingData.push(newData);
-        // Save the updated array back to storage
-        sessionStorage.setItem('formData', JSON.stringify(existingData));
+        addAccount(newData);
         alert("Registration successful");
         navigate('/login'); // Navigate to the login page
         }
