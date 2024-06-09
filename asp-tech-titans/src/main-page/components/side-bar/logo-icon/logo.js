@@ -5,7 +5,7 @@ import techTitansLogo from '../../../../db/techTitansLogo.png';
 function Logo() {
     return (
         <div className="logo-container">
-            <img src={techTitansLogo} alt="Logo" style={{height: "110px"}}/>
+            <img src={techTitansLogo} alt="Logo" style={{height: "105px"}}/>
         </div>
     );
 }

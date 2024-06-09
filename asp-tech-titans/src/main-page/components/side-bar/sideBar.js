@@ -43,12 +43,12 @@ function Sidebar() {
             <li className="list-group-item no-icon">Restaurants</li>
             <li className="list-group-item no-icon">Gaming</li>
             <li className="list-group-item no-icon">Mixes</li>
-            <li className="list-group-item no-icon">Computer Programming</li>
+            <li className="list-group-item no-icon">Computers</li>
             <li className="list-group-item no-icon">Satire</li>
             <li className="list-group-item no-icon">News</li>
             <li className="list-group-item no-icon">Tech House</li>
             <li className="list-group-item no-icon">Playlists</li>
-            <li className="list-group-item no-icon">Computer History</li>
+            <li className="list-group-item no-icon">History</li>
             <div className="divider"></div>
             <div className="categories-label">Explore</div>
             <li className="list-group-item"><img src={music} alt="Home" />Music</li>

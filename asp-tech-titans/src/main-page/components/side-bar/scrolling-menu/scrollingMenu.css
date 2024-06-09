@@ -53,7 +53,7 @@
 }
 
 .list-group-item.no-icon {
-  padding-left: 60px; /* Add padding to align text with items that have icons */
+  padding-left: 45px; /* Add padding to align text with items that have icons */
 }
 
 .divider {
@@ -65,7 +65,7 @@
   font-weight: bold;
   font-size: x-large;
   margin: 10px 0;
-  padding-left: 50px; /* Align with no-icon items */
+  padding-left: 5px; /* Align with no-icon items */
 }
 
 .overlay {
