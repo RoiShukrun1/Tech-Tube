@@ -2,7 +2,9 @@ package com.example.tech_titans_app.ui.mainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,18 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
-    private RecyclerView lstVideos;
     private VideosListAdapter adapter;
-    private List<Video> videoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +29,35 @@ public class MainActivity extends AppCompatActivity {
         new FilterUtils().setupFilterClickListeners(findViewById(android.R.id.content));
         new SearchBarUtils(findViewById(android.R.id.content));
 
-        lstVideos = findViewById(R.id.lstVideos);
+        RecyclerView lstVideos = findViewById(R.id.lstVideos);
         lstVideos.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new VideosListAdapter();
         lstVideos.setAdapter(adapter);
 
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
-        videoViewModel.getAllVideos().observe(this, videos -> {
-            adapter.setVideos(videos);
-        });
+        videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
 
 
         TextView homeButton = findViewById(R.id.home);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
         });
+
+        EditText searchInput = findViewById(R.id.search_input);
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                videoViewModel.filterVideos(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
     }
 }

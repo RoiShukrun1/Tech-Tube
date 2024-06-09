@@ -1,5 +1,6 @@
 package com.example.tech_titans_app.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
 
     private List<Video> videoList;
 
-//    public VideosListAdapter(List<Video> videoList) {
-//        this.videoList = videoList;
-//    }
+    @SuppressLint("NotifyDataSetChanged")
+    public void setVideos(List<Video> videos) {
+        this.videoList = videos;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -46,10 +50,6 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         return videoList.size();
     }
 
-    public void setVideos(List<Video> videos) {
-        this.videoList = videos;
-        notifyDataSetChanged();
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView videoTitle, publisher, views, date;

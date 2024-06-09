@@ -5,8 +5,6 @@ import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
 
-import java.util.Date;
-
 @Entity
 public class Video {
     @PrimaryKey(autoGenerate = true)

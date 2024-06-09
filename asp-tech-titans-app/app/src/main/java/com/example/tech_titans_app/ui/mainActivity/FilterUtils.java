@@ -10,15 +10,12 @@ public class FilterUtils {
     private TextView lastSelectedFilter;
 
     public void setupFilterClickListeners(View rootView) {
-        View.OnClickListener filterClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (lastSelectedFilter != null) {
-                    lastSelectedFilter.setSelected(false);
-                }
-                view.setSelected(true);
-                lastSelectedFilter = (TextView) view;
+        View.OnClickListener filterClickListener = view -> {
+            if (lastSelectedFilter != null) {
+                lastSelectedFilter.setSelected(false);
             }
+            view.setSelected(true);
+            lastSelectedFilter = (TextView) view;
         };
 
         rootView.findViewById(R.id.all_filter).setOnClickListener(filterClickListener);

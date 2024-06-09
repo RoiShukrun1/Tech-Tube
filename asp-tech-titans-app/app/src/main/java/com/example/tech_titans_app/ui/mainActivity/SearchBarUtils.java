@@ -28,25 +28,19 @@ public class SearchBarUtils {
     }
 
     private void setupSearchBar() {
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchLayout.setVisibility(View.VISIBLE);
-                searchIcon.setVisibility(View.GONE);
-                darkMode.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
-                searchInput.requestFocus();
-            }
+        searchIcon.setOnClickListener(v -> {
+            searchLayout.setVisibility(View.VISIBLE);
+            searchIcon.setVisibility(View.GONE);
+            darkMode.setVisibility(View.GONE);
+            logo.setVisibility(View.GONE);
+            searchInput.requestFocus();
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchLayout.setVisibility(View.GONE);
-                searchIcon.setVisibility(View.VISIBLE);
-                darkMode.setVisibility(View.VISIBLE);
-                logo.setVisibility(View.VISIBLE);
-            }
+        backButton.setOnClickListener(v -> {
+            searchLayout.setVisibility(View.GONE);
+            searchIcon.setVisibility(View.VISIBLE);
+            darkMode.setVisibility(View.VISIBLE);
+            logo.setVisibility(View.VISIBLE);
         });
     }
 }

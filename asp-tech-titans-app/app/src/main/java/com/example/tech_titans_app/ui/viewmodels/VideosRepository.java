@@ -6,20 +6,22 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VideosRepository {
 
     private MutableLiveData<List<Video>> videos;
+    private List<Video> allVideos;
+
 
     public VideosRepository() {
         videos = new MutableLiveData<>();
+        allVideos = new ArrayList<>();
         loadVideos();
     }
 
     private void loadVideos() {
-        // This is where you'd normally load data from a database or web service
         List<Video> videoList = new ArrayList<>();
-        // Populate with sample data
         videoList.add(new Video(R.drawable.image1, "Video 1 Title", "Publisher 1",  R.drawable.image1, "1M views", "10/10/2020"));
         videoList.add(new Video(R.drawable.image2, "Video 2 Title", "Publisher 2",  R.drawable.image2, "1M views", "10/10/2020"));
         videoList.add(new Video(R.drawable.image3, "Video 3 Title", "Publisher 3",  R.drawable.image2, "1M views", "10/10/2020"));
@@ -30,10 +32,37 @@ public class VideosRepository {
         videoList.add(new Video(R.drawable.image8, "Video 8 Title", "Publisher 6",  R.drawable.image2, "1M views", "10/10/2020"));
         videoList.add(new Video(R.drawable.image9, "Video 9 Title", "Publisher 7",  R.drawable.image2, "1M views", "10/10/2020"));
         videoList.add(new Video(R.drawable.image10, "Video 10 Title", "Publisher 7",  R.drawable.image2, "1M views", "10/10/2020"));
-        videos.setValue(videoList);
+        allVideos = videoList;
+        videos.setValue(allVideos);
     }
 
     public MutableLiveData<List<Video>> getAllVideos() {
         return videos;
+    }
+
+    public void searchVideos(String query) {
+        if (query == null || query.isEmpty()) {
+            videos.setValue(allVideos);
+            return;
+        }
+
+        String lowerCaseQuery = query.toLowerCase();
+        List<Video> filteredVideos = allVideos.stream()
+                .filter(video ->
+                        video.getTitle().toLowerCase().startsWith(lowerCaseQuery) || // Prefix match
+                                video.getPublisher().toLowerCase().equals(lowerCaseQuery) || // Exact publisher match
+                                containsWord(video.getTitle(), lowerCaseQuery)) // One word match
+                .collect(Collectors.toList());
+        videos.setValue(filteredVideos);
+    }
+
+    private boolean containsWord(String title, String query) {
+        String[] words = title.toLowerCase().split("\\s+");
+        for (String word : words) {
+            if (word.equals(query)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
