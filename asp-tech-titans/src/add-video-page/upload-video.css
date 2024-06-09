@@ -1,0 +1,127 @@
+.container {
+    width: 1000px;
+    height: 900px;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transform-style: preserve-3d;
+    background-color: #ffffff;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .upload-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .upload-container.hidden {
+    display: none;
+  }
+  
+  .upload-box {
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 50px;
+    background-color: #fffdfd;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .upload-label {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .upload-icon-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .upload-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .upload-instructions {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #aaa;
+  }
+  
+  .upload-button {
+    position: absolute;
+    bottom: 30px; /* Adjust as needed */
+    right: 42%; /* Adjust as needed */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #b52a03;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover {
+    background-color: #004ba1;
+  }
+  
+  .upload-note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .upload-footer {
+    margin-top: 30px;
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .upload-footer a {
+    color: #065fd4;
+  }
+  
+  .upload-footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .video-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+  }
+
+  .next-button {
+    position: absolute;
+    bottom: 30px; /* Adjust as needed */
+    right: 30px; /* Adjust as needed */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #b52a03;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  

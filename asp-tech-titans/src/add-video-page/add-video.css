@@ -1,94 +1,134 @@
-
 .container {
   width: 1000px;
-  height: 900px;
+  height: auto;
   margin: 0 auto;
   border: 2px solid #ccc;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  transform-style: preserve-3d; 
+  transform-style: preserve-3d;
+  background-color: #181818;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
 }
-.title-container {
-    border: 2px solid #000;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 50%; /* Adjust as needed */
-    height: 5%; /* Adjust as needed */
-}
-  .description-container {
-    border: 2px solid #000;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    width: 50%; /* Adjust as needed */
-    height: 16%; /* Adjust as needed */
-    top: 16%;
-    left: 10%;
-  }
-  .tags-container {
-    border: 2px solid #000;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    width: 50%; /* Adjust as needed */
-    height: 8%; /* Adjust as needed */
-    top: 33%;
-    left: 10%;
-  }
-  .addVideo {
-    border: 2px solid #000;
-    border-radius: 5px;
-    background-color: #4d4d4d;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 10%;
-    right: 5%;
-    width: 30%; /* Adjust as needed */
-    height: 30%; /* Adjust as needed */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the icon horizontally */
-    overflow: hidden;  }
 
-
-  .thumbnail-label {
-    position: absolute;
-    top: 42%; /* Adjust the top value to position it vertically */
-    left: 10%; /* Adjust the right value to position it horizontally */
-    }
-    .thumbnail {
-        display: flex;
-        align-items: center;
-        
-    }
-    .thumbnail p {
-        margin-right: 10px; /* Space between text and image */
-        font-size: 25px;
-        font-weight: normal;
-      }
-    .ImageIcon {
-        width: 50px; /* Adjust as needed */
-        height: 50px; /* Adjust as needed */
-        cursor: pointer;
-    }
-  .addicon {
-    width: 20%; /* Adjust as needed */
-    height: 20%; /* Adjust as needed */
-  }
-  #videoTitle {
-    border: none; /* Removes the border */
-    outline: none; /* Removes the outline */
+form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
+
 h1 {
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    text-align: center;
-    font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.title-container {
+  width: 90%;
+  height: 55px; /* Adjust this value as needed */
+  overflow: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f6f6f6;
+  color: #0b0b0b;
+}
+.tags-container {
+  width: 90%;
+  height: 55px;
+  overflow: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f6f6f6;
+  color: #0b0b0b;
+}
+.description-container {
+  width: 90%;
+  height: 130px;
+  overflow: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f6f6f6;
+  color: #0b0b0b;
+}
+
+.addVideo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.addicon {
+  width: 50px;
+  height: 50px;
+  fill: #ccc;
+  margin-bottom: 10px;
+}
+
+.video-preview {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 15px;
+  margin-top: 0px;
+}
+
+.thumbnail-label {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+}
+
+.thumbnail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ImageIcon {
+  width: 50px;
+  height: 50px;
+  fill: #ccc;
+  margin-bottom: 10px;
+}
+
+.image-preview {
+  width: 150px;
+  height: 100px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.media-container {
+  position: relative;
+  top: -90px;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Upload-button {
+  position: absolute;
+  bottom: 30px; /* Adjust as needed */
+  right: 30px; /* Adjust as needed */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #b52a03;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
 }
