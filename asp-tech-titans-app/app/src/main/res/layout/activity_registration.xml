@@ -79,14 +79,12 @@
         android:id="@+id/imageButton"
         android:layout_width="150dp"
         android:layout_height="109dp"
-        android:background="#FDF6FE"
-        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/nicknameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:srcCompat="@drawable/addimage" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <Button
         android:id="@+id/button2"

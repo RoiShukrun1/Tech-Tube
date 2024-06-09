@@ -1,10 +1,9 @@
 import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
-import { checkIfUserIsSubscribed } from '../../video-watch-page';
 
 
-function VideoCard({ video, setUrl, setSusbscribeButtonIsVisible, currentUser }) {
+function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -18,7 +17,26 @@ function VideoCard({ video, setUrl, setSusbscribeButtonIsVisible, currentUser })
 
     const handleClick = () => {
         setUrl(video.videoUrl);
-        setSusbscribeButtonIsVisible(!checkIfUserIsSubscribed(currentUser, video.publisher));
+        incrementViews();
+        setMoreInfoPressed(false);
+        setInputValue('');
+    };
+
+    const incrementViews = () => {
+        setVideos(prevVideos => {
+            const updatedVideos = [...prevVideos];
+
+            var thisVideoTitle = video.videoTitle;
+            const index = updatedVideos.findIndex(video => video.videoTitle === thisVideoTitle);
+
+            const updatedVideo = { ...updatedVideos[index] };
+
+            updatedVideo.views++;
+
+            updatedVideos[index] = updatedVideo;
+
+            return updatedVideos;
+        });
     };
 
     const renderPlayIcon = () => {
@@ -36,16 +54,16 @@ function VideoCard({ video, setUrl, setSusbscribeButtonIsVisible, currentUser })
     return (
         <div className="card">
             <div className="row g-0">
-                <div className="col-md-5"
+                <div className="col"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
                     <img src={video.imgUrl}
-                        className="img-fluid rounded-start"
+                        className="img-fluid rounded-start videoCard-image"
                         onClick={handleClick}
                     />
                     {isHovered && renderPlayIcon()}
                 </div>
-                <div className="col-md-7">
+                <div className="col">
                     <div className="card-body">
                         <h5 className="card-title">{video.videoTitle}</h5>
                         <p className="card-text">{video.publisher}</p>
