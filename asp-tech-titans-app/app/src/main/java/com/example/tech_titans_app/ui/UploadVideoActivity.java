@@ -1,4 +1,4 @@
-package com.example.tech_titans_app;
+package com.example.tech_titans_app.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,8 @@ import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tech_titans_app.R;
 
 public class UploadVideoActivity extends AppCompatActivity {
     private static final int PICK_VIDEO_REQUEST_VIDEO = 1;

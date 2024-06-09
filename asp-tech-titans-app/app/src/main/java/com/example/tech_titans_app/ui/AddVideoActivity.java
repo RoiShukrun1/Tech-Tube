@@ -1,4 +1,4 @@
-package com.example.tech_titans_app;
+package com.example.tech_titans_app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tech_titans_app.R;
 
 public class AddVideoActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST_THUMBNAIL = 1;
