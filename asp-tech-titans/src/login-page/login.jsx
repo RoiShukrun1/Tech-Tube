@@ -3,8 +3,10 @@ import './login.css'
 import logo from '../images/Logo.png'
 import { ReactComponent as ManIcon } from '../images/user.svg'; 
 import { ReactComponent as LockIcon } from '../images/lock.svg'; 
+import { Link, useNavigate } from 'react-router-dom';  // Import Link from react-router-dom
 
 export const Login = () => {
+  const navigate = useNavigate();
   const searchDataInSessionStorage = (key, value) => {
     const data = JSON.parse(sessionStorage.getItem(key)) || [];
     const results = data.filter(item => {
@@ -36,9 +38,11 @@ export const Login = () => {
     info.push(logInInfo);
     // Save the updated array back to storage
     sessionStorage.setItem('loggedIn', JSON.stringify(info));
+    navigate('/mainPage'); // Navigate to the profile page
   }
   
   return (
+    <div className='login-wrapper'>
     <div className='login-container'>
         <img src={logo} alt="Logo" />
         <form>
@@ -52,9 +56,10 @@ export const Login = () => {
         </div>
         <input type="submit" value="Login" onClick={hundleLogin} />
         <div>
-        <p>Don't have an account? <a href="/registration">Register</a></p>
+        <p>Don't have an account? <Link to="/registration">Register</Link></p>        
         </div>
         </form>
+    </div>
     </div>
   )
 } 

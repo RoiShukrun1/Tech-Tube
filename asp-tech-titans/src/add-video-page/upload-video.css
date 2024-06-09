@@ -1,4 +1,16 @@
-.container {
+.upload-warpper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.containerAVPUpload {
     width: 1000px;
     height: 900px;
     margin: 0 auto;

@@ -6,7 +6,7 @@ import { ReactComponent as LockIcon } from '../images/lock.svg';
 import { ReactComponent as ImageIcon } from '../images/addimage.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { ReactComponent as XIcon } from '../images/X.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { ReactComponent as VIcon } from '../images/V.svg'; // Replace '../images/image.svg' with the path to your image icon
-
+import { Link, useNavigate } from 'react-router-dom';
 export const Registration = () => {
     const [image, setImage] = useState(null);
     const handleImageUpload = (event) => {
@@ -22,6 +22,7 @@ export const Registration = () => {
     const [usernameMassage, setUsernameMassage] = useState(null);
     const [nicknameImage, setNicknameImage] = useState(true);
     const [usernameImage, setUsernameImage] = useState(true);
+    const navigate = useNavigate();
 
     const handleNickname = (event) => {
         const newNickname = event.target.value;
@@ -128,9 +129,11 @@ export const Registration = () => {
         // Save the updated array back to storage
         sessionStorage.setItem('formData', JSON.stringify(existingData));
         alert("Registration successful");
+        navigate('/login'); // Navigate to the login page
         }
     }
   return (
+    <div className='registration-wrapper'>
     <div className='registration-container'>
         <img src={logo} alt="Logo" />
         <form>
@@ -172,9 +175,10 @@ export const Registration = () => {
         </div>
         <input type="submit" value="Register" onClick={handleSubmit} />
         <div>
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <p>Already have an account? <Link to="/login">Log-in</Link></p>
         </div>
         </form>
+    </div>
     </div>
   )
 }
