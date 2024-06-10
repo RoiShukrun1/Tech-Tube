@@ -40,7 +40,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lstVideos"
+        android:id="@+id/listVideosVWP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/watch_video_page_comments"

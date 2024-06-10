@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -15,27 +16,39 @@
         android:textStyle="bold" />
 
     <!-- Video Description -->
+
+    <!-- Video Info (Subscribe) -->
+
+
+    <!-- Horizontal ScrollView for Like, Dislike, Download, Share -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
         android:id="@+id/text_description"
-        android:layout_width="match_parent"
+        android:layout_width="157dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Video Description"
         android:textSize="14sp" />
 
-    <!-- Video Info (Subscribe) -->
     <Button
         android:id="@+id/btn_subscribe"
-        android:layout_width="221dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#000000"
-        android:text="Subscribe"
-        android:textColor="#FFFFFF" />
+        android:text="@string/subscribe"
+        android:textColor="#FFFFFF"
+    />
+</LinearLayout>
 
 
-    <!-- Horizontal ScrollView for Like, Dislike, Download, Share -->
-    <LinearLayout
+<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -43,22 +56,32 @@
         <TextView
             android:id="@+id/all_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/main_filter_button_background_selector"
             android:padding="8dp"
-            android:layout_marginEnd="5dp"
-            android:text="Like"
-            android:textColor="#000000" />
+            android:text="@string/like"
+            android:textColor="#000000"
+            app:drawableStartCompat="@drawable/like"
+            android:drawablePadding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_description"
+            app:layout_constraintTop_toTopOf="@id/text_description" />
 
         <TextView
             android:id="@+id/computer_programming_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/main_filter_button_background_selector"
             android:padding="8dp"
-            android:layout_marginEnd="5dp"
-            android:text="Unlike"
-            android:textColor="#000000" />
+            android:text="@string/unlike"
+            android:textColor="#000000"
+            app:drawableStartCompat="@drawable/dislike"
+            android:drawablePadding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_description"
+            app:layout_constraintTop_toTopOf="@id/text_description" />
 
         <TextView
             android:id="@+id/music_filter"
@@ -67,18 +90,28 @@
             android:background="@drawable/main_filter_button_background_selector"
             android:padding="8dp"
             android:layout_marginEnd="5dp"
-            android:text="share"
-            android:textColor="#000000" />
+            android:text="@string/share"
+            android:textColor="#000000"
+            android:drawablePadding="8dp"
+            app:drawableStartCompat="@drawable/share_24"
+            app:layout_constraintStart_toEndOf="@id/text_description"
+            app:layout_constraintTop_toTopOf="@id/text_description"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/gaming_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/main_filter_button_background_selector"
             android:padding="8dp"
-            android:layout_marginEnd="5dp"
-            android:text="download"
-            android:textColor="#000000" />
+            android:text="@string/download"
+            android:textColor="#000000"
+            app:drawableStartCompat="@drawable/download"
+            android:drawablePadding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_description"
+            app:layout_constraintTop_toTopOf="@id/text_description"/>
 
     </LinearLayout>
 
