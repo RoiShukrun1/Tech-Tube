@@ -10,9 +10,12 @@ import VideoList from '../contexts/contextCheck';
 import { VideoProvider } from '../contexts/videoContext'; // Import the VideoContext
 import { AccountProvider } from '../contexts/accountContext'; // Import the AccountContext
 import { LoginProvider } from '../contexts/loginContext'; // Import the LoginContext
-
+import { VideoDataProvider} from '../contexts/videoDataContext';
+import LoginValidation from './loginValidation'; // Import the LoginValidation component
+ 
 const AppRoutes = () => {
   return (
+    <VideoDataProvider>
     <LoginProvider>
     <AccountProvider>
     <VideoProvider>
@@ -22,13 +25,14 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/mainPage" element={<MainPage />} />
       <Route path="/video" element={<VideoWatchPage />} />
-      <Route path="/uploadPage" element={<UploadPage />} />
-      <Route path="/addVideo" element={<AddPage />} />
+      <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
+      <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
       <Route path="/videoList" element={<VideoList />} />
     </Routes>
     </VideoProvider>
     </AccountProvider>
     </LoginProvider>
+    </VideoDataProvider>
   );
 };
 
