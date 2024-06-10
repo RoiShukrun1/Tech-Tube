@@ -1,14 +1,15 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #ffffff;
-    font-family: Arial, sans-serif;
-    font-size: 120%; 
-    font-weight: bold; 
-  }
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 120%;
+  font-weight: bold;
+}
+  
   .login-container {
     max-width: 500px;
     margin: 0 auto;
@@ -30,7 +31,7 @@ body {
     align-items: center;
     gap: 10px;
   }
-  input[type="submit"] {
+  .login-container input[type="submit"] {
     width: 100%; /* Makes the button take up the full width of its parent */
     background-color: #ff0000; /* Makes the button bright red */
     color: white; /* Makes the text on the button white */
@@ -40,21 +41,21 @@ body {
     border-radius: 10px;
   }
   
-  input[type="submit"]:hover {
+  .login-container input[type="submit"]:hover {
     background-color: #cc0000; /* Darkens the button when hovered over */
   }
 
-  input[type="text"]{
+  .login-container input[type="text"]{
     border: none; /* Removes the default borders */
     border-bottom: 2px solid black; /* Adds a bottom border */
     background: transparent; /* Makes the background transparent */
   }
-input[type="password"] {
+  .login-container input[type="password"] {
     border: none; /* Removes the default borders */
     border-bottom: 2px solid black; /* Adds a bottom border */
     background: transparent; /* Makes the background transparent */
-
     }
+
   .ManIcon {
     width: 20px; /* Adjust as needed */
     height: 20px; /* Adjust as needed */

@@ -16,25 +16,26 @@ export const AddVideo = () => {
     };
 
     return (
-        <div className="container">
+        <div className='addpage-warpper'>
+        <div className="containerAVPAddpage">
             <div>
                 <h1>Details:</h1>
                 <textarea 
-                    className="title-container"
+                    className="title-container-addpage"
                     placeholder="Enter your title"
                     id="title"
                     name="videoTitle"
                 ></textarea>
 
                 <textarea 
-                    className="description-container"
+                    className="description-container-addpage"
                     placeholder="Enter your description"
                     id="description"
                     name="videoDescription"
                 ></textarea>
 
                 <textarea 
-                    className="tags-container"
+                    className="tags-container-addpage"
                     placeholder="Enter tags"
                     id="tags"
                     name="tags"
@@ -69,6 +70,7 @@ export const AddVideo = () => {
                 </label>
             </div>
             <button className="Upload-button">Upload</button>
+        </div>
         </div>
     );
 }
