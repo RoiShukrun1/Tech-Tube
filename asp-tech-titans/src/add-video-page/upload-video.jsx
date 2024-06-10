@@ -3,7 +3,7 @@ import './upload-video.css';
 import { ReactComponent as UploadIcon } from '../images/addVideo.svg'; 
 import { Link } from 'react-router-dom';
 import { VideoContext } from '../contexts/videoContext'; // Import the VideoContext
-
+import LoginValidation from '../app/loginValidation';
 
 
 const UploadPage = () => {
