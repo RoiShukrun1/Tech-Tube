@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Video Title -->
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Video Title"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Video Description -->
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Video Description"
+        android:textSize="14sp" />
+
+    <!-- Video Info (Subscribe) -->
+    <Button
+        android:id="@+id/btn_subscribe"
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#000000"
+        android:text="Subscribe"
+        android:textColor="#FFFFFF" />
+
+
+    <!-- Horizontal ScrollView for Like, Dislike, Download, Share -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/all_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_filter_button_background_selector"
+            android:padding="8dp"
+            android:layout_marginEnd="5dp"
+            android:text="Like"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/computer_programming_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_filter_button_background_selector"
+            android:padding="8dp"
+            android:layout_marginEnd="5dp"
+            android:text="Unlike"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/music_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_filter_button_background_selector"
+            android:padding="8dp"
+            android:layout_marginEnd="5dp"
+            android:text="share"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/gaming_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_filter_button_background_selector"
+            android:padding="8dp"
+            android:layout_marginEnd="5dp"
+            android:text="download"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+</LinearLayout>

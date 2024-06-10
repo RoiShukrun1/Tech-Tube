@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity_watch_video_page">
+
+    <include
+        android:id="@+id/watch_video_page_player"
+        layout="@layout/watch_video_page_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
+
+    <include
+        android:id="@+id/filters"
+        layout="@layout/main_filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/watch_video_page_player"
+        />
+
+    <include
+        android:id="@+id/watch_video_page_video_info"
+        layout="@layout/watch_video_page_video_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filters"
+        />
+
+    <include
+        android:id="@+id/watch_video_page_comments"
+        layout="@layout/watch_video_page_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/watch_video_page_video_info"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lstVideos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/watch_video_page_comments"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

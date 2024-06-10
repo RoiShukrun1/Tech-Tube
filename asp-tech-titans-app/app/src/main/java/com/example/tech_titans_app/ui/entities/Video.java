@@ -16,6 +16,7 @@ public class Video {
     private String views;
     private CharSequence date;
     private String info;
+    private int videoUrl;
 
     public Video() {
         this.image = R.drawable.image1;
@@ -38,6 +39,19 @@ public class Video {
         this.views = views;
         this.date = date;
         this.info = info;
+    }
+
+    public Video(int image, String title, String publisher,
+                 int publisherImage, String views,
+                 CharSequence date, String info, int videoUrl) {
+        this.image = image;
+        this.title = title;
+        this.publisher = publisher;
+        this.publisherImage = publisherImage;
+        this.views = views;
+        this.date = date;
+        this.info = info;
+        this.videoUrl = videoUrl;
     }
 
     public int getId() {
@@ -103,4 +117,13 @@ public class Video {
     public void setInfo(String info) {
         this.info = info;
     }
+
+    public int getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(int videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
 }

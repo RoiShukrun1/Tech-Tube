@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       {/* <VideoWatchPage initVideoUrl={'/db/videos/1Digitalization; Where to start_.mp4'} /> */}
-       <MainPage/>
+       <VideoWatchPage initVideoUrl={'/db/videos/1Digitalization; Where to start_.mp4'}/>
     </div>
   );
 }
