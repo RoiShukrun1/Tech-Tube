@@ -7,7 +7,7 @@ import LoginValidation from '../app/loginValidation';
 
 
 const UploadPage = () => {
-  const [video, setVideo] = useState(null);
+  const [videoList, setVideo] = useState(null);
   const [message, setMessage] = useState(''); // Add state for message
   const videoInputRef = useRef(null);
   const { addNewVideo } = useContext(VideoContext);
@@ -35,11 +35,11 @@ const UploadPage = () => {
   return (
     <div className='upload-warpper'>
       <div className="containerAVPUpload">
-        <div className={`upload-container ${video ? 'hidden' : ''}`}>
+        <div className={`upload-container ${videoList ? 'hidden' : ''}`}>
           <div className="upload-box">
             <label htmlFor="videoUpload" className="upload-label">
               <div className="upload-icon-container">
-                {!video && <UploadIcon className="upload-icon" />}
+                {!videoList && <UploadIcon className="upload-icon" />}
               </div>
               <div className="upload-instructions">
                 Drag and drop video files to upload
@@ -56,7 +56,7 @@ const UploadPage = () => {
           </div>
         </div>
         <button className="upload-button" type="button" onClick={handleButtonClick}>SELECT FILE</button>
-        {video && <video src={video} className="video-preview" controls />}
+        {videoList && <video src={videoList} className="video-preview" controls />}
         {message && <p>{message}</p>}
         <Link to="/addVideo">
           <button className="next-button" type="button">Next</button>
