@@ -93,18 +93,6 @@ public class activity_watch_video_page extends AppCompatActivity {
         MainVideoViewModel videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
         videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
     }
-//    private void initiateCommentsSection() {
-//        RecyclerView listComments = findViewById(R.id.listComments);
-//        listComments.setLayoutManager(new LinearLayoutManager(this));
-//
-//        commentsAdapter = new commentsAdapter();
-//        listComments.setAdapter(adapter);
-//
-//        commentsViewModel commentViewModel =
-//                new ViewModelProvider(this).get(commentsViewModel.class);
-//        commentViewModel.getAllComments()
-//                .observe(this, comments -> commentsAdapter.setComments(comments));
-//    }
 
     public void addListeners() {
 
@@ -218,7 +206,6 @@ public class activity_watch_video_page extends AppCompatActivity {
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
         startActivity(intent);
     }
-
 
     public void setCurrentVideo(Video currentVideo) {
         this.currentVideo = currentVideo;

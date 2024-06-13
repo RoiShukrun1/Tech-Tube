@@ -42,6 +42,19 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
         holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
         holder.publisher.setText(comment.getPublisherUsername());
         holder.publisherImage.setImageResource(comment.getImagePath());
+
+        // Set click listeners for like and unlike buttons
+        holder.btnLike.setOnClickListener(v -> {
+            comment.likeButtonClick(holder.btnLike, holder.btnUnlike);
+            // Update likes count after click
+            holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
+        });
+
+        holder.btnUnlike.setOnClickListener(v -> {
+            comment.unlikeButtonClick(holder.btnUnlike, holder.btnLike);
+            // Update likes count after click
+            holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
+        });
     }
 
     @Override
@@ -52,6 +65,7 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView comment, publisher, likes, date;
         public CircleImageView publisherImage;
+        public TextView btnLike, btnUnlike;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +74,8 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
             date = itemView.findViewById(R.id.comment_date);
             publisherImage = itemView.findViewById(R.id.comment_publisher_image);
             likes = itemView.findViewById(R.id.Comment_likes);
+            btnLike = itemView.findViewById(R.id.comment_btn_like);
+            btnUnlike = itemView.findViewById(R.id.comment_btn_unlike);
         }
     }
 }
