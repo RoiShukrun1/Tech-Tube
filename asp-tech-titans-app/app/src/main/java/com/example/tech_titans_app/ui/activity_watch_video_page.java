@@ -40,7 +40,6 @@ public class activity_watch_video_page extends AppCompatActivity {
     private boolean isLiked = false;
     private boolean isUnliked = false;
     private boolean isSubscribed = false;
-    private boolean commentsExpanded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         // Set the video URI (you can also use a URL or a file path)
         this.currentVideo = new Video(R.drawable.image1, "Video 1 Title",
                 "Publisher 1",  R.drawable.image1,
-                "1000000", "10/10/2020", "The world is changing.",
+                "100", "10/10/2020", "The world is changing.",
                 R.raw.video4);
 
         this.currentVideo.addComment("HI");
@@ -99,6 +98,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Handle click event of the "Like" TextView
         TextView likeTextView = findViewById(R.id.btn_like);
+        likeTextView.setText(this.currentVideo.getViews());
         likeTextView.setOnClickListener(v -> likeButtonClick());
 
         // Handle click event of the "Unlike" TextView
@@ -148,6 +148,12 @@ public class activity_watch_video_page extends AppCompatActivity {
         if(isUnliked) {
             this.unlikeButtonClick();
         }
+        if(isLiked) {
+            this.currentVideo.decrementViews();
+        } else {
+            this.currentVideo.incrementViews();
+        }
+        likeTextView.setText(this.currentVideo.getViews());
         isLiked = !isLiked;  // Toggle the state
     }
 
