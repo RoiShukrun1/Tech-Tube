@@ -1,15 +1,21 @@
 package com.example.tech_titans_app.ui.entities;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Comment {
+public class Comment implements Serializable {
+    public Video parentVideo;
     private int id;
     private int numberOfLikes;
     private int userImagePath;
@@ -22,7 +28,8 @@ public class Comment {
     private boolean isUnliked = false;
 
     public Comment(int id, int numberOfLikes, String publisherUsername,
-                   String comment, String date, int userImagePath) {
+                   String comment, String date, int userImagePath, Video parent) {
+        this.parentVideo = parent;
         this.id = id;
         this.numberOfLikes = numberOfLikes;
         this.publisherUsername = publisherUsername;
@@ -142,7 +149,6 @@ public class Comment {
             decrementLikes();
         }
     }
-
 
     public void incrementLikes() {
         this.numberOfLikes += 1;

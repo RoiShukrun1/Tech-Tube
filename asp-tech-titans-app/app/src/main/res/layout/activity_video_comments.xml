@@ -20,7 +20,7 @@
             android:src="@drawable/close_24" />
 
         <EditText
-            android:id="@+id/editTextComment"
+            android:id="@+id/input_edit_Text_Comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top|start"

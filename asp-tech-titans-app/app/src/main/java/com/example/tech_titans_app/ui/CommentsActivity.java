@@ -3,9 +3,9 @@ package com.example.tech_titans_app.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,24 +15,41 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
+import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 public class CommentsActivity extends AppCompatActivity {
 
     private commentsViewModel commentsViewModel;
     private commentsAdapter commentsAdapter;
+    private Video currentVideo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_comments);
 
-        ImageButton button = findViewById(R.id.comments_close_button);
+        // Retrieve the video object from intent
+        Intent intent = getIntent();
+        currentVideo = (Video) intent.getSerializableExtra("video");
 
         initiateCommentsSection();
 
-        // Set OnClickListener for the ImageButton
+        initListeners();
+
+    }
+
+    private void initListeners() {
+
+        ImageButton button = findViewById(R.id.comments_close_button);
         button.setOnClickListener(v -> navigateBackToMain());
+
+        TextView commentSubmit = findViewById(R.id.comment_submit);
+        commentSubmit.setOnClickListener(v -> handleSubmitClick());
+
+        TextView commentCancel = findViewById(R.id.comment_cancel);
+        commentCancel.setOnClickListener(v -> handleCancelClick());
+
     }
 
     private void initiateCommentsSection() {
@@ -43,12 +60,36 @@ public class CommentsActivity extends AppCompatActivity {
         listComments.setAdapter(commentsAdapter);
 
         commentsViewModel = new ViewModelProvider(this).get(commentsViewModel.class);
-        commentsViewModel.getAllComments().observe(this, comments -> commentsAdapter.setComments(comments));
+
+        commentsViewModel.getRepository().loadComments(this.currentVideo);
+
+        commentsViewModel.getAllComments()
+                .observe(this, comments -> commentsAdapter.setComments(comments));
+
+        commentsViewModel.getAllComments().observe(this, comments -> {
+        });
     }
 
     private void navigateBackToMain() {
         Intent intent = new Intent(this, activity_watch_video_page.class);
         setResult(Activity.RESULT_OK, intent);
-        finish(); // Optional: Close this activity if not needed anymore
+        finish();
     }
+
+    public void handleSubmitClick() {
+
+        EditText input = findViewById(R.id.input_edit_Text_Comment);
+        String commentText = input.getText().toString().trim();
+
+        if (!commentText.isEmpty() && currentVideo != null) {
+            this.commentsViewModel.addCommentToVideo(currentVideo, commentText);
+            input.setText(""); // Clear the input field
+        }
+    }
+
+    public void handleCancelClick() {
+        EditText input = findViewById(R.id.input_edit_Text_Comment);
+        input.setText(""); // Clear the input field
+    }
+
 }

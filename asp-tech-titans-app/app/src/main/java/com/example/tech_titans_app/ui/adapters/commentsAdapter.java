@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Comment;
-import com.example.tech_titans_app.ui.entities.Video;
 
 import java.util.List;
 
@@ -65,7 +65,8 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView comment, publisher, likes, date;
         public CircleImageView publisherImage;
-        public TextView btnLike, btnUnlike;
+        public TextView btnLike, btnUnlike, commentSubmit, commentCancel;
+        public EditText commentEditText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

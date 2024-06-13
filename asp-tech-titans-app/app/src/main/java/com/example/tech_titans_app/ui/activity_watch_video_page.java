@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -22,21 +21,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
+import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
-import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 
 import androidx.core.content.ContextCompat;
 import android.graphics.drawable.Drawable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class activity_watch_video_page extends AppCompatActivity {
 
     private Video currentVideo;
     private VideosListAdapter adapter;
-    private commentsAdapter commentsAdapter;
-
     private boolean isLiked = false;
     private boolean isUnliked = false;
     private boolean isSubscribed = false;
@@ -54,7 +54,6 @@ public class activity_watch_video_page extends AppCompatActivity {
         setVideoTitle();
         setVideoDetails();
         setvideoDescription();
-//        initiateCommentsSection();
     }
 
     private void initiateVideoPlayer() {
@@ -65,6 +64,8 @@ public class activity_watch_video_page extends AppCompatActivity {
                 "Publisher 1",  R.drawable.image1,
                 "1000000", "10/10/2020", "The world is changing.",
                 R.raw.video4);
+
+        this.currentVideo.addComment("HI");
 
         String videoPath = "android.resource://"
                 + getPackageName() + "/" + this.currentVideo.getVideoUrl();
@@ -204,6 +205,7 @@ public class activity_watch_video_page extends AppCompatActivity {
     public void openCommentsActivity() {
         Intent intent =
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
+        intent.putExtra("video", this.currentVideo);
         startActivity(intent);
     }
 

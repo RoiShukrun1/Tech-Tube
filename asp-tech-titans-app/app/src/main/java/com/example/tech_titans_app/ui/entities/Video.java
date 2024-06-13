@@ -1,10 +1,14 @@
 package com.example.tech_titans_app.ui.entities;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.CommentsActivity;
+import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Entity
-public class Video {
+public class Video implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int image;
@@ -28,6 +32,7 @@ public class Video {
     public Video() {
         this.image = R.drawable.image1;
     }
+
 
     public Video(int image, String title, String publisher, int publisherImage, String views, CharSequence date) {
         this.image = image;
@@ -63,6 +68,11 @@ public class Video {
         this.videoUrl = videoUrl;
         this.comments = new ArrayList<>();
     }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
 
     public int getId() {
         return id;
@@ -142,7 +152,7 @@ public class Video {
         int numberOfComments = comments.size();
         Comment newComment = new Comment(numberOfComments + 1,
                 0, "Aviel Segev",
-                Video.getTodayDate(), comment, R.drawable.image2);
+                Video.getTodayDate(), comment, R.drawable.image2, this);
         comments.add(newComment);
     }
 
