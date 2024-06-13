@@ -10,6 +10,7 @@
         android:id="@+id/video_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:importantForAccessibility="no"
         android:src="@drawable/image1"
         android:scaleType="centerCrop" />
 
@@ -20,7 +21,8 @@
         android:gravity="center_vertical"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:paddingStart="5dp">
+        android:paddingStart="5dp"
+        tools:ignore="RtlSymmetry">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/publisher_image"

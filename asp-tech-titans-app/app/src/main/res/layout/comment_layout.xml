@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -12,7 +13,8 @@
         android:orientation="horizontal"
         android:paddingStart="5dp"
         android:paddingTop="4dp"
-        android:paddingBottom="4dp">
+        android:paddingBottom="4dp"
+        tools:ignore="RtlSymmetry">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/comment_publisher_image"
@@ -39,7 +41,6 @@
                     android:layout_marginEnd="7dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="comment_publisher"
                     android:textStyle="bold" />
 
                 <TextView
@@ -48,7 +49,6 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="comment_date"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Comment" />
+                    />
 
             </LinearLayout>
 
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="likes number" />
+                    />
 
                 <TextView
                     android:id="@+id/comment_btn_unlike"
