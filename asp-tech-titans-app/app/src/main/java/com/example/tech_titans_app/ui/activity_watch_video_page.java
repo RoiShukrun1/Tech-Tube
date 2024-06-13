@@ -1,9 +1,11 @@
 package com.example.tech_titans_app.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -153,15 +155,11 @@ public class activity_watch_video_page extends AppCompatActivity {
         isUnliked = !isUnliked;  // Toggle the state
     }
 
-    // Method to handle the "Share" click event
-    public void shareButtonClick() {
-        System.out.println("this is share");
-    }
-
     // Method to handle the "Download" click event
     public void downloadButtonClick() {
         Toast.makeText(this,
-                "Will be implemented after data will migrate to server side",
+                "Will be implemented after data will migrate to server side." +
+                        " needs an http/s path",
                 Toast.LENGTH_LONG).show();
     }
 
@@ -181,6 +179,19 @@ public class activity_watch_video_page extends AppCompatActivity {
             subscribeButton.setText(getString(R.string.subscribe));
         }
     }
+
+    public void shareButtonClick() {
+        String s = "android.resource://"
+                + getPackageName() + "/" + this.currentVideo.getVideoUrl();
+        // Create the share intent
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, s);
+
+        // Start the chooser activity
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
 
     public void setCurrentVideo(Video currentVideo) {
         this.currentVideo = currentVideo;
