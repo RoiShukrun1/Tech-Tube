@@ -14,7 +14,7 @@
   border-radius: 10px;
   width: 99%; /* Adjust width to accommodate the scroll buttons */
   scroll-behavior: smooth;
-  margin: 0 4%; /* Add margin to give space for scroll buttons */
+  margin: 0 5%; /* Add margin to give space for scroll buttons */
 }
 
 /* Hide default scrollbar */

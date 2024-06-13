@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VideoThumbnail from './components/video-thumbnail/videoThumbnail';
 import jsonData from '../db/videos.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,6 +15,13 @@ const MainPage = ({ setUrl }) => {
     setVideos(filteredVideos);
   };
 
+  useEffect(() => {
+    document.body.style.overflowX = 'hidden';
+    return () => {
+      document.body.style.overflowX = 'auto';
+    };
+  }, []);
+
   return (
     <div className="container-fluid">
       <div className="row no-gutters">
@@ -27,7 +34,7 @@ const MainPage = ({ setUrl }) => {
             <Filters />
             <div className="row no-gutters">
               {videos.map((video, index) => (
-                <div key={index} className="col-md-3 p-1">
+                <div key={index} className="col-md-4 p-1">
                   <VideoThumbnail video={video} onClick={() => setUrl(video.videoUrl)} />
                 </div>
               ))}

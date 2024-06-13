@@ -1,7 +1,7 @@
 .header-buttons {
   display: flex;
   align-items: center;
-  gap: 5%;
+  gap: 10%;
   margin-top: 2%;
 }
 

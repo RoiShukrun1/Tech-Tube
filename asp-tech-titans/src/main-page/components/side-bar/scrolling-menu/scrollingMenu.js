@@ -18,7 +18,7 @@ import report from '../../../../db/icons/comment-blog-icon.svg';
 import help from '../../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../../db/icons/pencil-icon.svg';
 import techTitansLogo from '../../../../db/techTitansLogo.png';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const ScrollingMenu = ({ isOpen, toggleMenu }) => {
   return (
@@ -30,7 +30,7 @@ const ScrollingMenu = ({ isOpen, toggleMenu }) => {
         </div>
         <div className="scrollable-menu">
           <ul className="list-group list-group-flush">
-            <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
+            <Link to="/mainPage"><li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li></Link>
             <li className="list-group-item"><img src={subscriptions} alt="Subscriptions" /> Subscriptions</li>
             <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
             <div className="divider"></div>
