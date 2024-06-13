@@ -1,8 +1,10 @@
 package com.example.tech_titans_app.ui;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,7 @@ public class activity_watch_video_page extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private boolean isLiked = false;
     private boolean isUnliked = false;
+    private boolean isSubscribed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +167,19 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     // Method to handle the "Download" click event
     public void subscribeButtonClick() {
-        System.out.println("this is subscribe");
+        Button subscribeButton = findViewById(R.id.btn_subscribe);
+        isSubscribed = !isSubscribed;
+        if (isSubscribed) {
+            // Subscribed state: text color black, background white, text "Subscribed"
+            subscribeButton.setTextColor(Color.BLACK);
+            subscribeButton.setBackgroundColor(Color.WHITE);
+            subscribeButton.setText(getString(R.string.subscribed));
+        } else {
+            // Not subscribed state: text color white, background black, text "Subscribe"
+            subscribeButton.setTextColor(Color.WHITE);
+            subscribeButton.setBackgroundColor(Color.BLACK);
+            subscribeButton.setText(getString(R.string.subscribe));
+        }
     }
 
     public void setCurrentVideo(Video currentVideo) {
