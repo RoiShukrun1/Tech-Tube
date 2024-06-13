@@ -21,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
+import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
+import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
+
 
 import androidx.core.content.ContextCompat;
 import android.graphics.drawable.Drawable;
@@ -32,10 +35,12 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     private Video currentVideo;
     private VideosListAdapter adapter;
-    private MainVideoViewModel videoViewModel;
+    private commentsAdapter commentsAdapter;
+
     private boolean isLiked = false;
     private boolean isUnliked = false;
     private boolean isSubscribed = false;
+    private boolean commentsExpanded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +50,11 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         initiateVideoPlayer();
         initiateRelatedVideos();
-        addButtonsListeners();
+        addListeners();
         setVideoTitle();
         setVideoDetails();
         setvideoDescription();
+//        initiateCommentsSection();
     }
 
     private void initiateVideoPlayer() {
@@ -84,11 +90,23 @@ public class activity_watch_video_page extends AppCompatActivity {
         adapter = new VideosListAdapter();
         lstVideos.setAdapter(adapter);
 
-        videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
+        MainVideoViewModel videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
         videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
     }
+//    private void initiateCommentsSection() {
+//        RecyclerView listComments = findViewById(R.id.listComments);
+//        listComments.setLayoutManager(new LinearLayoutManager(this));
+//
+//        commentsAdapter = new commentsAdapter();
+//        listComments.setAdapter(adapter);
+//
+//        commentsViewModel commentViewModel =
+//                new ViewModelProvider(this).get(commentsViewModel.class);
+//        commentViewModel.getAllComments()
+//                .observe(this, comments -> commentsAdapter.setComments(comments));
+//    }
 
-    public void addButtonsListeners() {
+    public void addListeners() {
 
         // Handle click event of the "Like" TextView
         TextView likeTextView = findViewById(R.id.btn_like);
@@ -110,6 +128,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         TextView subscribeTextView = findViewById(R.id.btn_subscribe);
         subscribeTextView.setOnClickListener(v -> subscribeButtonClick());
 
+        // Handle click event of the comment collapsed view
+        TextView commentCollapsedView = findViewById(R.id.comment_collapsed_view);
+        commentCollapsedView.setOnClickListener(v -> openCommentsActivity());
     }
 
     public void setVideoTitle() {
@@ -190,6 +211,12 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Start the chooser activity
         startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
+    public void openCommentsActivity() {
+        Intent intent =
+                new Intent(activity_watch_video_page.this, CommentsActivity.class);
+        startActivity(intent);
     }
 
 

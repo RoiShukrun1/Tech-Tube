@@ -141,8 +141,8 @@ public class Video {
     public void addComment(String comment) {
         int numberOfComments = comments.size();
         Comment newComment = new Comment(numberOfComments + 1,
-                0,
-                Video.getTodayDate(), comment);
+                0, "Aviel Segev",
+                Video.getTodayDate(), comment, R.drawable.image2);
         comments.add(newComment);
     }
 

@@ -8,15 +8,19 @@ public class Comment {
     private int numberOfLikes;
     private int userImagePath;
     private List<Integer> usersLikeId;
-    private List<Integer> usersunLikeId;
+    private List<Integer> usersUnlikeId;
+    private String publisherUsername;
     private String comment;
     private String date;
 
-    public Comment(int id, int numberOfLikes, String comment, String date) {
+    public Comment(int id, int numberOfLikes,String publisherUsername,
+                   String comment, String date, int userImagePath) {
         this.id = id;
         this.numberOfLikes = numberOfLikes;
+        this.publisherUsername = publisherUsername;
         this.comment = comment;
         this.date = date;
+        this.userImagePath = userImagePath;
     }
 
     public void setId(int id) {
@@ -36,7 +40,7 @@ public class Comment {
     }
 
     public void setUsersunLikeId(List<Integer> usersunLikeId) {
-        this.usersunLikeId = usersunLikeId;
+        this.usersUnlikeId = usersunLikeId;
     }
 
     public void setComment(String comment) {
@@ -60,7 +64,15 @@ public class Comment {
     }
 
     public List<Integer> getUsersunLikeId() {
-        return usersunLikeId;
+        return usersUnlikeId;
+    }
+
+    public String getPublisherUsername() {
+        return publisherUsername;
+    }
+
+    public void setPublisherUsername(String publisherUsername) {
+        this.publisherUsername = publisherUsername;
     }
 
     public String getComment() {
