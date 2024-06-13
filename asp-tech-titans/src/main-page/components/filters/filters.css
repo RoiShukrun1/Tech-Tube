@@ -1,38 +1,43 @@
+.filter-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%; /* Ensure the container takes full width */
+}
+
 .video-categories {
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
-  padding: 10px;
+  padding: 1%;
   background-color: #ffffff;
   border-radius: 10px;
-  width: 100%;
+  width: 99%; /* Adjust width to accommodate the scroll buttons */
+  scroll-behavior: smooth;
+  margin: 0 4%; /* Add margin to give space for scroll buttons */
 }
 
-/* Custom scrollbar styling */
+/* Hide default scrollbar */
 .video-categories::-webkit-scrollbar {
-  height: 12px; /* Height of the scrollbar */
+  display: none;
 }
 
-.video-categories::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Color of the scrollbar handle */
-  border-radius: 6px; /* Rounded corners for the scrollbar handle */
-}
-
-.video-categories::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
+.video-categories.fade-left .filter-button:first-child,
+.video-categories.fade-right .filter-button:last-child {
+  opacity: 0.5; /* Apply fade effect */
 }
 
 .filter-button {
   display: inline-block;
-  padding: 10px 20px;
-  margin-right: 10px;
+  padding: 1% 2%;
+  margin-right: 1%;
   border: none;
   background-color: #e7e7e7;
   color: #333;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: large;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  font-size: medium;
   font-weight: bold;
 }
 
@@ -47,4 +52,33 @@
 
 .filter-button:last-child {
   margin-right: 0;
+}
+
+.scroll-button {
+  border: none;
+  background-color: transparent;
+  color: #333;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 1%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-button:hover {
+  background-color: #ccc;
+}
+
+.scroll-button.left {
+  position: absolute;
+  left: 0;
+}
+
+.scroll-button.right {
+  position: absolute;
+  right: 0;
 }

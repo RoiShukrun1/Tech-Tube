@@ -1,14 +1,14 @@
 import React from 'react';
-import './addNewVideo.css';
+import './addNewVideoButton.css';
 import addVideoIcon from './add-video-icon.svg'; 
 
-function AddNewVideo() {
+function AddNewVideoButton() {
   return (
     <button className="add-video-button">
-      <img src={addVideoIcon} alt="Add Video" />
+      <img className="add-video-button-img" src={addVideoIcon} alt="Add Video" />
       <span className="tooltip-text">Create</span>
     </button>
   );
 }
 
-export default AddNewVideo;
+export default AddNewVideoButton;

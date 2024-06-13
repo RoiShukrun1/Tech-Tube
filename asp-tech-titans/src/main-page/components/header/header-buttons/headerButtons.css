@@ -1,31 +1,10 @@
 .header-buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5%;
+  margin-top: 2%;
 }
 
-.header-buttons .login-button,
-.header-buttons .dark-mode-button {
-  display: inline-block;
-  padding: 10px 20px;
-  border: none;
-  background-color: #e7e7e7;
-  color: #333;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.header-buttons .login-button:hover,
-.header-buttons .dark-mode-button:hover {
-  background-color: #ccc;
-}
-
-.header-buttons .login-button.active,
-.header-buttons .dark-mode-button.active {
-  background-color: #333;
-  color: #fff;
-}
 
 
 
