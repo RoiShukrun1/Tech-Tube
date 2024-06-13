@@ -62,7 +62,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         this.currentVideo = new Video(R.drawable.image1, "Video 1 Title",
                 "Publisher 1",  R.drawable.image1,
                 "100", "10/10/2020", "The world is changing.",
-                R.raw.video4);
+                R.raw.video4, 7);
 
         this.currentVideo.addComment("HI");
 
@@ -98,7 +98,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Handle click event of the "Like" TextView
         TextView likeTextView = findViewById(R.id.btn_like);
-        likeTextView.setText(this.currentVideo.getViews());
+        likeTextView.setText(this.currentVideo.getLikes());
         likeTextView.setOnClickListener(v -> likeButtonClick());
 
         // Handle click event of the "Unlike" TextView
@@ -149,11 +149,11 @@ public class activity_watch_video_page extends AppCompatActivity {
             this.unlikeButtonClick();
         }
         if(isLiked) {
-            this.currentVideo.decrementViews();
+            this.currentVideo.decrementLikes();
         } else {
-            this.currentVideo.incrementViews();
+            this.currentVideo.incrementLikes();
         }
-        likeTextView.setText(this.currentVideo.getViews());
+        likeTextView.setText(this.currentVideo.getLikes());
         isLiked = !isLiked;  // Toggle the state
     }
 
