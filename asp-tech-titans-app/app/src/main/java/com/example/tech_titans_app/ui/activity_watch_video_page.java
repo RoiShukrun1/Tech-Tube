@@ -189,5 +189,4 @@ public class activity_watch_video_page extends AppCompatActivity {
     public Video getCurrentVideo() {
         return currentVideo;
     }
-
 }
