@@ -5,6 +5,12 @@ import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 @Entity
 public class Video {
     @PrimaryKey(autoGenerate = true)
@@ -17,6 +23,7 @@ public class Video {
     private CharSequence date;
     private String info;
     private int videoUrl;
+    private List<Comment> comments;
 
     public Video() {
         this.image = R.drawable.image1;
@@ -29,6 +36,7 @@ public class Video {
         this.publisherImage = publisherImage;
         this.views = views;
         this.date = date;
+        this.comments = new ArrayList<>();
     }
 
     public Video(int image, String title, String publisher, int publisherImage, String views, CharSequence date, String info) {
@@ -39,6 +47,7 @@ public class Video {
         this.views = views;
         this.date = date;
         this.info = info;
+        this.comments = new ArrayList<>();
     }
 
     public Video(int image, String title, String publisher,
@@ -52,6 +61,7 @@ public class Video {
         this.date = date;
         this.info = info;
         this.videoUrl = videoUrl;
+        this.comments = new ArrayList<>();
     }
 
     public int getId() {
@@ -125,5 +135,33 @@ public class Video {
     public void setVideoUrl(int videoUrl) {
         this.videoUrl = videoUrl;
     }
+    public List<Comment> getComments() {
+        return comments;
+    }
+    public void addComment(String comment) {
+        int numberOfComments = comments.size();
+        Comment newComment = new Comment(numberOfComments + 1,
+                0,
+                Video.getTodayDate(), comment);
+        comments.add(newComment);
+    }
 
+    public static String getTodayDate() {
+        // Get a Calendar instance
+        Calendar calendar = Calendar.getInstance();
+
+        // Get current date in the desired format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
+    }
+    public void incrementViews(){
+        int numOfViews = Integer.parseInt(this.views);
+        numOfViews++;
+        this.views = String.valueOf(numOfViews);
+    }
+    public void decrementViews(){
+        int numOfViews = Integer.parseInt(this.views);
+        numOfViews--;
+        this.views = String.valueOf(numOfViews);
+    }
 }

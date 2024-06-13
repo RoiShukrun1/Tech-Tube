@@ -16,19 +16,11 @@
          />
 
     <include
-        android:id="@+id/filters"
-        layout="@layout/main_filters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/watch_video_page_player"
-        />
-
-    <include
         android:id="@+id/watch_video_page_video_info"
         layout="@layout/watch_video_page_video_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/filters"
+        android:layout_below="@+id/watch_video_page_player"
         />
 
     <include

@@ -1,12 +1,8 @@
 package com.example.tech_titans_app.ui;
 
-import android.Manifest;
-import android.app.DownloadManager;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +10,7 @@ import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,8 +39,10 @@ public class activity_watch_video_page extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         initiateVideoPlayer();
+        initiateRelatedVideos();
         addButtonsListeners();
         setVideoTitle();
+        setVideoDetails();
         setvideoDescription();
     }
 
@@ -54,7 +52,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         // Set the video URI (you can also use a URL or a file path)
         this.currentVideo = new Video(R.drawable.image1, "Video 1 Title",
                 "Publisher 1",  R.drawable.image1,
-                "1M views", "10/10/2020", "The world is changing.",
+                "1000000", "10/10/2020", "The world is changing.",
                 R.raw.video4);
 
         String videoPath = "android.resource://"
@@ -72,7 +70,9 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Start the video
         videoView.start();
+    }
 
+    private void initiateRelatedVideos() {
         RecyclerView lstVideos = findViewById(R.id.listVideosVWP);
         lstVideos.setLayoutManager(new LinearLayoutManager(this));
 
@@ -112,6 +112,13 @@ public class activity_watch_video_page extends AppCompatActivity {
         titleTextView.setText(currentVideo.getTitle());
     }
 
+    public void setVideoDetails() {
+        TextView titleTextView = findViewById(R.id.video_details);
+        String details;
+        details = this.currentVideo.getViews() + " views " + this.currentVideo.getDate();
+        titleTextView.setText(details);
+    }
+
     public void setvideoDescription() {
         TextView descriptionTextView = findViewById(R.id.video_description);
         descriptionTextView.setText(currentVideo.getInfo());
@@ -149,32 +156,10 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     // Method to handle the "Download" click event
-    // Method to handle the "Download" click event
     public void downloadButtonClick() {
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-//        } else {
-//            startDownload();
-//        }
-    }
-
-    private void startDownload() {
-//        String videoUrl = Integer.toString(currentVideo.getVideoUrl()); // Ensure this is a valid URL
-//        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(videoUrl));
-//        request.setTitle("Downloading Video")
-//                .setDescription("Downloading " + currentVideo.getTitle())
-//                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-//                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, currentVideo.getTitle() + ".mp4");
-//
-//        DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-//        if (downloadManager != null) {
-//            downloadManager.enqueue(request);
-//            Toast.makeText(this, "Download started", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Failed to start download", Toast.LENGTH_SHORT).show();
-//        }
+        Toast.makeText(this,
+                "Will be implemented after data will migrate to server side",
+                Toast.LENGTH_LONG).show();
     }
 
     // Method to handle the "Download" click event
