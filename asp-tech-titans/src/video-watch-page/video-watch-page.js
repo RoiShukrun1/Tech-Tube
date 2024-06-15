@@ -22,7 +22,7 @@ const VideoWatchPage = ({ initVideoUrl }) => {
 
   const [users, setUsers] = useState(usersData); // the current user for now is the first user in the users.json file
   const [videos, setVideos] = useState(jsonData);
-  console.log("videos", videos);  
+  console.log(videos);
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [moreInfoPressed, setMoreInfoPressed] = useState(false);
