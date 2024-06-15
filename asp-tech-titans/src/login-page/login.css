@@ -20,12 +20,12 @@
     transform-style: preserve-3d; 
   }
 
-  img {
+  .login-img {
     display: block;
     margin-bottom: 20px; 
   }
 
-  form {
+  .login-form {
     display: flex;
     flex-direction: column;
     align-items: center;

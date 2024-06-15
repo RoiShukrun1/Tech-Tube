@@ -30,8 +30,8 @@ export const Login = () => {
   return (
     <div className='login-wrapper'>
     <div className='login-container'>
-        <img src={logo} alt="Logo" />
-        <form>
+        <img className='login-img' src={logo} alt="Logo" />
+        <form className='login-form'>
         <div>
         <ManIcon className="ManIcon" /> 
         <input type="text" id="username" name="username" placeholder="Username" />

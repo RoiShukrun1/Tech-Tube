@@ -19,12 +19,12 @@
     transform-style: preserve-3d; 
   }
 
-  img {
+  .registration-img {
     display: block;
     margin-bottom: 20px; 
   }
 
-  form {
+  .registration-form {
     display: flex;
     flex-direction: column;
     align-items: center;
