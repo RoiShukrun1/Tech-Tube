@@ -1,15 +1,13 @@
 import './App.css';
-import VideoWatchPage from '../video-watch-page/video-watch-page';
-import MainPage from '../main-page/mainPage'
-
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './appRoutes';
 function App() {
 
   return (
-    <div>
-      {/* <VideoWatchPage initVideoUrl={'/db/videos/1Digitalization; Where to start_.mp4'} /> */}
-       <MainPage/>
-    </div>
+    <Router>
+      <AppRoutes />
+    </Router>
   );
 }
-
 export default App;

@@ -1,40 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './add-video.css';
-import { ReactComponent as AddVideoIcon } from '../images/addVideo.svg';
 import { ReactComponent as ImageIcon } from '../images/addimage.svg';
+import { VideoContext } from '../contexts/videoContext'; // Import the VideoContext
+import { VideoDataContext } from '../contexts/videoDataContext';
+import { useNavigate } from 'react-router-dom';
 
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
-    const [video, setVideo] = useState(null);
+    const { videoList } = useContext(VideoContext);
+    const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
+    const navigate = useNavigate();
+    const { addVideoData } = useContext(VideoDataContext);
 
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
     };
 
-    const handleVideoUpload = (event) => {
-        setVideo(URL.createObjectURL(event.target.files[0]));
-    };
+    const handleSubmit = (event) => {
+        const newData = {
+            title: document.getElementById("title").value,
+            description: document.getElementById("description").value,
+            tags: document.getElementById("tags").value,
+            playlist: document.getElementById("category").value,
+            thumbnail: image
+        };
+        addVideoData(newData);
+        alert("Upload successful");
+        navigate('/mainPage');
+    }
+
 
     return (
-        <div className="container">
+        <div className='addpage-warpper'>
+        <div className="containerAVPAddpage">
             <div>
                 <h1>Details:</h1>
                 <textarea 
-                    className="title-container"
+                    className="title-container-addpage"
                     placeholder="Enter your title"
                     id="title"
                     name="videoTitle"
                 ></textarea>
 
                 <textarea 
-                    className="description-container"
+                    className="description-container-addpage"
                     placeholder="Enter your description"
                     id="description"
                     name="videoDescription"
                 ></textarea>
 
                 <textarea 
-                    className="tags-container"
+                    className="tags-container-addpage"
                     placeholder="Enter tags"
                     id="tags"
                     name="tags"
@@ -62,13 +78,12 @@ export const AddVideo = () => {
             <div className="media-container">
                 <label htmlFor="videoUpload">
                     <div className="addVideo">
-                        {!video && <AddVideoIcon className="addicon" />}
-                        <input type="file" onChange={handleVideoUpload} id="videoUpload" name="videoUpload" accept="video/mp4" style={{ display: 'none' }} />
-                        <div>{video && <video src={video} controls className="video-preview" />}</div>
+                        {mostRecentVideo ? (<div> <video src={mostRecentVideo.url} controls width="300" /></div>) : (<p>No videos available</p>)}
                     </div>
                 </label>
             </div>
-            <button className="Upload-button">Upload</button>
+            <button className="Upload-button" onClick={handleSubmit}>Upload</button>
+        </div>
         </div>
     );
 }
