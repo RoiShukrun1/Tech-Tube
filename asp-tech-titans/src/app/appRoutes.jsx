@@ -24,7 +24,7 @@ const AppRoutes = () => {
       <Route path="/registration" element={<Registration />} />
       <Route path="/login" element={<Login />} />
       <Route path="/mainPage" element={<MainPage />} />
-      <Route path="/video" element={<VideoWatchPage />} />
+      <Route path="/video" element={<VideoWatchPage initVideoUrl={'/db/videos/1Digitalization; Where to start_.mp4'} />} />
       <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
       <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
       <Route path="/videoList" element={<VideoList />} />

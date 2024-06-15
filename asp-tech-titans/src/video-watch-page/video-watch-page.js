@@ -7,6 +7,9 @@ import jsonData from '../db/videos.json';
 import usersData from "../db/users.json";
 import { useState } from 'react';
 import Header from '../main-page/components/header/header';
+import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
+import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
+import Sidebar from '../main-page/components/side-bar/sideBar';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
@@ -31,7 +34,10 @@ const VideoWatchPage = ({ initVideoUrl }) => {
 
   return (
     <div>
-      <Header />
+      {/* <Sidebar />
+      <ScrollingMenuButton />
+      <ScrollingMenu />
+      <Header /> */}
       <div className="container">
         <div className="row">
           <div className="col">
