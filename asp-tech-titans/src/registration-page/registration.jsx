@@ -133,8 +133,8 @@ export const Registration = () => {
   return (
     <div className='registration-wrapper'>
     <div className='registration-container'>
-        <img src={logo} alt="Logo" />
-        <form>
+        <img className='registration-img' src={logo} alt="Logo" />
+        <form className='registration-form'>
             <div>{image && <img src={image} alt="User uploaded "style={{width: '150px', height: '100px'}} />}</div>
         <div>
             <ManIcon className="Icon" /> 
