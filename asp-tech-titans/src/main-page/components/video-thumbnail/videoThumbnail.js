@@ -21,9 +21,6 @@ const VideoThumbnail = ({ video, onClick }) => {
       onMouseLeave={handleMouseLeave}
     >
        <img src={video.imgUrl} alt={video.videoTitle} />
-      <div className={`play-icon ${isHovered ? 'visible' : ''}`}>
-        <img src={playIcon} alt="Play Icon" />
-      </div>
       <div className="video-info">
         <h3 className="video-title">{video.videoTitle}</h3>
         <p className="video-publisher">{video.publisher}</p>

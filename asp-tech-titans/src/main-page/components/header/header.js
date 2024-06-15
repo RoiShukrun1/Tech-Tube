@@ -6,10 +6,10 @@ import HeaderButtons from './header-buttons/headerButtons';
 function Header({ onSearch }) {
   return (
     <header className="main-page-header">
-      <div className="flex-grow-1 mx-3">
-        <SearchBar onSearch={onSearch} />
+      <SearchBar onSearch={onSearch} />
+      <div className='header-buttons-place'>
+        <HeaderButtons />
       </div>
-      <HeaderButtons />
     </header>
   );
 }

@@ -1,0 +1,60 @@
+.add-video-button {
+  position: relative;
+    padding: 5% 5%;
+    border: none;
+    background-color: #e7e7e7;
+    color: #333;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    margin-left: 10%;
+}
+
+.add-video-button-img {
+  height: 5dvh;
+  width: 3dvw;
+}
+
+.add-video-button .tooltip-text {
+  visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; 
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.add-video-button .tooltip-text::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.add-video-button:hover {
+  background-color: #ccc;
+}
+
+.add-video-button.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.add-video-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
