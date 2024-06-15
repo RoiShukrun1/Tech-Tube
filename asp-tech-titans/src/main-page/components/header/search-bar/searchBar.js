@@ -23,13 +23,14 @@ function SearchBar({ onSearch }) {
   return (
     <div className="search-bar">
       <input
+        className='search-bar-input'
         type="text"
         placeholder="Search"
         value={query}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
-      <button type="button" onClick={handleSearch}>
+      <button className="search-bar-button" type="button" onClick={handleSearch}>
         <img src={searchIcon} alt="Search" />
       </button>
     </div>

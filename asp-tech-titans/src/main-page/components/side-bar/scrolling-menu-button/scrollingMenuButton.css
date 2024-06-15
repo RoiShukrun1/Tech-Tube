@@ -1,14 +1,14 @@
 .menu-button {
   position: fixed;
-  top: 20px;
+  top: 1%;
   left: 1%;
   background-color: #ffffff;
   border: none;
-  font-size: 30px;
+  font-size: 100%;
   cursor: pointer;
   z-index: 1002; 
-  padding: 10px;
-  border-radius: 4px;
+  padding: 1%;
+  border-radius: 15px;
 }
 
 .menu-button:hover {
