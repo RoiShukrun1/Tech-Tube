@@ -36,8 +36,8 @@ const VideoWatchPage = ({ initVideoUrl }) => {
     <div>
       {/* <Sidebar />
       <ScrollingMenuButton />
-      <ScrollingMenu />
-      <Header /> */}
+      <ScrollingMenu /> */}
+      <Header />
       <div className="container">
         <div className="row">
           <div className="col">
