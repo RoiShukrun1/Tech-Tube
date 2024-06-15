@@ -2,7 +2,7 @@
   position: fixed;
   top: 1%;
   left: 1%;
-  background-color: #ffffff;
+  background-color: var(--menu-button-bg-color, #ffffff);
   border: none;
   font-size: 100%;
   cursor: pointer;
@@ -12,5 +12,10 @@
 }
 
 .menu-button:hover {
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2); /* Maintain the shadow on hover */
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+}
+
+[data-theme='dark'] .menu-button {
+  background-color: var(--menu-button-bg-color-dark, #333);
+  color: var(--menu-button-color-dark, white);
 }

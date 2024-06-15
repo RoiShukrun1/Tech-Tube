@@ -1,4 +1,5 @@
 .video-thumbnail {
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +26,14 @@
 }
 
 .video-info {
+  color: var(--text-color);
   text-align: left;
   width: 100%;
   padding: 0.5%; 
 }
 
 .video-title {
+  color: var(--text-color);
   width: 100%;
   font-size: x-large;
   font-weight: bold;
@@ -40,6 +43,7 @@
 .video-publisher,
 .video-views,
 .video-date {
+  color: var(--text-color);
   width: 100%;
   font-size: large;
   margin: 0;

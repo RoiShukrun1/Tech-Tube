@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import VideoThumbnail from './components/video-thumbnail/videoThumbnail';
 import jsonData from '../db/videos.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
-import searchVideos from './components/header/search-bar/searchVideos'; 
-
+import searchVideos from './components/header/search-bar/searchVideos';
+import { ThemeContext } from '../contexts/themeContext'; 
+import './mainPage.css'; 
 const MainPage = ({ setUrl }) => {
   const [videos, setVideos] = useState(jsonData);
+  const { darkMode } = useContext(ThemeContext); 
 
   const handleSearch = (query) => {
     const filteredVideos = searchVideos(jsonData, query);
@@ -23,7 +25,7 @@ const MainPage = ({ setUrl }) => {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <div className={`container-fluid main-page ${darkMode ? 'dark' : ''}`}>
       <div className="row no-gutters">
         <div className="col-md-2 p-0">
           <Sidebar />
