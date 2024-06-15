@@ -32,12 +32,21 @@ const VideoWatchPage = ({ initVideoUrl }) => {
   const currentVideo = getObjectByUrl(videos, videoUrl);
   const currentUser = getUserObjById(users, 1);
 
+  
+  const handleSearch = (query) => {
+    const filteredVideos = videos.filter(video => video.videoTitle.toLowerCase().includes(query.toLowerCase()));
+    if (filteredVideos.length === 0) {
+      return;
+    }
+    setVideoUrl(filteredVideos[0].videoUrl);
+  };
+
   return (
     <div>
       {/* <Sidebar />
       <ScrollingMenuButton />
       <ScrollingMenu /> */}
-      <Header />
+      <Header onSearch={handleSearch} />
       <div className="container">
         <div className="row">
           <div className="col">
