@@ -3,14 +3,14 @@ import React, { createContext, useState } from 'react';
 export const VideoContext = createContext();
 
 export const VideoProvider = ({ children }) => {
-  const [videos, setVideos] = useState([]);
+  const [videoList, setVideoList] = useState([]);
 
-  const addNewVideo = (video) => {
-    setVideos((prevVideos) => [...prevVideos, video]);
+  const addNewVideo = (newVideo) => {
+    setVideoList((prevVideoList) => [...prevVideoList, newVideo]);
   };
 
   return (
-    <VideoContext.Provider value={{ videos, addNewVideo }}>
+    <VideoContext.Provider value={{ videoList, addNewVideo }}>
       {children}
     </VideoContext.Provider>
   );

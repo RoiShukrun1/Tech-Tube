@@ -7,17 +7,14 @@ import { useNavigate } from 'react-router-dom';
 
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
-    const { videos } = useContext(VideoContext);
-    const mostRecentVideo = videos.length > 0 ? videos[videos.length - 1] : null;
+    const { videoList } = useContext(VideoContext);
+    const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
     const navigate = useNavigate();
     const { addVideoData } = useContext(VideoDataContext);
 
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
     };
-
-    
-
 
     const handleSubmit = (event) => {
         const newData = {
