@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <include
         layout="@layout/toolbaraddpage" />
@@ -96,6 +95,7 @@
             android:inputType="textMultiLine"
             android:minHeight="100dp"
             android:gravity="start|top"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -129,12 +129,5 @@
         app:layout_constraintTop_toBottomOf="@id/textViewPlaylist"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
-    <VideoView
-        android:id="@+id/videoView3"
-        android:layout_width="382dp"
-        android:layout_height="297dp"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="114dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
