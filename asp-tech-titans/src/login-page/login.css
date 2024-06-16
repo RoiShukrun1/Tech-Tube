@@ -6,65 +6,79 @@
   margin: 0;
   background-color: #ffffff;
   font-family: Arial, sans-serif;
-  font-size: 120%;
+  font-size: 153%; 
   font-weight: bold;
 }
+
+.login-container {
+  max-width: 640px; 
+  margin: 0 auto;
+  padding: 26px; 
+  border: 3px solid #ccc; 
+  border-radius: 38px; 
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); 
+  transform-style: preserve-3d; 
+}
+
+.login-img {
+  display: block;
+  margin-bottom: 6px; 
+  width: 100%; 
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px; 
+}
+
+.login-container input[type="submit"] {
+  width: 100%;
+  background-color: #ff0000;
+  color: white;
+  padding: 13px; 
+  border: none;
+  cursor: pointer;
+  border-radius: 13px; 
+}
   
-  .login-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 30px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    transform-style: preserve-3d; 
-  }
+.login-container input[type="submit"]:hover {
+  background-color: #cc0000;
+}
 
-  .login-img {
-    display: block;
-    margin-bottom: 20px; 
-  }
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 80%; 
+  border: none;
+  border-bottom: 3px solid black; 
+  background: transparent;
+  font-size: 153%; 
+  padding-left: 10px; 
+  position: relative;
+}
 
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  .login-container input[type="submit"] {
-    width: 100%; /* Makes the button take up the full width of its parent */
-    background-color: #ff0000; /* Makes the button bright red */
-    color: white; /* Makes the text on the button white */
-    padding: 10px; /* Adds some padding to make the button taller */
-    border: none; /* Removes the default button border */
-    cursor: pointer; /* Changes the cursor to a hand when hovering over the button */
-    border-radius: 10px;
-  }
-  
-  .login-container input[type="submit"]:hover {
-    background-color: #cc0000; /* Darkens the button when hovered over */
-  }
+.login-container .input-icon {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+}
 
-  .login-container input[type="text"]{
-    border: none; /* Removes the default borders */
-    border-bottom: 2px solid black; /* Adds a bottom border */
-    background: transparent; /* Makes the background transparent */
-  }
-  .login-container input[type="password"] {
-    border: none; /* Removes the default borders */
-    border-bottom: 2px solid black; /* Adds a bottom border */
-    background: transparent; /* Makes the background transparent */
-    }
+.login-container .input-container {
+  position: relative;
+  width: 100%;
+}
 
-  .ManIcon {
-    width: 20px; /* Adjust as needed */
-    height: 20px; /* Adjust as needed */
-  }
-  .LockIcon {
-    width: 20px; /* Adjust as needed */
-    height: 20px; /* Adjust as needed */
-  }
-  .ImageIcon {
-    width: 20px; /* Adjust as needed */
-    height: 20px; /* Adjust as needed */
-  }
+input::placeholder {
+  font-size: 85%; 
+}
+
+.ManIcon,
+.LockIcon {
+  width: 40px; 
+  height: 40px; 
+  margin: 10px;
+}

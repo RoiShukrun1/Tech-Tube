@@ -82,8 +82,8 @@
   
   .upload-button {
     position: absolute;
-    bottom: 30px; /* Adjust as needed */
-    right: 42%; /* Adjust as needed */
+    bottom: 30px; 
+    right: 42%; 
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -92,48 +92,51 @@
     font-size: 16px;
     cursor: pointer;
   }
-  
-  .upload-button:hover {
-    background-color: #004ba1;
-  }
-  
-  .upload-note {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #888;
-  }
-  
-  .upload-footer {
-    margin-top: 30px;
-    font-size: 12px;
-    color: #555;
-  }
-  
-  .upload-footer a {
-    color: #065fd4;
-  }
-  
-  .upload-footer a:hover {
-    text-decoration: underline;
-  }
+
   
   .video-preview {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 60%;
     border-radius: 30px;
+    margin-bottom: 10%;
     object-fit: cover;
   }
 
   .next-button {
     position: absolute;
-    bottom: 30px; /* Adjust as needed */
-    right: 30px; /* Adjust as needed */
+    bottom: 30px; 
+    right: 30px; 
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #b52a03;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
   }
+  .back-button
+  {
+    position: absolute;
+    bottom: 30px; 
+    left: 30px; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #b52a03;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .back-button:hover {
+    background-color: #970303;
+  }
+  .next-button:hover {
+    background-color: #970303;
+  }
+  .upload-button:hover {
+    background-color: #970303;
+  }
+  
+
   
