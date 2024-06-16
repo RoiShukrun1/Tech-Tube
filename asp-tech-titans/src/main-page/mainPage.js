@@ -21,6 +21,10 @@ const MainPage = () => {
     setVideos(filteredVideos);
   };
 
+  const handleThumbnailClick = (videoUrl) => {
+    setVideoUrl(videoUrl);
+  };
+
   useEffect(() => {
     document.body.style.overflowX = 'hidden';
     return () => {
