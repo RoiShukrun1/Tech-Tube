@@ -21,6 +21,9 @@ code {
   --input-border-color: #ccc;
   --button-background-color: #ddd;
   --button-border-color: #f0eaea;
+  --filter-active-background-color: #232323;
+  --filter-active-text-color: white;
+
 }
 
 /* Define CSS variables for dark mode */
