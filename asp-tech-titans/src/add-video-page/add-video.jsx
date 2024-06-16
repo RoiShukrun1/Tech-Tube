@@ -21,7 +21,7 @@ export const AddVideo = () => {
 
     const handleSubmit = (event) => {
         const newData = {
-            id: videoList.length,
+            id: videoList.length + 10,
             videoUploaded: mostRecentVideo.url,
             thumbnail: image,
             title: document.getElementById("title").value,

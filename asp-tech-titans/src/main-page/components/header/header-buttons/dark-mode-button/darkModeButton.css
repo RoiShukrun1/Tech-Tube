@@ -4,7 +4,7 @@
   border: none;
   background-color: #e7e7e7;
   color: #333;
-  border-radius: 20px;
+  border-radius: 40px; 
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -15,6 +15,8 @@
 .dark-mode-button-img {
   height: 5dvh;
   width: 3dvw;
+  border-radius: 40px; 
+  object-fit: cover;
 }
 
 .dark-mode-button .tooltip-text {

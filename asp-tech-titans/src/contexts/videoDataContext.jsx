@@ -9,8 +9,12 @@ export const VideoDataProvider = ({ children }) => {
     setVideoData((prevVideoData) => [...prevVideoData, newVideoData]);
   };
 
+  const deleteVideo = (id) => {
+    setVideoData(videoData.filter(video => video.id !== id));
+  };
+
   return (
-    <VideoDataContext.Provider value={{ videoData, addVideoData }}>
+    <VideoDataContext.Provider value={{ videoData, addVideoData, deleteVideo }}>
       {children}
     </VideoDataContext.Provider>
   );

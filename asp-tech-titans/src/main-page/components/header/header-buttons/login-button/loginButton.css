@@ -5,7 +5,7 @@
   border: none;
   background-color: var(--button-background-color);
   color: var(--button-text-color);
-  border-radius: 20px;
+  border-radius: 40px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -17,6 +17,8 @@
 .login-button-img {
   height: 5dvh;
   width: 3dvw;
+  border-radius: 40px; 
+  object-fit: cover;
 }
 
 .login-button .tooltip-text {

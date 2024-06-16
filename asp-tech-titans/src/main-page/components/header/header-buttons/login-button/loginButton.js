@@ -4,19 +4,27 @@ import loginIconDarkMode from '../../../../../db/icons/login-icon-dm.svg';
 import './loginButton.css';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../../../contexts/themeContext';
+import { LoginContext } from '../../../../../contexts/loginContext';
 
 function LoginButton() {
   const { darkMode } = useContext(ThemeContext);
+  const { login, loggedOut } = useContext(LoginContext);
+
+  const handleButtonClick = () => {
+    if (login) {
+      loggedOut();
+    }
+  };
 
   return (
-    <Link to="/login">
-      <button className="login-button">
+    <Link to={login ? "/" : "/login"}>
+      <button className="login-button" onClick={handleButtonClick}>
         <img
           className='login-button-img'
-          src={darkMode ? loginIconDarkMode : loginIcon}
-          alt="login"
+          src={darkMode ? (login ? login.image : loginIconDarkMode) : (login ? login.image : loginIcon)}
+          alt={login ? "logout" : "login"}
         />
-        <span className="tooltip-text">Login/ Sign Up</span>
+        <span className="tooltip-text">{login ? "Log out" : "Login/ Sign Up"}</span>
       </button>
     </Link>
   );

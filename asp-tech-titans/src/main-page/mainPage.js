@@ -9,12 +9,14 @@ import searchVideos from './components/header/search-bar/searchVideos';
 import { CurrentVideoContext } from '../video-watch-page/currentVideoContext';
 import { ThemeContext } from '../contexts/themeContext'; 
 import './mainPage.css'; 
+import { VideoDataContext } from '../contexts/videoDataContext';
 
 const MainPage = () => {
 
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const [videos, setVideos] = useState(jsonData);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const {videoData, setVideoData, deleteVideo } = useContext(VideoDataContext);
 
   const handleSearch = (query) => {
     const filteredVideos = searchVideos(jsonData, query);
@@ -45,7 +47,14 @@ const MainPage = () => {
             <div className="row no-gutters">
               {videos.map((video, index) => (
                 <div key={index} className="col-md-4 p-1">
-                  <VideoThumbnail video={video} onClick={() => handleThumbnailClick(video.videoUrl)} />
+                  <VideoThumbnail video={video} onClick={() => handleThumbnailClick(video.videoUploaded)} />
+                </div>
+              ))}
+            </div>
+            <div className="row no-gutters">
+              {videoData.map((newVideo, index) => (
+                <div key={index} className="col-md-4 p-1">
+                  <VideoThumbnail video={newVideo} onClick={() => handleThumbnailClick(newVideo.videoUploaded)} />
                 </div>
               ))}
             </div>

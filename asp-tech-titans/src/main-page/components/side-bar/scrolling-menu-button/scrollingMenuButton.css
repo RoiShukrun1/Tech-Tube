@@ -16,6 +16,6 @@
 }
 
 [data-theme='dark'] .menu-button {
-  background-color: var(--menu-button-bg-color-dark, #333);
+  background-color: var(--button-background-color, black);
   color: var(--menu-button-color-dark, white);
 }
