@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { CurrentVideoContext } from './currentVideoContext';
 import VideoPlayer from './components/video-player/VideoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
 import Comments from './components/comments/comments';
 import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
 import usersData from "../db/users.json";
-import { useState } from 'react';
 import Header from '../main-page/components/header/header';
 import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
@@ -21,7 +21,15 @@ function getObjectByUrl(jsonData, url) {
 
 const VideoWatchPage = ({ initVideoUrl }) => {
 
-  const [videoUrl, setVideoUrl] = useState(initVideoUrl);
+  const { contextVideoUrl } = useContext(CurrentVideoContext);
+  
+  const [videoUrl, setVideoUrl] = useState(contextVideoUrl || initVideoUrl); // Initialize with context value or prop
+  
+  useEffect(() => {
+    if (contextVideoUrl) {
+      setVideoUrl(contextVideoUrl);
+    }
+  }, [contextVideoUrl]);
 
   const [users, setUsers] = useState(usersData); // the current user for now is the first user in the users.json file
   const [videos, setVideos] = useState(jsonData);
@@ -43,9 +51,7 @@ const VideoWatchPage = ({ initVideoUrl }) => {
 
   return (
     <div>
-      {/* <Sidebar />
-      <ScrollingMenuButton />
-      <ScrollingMenu /> */}
+      {/* <Sidebar /> */}
       <Header onSearch={handleSearch} />
       <div className="container">
         <div className="row">
