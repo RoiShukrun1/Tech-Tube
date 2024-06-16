@@ -10,13 +10,11 @@ import { CurrentVideoContext } from '../video-watch-page/currentVideoContext';
 import { ThemeContext } from '../contexts/themeContext'; 
 import './mainPage.css'; 
 
-
-
-
 const MainPage = () => {
 
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const [videos, setVideos] = useState(jsonData);
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   const handleSearch = (query) => {
     const filteredVideos = searchVideos(jsonData, query);
