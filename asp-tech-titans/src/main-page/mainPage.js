@@ -5,22 +5,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
-import searchVideos from './components/header/search-bar/searchVideos';
+import searchVideos from './components/header/search-bar/searchVideos'; 
 import { CurrentVideoContext } from '../video-watch-page/currentVideoContext';
-
+import { ThemeContext } from '../contexts/themeContext'; 
+import './mainPage.css'; 
 
 const MainPage = () => {
 
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const [videos, setVideos] = useState(jsonData);
-
-  const handleThumbnailClick = (videoUrl) => {
-    setVideoUrl(videoUrl);
-  };
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   const handleSearch = (query) => {
     const filteredVideos = searchVideos(jsonData, query);
     setVideos(filteredVideos);
+  };
+
+  const handleThumbnailClick = (videoUrl) => {
+    setVideoUrl(videoUrl);
   };
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const MainPage = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <div className={`container-fluid main-page ${darkMode ? 'dark' : ''}`}>
       <div className="row no-gutters">
         <div className="col-md-2 p-0">
           <Sidebar />
