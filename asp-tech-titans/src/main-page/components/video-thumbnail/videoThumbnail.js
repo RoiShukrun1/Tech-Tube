@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './videoThumbnail.css';
 import playIcon from '../../../db/icons/play-button-arrowhead-svgrepo-com.svg'
+import { Link } from 'react-router-dom';
 
 const VideoThumbnail = ({ video, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,6 +15,7 @@ const VideoThumbnail = ({ video, onClick }) => {
   };
 
   return (
+    <Link to="/video">
     <div
       className="video-thumbnail"
       onClick={onClick}
@@ -27,6 +29,7 @@ const VideoThumbnail = ({ video, onClick }) => {
         <p className="video-views">{video.views} views • <span className="video-date">{video.date}</span></p>
       </div>
     </div>
+    </Link>
   );
 };
 
