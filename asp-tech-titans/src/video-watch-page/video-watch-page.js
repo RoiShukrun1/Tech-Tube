@@ -7,9 +7,8 @@ import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
 import usersData from "../db/users.json";
 import Header from '../main-page/components/header/header';
-import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
-import Sidebar from '../main-page/components/side-bar/sideBar';
+import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
@@ -19,18 +18,21 @@ function getObjectByUrl(jsonData, url) {
   return jsonData.find(obj => obj.videoUrl === url);
 }
 
-const VideoWatchPage = ({ initVideoUrl }) => {
+const VideoWatchPage = () => {
 
-  const { contextVideoUrl } = useContext(CurrentVideoContext);
-  
-  const [videoUrl, setVideoUrl] = useState(contextVideoUrl || initVideoUrl); // Initialize with context value or prop
-  
+  const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
+
   useEffect(() => {
-    if (contextVideoUrl) {
-      setVideoUrl(contextVideoUrl);
+    if (videoUrl) {
+      setVideoUrl(videoUrl);
     }
-  }, [contextVideoUrl]);
+  }, [videoUrl]);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [users, setUsers] = useState(usersData); // the current user for now is the first user in the users.json file
   const [videos, setVideos] = useState(jsonData);
   const [isFocused, setIsFocused] = useState(false);
@@ -51,8 +53,9 @@ const VideoWatchPage = ({ initVideoUrl }) => {
 
   return (
     <div>
-      {/* <Sidebar /> */}
       <Header onSearch={handleSearch} />
+      <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <div className="container">
         <div className="row">
           <div className="col">
