@@ -19,9 +19,6 @@ export const AddVideo = () => {
         setImage(URL.createObjectURL(event.target.files[0]));
     };
 
-    
-
-
     const handleSubmit = (event) => {
         const newData = {
             id: videoList.length,

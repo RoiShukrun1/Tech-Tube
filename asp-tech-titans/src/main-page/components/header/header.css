@@ -1,20 +1,16 @@
 .main-page-header {
-  display: flex;
+  display:flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 5px 10px; 
+  padding: 0.5% 1%; 
   background-color: #ffffff;
   color: white;
   height: auto; 
   border: none; 
 }
 
-.flex-grow-1 {
-  flex-grow: 1;
-}
-
-.header-buttons {
-  display: flex;
+.header-buttons-place {
+  display: inline-block;
   align-items: center;
-  margin-left: auto;
+  justify-content: left;
+  margin-top: 2%;
 }

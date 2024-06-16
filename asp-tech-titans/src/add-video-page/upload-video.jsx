@@ -33,11 +33,11 @@ const UploadPage = () => {
   return (
     <div className='upload-warpper'>
       <div className="containerAVPUpload">
-        <div className={`upload-container ${video ? 'hidden' : ''}`}>
+        <div className={`upload-container ${videoList ? 'hidden' : ''}`}>
           <div className="upload-box">
             <label htmlFor="videoUpload" className="upload-label">
               <div className="upload-icon-container">
-                {!video && <UploadIcon className="upload-icon" />}
+                {!videoList && <UploadIcon className="upload-icon" />}
               </div>
               <input
                 type="file"
