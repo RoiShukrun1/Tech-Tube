@@ -15,7 +15,7 @@ function getUserObjById(usersData, id) {
 }
 
 function getObjectByUrl(jsonData, url) {
-  return jsonData.find(obj => obj.videoUrl === url);
+  return jsonData.find(obj => obj.videoUploaded === url);
 }
 
 const VideoWatchPage = () => {
@@ -44,11 +44,11 @@ const VideoWatchPage = () => {
 
   
   const handleSearch = (query) => {
-    const filteredVideos = videos.filter(video => video.videoTitle.toLowerCase().includes(query.toLowerCase()));
+    const filteredVideos = videos.filter(video => video.title.toLowerCase().includes(query.toLowerCase()));
     if (filteredVideos.length === 0) {
       return;
     }
-    setVideoUrl(filteredVideos[0].videoUrl);
+    setVideoUrl(filteredVideos[0].videoUploaded);
   };
 
   return (
@@ -83,7 +83,7 @@ const VideoWatchPage = () => {
 
           <div className="col-5">
             <RelatedVideos
-              relatedVideos={currentVideo.RelatedVideos}
+              relatedVideos={currentVideo.relatedVideos}
               setUrl={setVideoUrl}
               setVideos={setVideos}
               setMoreInfoPressed={setMoreInfoPressed}

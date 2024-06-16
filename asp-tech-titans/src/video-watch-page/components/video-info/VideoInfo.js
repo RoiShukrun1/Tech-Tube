@@ -12,7 +12,7 @@ function copyUrl() {
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
 
     const download = () => {
-        const downloadUrl = currentVideo.videoUrl;
+        const downloadUrl = currentVideo.videoUploaded;
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.setAttribute('download', '');
@@ -21,10 +21,10 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         document.body.removeChild(link);
     }
 
-    const { videoTitle, views, date, publisherImg, publisher, info } = currentVideo;
+    const { title, views, date, publisherImage, publisher, description } = currentVideo;
 
     // Generate a unique ID for each instance of the component
-    const collapseId = `collapse-${videoTitle.replace(/\s+/g, '-')}`;
+    const collapseId = `collapse-${title.replace(/\s+/g, '-')}`;
 
     // Reset collapse state when currentVideo or setMoreInfoPressed changes
     useEffect(() => {
@@ -33,8 +33,8 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
 
     return (
         <div>
-            <h1 className="title">{videoTitle}</h1>
-            <PublisherInfo publisherImg={publisherImg} publisher={publisher}
+            <h1 className="title">{title}</h1>
+            <PublisherInfo publisherImage={publisherImage} publisher={publisher}
                 setUsers={setUsers} currentUser={currentUser} />
             <button type="button" className="btn btn-light download-button"
                 onClick={download}><Download /> Download
@@ -65,7 +65,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
                 </button>
                 <div className={`collapse ${moreInfoPressed ? 'show' : ''}`} id={collapseId}>
                     <div className="more-info">
-                        {info}
+                        {description}
                     </div>
                 </div>
             </div>
