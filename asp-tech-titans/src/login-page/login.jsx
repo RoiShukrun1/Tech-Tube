@@ -7,10 +7,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AccountContext } from '../contexts/accountContext'; 
 import { LoginContext } from '../contexts/loginContext.jsx';
+import { ThemeContext } from '../contexts/themeContext';
+import darkLogo from '../images/darkmodelogo.png'
+
 
 export const Login = () => {
   const { accounts } = useContext(AccountContext); 
   const { loggedIn } = useContext(LoginContext);
+  const { darkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
   const hundleLogin = (event) => {
     event.preventDefault();
@@ -28,10 +32,10 @@ export const Login = () => {
   }
   
   return (
-    <div className='login-wrapper'>
+    <div className={'login-wrapper' + (darkMode ? '-dark' : '')}>
     <div className='login-container'>
-        <img className='login-img' src={logo} alt="Logo" />
-        <form className='login-form'>
+    <img className='login-img' src={darkMode ? darkLogo : logo} alt="Logo" /> {/* Conditional logo */}
+    <form className='login-form'>
         <div>
         <ManIcon className="ManIcon" /> 
         <input type="text" id="username" name="username" placeholder="Username" />
@@ -43,7 +47,7 @@ export const Login = () => {
         <input type="submit" value="Login" onClick={hundleLogin} />
         <div>
         <p>Don't have an account? <Link to="/registration">Register</Link></p>
-        <p>Continue as guest <Link to="/mainPage">Hompage</Link></p>               
+        <p>Continue as guest:   <Link to="/mainPage">Hompage</Link></p>               
         </div>
         </form>
     </div>

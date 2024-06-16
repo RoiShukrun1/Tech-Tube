@@ -6,6 +6,7 @@ import { VideoDataContext } from '../contexts/videoDataContext';
 import { useNavigate } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../contexts/themeContext';
 
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
@@ -14,6 +15,7 @@ export const AddVideo = () => {
     const navigate = useNavigate();
     const { addVideoData } = useContext(VideoDataContext);
     const { login } = useContext(LoginContext);
+    const { darkMode } = useContext(ThemeContext);
 
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
@@ -41,8 +43,8 @@ export const AddVideo = () => {
 
 
     return (
-        <div className='addpage-warpper'>
-        <div className="containerAVPAddpage">
+        <div className= {'addpage-warpper'+ (darkMode ? '-dark' : '')}>
+        <div className={ "containerAVPAddpage"+ (darkMode ? '-dark' : '')}>
             <div>
                 <h1>Details:</h1>
                 <textarea 

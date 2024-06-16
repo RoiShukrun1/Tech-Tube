@@ -9,6 +9,18 @@
   font-size: 153%; 
   font-weight: bold;
 }
+.login-wrapper-dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 153%; 
+  font-weight: bold;
+  color: white;
+}
 
 .login-container {
   max-width: 640px; 
@@ -76,9 +88,22 @@ input::placeholder {
   font-size: 85%; 
 }
 
+.login-wrapper-dark .login-container input[type="text"],
+.login-wrapper-dark .login-container input[type="password"] {
+  color: white; /* Text color in dark mode */
+  border-bottom: 3px solid white; /* Bottom border color in dark mode */
+}
+
+.login-wrapper-dark .ManIcon,
+.login-wrapper-dark .LockIcon {
+  fill: white; /* Change icon color to white in dark mode */
+}
+
 .ManIcon,
 .LockIcon {
   width: 40px; 
   height: 40px; 
   margin: 10px;
 }
+
+
