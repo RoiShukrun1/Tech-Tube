@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { VideoContext } from './videoContext'; // Import the VideoContext
-import { AccountContext } from './accountContext'; // Import the AccountContext
-import { LoginContext } from './loginContext'; // Import the LoginContext
+import { VideoContext } from './videoContext'; 
+import { AccountContext } from './accountContext'; 
+import { LoginContext } from './loginContext'; 
 import { VideoDataContext } from './videoDataContext';
 
 const VideoList = () => {
-  const { videos } = useContext(VideoContext); 
+  const { videoList } = useContext(VideoContext); 
   const { accounts } = useContext(AccountContext);
   const { login } = useContext(LoginContext);
   const { videoData } = useContext(VideoDataContext);
@@ -14,9 +14,9 @@ const VideoList = () => {
     <div>
       <h2>Uploaded Videos</h2>
       <ul>
-        {videos.map((video, index) => (
+        {videoList.map((videoList, index) => (
           <li key={index}>
-            <video src={video.url} controls width="300" />
+            <video src={videoList.url} controls width="300" />
           </li>
         ))}
       </ul>
@@ -51,6 +51,8 @@ const VideoList = () => {
       <ul>
             {videoData.map((newVideoData, index) => (
             <li key={index}>
+              <p>id: {newVideoData.id}</p>
+              <p>id: {newVideoData.videoUploaded}</p>
               <p>Title: {newVideoData.title}</p>
               <p>Description: {newVideoData.description}</p>
               <p>Tags: {newVideoData.tags}</p>
