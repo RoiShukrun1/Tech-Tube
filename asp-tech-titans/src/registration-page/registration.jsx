@@ -120,9 +120,10 @@ export const Registration = () => {
         }
         else {
         const newData = {
-            nickname: document.getElementById("nickname").value,
             username: document.getElementById("username").value,
+            nickname: document.getElementById("nickname").value,
             password: document.getElementById("password").value,
+            subscriptions: [],
             image: image // Assuming you have the image state defined somewhere
         };
         addAccount(newData);

@@ -4,6 +4,8 @@ import { ReactComponent as ImageIcon } from '../images/addimage.svg';
 import { VideoContext } from '../contexts/videoContext'; // Import the VideoContext
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { useNavigate } from 'react-router-dom';
+import { LoginContext } from '../contexts/loginContext';
+import { Link } from 'react-router-dom';
 
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
@@ -11,6 +13,7 @@ export const AddVideo = () => {
     const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
     const navigate = useNavigate();
     const { addVideoData } = useContext(VideoDataContext);
+    const { login } = useContext(LoginContext);
 
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
@@ -18,11 +21,18 @@ export const AddVideo = () => {
 
     const handleSubmit = (event) => {
         const newData = {
+            id: videoList.length,
+            videoUploaded: mostRecentVideo.url,
+            thumbnail: image,
             title: document.getElementById("title").value,
+            publisher: login.nickname,
+            publisherImage: login.image,
+            views: 0,
+            date: new Date().toLocaleDateString(),
             description: document.getElementById("description").value,
-            tags: document.getElementById("tags").value,
+            relatedVideos: [],
             playlist: document.getElementById("category").value,
-            thumbnail: image
+            comments: []
         };
         addVideoData(newData);
         alert("Upload successful");
@@ -49,13 +59,6 @@ export const AddVideo = () => {
                     name="videoDescription"
                 ></textarea>
 
-                <textarea 
-                    className="tags-container-addpage"
-                    placeholder="Enter tags"
-                    id="tags"
-                    name="tags"
-                ></textarea>
-
                 <div className="category-container">
                     <h2>Playlist:</h2>
                     <select name="category" id="category">
@@ -66,8 +69,8 @@ export const AddVideo = () => {
                     </select>
                 </div>
                 <label htmlFor="image" className="thumbnail-label">
-                    <div className="thumbnail">
-                    <h3>thumbnail:</h3>
+                    <div>
+                    <h3>Thumbnail:</h3>
                         {!image && <ImageIcon className="ImageIcon" />}
                         <input type="file" onChange={handleImageUpload} id="image" name="image" accept="image/*" style={{ display: 'none' }} />
                         <div>{image && <img src={image} alt="User uploaded" className="image-preview" />}</div>
@@ -78,11 +81,14 @@ export const AddVideo = () => {
             <div className="media-container">
                 <label htmlFor="videoUpload">
                     <div className="addVideo">
-                        {mostRecentVideo ? (<div> <video src={mostRecentVideo.url} controls width="300" /></div>) : (<p>No videos available</p>)}
+                        {mostRecentVideo ? (<div> <video src={mostRecentVideo.url} controls className='videoPreviewAddpage' /></div>) : (<p>No videos available</p>)}
                     </div>
                 </label>
             </div>
-            <button className="Upload-button" onClick={handleSubmit}>Upload</button>
+            <button className="upload-button-addpage" onClick={handleSubmit}>Upload</button>
+            <Link to="/uploadPage">
+            <button className="back-button"type="button">Back</button>
+            </Link>
         </div>
         </div>
     );
