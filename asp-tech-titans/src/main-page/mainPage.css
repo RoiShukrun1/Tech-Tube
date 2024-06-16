@@ -1,7 +1,6 @@
 .main-page {
   text-align: center;
   background-color: white; /* Default background for light mode */
-  transition: background-color 0.3s ease;
 }
 
 .main-page.dark {
