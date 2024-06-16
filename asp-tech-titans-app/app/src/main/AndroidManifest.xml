@@ -13,14 +13,16 @@
         android:theme="@style/Theme.TechTitansApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.mainActivity.MainActivity"
+            android:name=".ui.UploadVideoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".ui.RegistrationActivity"/>
+        <activity android:name=".ui.AddVideoActivity"/>
     </application>
 
 </manifest>
