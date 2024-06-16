@@ -1,10 +1,16 @@
-.add-video-button {
+.add-video-link {
   position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.add-video-button {
+   visibility: visible;
+   position: relative;
     padding: 5% 5%;
     border: none;
-    background-color: #e7e7e7;
-    color: #333;
-    border-radius: 20px;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    border-radius: 40px; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -16,10 +22,12 @@
 .add-video-button-img {
   height: 5dvh;
   width: 3dvw;
+  border-radius: 40px; 
+  object-fit: cover;
 }
 
 .add-video-button .tooltip-text {
-  visibility: hidden;
+    visibility: hidden;
     background-color: #555;
     color: #fff;
     text-align: center;
@@ -46,7 +54,7 @@
 }
 
 .add-video-button:hover {
-  background-color: #ccc;
+  background-color: var(--button-background-color);
 }
 
 .add-video-button.active {

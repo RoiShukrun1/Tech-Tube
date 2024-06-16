@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './scrollingMenu.css';
 import homeIcon from '../../../../db/icons/home-icon.svg';
 import forYouIcon from '../../../../db/icons/for-you-icon.svg';
@@ -18,15 +18,19 @@ import report from '../../../../db/icons/comment-blog-icon.svg';
 import help from '../../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../../db/icons/pencil-icon.svg';
 import techTitansLogo from '../../../../db/techTitansLogo.png';
+import techTitansLogoDM from '../../../../db/techTitansLogoDM.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../../../contexts/themeContext';
+
 
 const ScrollingMenu = ({ isOpen, toggleMenu }) => {
+  const { darkMode } = useContext(ThemeContext);
   return (
     <>
       <div className={`overlay ${isOpen ? 'show' : ''}`} onClick={toggleMenu}></div>
-      <div className={`scrolling-menu ${isOpen ? 'open' : ''}`}>
+      <div className={`scrolling-menu ${isOpen ? 'open' : ''} ${darkMode ? 'dark-mode' : ''}`}>
         <div className="logo-container-sidebar">
-          <img src={techTitansLogo} alt="Logo" className='logo-sidebar-img'/>
+          <img src={darkMode ? techTitansLogoDM : techTitansLogo} alt="Logo" className='logo-sidebar-img'/>
         </div>
         <div className="scrollable-menu">
           <ul className="list-group list-group-flush">

@@ -7,8 +7,7 @@ import LoginValidation from '../app/loginValidation';
 
 
 const UploadPage = () => {
-  const [videoList, setVideo] = useState(null);
-  const [message, setMessage] = useState(''); // Add state for message
+  const [video, setVideo] = useState(null);
   const videoInputRef = useRef(null);
   const { addNewVideo } = useContext(VideoContext);
 
@@ -25,7 +24,6 @@ const UploadPage = () => {
 
     // Add the video object to the global context
     addNewVideo(videoObject);
-    setMessage('Video uploaded successfully!');
   };
 
   const handleButtonClick = () => {
@@ -35,14 +33,11 @@ const UploadPage = () => {
   return (
     <div className='upload-warpper'>
       <div className="containerAVPUpload">
-        <div className={`upload-container ${videoList ? 'hidden' : ''}`}>
+        <div className={`upload-container ${video ? 'hidden' : ''}`}>
           <div className="upload-box">
             <label htmlFor="videoUpload" className="upload-label">
               <div className="upload-icon-container">
-                {!videoList && <UploadIcon className="upload-icon" />}
-              </div>
-              <div className="upload-instructions">
-                Drag and drop video files to upload
+                {!video && <UploadIcon className="upload-icon" />}
               </div>
               <input
                 type="file"
@@ -56,13 +51,12 @@ const UploadPage = () => {
           </div>
         </div>
         <button className="upload-button" type="button" onClick={handleButtonClick}>SELECT FILE</button>
-        {videoList && <video src={videoList} className="video-preview" controls />}
-        {message && <p>{message}</p>}
+        {video && <video src={video} className="video-preview" controls />}
         <Link to="/addVideo">
           <button className="next-button" type="button">Next</button>
         </Link>
-        <Link to="/videoList">
-          <button className="test-button" type="button">test</button>
+        <Link to="/mainPage">
+        <button className="back-button"type="button">Back</button>
         </Link>
       </div>
     </div>

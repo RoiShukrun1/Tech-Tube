@@ -10,28 +10,31 @@ import VideoList from '../contexts/contextCheck';
 import { VideoProvider } from '../contexts/videoContext'; // Import the VideoContext
 import { AccountProvider } from '../contexts/accountContext'; // Import the AccountContext
 import { LoginProvider } from '../contexts/loginContext'; // Import the LoginContext
-import { VideoDataProvider} from '../contexts/videoDataContext';
+import { VideoDataProvider } from '../contexts/videoDataContext';
 import LoginValidation from './loginValidation'; // Import the LoginValidation component
- 
+import { CurrentVideoProvider } from '../video-watch-page/currentVideoContext';
+
 const AppRoutes = () => {
   return (
     <VideoDataProvider>
-    <LoginProvider>
-    <AccountProvider>
-    <VideoProvider>
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/registration" element={<Registration />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/mainPage" element={<MainPage />} />
-      <Route path="/video" element={<VideoWatchPage />} />
-      <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
-      <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
-      <Route path="/videoList" element={<VideoList />} />
-    </Routes>
-    </VideoProvider>
-    </AccountProvider>
-    </LoginProvider>
+      <LoginProvider>
+        <AccountProvider>
+          <VideoProvider>
+            <CurrentVideoProvider>
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/registration" element={<Registration />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/mainPage" element={<MainPage />} />
+                <Route path="/video" element={<VideoWatchPage initVideoUrl={'/db/videos/1Digitalization; Where to start_.mp4'} />} />
+                <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
+                <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
+                <Route path="/videoList" element={<VideoList />} />
+              </Routes>
+            </CurrentVideoProvider>
+          </VideoProvider>
+        </AccountProvider>
+      </LoginProvider>
     </VideoDataProvider>
   );
 };

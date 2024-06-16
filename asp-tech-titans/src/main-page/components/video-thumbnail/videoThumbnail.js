@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './videoThumbnail.css';
-import playIcon from '../../../db/icons/play-button-arrowhead-svgrepo-com.svg'
+import { Link } from 'react-router-dom';
+import { LoginContext } from '../../../contexts/loginContext'; 
+import { VideoDataContext } from '../../../contexts/videoDataContext';
 
-const VideoThumbnail = ({ video, onClick }) => {
+
+const VideoThumbnail = ({ video, onClick}) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { login } = useContext(LoginContext);
+  const {deleteVideo} = useContext(VideoDataContext)
+
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -13,20 +19,37 @@ const VideoThumbnail = ({ video, onClick }) => {
     setIsHovered(false);
   };
 
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    deleteVideo(video.id);
+  };
+
   return (
-    <div
-      className="video-thumbnail"
-      onClick={onClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-       <img src={video.imgUrl} alt={video.videoTitle} />
-      <div className="video-info">
-        <h3 className="video-title">{video.videoTitle}</h3>
-        <p className="video-publisher">{video.publisher}</p>
-        <p className="video-views">{video.views} views • <span className="video-date">{video.date}</span></p>
+    <Link to="/video">
+      <div
+        className="video-thumbnail"
+        onClick={onClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img src={video.thumbnail} alt={video.title} className="thumbnail-image" />
+        <div className="video-info">
+          <div className="video-header">
+            <img src={video.publisherImage} alt={video.publisher} className="publisher-image" />
+            <h3 className="video-title">{video.title}</h3>
+            {login && login.username === video.publisher && (
+              <button className="delete-button" onClick={handleDeleteClick}>
+                &#x1F5D1;
+              </button>
+            )}
+          </div>
+          <div className="video-details">
+            <p className="video-views">{video.views} views • <span className="video-date">{video.date}</span></p>
+            <p className="video-publisher">{video.publisher}</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

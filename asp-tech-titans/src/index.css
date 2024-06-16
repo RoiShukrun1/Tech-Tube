@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Define CSS variables for light mode using the :root pseudo-class */
+:root {
+  --background-color: white;
+  --text-color: black;
+  --input-background-color: white;
+  --input-text-color: black;
+  --input-border-color: #ccc;
+  --button-background-color: #ddd;
+  --button-border-color: #f0eaea;
+  --filter-active-background-color: #232323;
+  --filter-active-text-color: white;
+
+}
+
+/* Define CSS variables for dark mode */
+[data-theme='dark'] {
+  --background-color: black;
+  --text-color: white;
+  --input-background-color: #000000;
+  --input-text-color: white;
+  --input-border-color: #383636;
+  --button-background-color: #232323;
+  --button-border-color: #777;
+  --filter-active-background-color: #ddd;
+  --filter-active-text-color: #232323;
+  --divider-background-color: #474747;
+
+}
+.dark-mode .list-group-item img {
+  filter: invert(1);
+}
+
+

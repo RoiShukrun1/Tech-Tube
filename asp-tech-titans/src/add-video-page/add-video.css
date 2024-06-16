@@ -41,17 +41,6 @@ h1 {
 
 .title-container-addpage {
   width: 90%;
-  height: 55px; /* Adjust this value as needed */
-  overflow: auto;
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background-color: #f6f6f6;
-  color: #0b0b0b;
-}
-.tags-container-addpage {
-  width: 90%;
   height: 55px;
   overflow: auto;
   margin-bottom: 15px;
@@ -61,6 +50,7 @@ h1 {
   background-color: #f6f6f6;
   color: #0b0b0b;
 }
+
 .description-container-addpage {
   width: 90%;
   height: 130px;
@@ -88,26 +78,12 @@ h1 {
   margin-bottom: 10px;
 }
 
-.video-preview {
-  max-width: 100%;
-  max-height: 500px;
-  border-radius: 15px;
-  margin-top: 0px;
-}
-
 .thumbnail-label {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 90%;
-}
-
-.thumbnail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
 }
 
 .ImageIcon {
@@ -118,22 +94,25 @@ h1 {
 }
 
 .image-preview {
-  width: 150px;
-  height: 100px;
+  width: 300px;
+  height: 200px;
   border-radius: 10px;
   margin-top: 10px;
 }
 
 .media-container {
   position: relative;
-  top: -90px;
+  top: -7%;
   width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-.Upload-button {
+.videoPreviewAddpage {
+  width: 400px;
+  border-radius: 20px;
+}
+.upload-button-addpage {
   position: absolute;
   bottom: 30px; /* Adjust as needed */
   right: 30px; /* Adjust as needed */
@@ -144,4 +123,7 @@ h1 {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+}
+.upload-button-addpage:hover {
+  background-color: #970303;
 }

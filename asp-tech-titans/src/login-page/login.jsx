@@ -6,7 +6,7 @@ import { ReactComponent as LockIcon } from '../images/lock.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AccountContext } from '../contexts/accountContext'; 
-import { LoginContext } from '../contexts/loginContext.jsx'; // Import LoginContext
+import { LoginContext } from '../contexts/loginContext.jsx';
 
 export const Login = () => {
   const { accounts } = useContext(AccountContext); 
@@ -42,7 +42,8 @@ export const Login = () => {
         </div>
         <input type="submit" value="Login" onClick={hundleLogin} />
         <div>
-        <p>Don't have an account? <Link to="/registration">Register</Link></p>        
+        <p>Don't have an account? <Link to="/registration">Register</Link></p>
+        <p>Continue as guest <Link to="/mainPage">Hompage</Link></p>               
         </div>
         </form>
     </div>
