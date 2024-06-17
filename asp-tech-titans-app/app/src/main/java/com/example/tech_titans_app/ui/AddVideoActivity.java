@@ -1,10 +1,8 @@
 package com.example.tech_titans_app.ui;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,11 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.VideoView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.mainActivity.MainActivity;
+import com.example.tech_titans_app.ui.models.account.AccountData;
 import com.example.tech_titans_app.ui.models.add_video.VideoData;
 import com.example.tech_titans_app.ui.models.add_video.VideoDataArray;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,24 +28,21 @@ public class AddVideoActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST_THUMBNAIL = 1;
     private Uri videoUri;
+    private Uri thumbnailUri;
+    private AccountData loggedInUser;
+    private ImageView thumbnailImage;
+    private Spinner playlistSpinner;
 
     private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void setupSpinner() {
-        // Find the Spinner in the layout
-        Spinner spinner = findViewById(R.id.spinner);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        playlistSpinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.spinner_options, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        playlistSpinner.setAdapter(adapter);
     }
 
     private void openGallery() {
@@ -52,7 +51,7 @@ public class AddVideoActivity extends AppCompatActivity {
     }
 
     private void setupThumbnail() {
-        ImageView thumbnailImage = findViewById(R.id.thumbnailimage);
+        thumbnailImage = findViewById(R.id.thumbnailimage);
         thumbnailImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,51 +64,54 @@ public class AddVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addpage);
-
         videoUri = Uri.parse(getIntent().getStringExtra("videoUri"));
-
         setupSpinner();
         setupThumbnail();
-
         Button uploadButton = findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(v -> uploadVideoData());
+    }
 
-        VideoView videoView = findViewById(R.id.videoView3);
-        videoView.setVideoURI(videoUri);
-        videoView.start();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST_THUMBNAIL && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            thumbnailUri = data.getData();
+            thumbnailImage.setImageURI(thumbnailUri);  // Set the selected image URI to the ImageView
+        }
     }
 
     private void uploadVideoData() {
         EditText title = findViewById(R.id.addpagetitle);
         EditText description = findViewById(R.id.addpagedescription);
-        ImageView thumbnail = findViewById(R.id.thumbnailimage);
         String titleString = title.getText().toString();
         String descriptionString = description.getText().toString();
+        String playlistString = playlistSpinner.getSelectedItem().toString();  // Get the selected playlist
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = dateFormat.format(currentDate);
+        loggedInUser = LoggedIn.getInstance().getLoggedInUser();
 
-        if (videoUri != null) {
+        if (videoUri != null && thumbnailUri != null) {
             VideoData currentVideoData = new VideoData(
                     VideoDataArray.getInstance().getLength() + 1,
                     videoUri,
-                    thumbnail,
+                    thumbnailUri,  // Use the selected thumbnail URI
                     titleString,
-                    "",
-                    null,
+                    loggedInUser.getNickname(),
+                    loggedInUser.getProfilePicture(),
                     0,
                     formattedDate,
                     descriptionString,
                     new ArrayList<>(),
-                    "",
+                    playlistString,  // Set the selected playlist
                     new ArrayList<>()
             );
             VideoDataArray.getInstance().addVideo(currentVideoData);
             showToastMessage("Video data uploaded successfully!");
-            Intent intent = new Intent(AddVideoActivity.this, LoginActivity.class);
+            Intent intent = new Intent(AddVideoActivity.this, MainActivity.class);
             startActivity(intent);
         } else {
-            showToastMessage("Please select a video");
+            showToastMessage("Please select a video and a thumbnail");
         }
     }
 }

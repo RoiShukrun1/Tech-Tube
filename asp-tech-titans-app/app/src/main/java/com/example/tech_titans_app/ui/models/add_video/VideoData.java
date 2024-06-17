@@ -9,10 +9,10 @@ import java.util.List;
     public class VideoData extends Application {
         private int id;
         private Uri videoUploaded;
-        private View thumbnail;
+        private Uri thumbnail;
         private String title;
         private String publisher;
-        private View publisherImage;
+        private Uri publisherImage;
         private int views;
         private String date;
         private String description;
@@ -20,12 +20,12 @@ import java.util.List;
         private String playlist;
         private List<String> comments;
         // Constructor
-        public VideoData(int id, Uri videoUri, View imgUrl, String videoTitle, String publisher,
-                         View publisherImg, int views, String date, String info,
+        public VideoData(int id, Uri videoUri, Uri thumbnail, String videoTitle, String publisher,
+                         Uri publisherImg, int views, String date, String info,
                               List<Integer> relatedVideos, String playlist, List<String> comments) {
             this.id = id;
             this.videoUploaded = videoUri;
-            this.thumbnail = imgUrl;
+            this.thumbnail = thumbnail;
             this.title = videoTitle;
             this.publisher = publisher;
             this.publisherImage = publisherImg;
@@ -41,18 +41,7 @@ import java.util.List;
             return title;
         }
 
-        public Uri getVideoUri() {
-            return videoUploaded;
-        }
-
-        public View getImgUrl() {
-            return thumbnail;
-        }
-
-        public View getPublisherImg() {
-            return publisherImage;
-        }
-
+        public Uri getVideoUri() {return videoUploaded;}
         public String getPublisher() {
             return publisher;
         }
@@ -85,4 +74,6 @@ import java.util.List;
             return id;
         }
 
+        public Uri getThumbnail() {return thumbnail;}
+        public Uri getPublisherImage() {return publisherImage;}
     }
