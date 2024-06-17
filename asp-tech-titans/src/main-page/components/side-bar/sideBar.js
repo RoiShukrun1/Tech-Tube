@@ -15,7 +15,7 @@ import report from '../../../db/icons/comment-blog-icon.svg';
 import help from '../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../db/icons/pencil-icon.svg';
 import techTitansLogo from '../../../db/techTitansLogo.png';
-import techTitansLogoDM from '../../../db/techTitansLogoDM.jpg';
+import techTitansLogoDM from '../../../db/techTitansLogoDM.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../../contexts/themeContext'; 
 
