@@ -45,13 +45,6 @@ const MainPage = () => {
           <div className="container-fluid p-0">
             <Filters />
             <div className="row no-gutters">
-              {videos.map((video, index) => (
-                <div key={index} className="col-md-4 p-1">
-                  <VideoThumbnail video={video} onClick={() => handleThumbnailClick(video.videoUploaded)} />
-                </div>
-              ))}
-            </div>
-            <div className="row no-gutters">
               {videoData.map((newVideo, index) => (
                 <div key={index} className="col-md-4 p-1">
                   <VideoThumbnail video={newVideo} onClick={() => handleThumbnailClick(newVideo.videoUploaded)} />

@@ -22,7 +22,7 @@
 .likesNumber{
     font-size: 15px;
     text-align: left;
-    display: inline-flex;
+    display: inline;
     margin-right: 6px;
 }
 .dislike-icon-button {
@@ -43,13 +43,6 @@
     margin-right: 5px;
     border: none;
 }
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    text-align: left;
-    padding: 0;
-}
 .circle-image {
     width: 40px; 
     height: 40px; 
@@ -59,8 +52,8 @@
 .border{
     border: 2px solid black;
     border-radius: 10px;
-    padding: 10px;
-    margin-top: 10px;
+    /* padding: 10px; */
+    margin-top: 10px; 
 }
 .reply-button{
     border: none;
