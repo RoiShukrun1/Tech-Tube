@@ -16,7 +16,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
     };
 
     const handleClick = () => {
-        setUrl(video.videoUrl);
+        setUrl(video.videoUploaded);
         incrementViews();
         setMoreInfoPressed(false);
         setInputValue('');
@@ -26,8 +26,8 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
         setVideos(prevVideos => {
             const updatedVideos = [...prevVideos];
 
-            var thisVideoTitle = video.videoTitle;
-            const index = updatedVideos.findIndex(video => video.videoTitle === thisVideoTitle);
+            var thisVideoTitle = video.title;
+            const index = updatedVideos.findIndex(video => video.title === thisVideoTitle);
 
             const updatedVideo = { ...updatedVideos[index] };
 
@@ -57,7 +57,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                 <div className="col"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
-                    <img src={video.imgUrl}
+                    <img src={video.thumbnail}
                         className="img-fluid rounded-start videoCard-image"
                         onClick={handleClick}
                     />
@@ -65,7 +65,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                 </div>
                 <div className="col">
                     <div className="card-body">
-                        <h5 className="card-title">{video.videoTitle}</h5>
+                        <h5 className="card-title">{video.title}</h5>
                         <p className="card-text">{video.publisher}</p>
                         <p className="card-text"><small className="text-body-secondary">{video.views} • {video.date}</small></p>
                     </div>

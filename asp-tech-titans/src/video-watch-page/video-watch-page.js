@@ -9,18 +9,20 @@ import usersData from "../db/users.json";
 import Header from '../main-page/components/header/header';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
+import { LoginContext } from '../contexts/loginContext';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
 }
 
 function getObjectByUrl(jsonData, url) {
-  return jsonData.find(obj => obj.videoUrl === url);
+  return jsonData.find(obj => obj.videoUploaded === url);
 }
 
 const VideoWatchPage = () => {
 
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
+  const { login } = useContext(LoginContext);
 
   useEffect(() => {
     if (videoUrl) {
@@ -38,17 +40,21 @@ const VideoWatchPage = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [moreInfoPressed, setMoreInfoPressed] = useState(false);
+  
 
   const currentVideo = getObjectByUrl(videos, videoUrl);
   const currentUser = getUserObjById(users, 1);
 
+  console.log(currentUser)
+  console.log(login)
+
   
   const handleSearch = (query) => {
-    const filteredVideos = videos.filter(video => video.videoTitle.toLowerCase().includes(query.toLowerCase()));
+    const filteredVideos = videos.filter(video => video.title.toLowerCase().includes(query.toLowerCase()));
     if (filteredVideos.length === 0) {
       return;
     }
-    setVideoUrl(filteredVideos[0].videoUrl);
+    setVideoUrl(filteredVideos[0].videoUploaded);
   };
 
   return (
@@ -77,13 +83,14 @@ const VideoWatchPage = () => {
                 inputValue={inputValue}
                 setInputValue={setInputValue}
                 isFocused={isFocused}
-                setIsFocused={setIsFocused} />
+                setIsFocused={setIsFocused}
+                login={login} />
             </div>
           </div>
 
           <div className="col-5">
             <RelatedVideos
-              relatedVideos={currentVideo.RelatedVideos}
+              relatedVideos={currentVideo.relatedVideos}
               setUrl={setVideoUrl}
               setVideos={setVideos}
               setMoreInfoPressed={setMoreInfoPressed}
