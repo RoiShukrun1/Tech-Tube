@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
         videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
 
-
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MainActivity.class);

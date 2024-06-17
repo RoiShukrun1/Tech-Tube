@@ -1,12 +1,22 @@
 package com.example.tech_titans_app.ui.entities;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.CommentsActivity;
+import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 @Entity
-public class Video {
+public class Video implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int image;
@@ -14,12 +24,16 @@ public class Video {
     private String publisher;
     private int publisherImage;
     private String views;
+    private String likes;
     private CharSequence date;
     private String info;
+    private int videoUrl;
+    private List<Comment> comments;
 
     public Video() {
         this.image = R.drawable.image1;
     }
+
 
     public Video(int image, String title, String publisher, int publisherImage, String views, CharSequence date) {
         this.image = image;
@@ -28,6 +42,7 @@ public class Video {
         this.publisherImage = publisherImage;
         this.views = views;
         this.date = date;
+        this.comments = new ArrayList<>();
     }
 
     public Video(int image, String title, String publisher, int publisherImage, String views, CharSequence date, String info) {
@@ -38,7 +53,28 @@ public class Video {
         this.views = views;
         this.date = date;
         this.info = info;
+        this.comments = new ArrayList<>();
     }
+
+    public Video(int image, String title, String publisher,
+                 int publisherImage, String views,
+                 CharSequence date, String info, int videoUrl, int likes) {
+        this.image = image;
+        this.title = title;
+        this.publisher = publisher;
+        this.publisherImage = publisherImage;
+        this.views = views;
+        this.date = date;
+        this.info = info;
+        this.videoUrl = videoUrl;
+        this.comments = new ArrayList<>();
+        this.likes = String.valueOf(likes);
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
 
     public int getId() {
         return id;
@@ -103,4 +139,61 @@ public class Video {
     public void setInfo(String info) {
         this.info = info;
     }
+
+    public int getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(int videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+    public void addComment(String comment) {
+        int numberOfComments = comments.size();
+        Comment newComment = new Comment(numberOfComments + 1,
+                0, "Aviel Segev",
+                Video.getTodayDate(), comment, R.drawable.image2, this);
+        comments.add(newComment);
+    }
+
+    public static String getTodayDate() {
+        // Get a Calendar instance
+        Calendar calendar = Calendar.getInstance();
+
+        // Get current date in the desired format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
+    }
+    public void incrementViews(){
+        int numOfViews = Integer.parseInt(this.views);
+        numOfViews++;
+        this.views = String.valueOf(numOfViews);
+    }
+    public void decrementViews(){
+        int numOfViews = Integer.parseInt(this.views);
+        numOfViews--;
+        this.views = String.valueOf(numOfViews);
+    }
+
+    public void incrementLikes(){
+        int numOfViews = Integer.parseInt(this.likes);
+        numOfViews++;
+        this.likes = String.valueOf(numOfViews);
+    }
+    public void decrementLikes(){
+        int numOfViews = Integer.parseInt(this.likes);
+        numOfViews--;
+        this.likes = String.valueOf(numOfViews);
+    }
+
+    public String getLikes() {
+        return likes;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+
 }
