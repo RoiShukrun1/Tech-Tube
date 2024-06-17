@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './sideBar.css';
-import Logo from './logo-icon/logo';
 import homeIcon from '../../../db/icons/home-icon.svg';
 import forYouIcon from '../../../db/icons/for-you-icon.svg';
 import Subscriptions from '../../../db/icons/subscription-icon.svg';
@@ -15,9 +14,17 @@ import settings from '../../../db/icons/setting-line-icon.svg';
 import report from '../../../db/icons/comment-blog-icon.svg';
 import help from '../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../db/icons/pencil-icon.svg';
+import techTitansLogo from '../../../db/techTitansLogo.png';
+import techTitansLogoDM from '../../../db/techTitansLogoDM.jpg';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../../contexts/themeContext'; 
+
+
 
 function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { darkMode } = useContext(ThemeContext);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,13 +34,13 @@ function Sidebar() {
     <div>
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <div className="sidebar" id="sidebar-wrapper">
-        <div className="logo-container">
-          <Logo />
+      <div className={`sidebar ${darkMode ? 'dark-mode' : ''}`} id="sidebar-wrapper">
+      <div className="logo-container-sidebar">
+          <img src={darkMode ? techTitansLogoDM : techTitansLogo} alt="Logo" className='logo-sidebar-img'/>
         </div>
         <div className="scrollable-menu">
           <ul className="list-group list-group-flush">
-            <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
+            <Link to="/mainPage"><li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li></Link>
             <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
             <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
             <div className="divider"></div>
@@ -43,12 +50,12 @@ function Sidebar() {
             <li className="list-group-item no-icon">Restaurants</li>
             <li className="list-group-item no-icon">Gaming</li>
             <li className="list-group-item no-icon">Mixes</li>
-            <li className="list-group-item no-icon">Computer Programming</li>
+            <li className="list-group-item no-icon">Computers</li>
             <li className="list-group-item no-icon">Satire</li>
             <li className="list-group-item no-icon">News</li>
             <li className="list-group-item no-icon">Tech House</li>
             <li className="list-group-item no-icon">Playlists</li>
-            <li className="list-group-item no-icon">Computer History</li>
+            <li className="list-group-item no-icon">History</li>
             <div className="divider"></div>
             <div className="categories-label">Explore</div>
             <li className="list-group-item"><img src={music} alt="Home" />Music</li>

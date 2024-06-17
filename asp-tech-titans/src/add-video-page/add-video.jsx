@@ -1,43 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './add-video.css';
-import { ReactComponent as AddVideoIcon } from '../images/addVideo.svg';
 import { ReactComponent as ImageIcon } from '../images/addimage.svg';
+import { VideoContext } from '../contexts/videoContext'; // Import the VideoContext
+import { VideoDataContext } from '../contexts/videoDataContext';
+import { useNavigate } from 'react-router-dom';
+import { LoginContext } from '../contexts/loginContext';
+import { Link } from 'react-router-dom';
+import { ThemeContext } from '../contexts/themeContext';
 
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
-    const [video, setVideo] = useState(null);
+    const { videoList } = useContext(VideoContext);
+    const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
+    const navigate = useNavigate();
+    const { addVideoData } = useContext(VideoDataContext);
+    const { login } = useContext(LoginContext);
+    const { darkMode } = useContext(ThemeContext);
 
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
     };
 
-    const handleVideoUpload = (event) => {
-        setVideo(URL.createObjectURL(event.target.files[0]));
-    };
+    const handleSubmit = (event) => {
+        const newData = {
+            id: videoList.length + 10,
+            videoUploaded: mostRecentVideo.url,
+            thumbnail: image,
+            title: document.getElementById("title").value,
+            publisher: login.nickname,
+            publisherImage: login.image,
+            views: 0,
+            date: new Date().toLocaleDateString(),
+            description: document.getElementById("description").value,
+            relatedVideos: [],
+            playlist: document.getElementById("category").value,
+            comments: []
+        };
+        addVideoData(newData);
+        alert("Upload successful");
+        navigate('/mainPage');
+    }
+
 
     return (
-        <div className="container">
+        <div className= {'addpage-warpper'+ (darkMode ? '-dark' : '')}>
+        <div className={ "containerAVPAddpage"+ (darkMode ? '-dark' : '')}>
             <div>
                 <h1>Details:</h1>
                 <textarea 
-                    className="title-container"
+                    className="title-container-addpage"
                     placeholder="Enter your title"
                     id="title"
                     name="videoTitle"
                 ></textarea>
 
                 <textarea 
-                    className="description-container"
+                    className="description-container-addpage"
                     placeholder="Enter your description"
                     id="description"
                     name="videoDescription"
-                ></textarea>
-
-                <textarea 
-                    className="tags-container"
-                    placeholder="Enter tags"
-                    id="tags"
-                    name="tags"
                 ></textarea>
 
                 <div className="category-container">
@@ -50,8 +71,8 @@ export const AddVideo = () => {
                     </select>
                 </div>
                 <label htmlFor="image" className="thumbnail-label">
-                    <div className="thumbnail">
-                    <h3>thumbnail:</h3>
+                    <div>
+                    <h3>Thumbnail:</h3>
                         {!image && <ImageIcon className="ImageIcon" />}
                         <input type="file" onChange={handleImageUpload} id="image" name="image" accept="image/*" style={{ display: 'none' }} />
                         <div>{image && <img src={image} alt="User uploaded" className="image-preview" />}</div>
@@ -62,13 +83,15 @@ export const AddVideo = () => {
             <div className="media-container">
                 <label htmlFor="videoUpload">
                     <div className="addVideo">
-                        {!video && <AddVideoIcon className="addicon" />}
-                        <input type="file" onChange={handleVideoUpload} id="videoUpload" name="videoUpload" accept="video/mp4" style={{ display: 'none' }} />
-                        <div>{video && <video src={video} controls className="video-preview" />}</div>
+                        {mostRecentVideo ? (<div> <video src={mostRecentVideo.url} controls className='videoPreviewAddpage' /></div>) : (<p>No videos available</p>)}
                     </div>
                 </label>
             </div>
-            <button className="Upload-button">Upload</button>
+            <button className="upload-button-addpage" onClick={handleSubmit}>Upload</button>
+            <Link to="/uploadPage">
+            <button className="back-button"type="button">Back</button>
+            </Link>
+        </div>
         </div>
     );
 }

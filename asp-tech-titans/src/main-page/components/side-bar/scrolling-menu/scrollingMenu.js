@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './scrollingMenu.css';
-import Logo from '../logo-icon/logo';
 import homeIcon from '../../../../db/icons/home-icon.svg';
 import forYouIcon from '../../../../db/icons/for-you-icon.svg';
 import subscriptions from '../../../../db/icons/subscription-icon.svg';
@@ -18,18 +17,24 @@ import settings from '../../../../db/icons/setting-line-icon.svg';
 import report from '../../../../db/icons/comment-blog-icon.svg';
 import help from '../../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../../db/icons/pencil-icon.svg';
+import techTitansLogo from '../../../../db/techTitansLogo.png';
+import techTitansLogoDM from '../../../../db/techTitansLogoDM.jpg';
+import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../../../contexts/themeContext';
+
 
 const ScrollingMenu = ({ isOpen, toggleMenu }) => {
+  const { darkMode } = useContext(ThemeContext);
   return (
     <>
       <div className={`overlay ${isOpen ? 'show' : ''}`} onClick={toggleMenu}></div>
-      <div className={`scrolling-menu ${isOpen ? 'open' : ''}`}>
-        <div className="logo-container">
-          <Logo />
+      <div className={`scrolling-menu ${isOpen ? 'open' : ''} ${darkMode ? 'dark-mode' : ''}`}>
+        <div className="logo-container-sidebar">
+          <img src={darkMode ? techTitansLogoDM : techTitansLogo} alt="Logo" className='logo-sidebar-img'/>
         </div>
         <div className="scrollable-menu">
           <ul className="list-group list-group-flush">
-            <li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li>
+            <Link to="/mainPage"><li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li></Link>
             <li className="list-group-item"><img src={subscriptions} alt="Subscriptions" /> Subscriptions</li>
             <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
             <div className="divider"></div>

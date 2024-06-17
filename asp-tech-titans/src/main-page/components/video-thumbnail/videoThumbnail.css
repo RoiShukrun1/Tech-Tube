@@ -1,67 +1,81 @@
 .video-thumbnail {
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   border: none;
-  margin-top: 10px; 
-  padding: 0.7%;
+  margin-top: 1%;
   cursor: pointer;
-  max-width: 100%; 
+  max-width: 100%;
   position: relative;
   transition: all 0.3s ease;
 }
 
-.video-thumbnail img {
+.thumbnail-image {
   width: 100%;
   height: auto;
   border-radius: 15px;
   transition: all 0.3s ease;
 }
 
-.video-thumbnail:hover img {
+.video-thumbnail:hover .thumbnail-image {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   border-radius: 0;
 }
 
 .video-info {
+  color: var(--text-color);
   text-align: left;
   width: 100%;
-  padding: 5px 0; 
+  padding: 0.5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.publisher-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .video-title {
-  width: 100%;
+  color: var(--text-color);
   font-size: x-large;
   font-weight: bold;
   margin: 0;
+  flex-grow: 1;
 }
 
-.video-publisher,
+.delete-button {
+  background: none;
+  border: none;
+  font-size: large;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.video-details {
+  display: flex;
+  flex-direction: column;
+}
+
 .video-views,
+.video-publisher,
 .video-date {
-  width: 100%;
+  color: var(--text-color);
   font-size: large;
   margin: 0;
   color: gray;
-}
-
-.play-icon {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
-  color: white;
-  transition: all 0.3s ease;
-  width: 32px;
-  height: 32px;
-}
-
-.video-thumbnail:hover .play-icon {
-  display: block;
-}
-
-.play-icon.visible {
-  display: block;
 }

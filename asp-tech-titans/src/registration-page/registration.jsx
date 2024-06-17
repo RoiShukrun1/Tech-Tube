@@ -6,9 +6,16 @@ import { ReactComponent as LockIcon } from '../images/lock.svg';
 import { ReactComponent as ImageIcon } from '../images/addimage.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { ReactComponent as XIcon } from '../images/X.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { ReactComponent as VIcon } from '../images/V.svg'; // Replace '../images/image.svg' with the path to your image icon
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AccountContext } from '../contexts/accountContext';
+import { ThemeContext } from '../contexts/themeContext';
+import darkLogo from '../images/darkmodelogo.png';
+import defultProfile from '../images/profile.png';
 
 export const Registration = () => {
     const [image, setImage] = useState(null);
+    const { darkMode } = useContext(ThemeContext);
     const handleImageUpload = (event) => {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
@@ -22,6 +29,8 @@ export const Registration = () => {
     const [usernameMassage, setUsernameMassage] = useState(null);
     const [nicknameImage, setNicknameImage] = useState(true);
     const [usernameImage, setUsernameImage] = useState(true);
+    const navigate = useNavigate();
+    const { addAccount } = useContext(AccountContext);
 
     const handleNickname = (event) => {
         const newNickname = event.target.value;
@@ -116,24 +125,22 @@ export const Registration = () => {
         }
         else {
         const newData = {
-            nickname: document.getElementById("nickname").value,
             username: document.getElementById("username").value,
+            nickname: document.getElementById("nickname").value,
             password: document.getElementById("password").value,
-            image: image // Assuming you have the image state defined somewhere
+            subscriptions: [],
+            image: image || defultProfile,
         };
-        // Retrieve existing data from storage or initialize an empty array
-        const existingData = JSON.parse(sessionStorage.getItem('formData')) || [];
-        // Add the new data to the existing array
-        existingData.push(newData);
-        // Save the updated array back to storage
-        sessionStorage.setItem('formData', JSON.stringify(existingData));
+        addAccount(newData);
         alert("Registration successful");
+        navigate('/login'); // Navigate to the login page
         }
     }
   return (
+    <div className={'registration-wrapper'+ (darkMode ? '-dark' : '')}>
     <div className='registration-container'>
-        <img src={logo} alt="Logo" />
-        <form>
+        <img className='login-img' src={darkMode ? darkLogo : logo} alt="Logo" /> {/* Conditional logo */}
+        <form className='registration-form'>
             <div>{image && <img src={image} alt="User uploaded "style={{width: '150px', height: '100px'}} />}</div>
         <div>
             <ManIcon className="Icon" /> 
@@ -172,9 +179,10 @@ export const Registration = () => {
         </div>
         <input type="submit" value="Register" onClick={handleSubmit} />
         <div>
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <p>Already have an account? <Link to="/login">Log-in</Link></p>
         </div>
         </form>
+    </div>
     </div>
   )
 }

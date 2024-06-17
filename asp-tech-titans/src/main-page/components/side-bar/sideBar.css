@@ -2,21 +2,28 @@
   width: 15%;
   position: fixed;
   height: 100%;
-  background-color: #ffffff;
-  padding: 20px;
-  margin-left: 0.8%;
+  background-color: var(--background-color);
+  padding: auto;
   display: flex;
   flex-direction: column;
 }
 
-.logo-container {
-  flex-shrink: 0; /* Prevents the logo from shrinking */
+.logo-container-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+}
+
+.logo-sidebar-img {
+  height: 100%;
+  width: 100%;
 }
 
 .scrollable-menu {
   flex-grow: 1; /* Allows the scrollable area to grow and fill the space */
   overflow-y: auto; /* Enable vertical scrolling */
-  margin-top: 20px; 
+  margin-top: auto; 
 }
 
 .sidebar ul {
@@ -25,19 +32,19 @@
 }
 
 .sidebar ul li {
-  padding: 10px 0;
+  padding: auto;
   cursor: pointer;
   border: none; 
   display: flex; 
   align-items: center; 
-  font-size: 20px; 
+  font-size: auto; 
 }
 
 .sidebar ul li img {
-  margin-left: 0px; 
-  margin-right: 20px; 
-  width: 30px; 
-  height: 30px; 
+  margin-left: 0%; 
+  margin-right: 10%; 
+  width: 10%; 
+  height: 10%; 
 }
 
 .sidebar ul li:hover {
@@ -46,34 +53,46 @@
 }
 
 .sidebar ul li.no-icon {
-  padding-left: 45px; /* Add padding to align text with items that have icons */
+  padding-left: 22%; /* Add padding to align text with items that have icons */
 }
 
 .divider {
-  border-top: 1px solid #ccc; 
-  margin: 10px 0; 
+  color: var(--button-background-color);
+  border-top: 1px solid var(--divider-background-color); 
+  margin: auto 0; 
 }
 
-.categories-label {
+.side-bar-categories-label {
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-weight: bold;
   font-size: x-large;
-  padding-left: 30px; /* Align with no-icon items */
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding-left: 5%; 
+  margin-top: auto;
+  margin-bottom: auto;
   display: flex;
   align-items: center;
 }
 
 /* Custom scrollbar styling */
 .scrollable-menu::-webkit-scrollbar {
-  width: 12px; 
+  width: auto; 
 }
 
 .scrollable-menu::-webkit-scrollbar-thumb {
-  background-color: #ccc; 
+  background-color: var(--background-color); 
   border-radius: 6px; /* Rounded corners for the scrollbar handle */
 }
 
 .scrollable-menu::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: var(--background-color); 
+}
+
+a {
+  text-decoration: none; /* Remove underline from all links */
+  color: inherit; /* Inherit color from parent elements */
+}
+
+a:hover {
+  text-decoration: none; /* Ensure underline does not appear on hover */
 }

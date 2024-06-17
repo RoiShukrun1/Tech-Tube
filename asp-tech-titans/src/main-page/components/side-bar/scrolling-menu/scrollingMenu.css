@@ -4,8 +4,8 @@
   left: -15%; /* Start off-screen */
   top: 0;
   height: 100%;
-  background-color: #ffffff;
-  padding: 20px;
+  background-color: var(--background-color);
+  padding: auto;
   transition: left 0.3s ease; /* Smooth transition */
   z-index: 1001; 
   display: flex;
@@ -16,16 +16,10 @@
   left: 0; /* Slide in from the left */
 }
 
-.logo-container {
-  flex-shrink: 0; /* Prevents the logo from shrinking */
-  margin-bottom: 20px; 
-  margin-left: 7.5%;
-}
-
 .scrollable-menu {
   flex-grow: 1; 
   overflow-y: auto; /* Enable vertical scrolling */
-  margin-top: 10px; 
+  margin-top:  auto;
 }
 
 .list-group {
@@ -33,18 +27,21 @@
 }
 
 .list-group-item {
+  background-color: var(--background-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  padding: auto 0;
   cursor: pointer;
   border: none; 
-  font-size: 20px; 
+  font-size: auto; 
 }
 
 .list-group-item img {
-  margin-right: 30px;
-  width: 30px;
-  height: 30px;
+  margin-left: 0%; 
+  margin-right: 10%; 
+  width: 10%; 
+  height: 10%;
 }
 
 .list-group-item:hover {
@@ -53,19 +50,26 @@
 }
 
 .list-group-item.no-icon {
-  padding-left: 60px; /* Add padding to align text with items that have icons */
+  color: var(--text-color);
+  background-color: var(--background-color);
+  padding-left: 22%; /* Add padding to align text with items that have icons */
 }
 
 .divider {
-  border-top: 1px solid #ccc;
-  margin: 10px 0;
+  border-top: 1px solid var(--divider-background-color);
+  margin: auto 0;
+  color: var(--button-background-color);
 }
 
 .categories-label {
+  color: var(--text-color);
   font-weight: bold;
   font-size: x-large;
-  margin: 10px 0;
-  padding-left: 50px; /* Align with no-icon items */
+  padding-left: 5%; 
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
 }
 
 .overlay {
@@ -85,14 +89,14 @@
 
 /* Custom scrollbar styling */
 .scrollable-menu::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: auto; /* Width of the scrollbar */
 }
 
 .scrollable-menu::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Color of the scrollbar handle */
+  background-color: var(--button-background-color); /* Color of the scrollbar handle */
   border-radius: 6px; /* Rounded corners for the scrollbar handle */
 }
 
 .scrollable-menu::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color of the scrollbar track */
+  background: var(--background-color); /* Color of the scrollbar track */
 }

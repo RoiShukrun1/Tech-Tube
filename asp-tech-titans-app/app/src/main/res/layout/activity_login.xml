@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBF9FA"
-    android:backgroundTint="#FDF6FE"
-    tools:context=".ui.mainActivity.MainActivity">
+    android:backgroundTint="#FEFEFE"
+    android:background="#FEFEFE"
+    tools:context=".LoginActivity">
+
     <EditText
         android:id="@+id/usernameEditText"
         android:layout_width="292dp"
@@ -41,14 +42,30 @@
         android:text="@string/login_button_text"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+
+    <TextView
+        android:id="@+id/registerRedirectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Don't have an account? Click here"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="235dp"
         android:layout_height="130dp"
         android:layout_marginBottom="36dp"
+        android:background="#FEFEFE"
         app:layout_constraintBottom_toTopOf="@+id/usernameEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

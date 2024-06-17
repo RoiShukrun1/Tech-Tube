@@ -4,23 +4,41 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.models.add_video.UploadedVideo;
+import com.example.tech_titans_app.ui.utilities.LoginValidation;
 
 public class UploadVideoActivity extends AppCompatActivity {
     private static final int PICK_VIDEO_REQUEST_VIDEO = 1;
     private VideoView videoView;
+    private Uri selectedVideoUri;
+    private UploadedVideo uploadVideo;
 
+    private void showToastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LoginValidation.checkLoggedIn(this);
         setContentView(R.layout.activity_uploadpage);
         setupVideo();
+        Button nextButton = findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(v -> {
+            if (selectedVideoUri != null) {
+                Intent intent = new Intent(UploadVideoActivity.this, AddVideoActivity.class);
+                intent.putExtra("videoUri", selectedVideoUri.toString());
+                startActivity(intent);
+            }
+        });
     }
 
     private void openGallery() {
@@ -40,11 +58,13 @@ public class UploadVideoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_VIDEO_REQUEST_VIDEO && resultCode == RESULT_OK && data != null) {
-            Uri selectedVideoUri = data.getData();
+            selectedVideoUri = data.getData();
             if (selectedVideoUri != null) {
                 videoView.setVideoURI(selectedVideoUri);
                 videoView.start();
             }
         }
     }
+
+
 }

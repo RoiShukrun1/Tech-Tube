@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { CurrentVideoContext } from './currentVideoContext';
 import VideoPlayer from './components/video-player/VideoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
 import Comments from './components/comments/comments';
 import RelatedVideos from './components/related-videos/relatedVideos';
 import jsonData from '../db/videos.json';
 import usersData from "../db/users.json";
-import { useState } from 'react';
 import Header from '../main-page/components/header/header';
+import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
+import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
@@ -16,10 +18,21 @@ function getObjectByUrl(jsonData, url) {
   return jsonData.find(obj => obj.videoUrl === url);
 }
 
-const VideoWatchPage = ({ initVideoUrl }) => {
+const VideoWatchPage = () => {
 
-  const [videoUrl, setVideoUrl] = useState(initVideoUrl);
+  const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
 
+  useEffect(() => {
+    if (videoUrl) {
+      setVideoUrl(videoUrl);
+    }
+  }, [videoUrl]);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [users, setUsers] = useState(usersData); // the current user for now is the first user in the users.json file
   const [videos, setVideos] = useState(jsonData);
   console.log(videos);
@@ -30,9 +43,20 @@ const VideoWatchPage = ({ initVideoUrl }) => {
   const currentVideo = getObjectByUrl(videos, videoUrl);
   const currentUser = getUserObjById(users, 1);
 
+  
+  const handleSearch = (query) => {
+    const filteredVideos = videos.filter(video => video.videoTitle.toLowerCase().includes(query.toLowerCase()));
+    if (filteredVideos.length === 0) {
+      return;
+    }
+    setVideoUrl(filteredVideos[0].videoUrl);
+  };
+
   return (
     <div>
-      <Header />
+      <Header onSearch={handleSearch} />
+      <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <div className="container">
         <div className="row">
           <div className="col">
