@@ -9,6 +9,7 @@ import usersData from "../db/users.json";
 import Header from '../main-page/components/header/header';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
+import { LoginContext } from '../contexts/loginContext';
 
 function getUserObjById(usersData, id) {
   return usersData.find(obj => obj.id === id);
@@ -21,6 +22,7 @@ function getObjectByUrl(jsonData, url) {
 const VideoWatchPage = () => {
 
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
+  const { login, setLogin } = useContext(LoginContext);
 
   useEffect(() => {
     if (videoUrl) {
@@ -38,6 +40,7 @@ const VideoWatchPage = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [moreInfoPressed, setMoreInfoPressed] = useState(false);
+  
 
   const currentVideo = getObjectByUrl(videos, videoUrl);
   const currentUser = getUserObjById(users, 1);
@@ -77,7 +80,8 @@ const VideoWatchPage = () => {
                 inputValue={inputValue}
                 setInputValue={setInputValue}
                 isFocused={isFocused}
-                setIsFocused={setIsFocused} />
+                setIsFocused={setIsFocused}
+                login={login} />
             </div>
           </div>
 
