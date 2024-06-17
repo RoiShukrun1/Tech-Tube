@@ -3,9 +3,9 @@ import './subscribeButton.css';
 
 function subscribeButton({ setUsers, currentUser, publisher }) {
 
-    const isSubscribed = false;
+    var isSubscribed = false;
     if (currentUser && currentUser.subscriptions) {
-        currentUser.subscriptions.includes(publisher);
+        isSubscribed = currentUser.subscriptions.includes(publisher);
     }
 
     const switchButtons = () => {
@@ -31,6 +31,7 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
     };
 
     const addSubscription = () => {
+        console.log(currentUser)
         setUsers(prevUsers => {
             const updatedUsers = [...prevUsers];
             if (currentUser && currentUser.subscriptions) {
