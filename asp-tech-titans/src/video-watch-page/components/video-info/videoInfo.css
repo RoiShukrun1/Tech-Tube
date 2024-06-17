@@ -1,0 +1,32 @@
+.title{
+    font-size: large;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 8px;
+}
+.views{
+    font-size: medium;
+    text-align: left;
+}
+.date{
+    font-size: medium;
+    text-align: left;
+}
+.btn{
+    padding: 0%;
+}.download-button{
+    border: none;
+    border-radius: 20px;
+    width: 120px;
+    height: 35px;
+    background-color: rgb(226, 226, 226);
+    float: right;
+}.share-button{
+    border: none;
+    border-radius: 20px;
+    width: 90px;
+    height: 35px;
+    background-color: rgb(226, 226, 226);
+    float: right;
+    margin-right: 1%;
+}
