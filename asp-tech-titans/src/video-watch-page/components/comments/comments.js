@@ -4,22 +4,22 @@ import './comments.css';
 import AddComment from './addComment';
 
 function Comments({ comments, currentVideoId, currentUser,
-     setVideos, inputValue, setInputValue, isFocused, setIsFocused, login }) {
-
-    console.log(login);
+    setVideos, inputValue, setInputValue, isFocused, setIsFocused, login }) {
 
     return (
         <div>
-            <AddComment
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            isFocused={isFocused}
-            setIsFocused={setIsFocused}
-            currentUser={currentUser}
-            comments={comments}
-            setVideos={setVideos}
-            currentVideoId={currentVideoId}
-            />
+            {login && (
+                <AddComment
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    isFocused={isFocused}
+                    setIsFocused={setIsFocused}
+                    currentUser={currentUser}
+                    comments={comments}
+                    setVideos={setVideos}
+                    currentVideoId={currentVideoId}
+                />
+            )}
             <h1 className="headline">{comments.length} Comments</h1>
             {comments.map((comment) => (
                 <Comment

@@ -22,7 +22,7 @@ function getObjectByUrl(jsonData, url) {
 const VideoWatchPage = () => {
 
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
-  const { login, setLogin } = useContext(LoginContext);
+  const { login } = useContext(LoginContext);
 
   useEffect(() => {
     if (videoUrl) {
@@ -44,6 +44,9 @@ const VideoWatchPage = () => {
 
   const currentVideo = getObjectByUrl(videos, videoUrl);
   const currentUser = getUserObjById(users, 1);
+
+  console.log(currentUser)
+  console.log(login)
 
   
   const handleSearch = (query) => {
