@@ -30,3 +30,17 @@
     float: right;
     margin-right: 1%;
 }
+.pencil-button{
+    width: 20px;
+    height: 20px;
+    padding: 0%;
+    border: none;
+    margin-left: 0.5%;
+    background-color: white;
+}
+.inputVideoTitle {
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0px;
+    outline: none;
+}

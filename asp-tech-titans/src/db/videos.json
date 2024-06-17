@@ -8,7 +8,7 @@
         "publisherImage": "/db/photos/publisherImages/Rick_Astely.jpg",
         "views": 500,
         "date": "2021-10-01",
-        "description": "Never Gonna Give You Up” was a global smash on its release in July 1987, topping the charts in 25 countries including Rick’s native UK and the US Billboard Hot 100.  It also won the Brit Award for Best single in 1988. Stock Aitken and Waterman wrote and produced the track which was the lead-off single and lead track from Rick’s debut LP “Whenever You Need Somebody”.  The album was itself a UK number one and would go on to sell over 15 million copies worldwide.",
+        "description": "Digitalization",
         "relatedVideos":[{"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "playlist": "11",
         "comments": [
@@ -63,7 +63,7 @@
         "publisherImage": "/db/photos/publisherImages/Rotem.jpg",
         "views": 10,
         "date": "2021-10-01",
-        "description": "החברים של נאור עונה 3 פרק 5 פרק מלא",
+        "description": "Technology",
         "relatedVideos":[{"id":1}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
@@ -71,7 +71,7 @@
                 "username": "Aviel Segev",
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
-                "comment": "GOOD",
+                "comment": "אין על טכנולוגיה בעולם",
                 "likes": 4,
                 "usersLikedId": [{"id":1}, {"id":3}],
                 "usersUnLikedId":[]
@@ -125,40 +125,10 @@
                 "username": "Aviel Segev",
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
-                "comment": "GOOD",
+                "comment": "it is so spicy",
                 "likes": 0,
                 "usersLikedId": [{"id":3}],
                 "usersUnLikedId":[{"id":1}]
-            },
-            {
-                "id": 2,
-                "username": "Kobi Hadad",
-                "image": "/db/photos/2.jpg",
-                "date": "2021-10-01",
-                "comment": "יפה",
-                "likes": 1,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
-            },
-            {
-                "id": 3,
-                "username": "Roi shukrun",
-                "image": "/db/photos/3.jpg",
-                "date": "2024-02-01",
-                "comment": "מסכים עם אביאל",
-                "likes": 90,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
-            },
-            {
-                "id": 4,
-                "username": "anonymous",
-                "image": "/db/photos/4.jpg",
-                "date": "2024-09-01",
-                "comment": "קטלני",
-                "likes": 0,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
             }
         ]
     },
@@ -171,48 +141,18 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 0,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"Road Nature video",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
                 "id": 1,
-                "username": "Aviel Segev",
+                "username": "Steven Kidkle",
                 "image": "/db/photos/1.jpg",
                 "date": "2021-10-01",
-                "comment": "GOOD",
+                "comment": "Remaind me the japanise road trip i had last year",
                 "likes": 0,
                 "usersLikedId": [{"id":3}],
                 "usersUnLikedId":[{"id":1}]
-            },
-            {
-                "id": 2,
-                "username": "Kobi Hadad",
-                "image": "/db/photos/2.jpg",
-                "date": "2021-10-01",
-                "comment": "יפה",
-                "likes": 1,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
-            },
-            {
-                "id": 3,
-                "username": "Roi shukrun",
-                "image": "/db/photos/3.jpg",
-                "date": "2024-02-01",
-                "comment": "מסכים עם אביאל",
-                "likes": 90,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
-            },
-            {
-                "id": 4,
-                "username": "anonymous",
-                "image": "/db/photos/4.jpg",
-                "date": "2024-09-01",
-                "comment": "קטלני",
-                "likes": 0,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
             }
         ]
     },
@@ -225,46 +165,16 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 3,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"Chocolate",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
-            {
-                "id": 1,
-                "username": "Aviel Segev",
-                "image": "/db/photos/1.jpg",
-                "date": "2021-10-01",
-                "comment": "GOOD",
-                "likes": 0,
-                "usersLikedId": [{"id":3}],
-                "usersUnLikedId":[{"id":1}]
-            },
-            {
-                "id": 2,
-                "username": "Kobi Hadad",
-                "image": "/db/photos/2.jpg",
-                "date": "2021-10-01",
-                "comment": "יפה",
-                "likes": 1,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
-            },
             {
                 "id": 3,
                 "username": "Roi shukrun",
                 "image": "/db/photos/3.jpg",
                 "date": "2024-02-01",
-                "comment": "מסכים עם אביאל",
+                "comment": "יא אללה איך בא לי עכשיו",
                 "likes": 90,
-                "usersLikedId": [{"id":1}, {"id":3}],
-                "usersUnLikedId":[]
-            },
-            {
-                "id": 4,
-                "username": "anonymous",
-                "image": "/db/photos/4.jpg",
-                "date": "2024-09-01",
-                "comment": "קטלני",
-                "likes": 0,
                 "usersLikedId": [{"id":1}, {"id":3}],
                 "usersUnLikedId":[]
             }
@@ -279,7 +189,7 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 78,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"another video",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
@@ -303,7 +213,7 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 1,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"another video1",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":8}, {"id":9}, {"id":10}],
         "comments": [
             {
@@ -327,7 +237,7 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 6,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"another video2",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":9}, {"id":10}],
         "comments": [
             {
@@ -351,7 +261,7 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 9,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"another video3",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":10}],
         "comments": [
             {
@@ -375,7 +285,7 @@
         "publisherImage": "/db/photos/publisherImages/Omer_Adam.jpg",
         "views": 27,
         "date": "2024-03-13",
-        "description":"מילים ולחן: שחר טבוך, עידו נצר, עמית מרדכי, חן אהרוני, איתי פורטוגלי",
+        "description":"another video5",
         "relatedVideos":[{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}],
         "comments": [
             {
