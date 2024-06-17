@@ -9,8 +9,13 @@ import { ReactComponent as VIcon } from '../images/V.svg'; // Replace '../images
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AccountContext } from '../contexts/accountContext';
+import { ThemeContext } from '../contexts/themeContext';
+import darkLogo from '../images/darkmodelogo.png';
+import defultProfile from '../images/profile.png';
+
 export const Registration = () => {
     const [image, setImage] = useState(null);
+    const { darkMode } = useContext(ThemeContext);
     const handleImageUpload = (event) => {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
@@ -124,7 +129,7 @@ export const Registration = () => {
             nickname: document.getElementById("nickname").value,
             password: document.getElementById("password").value,
             subscriptions: [],
-            image: image // Assuming you have the image state defined somewhere
+            image: image || defultProfile,
         };
         addAccount(newData);
         alert("Registration successful");
@@ -132,9 +137,9 @@ export const Registration = () => {
         }
     }
   return (
-    <div className='registration-wrapper'>
+    <div className={'registration-wrapper'+ (darkMode ? '-dark' : '')}>
     <div className='registration-container'>
-        <img className='registration-img' src={logo} alt="Logo" />
+        <img className='login-img' src={darkMode ? darkLogo : logo} alt="Logo" /> {/* Conditional logo */}
         <form className='registration-form'>
             <div>{image && <img src={image} alt="User uploaded "style={{width: '150px', height: '100px'}} />}</div>
         <div>

@@ -1,3 +1,5 @@
+/* Existing light mode styles remain unchanged */
+
 .addpage-warpper {
   display: flex;
   justify-content: center;
@@ -9,7 +11,19 @@
   font-size: 120%;
   font-weight: bold;
 }
-  
+
+.addpage-warpper-dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 120%;
+  font-weight: bold;
+  color: white;
+}
 
 .containerAVPAddpage {
   width: 1000px;
@@ -28,6 +42,24 @@
   padding: 30px;
 }
 
+.containerAVPAddpage-dark {
+  width: 1000px;
+  height: 900px;
+  margin: 0 auto;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
+  background-color:#333;
+  border: 2px solid #444;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 30px;
+}
+
 .form.addVideo {
   width: 50%;
   display: flex;
@@ -39,11 +71,35 @@ h1 {
   margin-bottom: 20px;
 }
 
-.title-container-addpage {
+.title-container-addpage,
+.description-container-addpage {
   width: 90%;
-  height: 55px;
-  overflow: auto;
   margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #f6f6f6;
+  color: #0b0b0b;
+  resize: none; /* Prevents resizing */
+}
+
+.description-container-addpage {
+  height: 130px; /* Specific height for the description box */
+}
+
+.addpage-warpper-dark .title-container-addpage,
+.addpage-warpper-dark .description-container-addpage {
+  background-color: #333; /* Black background in dark mode */
+  color: #fff; /* White text in dark mode */
+  border: 1px solid #fff; /* White border in dark mode */
+}
+
+.category-container {
+  width: 90%;
+}
+
+.category-container select {
+  width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #333;
@@ -51,16 +107,10 @@ h1 {
   color: #0b0b0b;
 }
 
-.description-container-addpage {
-  width: 90%;
-  height: 130px;
-  overflow: auto;
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background-color: #f6f6f6;
-  color: #0b0b0b;
+.addpage-warpper-dark .category-container select {
+  background-color: #333; /* Dark gray background in dark mode */
+  color: #fff; /* White text in dark mode */
+  border: 1px solid #fff; /* White border in dark mode */
 }
 
 .addVideo {
@@ -93,6 +143,10 @@ h1 {
   margin-bottom: 10px;
 }
 
+.addpage-warpper-dark .ImageIcon {
+  fill: #fff; /* White icon in dark mode */
+}
+
 .image-preview {
   width: 300px;
   height: 200px;
@@ -108,10 +162,12 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
+
 .videoPreviewAddpage {
   width: 400px;
   border-radius: 20px;
 }
+
 .upload-button-addpage {
   position: absolute;
   bottom: 30px; /* Adjust as needed */
@@ -124,6 +180,24 @@ h1 {
   font-size: 16px;
   cursor: pointer;
 }
+
 .upload-button-addpage:hover {
+  background-color: #970303;
+}
+
+.back-button {
+  position: absolute;
+  bottom: 30px; /* Adjust as needed */
+  left: 30px; /* Adjust as needed */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #b52a03;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.back-button:hover {
   background-color: #970303;
 }
