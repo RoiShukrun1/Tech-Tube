@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.mainActivity.MainActivity">
+    android:layout_height="match_parent">
 
     <include
-        layout="@layout/addpage_toolbar" />
+        layout="@layout/toolbaraddpage" />
 
     <TextView
         android:id="@+id/textView2"
@@ -21,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <ImageButton
         android:id="@+id/thumbnailimage"
@@ -60,7 +59,7 @@
         android:layout_marginTop="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText2"
+            android:id="@+id/addpagetitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Add a title"
@@ -89,53 +88,36 @@
         android:layout_marginTop="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/addpagedescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Add description"
             android:inputType="textMultiLine"
             android:minHeight="100dp"
             android:gravity="start|top"/>
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textViewTags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tags:"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textViewTags"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditTextTags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add tags"
-            android:inputType="text"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="625dp" />
 
     <TextView
         android:id="@+id/textViewPlaylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:text="Add to playlist:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutTags" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <Spinner
         android:id="@+id/spinner"

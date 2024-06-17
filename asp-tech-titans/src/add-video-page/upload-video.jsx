@@ -3,13 +3,13 @@ import './upload-video.css';
 import { ReactComponent as UploadIcon } from '../images/addVideo.svg'; 
 import { Link } from 'react-router-dom';
 import { VideoContext } from '../contexts/videoContext'; // Import the VideoContext
-import LoginValidation from '../app/loginValidation';
-
+import { ThemeContext } from '../contexts/themeContext';
 
 const UploadPage = () => {
   const [video, setVideo] = useState(null);
   const videoInputRef = useRef(null);
   const { addNewVideo } = useContext(VideoContext);
+  const { darkMode } = useContext(ThemeContext);
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
@@ -31,10 +31,10 @@ const UploadPage = () => {
   };
 
   return (
-    <div className='upload-warpper'>
-      <div className="containerAVPUpload">
+    <div className={`upload-warpper ${darkMode ? 'upload-warpper-dark' : ''}`}>
+      <div className={`containerAVPUpload ${darkMode ? 'containerAVPUpload-dark' : ''}`}>
         <div className={`upload-container ${video ? 'hidden' : ''}`}>
-          <div className="upload-box">
+          <div className={`upload-box ${darkMode ? 'upload-box-dark' : ''}`}>
             <label htmlFor="videoUpload" className="upload-label">
               <div className="upload-icon-container">
                 {!video && <UploadIcon className="upload-icon" />}
@@ -56,7 +56,7 @@ const UploadPage = () => {
           <button className="next-button" type="button">Next</button>
         </Link>
         <Link to="/mainPage">
-        <button className="back-button"type="button">Back</button>
+          <button className="back-button" type="button">Back</button>
         </Link>
       </div>
     </div>

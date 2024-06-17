@@ -23,4 +23,14 @@
     <string name="subscriptions">Subscriptions</string>
     <string name="you">You</string>
     <string name="search_techtube">Search TechTube</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="like">Like</string>
+    <string name="unlike">Unlike</string>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
+    <string name="tap_to_view_comments">Tap to view comments</string>
+    <string name="add_comment">add comment...</string>
+    <string name="submit">submit</string>
+    <string name="cancel">cancel</string>
 </resources>

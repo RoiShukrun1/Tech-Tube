@@ -9,6 +9,18 @@
   font-size: 145%; 
   font-weight: bold;
 }
+.registration-wrapper-dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 145%; 
+  font-weight: bold;
+  color: white
+}
 
 .registration-container {
   max-width: 600px; 
@@ -51,6 +63,17 @@
   border: none;
   border-bottom: 3px solid black; 
   background: transparent;
+}
+
+.registration-wrapper-dark .registration-container input[type="text"],
+.registration-wrapper-dark .registration-container input[type="password"] {
+  color: white; /* Text color in dark mode */
+  border-bottom: 3px solid white; /* Bottom border color in dark mode */
+}
+
+.registration-wrapper-dark .Icon
+{
+  fill: white; /* Change icon color to white in dark mode */
 }
 
 .Icon {
