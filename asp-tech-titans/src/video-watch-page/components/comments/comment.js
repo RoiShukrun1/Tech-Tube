@@ -4,7 +4,6 @@ import { ReactComponent as Dislike } from './dislike.svg';
 import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
 
-
 function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
     const userLike = () => {
@@ -147,7 +146,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                         <h3 className="date">{date}</h3>
                         <h3 className="content">{comment}</h3>
 
-                        <div className='container'>
+                        <div className="container">
                             <button onClick={() => {
                                 if (currentUser === null) {
                                     alert('You must login to press like!');

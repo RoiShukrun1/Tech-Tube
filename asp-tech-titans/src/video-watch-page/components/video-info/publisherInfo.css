@@ -8,6 +8,8 @@
     text-align: left;
 }
 .publisher{
+    background-color: var(--background-color);
+    color: var(--text-color);
     font-size: medium;
     text-align: left;
     display: inline-flex;

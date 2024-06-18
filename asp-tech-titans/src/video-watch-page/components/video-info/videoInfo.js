@@ -4,7 +4,6 @@ import PublisherInfo from './publisherInfo';
 import { ReactComponent as Download } from './download.svg';
 import { ReactComponent as Share } from './share.svg';
 import { useContext } from 'react';
-import { ThemeContext } from '../../../contexts/themeContext';
 import { ReactComponent as Pencil } from './pencil.svg';
 import { VideoDataContext } from '../../../contexts/videoDataContext';
 import { useState } from 'react';
@@ -17,7 +16,6 @@ function copyUrl() {
 
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
 
-    const { darkMode } = useContext(ThemeContext);
     const [isPencilClicked, setIsPencilClicked] = useState(false);
     const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title);
 
@@ -79,7 +77,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     }, [currentVideo, setMoreInfoPressed]);
 
     return (
-        <div>
+        <div className='video-info-section'>
             <h1 className="title">{isPencilClicked ? <input 
             className='inputVideoTitle'
             onChange={handleVideoTitleInputChange}

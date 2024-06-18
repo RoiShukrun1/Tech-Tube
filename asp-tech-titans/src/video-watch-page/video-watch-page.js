@@ -10,6 +10,8 @@ import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrol
 import { LoginContext } from '../contexts/loginContext';
 import { AccountContext } from '../contexts/accountContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
+import { ThemeContext } from '../contexts/themeContext';
+import './video-watch-page.css';
 
 function getUserObjByUserName(usersData, userName) {
   return usersData.find(obj => obj.userName === userName);
@@ -20,7 +22,8 @@ function getObjectByUrl(jsonData, url) {
 }
 
 const VideoWatchPage = () => {
-  
+
+  const { darkMode } = useContext(ThemeContext);
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
   const { login, setLogin } = useContext(LoginContext);
   const { accounts, setAccounts } = useContext(AccountContext);
@@ -53,10 +56,11 @@ const VideoWatchPage = () => {
   };
 
   return (
-    <div>
+    <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      {console.log(darkMode)}
       <div className="container">
         <div className="row">
           <div className="col">

@@ -8,6 +8,7 @@
     height: 30px;
     float: left;
     margin-left: 10px;
+    background-color: white;
 }
 .username{
     font-size: small;
@@ -35,7 +36,6 @@
     border: none;
 }
 .like-icon-button {
-
     --bs-btn-padding-y: '.0rem';
     --bs-btn-padding-x: '.0rem';
     --bs-btn-font-size: '.50rem';

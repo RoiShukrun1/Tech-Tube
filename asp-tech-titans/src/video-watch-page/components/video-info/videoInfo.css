@@ -2,7 +2,7 @@
     font-size: large;
     font-weight: bold;
     text-align: left;
-    margin-top: 8px;
+    padding-top: 1%;
 }
 .views{
     font-size: medium;
@@ -43,4 +43,11 @@
     border-bottom: 1px solid #000;
     border-radius: 0px;
     outline: none;
+}
+.video-info-section{
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+.alert{
+    margin: 0%;
 }
