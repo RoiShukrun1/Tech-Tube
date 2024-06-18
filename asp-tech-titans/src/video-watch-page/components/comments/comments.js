@@ -7,7 +7,7 @@ function Comments({ comments, currentVideoId, currentUser,
     setVideos, inputValue, setInputValue, isFocused, setIsFocused, login }) {
 
     return (
-        <div>
+        <div className='comments-section'>
             {login && (
                 <AddComment
                     inputValue={inputValue}

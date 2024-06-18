@@ -10,7 +10,7 @@ export const AccountProvider = ({ children }) => {
   };
 
   return (
-    <AccountContext.Provider value={{ accounts, addAccount }}>
+    <AccountContext.Provider value={{ accounts, addAccount, setAccounts }}>
       {children}
     </AccountContext.Provider>
   );

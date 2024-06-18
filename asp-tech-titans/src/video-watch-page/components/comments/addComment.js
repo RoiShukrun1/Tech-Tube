@@ -15,8 +15,8 @@ function AddComment({ comments, currentVideoId, currentUser,
     const submitComment = () => {
         const newComment = {
             id: comments.length + 1,
-            username: currentUser.username,
-            image: currentUser.profilePicture,
+            username: currentUser.nickname,
+            image: currentUser.image,
             date: new Date().toLocaleString(),
             comment: inputValue,
             likes: 0,
@@ -41,7 +41,7 @@ function AddComment({ comments, currentVideoId, currentUser,
     return (
         <div className="row">
             <div className="col-1">
-                <img className="circle-image" src={currentUser.profilePicture} style={{ marginLeft: '35%' }} />
+                <img className="circle-image" src={currentUser.image} style={{ marginLeft: '35%' }} />
             </div>
             <div className="col">
                 <input type="text"

@@ -67,7 +67,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                     <div className="card-body">
                         <h5 className="card-title">{video.title}</h5>
                         <p className="card-text">{video.publisher}</p>
-                        <p className="card-text"><small className="text-body-secondary">{video.views} • {video.date}</small></p>
+                        <p className="card-text"><small className="views">{video.views} • {video.date}</small></p>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,11 @@ import './videoInfo.css';
 import PublisherInfo from './publisherInfo';
 import { ReactComponent as Download } from './download.svg';
 import { ReactComponent as Share } from './share.svg';
+import { useContext } from 'react';
+import { ReactComponent as Pencil } from './pencil.svg';
+import { VideoDataContext } from '../../../contexts/videoDataContext';
+import { useState } from 'react';
+
 
 function copyUrl() {
     const url = window.location.href;
@@ -10,6 +15,46 @@ function copyUrl() {
 }
 
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
+
+    const [isPencilClicked, setIsPencilClicked] = useState(false);
+    const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title);
+
+    const {videoData, setVideoData} = useContext(VideoDataContext);
+
+    const handleVideoTitleInputChange = (event) => {
+        setVideoTitleInputValue(event.target.value);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            closeInput();
+        }
+    };
+
+    const setNewVideoTitle = (newTitle) => {
+        setVideoData(prevVideos => {
+            const updatedVideos = [...prevVideos];
+    
+            const thisVideo = updatedVideos.find(video => video.id === currentVideo.id);
+    
+            if (thisVideo) {
+                thisVideo.title = newTitle;
+            }
+    
+            return updatedVideos;
+        });
+    };
+
+    const closeInput = () => {
+        setNewVideoTitle(VideoTitleInputValue);
+        setIsPencilClicked(false);
+    };
+
+    const inputIsEmpty = () => { return VideoTitleInputValue === '' ? true : false; };
+
+    const currentUserIsOwnerOfVideo = () => {
+        return currentUser && currentUser.username === currentVideo.publisher;
+    }
 
     const download = () => {
         const downloadUrl = currentVideo.videoUploaded;
@@ -32,18 +77,29 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     }, [currentVideo, setMoreInfoPressed]);
 
     return (
-        <div>
-            <h1 className="title">{title}</h1>
+        <div className='video-info-section'>
+            <h1 className="title">{isPencilClicked ? <input 
+            className='inputVideoTitle'
+            onChange={handleVideoTitleInputChange}
+            onKeyDown={handleKeyDown}
+            value={VideoTitleInputValue}
+            /> 
+            : title}
+                {currentUser && currentUserIsOwnerOfVideo()
+                && <button type="button" className='pencil-button' onClick={() => setIsPencilClicked(true)}>
+                    <Pencil />
+                </button>}
+            </h1>
             <PublisherInfo publisherImage={publisherImage} publisher={publisher}
                 setUsers={setUsers} currentUser={currentUser} />
             <button type="button" className="btn btn-light download-button"
                 onClick={download}><Download /> Download
             </button>
 
-            <div className="btn-group" role="group" style={{float: 'right'}}>
+            <div className="btn-group" role="group" style={{ float: 'right' }}>
                 <button type="button"
                     className="btn btn-light share-button dropdown-toggle"
-                    data-bs-toggle="dropdown" 
+                    data-bs-toggle="dropdown"
                     aria-expanded="false"><Share /> Share
                 </button>
                 <ul className="dropdown-menu">

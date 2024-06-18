@@ -1,6 +1,8 @@
 .card{
     border: none;
     margin-bottom: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 .card-title{
     font-size: 90%;
@@ -10,6 +12,11 @@
 .card-text{
     font-size: small;
     text-align: left;
+}
+.views{
+    font-size: small;
+    text-align: left;
+    color: gray;
 }
 .play-icon {
     position: absolute;

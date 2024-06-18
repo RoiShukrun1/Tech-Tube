@@ -4,14 +4,15 @@ import { ReactComponent as Dislike } from './dislike.svg';
 import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
 
-
 function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
     const userLike = () => {
+        if (currentUser === null) return false;
         return commentObj.usersLikedId.some(user => user.id === currentUser.id);
     }
 
     const userUnLike = () => {
+        if (currentUser === null) return false;
         return commentObj.usersUnLikedId.some(user => user.id === currentUser.id);
     }
 
@@ -46,8 +47,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                 };
             });
 
-            console.log(updatedVideos);
-
             return updatedVideos;
         });
     };
@@ -73,8 +72,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                     })
                 };
             });
-
-            console.log(updatedVideos);
 
             return updatedVideos;
         });
@@ -136,24 +133,25 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         });
     };
 
-
-
     return (
-
-        <div className="container text-center border">
+        <div className="border">
             <div className="row">
                 <div className="col">
                     <img className="circle-image" src={profilePicture} />
                 </div>
-                <div className="col">
+                <div className="col-11" style={{ padding: 0 }}>
 
                     <div className="comment">
                         <h2 className="username">@{username}</h2>
                         <h3 className="date">{date}</h3>
                         <h3 className="content">{comment}</h3>
 
-                        <div className='container'>
+                        <div className="container">
                             <button onClick={() => {
+                                if (currentUser === null) {
+                                    alert('You must login to press like!');
+                                    return
+                                };
                                 if (isUnLiked) {
                                     setIsUnLiked();
                                 }
@@ -171,6 +169,10 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                             <h3 className="likesNumber">{likesNumber}</h3>
 
                             <button onClick={() => {
+                                if (currentUser === null) {
+                                    alert('You must login to press dislike!');
+                                    return
+                                };
                                 if (isLiked) {
                                     setIsLiked();
                                 }
@@ -186,15 +188,11 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                                 {isUnLiked ? <DislikeSelected className='icon' style={{ margin: 0 }} /> :
                                     <Dislike className='icon' style={{ margin: 0 }} />}
                             </button>
-
-                            <button type="button" className="btn btn-outline-secondary reply-button">Reply</button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     );
 }
 
