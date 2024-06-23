@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Entity
-public class Video implements Serializable {
+public class Video {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private Uri videoUploaded;

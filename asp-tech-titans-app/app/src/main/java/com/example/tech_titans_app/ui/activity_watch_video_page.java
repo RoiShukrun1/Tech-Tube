@@ -23,6 +23,7 @@ import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
+import com.example.tech_titans_app.ui.entities.currentVideo;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
 
@@ -35,7 +36,7 @@ import java.util.List;
 
 public class activity_watch_video_page extends AppCompatActivity {
 
-    private Video currentVideo;
+    private Video thisCurrentVideo;
     private VideosListAdapter adapter;
     private boolean isLiked = false;
     private boolean isUnliked = false;
@@ -61,17 +62,13 @@ public class activity_watch_video_page extends AppCompatActivity {
         Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
         Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
         // Set the video URI (you can also use a URL or a file path)
-        this.currentVideo = new Video(image1, "Video 1 Title",
+        thisCurrentVideo = new Video(image1, "Video 1 Title",
                 "Publisher 1",  image1,
                 "100", "10/10/2020", "The world is changing.",
                 video4, 7);
+        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
-        this.currentVideo.addComment("HI");
-
-        String videoPath = "android.resource://"
-                + getPackageName() + "/" + this.currentVideo.getVideoUploaded();
-
-        Uri videoUri = Uri.parse(videoPath);
+//        this.currentVideo.addComment("HI");
 
         // Set up MediaController
         MediaController mediaController = new MediaController(this);
@@ -79,7 +76,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         videoView.setMediaController(mediaController);
 
         // Set the URI to the VideoView
-        videoView.setVideoURI(videoUri);
+        videoView.setVideoURI(this.thisCurrentVideo.getVideoUploaded());
 
         // Start the video
         videoView.start();
@@ -100,7 +97,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Handle click event of the "Like" TextView
         TextView likeTextView = findViewById(R.id.btn_like);
-        likeTextView.setText(this.currentVideo.getLikes());
+        likeTextView.setText(this.thisCurrentVideo.getLikes());
         likeTextView.setOnClickListener(v -> likeButtonClick());
 
         // Handle click event of the "Unlike" TextView
@@ -126,19 +123,19 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     public void setVideoTitle() {
         TextView titleTextView = findViewById(R.id.video_title);
-        titleTextView.setText(currentVideo.getTitle());
+        titleTextView.setText(thisCurrentVideo.getTitle());
     }
 
     public void setVideoDetails() {
         TextView titleTextView = findViewById(R.id.video_details);
         String details;
-        details = this.currentVideo.getViews() + " views " + this.currentVideo.getDate();
+        details = this.thisCurrentVideo.getViews() + " views " + this.thisCurrentVideo.getDate();
         titleTextView.setText(details);
     }
 
     public void setvideoDescription() {
         TextView descriptionTextView = findViewById(R.id.video_description);
-        descriptionTextView.setText(currentVideo.getInfo());
+        descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
 
     // Method to handle the "Like" click event
@@ -151,11 +148,11 @@ public class activity_watch_video_page extends AppCompatActivity {
             this.unlikeButtonClick();
         }
         if(isLiked) {
-            this.currentVideo.decrementLikes();
+            this.thisCurrentVideo.decrementLikes();
         } else {
-            this.currentVideo.incrementLikes();
+            this.thisCurrentVideo.incrementLikes();
         }
-        likeTextView.setText(this.currentVideo.getLikes());
+        likeTextView.setText(this.thisCurrentVideo.getLikes());
         isLiked = !isLiked;  // Toggle the state
     }
 
@@ -200,7 +197,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     public void shareButtonClick() {
         String s = "android.resource://"
-                + getPackageName() + "/" + this.currentVideo.getVideoUploaded();
+                + getPackageName() + "/" + this.thisCurrentVideo.getVideoUploaded();
         // Create the share intent
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
@@ -213,15 +210,15 @@ public class activity_watch_video_page extends AppCompatActivity {
     public void openCommentsActivity() {
         Intent intent =
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
-        intent.putExtra("video", this.currentVideo);
+//        intent.putExtra("video", this.currentVideo);
         startActivity(intent);
     }
 
     public void setCurrentVideo(Video currentVideo) {
-        this.currentVideo = currentVideo;
+        this.thisCurrentVideo = currentVideo;
     }
 
     public Video getCurrentVideo() {
-        return currentVideo;
+        return thisCurrentVideo;
     }
 }

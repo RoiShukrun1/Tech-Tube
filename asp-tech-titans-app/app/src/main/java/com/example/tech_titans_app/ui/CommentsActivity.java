@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
+import com.example.tech_titans_app.ui.entities.currentVideo;
 import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 public class CommentsActivity extends AppCompatActivity {
 
     private commentsViewModel commentsViewModel;
     private commentsAdapter commentsAdapter;
-    private Video currentVideo;
+    private Video thisCurrentVideo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +32,8 @@ public class CommentsActivity extends AppCompatActivity {
 
         // Retrieve the video object from intent
         Intent intent = getIntent();
-        currentVideo = (Video) intent.getSerializableExtra("video");
+        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+//        currentVideo = (Video) intent.getSerializableExtra("video");
 
         initiateCommentsSection();
 
@@ -61,7 +63,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentsViewModel = new ViewModelProvider(this).get(commentsViewModel.class);
 
-        commentsViewModel.getRepository().loadComments(this.currentVideo);
+        commentsViewModel.getRepository().loadComments(this.thisCurrentVideo);
 
         commentsViewModel.getAllComments()
                 .observe(this, comments -> commentsAdapter.setComments(comments));
@@ -81,8 +83,8 @@ public class CommentsActivity extends AppCompatActivity {
         EditText input = findViewById(R.id.input_edit_Text_Comment);
         String commentText = input.getText().toString().trim();
 
-        if (!commentText.isEmpty() && currentVideo != null) {
-            this.commentsViewModel.addCommentToVideo(currentVideo, commentText);
+        if (!commentText.isEmpty() && thisCurrentVideo != null) {
+            this.commentsViewModel.addCommentToVideo(thisCurrentVideo, commentText);
             input.setText(""); // Clear the input field
         }
     }
