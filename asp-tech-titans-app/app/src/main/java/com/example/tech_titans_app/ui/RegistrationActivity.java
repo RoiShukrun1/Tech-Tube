@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.models.account.AccountData;
 import com.example.tech_titans_app.ui.models.account.AccountDataArray;
 
@@ -31,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private ImageButton uploadPhotoButton;
     private Button signInButton;
     private TextView loginRedirectText;
+    private TextView guestRedirectText;
     private Uri selectedImageUri;
 
     @Override
@@ -46,6 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmPasswordText = findViewById(R.id.confirmPasswordText);
         signInButton = findViewById(R.id.button2);
         loginRedirectText = findViewById(R.id.loginRedirectText);
+        guestRedirectText = findViewById(R.id.guestRedirectText);
 
         // Set default image
         uploadPhotoButton.setImageResource(R.drawable.profile);
@@ -67,6 +70,15 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        guestRedirectText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(RegistrationActivity.this, "Continuing as guest", Toast.LENGTH_SHORT).show();
             }
         });
 
