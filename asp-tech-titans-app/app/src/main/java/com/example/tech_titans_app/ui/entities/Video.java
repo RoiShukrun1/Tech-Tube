@@ -182,7 +182,6 @@ public class Video {
         }
     }
 
-
     public static String getTodayDate() {
         // Get a Calendar instance
         Calendar calendar = Calendar.getInstance();

@@ -225,9 +225,19 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     public void PencilButtonClick(){
+        if (loggedIn.getLoggedInUser() == null) {
+            Toast.makeText(this,
+                    "You have to be logged in to edit the video title",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
         if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
             Toast.makeText(this,
                     "OK",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this,
+                    "You are not the publisher of this video",
                     Toast.LENGTH_LONG).show();
         }
     }
