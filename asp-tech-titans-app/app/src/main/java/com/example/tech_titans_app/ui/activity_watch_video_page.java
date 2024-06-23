@@ -178,7 +178,7 @@ public class activity_watch_video_page extends AppCompatActivity {
             isUnliked = !isUnliked;  // Toggle the state
         } else {
             Toast.makeText(this,
-                    "You have to be logged in to mark as liked",
+                    "You have to be logged in to mark dis-like",
                     Toast.LENGTH_SHORT).show();
         }
     }
