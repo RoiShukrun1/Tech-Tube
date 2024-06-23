@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui.entities;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ public class Comment implements Serializable {
     public Video parentVideo;
     private int id;
     private int numberOfLikes;
-    private int userImagePath;
+    private Uri userImage;
     private List<Integer> usersLikeId;
     private List<Integer> usersUnlikeId;
     private String publisherUsername;
@@ -28,14 +29,14 @@ public class Comment implements Serializable {
     private boolean isUnliked = false;
 
     public Comment(int id, int numberOfLikes, String publisherUsername,
-                   String comment, String date, int userImagePath, Video parent) {
+                   String comment, String date, Uri userImagePath, Video parent) {
         this.parentVideo = parent;
         this.id = id;
         this.numberOfLikes = numberOfLikes;
         this.publisherUsername = publisherUsername;
         this.comment = comment;
         this.date = date;
-        this.userImagePath = userImagePath;
+        this.userImage = userImagePath;
     }
 
     public void setId(int id) {
@@ -46,8 +47,8 @@ public class Comment implements Serializable {
         this.numberOfLikes = numberOfLikes;
     }
 
-    public void setImagePath(int imagePath) {
-        this.userImagePath = imagePath;
+    public void setImagePath(Uri imagePath) {
+        this.userImage = imagePath;
     }
 
     public void setUsersLikeId(List<Integer> usersLikeId) {
@@ -70,8 +71,8 @@ public class Comment implements Serializable {
         return numberOfLikes;
     }
 
-    public int getImagePath() {
-        return userImagePath;
+    public Uri getImage() {
+        return userImage;
     }
 
     public List<Integer> getUsersLikeId() {

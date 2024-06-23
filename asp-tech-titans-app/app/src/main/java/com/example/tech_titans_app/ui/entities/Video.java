@@ -1,13 +1,17 @@
 package com.example.tech_titans_app.ui.entities;
 
+import android.content.Context;
 import android.net.Uri;
+import android.widget.Toast;
 
+import androidx.core.content.ContentProviderCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.CommentsActivity;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 import java.io.Serializable;
@@ -18,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Entity
-public class Video implements Serializable {
+public class Video {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private Uri videoUploaded;
@@ -167,11 +171,15 @@ public class Video implements Serializable {
         return comments;
     }
     public void addComment(String comment) {
-        int numberOfComments = comments.size();
-        Comment newComment = new Comment(numberOfComments + 1,
-                0, "Aviel Segev",
-                Video.getTodayDate(), comment, R.drawable.image2, this);
-        comments.add(newComment);
+        LoggedIn loggedIn = LoggedIn.getInstance();
+        if (loggedIn.getLoggedInUser() != null) {
+            int numberOfComments = comments.size();
+            Comment newComment = new Comment(numberOfComments + 1,
+                    0, loggedIn.getLoggedInUser().getUsername(),
+                    Video.getTodayDate(), comment,
+                    loggedIn.getLoggedInUser().getProfilePicture(), this);
+            comments.add(newComment);
+        }
     }
 
     public static String getTodayDate() {
