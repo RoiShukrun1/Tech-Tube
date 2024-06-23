@@ -16,7 +16,6 @@
         android:hint="@string/username_hint"
         android:inputType="text"
         android:textColor="@color/text_primary"
-        android:hintTextColor="@color:text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +30,6 @@
         android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:textColor="@color/text_primary"
-        android:hintTextColor="@color:text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/usernameEditText" />
