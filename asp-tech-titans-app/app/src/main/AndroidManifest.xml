@@ -18,7 +18,7 @@
         android:theme="@style/Theme.TechTitansApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity_watch_video_page"
+            android:name=".ui.mainActivity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.CommentsActivity">
+            android:name=".ui.activity_watch_video_page">
         </activity>
 
 

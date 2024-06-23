@@ -13,14 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.models.add_video.UploadedVideo;
 import com.example.tech_titans_app.ui.utilities.LoginValidation;
 
 public class UploadVideoActivity extends AppCompatActivity {
     private static final int PICK_VIDEO_REQUEST_VIDEO = 1;
     private VideoView videoView;
     private Uri selectedVideoUri;
-    private UploadedVideo uploadVideo;
 
     private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

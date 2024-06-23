@@ -58,16 +58,18 @@ public class activity_watch_video_page extends AppCompatActivity {
     private void initiateVideoPlayer() {
         VideoView videoView = findViewById(R.id.videoView);
 
+        Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
+        Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
         // Set the video URI (you can also use a URL or a file path)
-        this.currentVideo = new Video(R.drawable.image1, "Video 1 Title",
-                "Publisher 1",  R.drawable.image1,
+        this.currentVideo = new Video(image1, "Video 1 Title",
+                "Publisher 1",  image1,
                 "100", "10/10/2020", "The world is changing.",
-                R.raw.video4, 7);
+                video4, 7);
 
         this.currentVideo.addComment("HI");
 
         String videoPath = "android.resource://"
-                + getPackageName() + "/" + this.currentVideo.getVideoUrl();
+                + getPackageName() + "/" + this.currentVideo.getVideoUploaded();
 
         Uri videoUri = Uri.parse(videoPath);
 
@@ -198,7 +200,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     public void shareButtonClick() {
         String s = "android.resource://"
-                + getPackageName() + "/" + this.currentVideo.getVideoUrl();
+                + getPackageName() + "/" + this.currentVideo.getVideoUploaded();
         // Create the share intent
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");

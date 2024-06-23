@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui.adapters;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,8 +44,17 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         holder.publisher.setText(video.getPublisher());
         holder.views.setText(video.getViews());
         holder.date.setText(video.getDate());
-        holder.videoImage.setImageResource(video.getImage());
-        holder.publisherImage.setImageResource(video.getPublisherImage());
+        // Load the thumbnail image
+        Uri thumbnailUri = video.getThumbnail();
+        Glide.with(holder.itemView.getContext())
+                .load(thumbnailUri)
+                .into(holder.videoImage);
+
+        // Load the publisher image
+        Uri publisherImageUri = video.getPublisherImage();
+        Glide.with(holder.itemView.getContext())
+                .load(publisherImageUri)
+                .into(holder.publisherImage);
     }
 
     @Override

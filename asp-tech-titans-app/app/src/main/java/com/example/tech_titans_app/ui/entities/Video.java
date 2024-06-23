@@ -1,5 +1,7 @@
 package com.example.tech_titans_app.ui.entities;
 
+import android.net.Uri;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -19,24 +21,21 @@ import java.util.Locale;
 public class Video implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int image;
+    private Uri videoUploaded;
+    private Uri thumbnail;
     private String title;
     private String publisher;
-    private int publisherImage;
+    private Uri publisherImage;
     private String views;
-    private String likes;
-    private CharSequence date;
-    private String info;
-    private int videoUrl;
+    private String date;
+    private String description;
+    private List<Video> relatedVideos;
+    private String playlist;
     private List<Comment> comments;
+    private String likes;
 
-    public Video() {
-        this.image = R.drawable.image1;
-    }
-
-
-    public Video(int image, String title, String publisher, int publisherImage, String views, CharSequence date) {
-        this.image = image;
+    public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
+        this.thumbnail = thumbnail;
         this.title = title;
         this.publisher = publisher;
         this.publisherImage = publisherImage;
@@ -45,28 +44,28 @@ public class Video implements Serializable {
         this.comments = new ArrayList<>();
     }
 
-    public Video(int image, String title, String publisher, int publisherImage, String views, CharSequence date, String info) {
-        this.image = image;
+    public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description) {
+        this.thumbnail = thumbnail;
         this.title = title;
         this.publisher = publisher;
         this.publisherImage = publisherImage;
         this.views = views;
         this.date = date;
-        this.info = info;
+        this.description = description;
         this.comments = new ArrayList<>();
     }
 
-    public Video(int image, String title, String publisher,
-                 int publisherImage, String views,
-                 CharSequence date, String info, int videoUrl, int likes) {
-        this.image = image;
+    public Video(Uri thumbnail, String title, String publisher,
+                 Uri publisherImage, String views,
+                 String date, String description, Uri videoUploaded, int likes) {
+        this.thumbnail = thumbnail;
         this.title = title;
         this.publisher = publisher;
         this.publisherImage = publisherImage;
         this.views = views;
         this.date = date;
-        this.info = info;
-        this.videoUrl = videoUrl;
+        this.description = description;
+        this.videoUploaded = videoUploaded;
         this.comments = new ArrayList<>();
         this.likes = String.valueOf(likes);
     }
@@ -80,8 +79,8 @@ public class Video implements Serializable {
         return id;
     }
 
-    public int getImage() {
-        return image;
+    public Uri getThumbnail() {
+        return thumbnail;
     }
 
     public String getTitle() {
@@ -92,7 +91,7 @@ public class Video implements Serializable {
         return publisher;
     }
 
-    public int getPublisherImage() {
+    public Uri getPublisherImage() {
         return publisherImage;
     }
 
@@ -105,15 +104,15 @@ public class Video implements Serializable {
     }
 
     public String getInfo() {
-        return info;
+        return description;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImage(Uri image) {
+        this.thumbnail = image;
     }
 
     public void setTitle(String title) {
@@ -124,7 +123,7 @@ public class Video implements Serializable {
         this.publisher = publisher;
     }
 
-    public void setPublisherImage(int publisherImage) {
+    public void setPublisherImage(Uri publisherImage) {
         this.publisherImage = publisherImage;
     }
 
@@ -132,20 +131,20 @@ public class Video implements Serializable {
         this.views = views;
     }
 
-    public void setDate(CharSequence date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setInfo(String description) {
+        this.description = description;
     }
 
-    public int getVideoUrl() {
-        return videoUrl;
+    public Uri getVideoUploaded() {
+        return videoUploaded;
     }
 
-    public void setVideoUrl(int videoUrl) {
-        this.videoUrl = videoUrl;
+    public void setVideoUploaded(Uri videoUploaded) {
+        this.videoUploaded = videoUploaded;
     }
     public List<Comment> getComments() {
         return comments;
