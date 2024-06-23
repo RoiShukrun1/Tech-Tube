@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import VideoThumbnail from './components/video-thumbnail/videoThumbnail';
-import jsonData from '../db/videos.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
@@ -14,12 +13,12 @@ import { VideoDataContext } from '../contexts/videoDataContext';
 const MainPage = () => {
 
   const { setVideoUrl } = useContext(CurrentVideoContext);
-  const [videos, setVideos] = useState(jsonData);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-  const {videoData, setVideoData, deleteVideo } = useContext(VideoDataContext);
+  const { videoData } = useContext(VideoDataContext);
+  const [videos, setVideos] = useState(videoData);
 
   const handleSearch = (query) => {
-    const filteredVideos = searchVideos(jsonData, query);
+    const filteredVideos = searchVideos(videoData, query);
     setVideos(filteredVideos);
   };
 
@@ -45,7 +44,7 @@ const MainPage = () => {
           <div className="container-fluid p-0">
             <Filters />
             <div className="row no-gutters">
-              {videoData.map((newVideo, index) => (
+              {videos.map((newVideo, index) => (
                 <div key={index} className="col-md-4 p-1">
                   <VideoThumbnail video={newVideo} onClick={() => handleThumbnailClick(newVideo.videoUploaded)} />
                 </div>

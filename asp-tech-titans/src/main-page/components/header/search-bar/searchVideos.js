@@ -5,9 +5,9 @@ const searchVideos = (videos, query) => {
     } else {
       const lowerCaseQuery = query.toLowerCase();
       return videos.filter(video =>
-        video.videoTitle.toLowerCase().startsWith(lowerCaseQuery) ||
+        video.title.toLowerCase().startsWith(lowerCaseQuery) ||
         video.publisher.toLowerCase() === lowerCaseQuery ||
-        video.videoTitle.toLowerCase().split(' ').includes(lowerCaseQuery)
+        video.title.toLowerCase().split(' ').includes(lowerCaseQuery)
       );
     }
   };
