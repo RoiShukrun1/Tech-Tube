@@ -13,7 +13,7 @@ public class AccountData extends Application {
     private String password;
     private List<String> subscriptions;
     private Uri profilePicture;
-        // Constructor
+    // Constructor
   public AccountData(int id, String username, String nickname, String password, List<String> subscriptions, Uri profilePicture) {
       this.id = id;
       this.username = username;
@@ -23,8 +23,6 @@ public class AccountData extends Application {
       this.profilePicture = profilePicture;
   }
   // Getter and Setter methods
-
-
     public int getId() {
         return id;
     }

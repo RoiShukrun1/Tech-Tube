@@ -29,6 +29,18 @@
         <activity
             android:name=".ui.activity_watch_video_page">
         </activity>
+        <activity
+            android:name=".ui.UploadVideoActivity">
+        </activity>
+        <activity
+            android:name=".ui.AddVideoActivity">
+        </activity>
+        <activity
+            android:name=".ui.LoginActivity">
+        </activity>
+        <activity
+            android:name=".ui.RegistrationActivity">
+        </activity>
 
 
     </application>
