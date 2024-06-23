@@ -13,10 +13,6 @@ import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './video-watch-page.css';
 
-function getUserObjByUserName(usersData, userName) {
-  return usersData.find(obj => obj.userName === userName);
-}
-
 function getObjectByUrl(jsonData, url) {
   return jsonData.find(obj => obj.videoUploaded === url);
 }
@@ -28,6 +24,7 @@ const VideoWatchPage = () => {
   const { login, setLogin } = useContext(LoginContext);
   const { accounts, setAccounts } = useContext(AccountContext);
   const {videoData, setVideoData} = useContext(VideoDataContext);
+  console.log(videoData);
 
   useEffect(() => {
     if (videoUrl) {
@@ -60,11 +57,9 @@ const VideoWatchPage = () => {
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      {console.log(darkMode)}
       <div className="container">
         <div className="row">
           <div className="col">
-
             <div className="video-watch-page">
               <VideoPlayer url={videoUrl} />
               <VideoInfo

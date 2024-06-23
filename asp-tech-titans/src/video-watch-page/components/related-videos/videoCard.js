@@ -2,6 +2,23 @@ import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
 
+export const incrementViews = (setVideos, video) => {
+    setVideos(prevVideos => {
+        const updatedVideos = [...prevVideos];
+
+        var thisVideoTitle = video.title;
+        const index = updatedVideos.findIndex(video => video.title === thisVideoTitle);
+
+        const updatedVideo = { ...updatedVideos[index] };
+
+        updatedVideo.views++;
+        console.log(updatedVideo);
+
+        updatedVideos[index] = updatedVideo;
+
+        return updatedVideos;
+    });
+};
 
 function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
 
@@ -17,26 +34,9 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
 
     const handleClick = () => {
         setUrl(video.videoUploaded);
-        incrementViews();
+        incrementViews(setVideos, video);
         setMoreInfoPressed(false);
         setInputValue('');
-    };
-
-    const incrementViews = () => {
-        setVideos(prevVideos => {
-            const updatedVideos = [...prevVideos];
-
-            var thisVideoTitle = video.title;
-            const index = updatedVideos.findIndex(video => video.title === thisVideoTitle);
-
-            const updatedVideo = { ...updatedVideos[index] };
-
-            updatedVideo.views++;
-
-            updatedVideos[index] = updatedVideo;
-
-            return updatedVideos;
-        });
     };
 
     const renderPlayIcon = () => {

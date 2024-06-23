@@ -8,8 +8,7 @@ import { VideoDataContext } from '../../../contexts/videoDataContext';
 const VideoThumbnail = ({ video, onClick}) => {
   const [isHovered, setIsHovered] = useState(false);
   const { login } = useContext(LoginContext);
-  const {deleteVideo} = useContext(VideoDataContext)
-
+  const {videoData, deleteVideo} = useContext(VideoDataContext)
 
   const handleMouseEnter = () => {
     setIsHovered(true);
