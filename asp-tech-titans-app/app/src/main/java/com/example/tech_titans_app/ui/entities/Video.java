@@ -173,10 +173,9 @@ public class Video {
     public void addComment(String comment) {
         LoggedIn loggedIn = LoggedIn.getInstance();
         if (loggedIn.getLoggedInUser() != null) {
-            System.out.println("Im not null");
             int numberOfComments = comments.size();
             Comment newComment = new Comment(numberOfComments + 1,
-                    0, loggedIn.getLoggedInUser().getNickname(),
+                    0, loggedIn.getLoggedInUser().getUsername(),
                     Video.getTodayDate(), comment,
                     loggedIn.getLoggedInUser().getProfilePicture(), this);
             comments.add(newComment);

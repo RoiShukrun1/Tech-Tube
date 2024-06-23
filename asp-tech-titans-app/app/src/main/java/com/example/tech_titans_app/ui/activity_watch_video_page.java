@@ -120,6 +120,10 @@ public class activity_watch_video_page extends AppCompatActivity {
         // Handle click event of the comment collapsed view
         TextView commentCollapsedView = findViewById(R.id.comment_collapsed_view);
         commentCollapsedView.setOnClickListener(v -> openCommentsActivity());
+
+        // Handle click event of pencil click - edit video title
+        TextView PencilTextView = findViewById(R.id.editTitle);
+        PencilTextView.setOnClickListener(v -> PencilButtonClick());
     }
 
     public void setVideoTitle() {
@@ -218,6 +222,14 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Start the chooser activity
         startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
+    public void PencilButtonClick(){
+        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
+            Toast.makeText(this,
+                    "OK",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void openCommentsActivity() {
