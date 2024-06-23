@@ -47,6 +47,9 @@ public class RegistrationActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.button2);
         loginRedirectText = findViewById(R.id.loginRedirectText);
 
+        // Set default image
+        uploadPhotoButton.setImageResource(R.drawable.profile);
+
         // Add TextWatcher for each EditText field to perform validation
         nicknameText.addTextChangedListener(textWatcher);
         usernameText.addTextChangedListener(textWatcher);
@@ -136,6 +139,10 @@ public class RegistrationActivity extends AppCompatActivity {
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
             AccountDataArray accountDataArray = AccountDataArray.getInstance();
+            // Use default image if no image selected
+            if (selectedImageUri == null) {
+                selectedImageUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.profile);
+            }
             AccountData newAccount = new AccountData(accountDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
             AccountDataArray.getInstance().addAccount(newAccount);
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();

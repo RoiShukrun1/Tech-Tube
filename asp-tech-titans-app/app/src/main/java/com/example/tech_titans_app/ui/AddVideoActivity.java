@@ -17,7 +17,6 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.models.account.AccountData;
-import com.example.tech_titans_app.ui.models.add_video.VideoData;
 import com.example.tech_titans_app.ui.models.add_video.VideoDataArray;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
@@ -69,6 +68,10 @@ public class AddVideoActivity extends AppCompatActivity {
         videoUri = Uri.parse(getIntent().getStringExtra("videoUri"));
         setupSpinner();
         setupThumbnail();
+
+        // Set default image initially
+        thumbnailImage.setImageResource(R.drawable.default_thumbnail);
+
         Button uploadButton = findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(v -> uploadVideoData());
     }
@@ -93,11 +96,16 @@ public class AddVideoActivity extends AppCompatActivity {
         String formattedDate = dateFormat.format(currentDate);
         loggedInUser = LoggedIn.getInstance().getLoggedInUser();
 
+        // Use default image if no image selected
+        if (thumbnailUri == null) {
+            thumbnailUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.default_thumbnail);
+        }
+
         if (videoUri != null && thumbnailUri != null) {
             Video currentVideoData = new Video(
                     VideosRepository.getInstance().getAllVideos().getValue().size() + 1,
                     videoUri,
-                    thumbnailUri,  // Use the selected thumbnail URI
+                    thumbnailUri,  // Use the selected or default thumbnail URI
                     titleString,
                     loggedInUser.getNickname(),
                     loggedInUser.getProfilePicture(),
@@ -118,3 +126,4 @@ public class AddVideoActivity extends AppCompatActivity {
         }
     }
 }
+
