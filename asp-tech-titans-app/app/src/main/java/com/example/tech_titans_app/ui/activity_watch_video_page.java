@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.widget.EditText;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -225,21 +229,48 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     public void PencilButtonClick(){
-        if (loggedIn.getLoggedInUser() == null) {
-            Toast.makeText(this,
-                    "You have to be logged in to edit the video title",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
+//        if (loggedIn.getLoggedInUser() == null) {
+//            Toast.makeText(this,
+//                    "You have to be logged in to edit the video title",
+//                    Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
             Toast.makeText(this,
                     "OK",
                     Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this,
-                    "You are not the publisher of this video",
-                    Toast.LENGTH_LONG).show();
-        }
+            // Inflate the dialog layout
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View dialogView =
+                    inflater.inflate(R.layout.watch_page_video_dialog_edit_title, null);
+
+            // Get the EditText from the dialog layout
+            EditText editTitleInput = dialogView.findViewById(R.id.dialog_edit_title_input);
+
+            // Set the current title in the EditText
+            String currentTitle = thisCurrentVideo.getTitle();
+            editTitleInput.setText(currentTitle);
+
+            // Build the dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView)
+                    .setTitle("Edit Video Title")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        // Update the video title with the new value
+                        String newTitle = editTitleInput.getText().toString();
+                        thisCurrentVideo.setTitle(newTitle);
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        // Show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+//        } else {
+//            Toast.makeText(this,
+//                    "You are not the publisher of this video",
+//                    Toast.LENGTH_LONG).show();
+//        }
     }
 
     public void openCommentsActivity() {
