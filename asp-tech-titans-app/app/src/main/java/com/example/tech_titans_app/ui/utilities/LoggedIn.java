@@ -25,5 +25,8 @@ public class LoggedIn {
     public void logOut() {
         this.loggedInUser = null;
     }
+    public boolean isLoggedIn() {
+        return loggedInUser != null;
+    }
 
 }

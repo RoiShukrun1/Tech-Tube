@@ -89,10 +89,13 @@ public class VideosRepository {
         return false;
     }
 
-
-
     public void addVideo(Video video) {
         allVideos.add(video);
+        videos.setValue(allVideos);
+    }
+
+    public void deleteVideo(Video video) {
+        allVideos.remove(video);
         videos.setValue(allVideos);
     }
 }
