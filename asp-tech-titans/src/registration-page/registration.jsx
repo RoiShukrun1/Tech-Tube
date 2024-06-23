@@ -180,6 +180,7 @@ export const Registration = () => {
         <input type="submit" value="Register" onClick={handleSubmit} />
         <div>
             <p>Already have an account? <Link to="/login">Log-in</Link></p>
+            <p>Continue as guest:   <Link to="/mainPage">Hompage</Link></p>    
         </div>
         </form>
     </div>

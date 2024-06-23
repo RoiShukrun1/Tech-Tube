@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../contexts/themeContext';
-
+import defaultThumbnail from '../images/default_thumbnail.png';
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
     const { videoList } = useContext(VideoContext);
@@ -16,7 +16,6 @@ export const AddVideo = () => {
     const { addVideoData } = useContext(VideoDataContext);
     const { login } = useContext(LoginContext);
     const { darkMode } = useContext(ThemeContext);
-
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
     };
@@ -25,7 +24,7 @@ export const AddVideo = () => {
         const newData = {
             id: videoList.length + 10,
             videoUploaded: mostRecentVideo.url,
-            thumbnail: image,
+            thumbnail: image || defaultThumbnail,
             title: document.getElementById("title").value,
             publisher: login.nickname,
             publisherImage: login.image,
