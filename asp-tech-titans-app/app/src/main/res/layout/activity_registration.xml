@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FEFEFE"
-    android:foregroundTint="#A70038">
+    android:background="@color/background"
+    android:foregroundTint="@color/foreground_tint">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="254dp"
         android:layout_height="167dp"
-        android:background="#FEFEFE"
+        android:background="@color/image_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -80,42 +80,57 @@
         android:id="@+id/imageButton"
         android:layout_width="150dp"
         android:layout_height="109dp"
-        android:backgroundTint="#FEFEFE"
+        android:backgroundTint="@color/image_background"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/nicknameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-
         app:srcCompat="@drawable/addimage" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="134dp"
         android:layout_height="58dp"
-        android:backgroundTint="#AE0A0A"
-        android:text="Sign-in"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/button_background"
+        android:text="Sign-up"
+        android:textColor="@color/button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordText"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <TextView
         android:id="@+id/loginRedirectText"
-        android:layout_width="345dp"
-        android:layout_height="33dp"
+        android:layout_width="321dp"
+        android:layout_height="28dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:focusable="true"
         android:text="Already have an account? Click here"
         android:textSize="16sp"
+        android:textColor="@color/text_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.757"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button2" />
+
+    <TextView
+        android:id="@+id/guestRedirectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Continue as guest - Homepage"
+        android:textSize="16sp"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginRedirectText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
