@@ -38,6 +38,9 @@ public class UploadVideoActivity extends AppCompatActivity {
                 intent.putExtra("videoUri", selectedVideoUri.toString());
                 startActivity(intent);
             }
+            else {
+                showToastMessage("Please select a video");
+            }
         });
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
