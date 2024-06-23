@@ -33,5 +33,7 @@
     <string name="add_comment">add comment...</string>
     <string name="submit">submit</string>
     <string name="cancel">cancel</string>
-    <string name="modify_title">Modify title</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="profile_picture" />
 </resources>

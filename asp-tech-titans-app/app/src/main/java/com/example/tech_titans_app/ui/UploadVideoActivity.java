@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.utilities.LoginValidation;
 
 public class UploadVideoActivity extends AppCompatActivity {
@@ -36,6 +38,11 @@ public class UploadVideoActivity extends AppCompatActivity {
                 intent.putExtra("videoUri", selectedVideoUri.toString());
                 startActivity(intent);
             }
+        });
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(UploadVideoActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 

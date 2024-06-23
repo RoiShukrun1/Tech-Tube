@@ -21,7 +21,7 @@
         android:id="@+id/select_button"
         android:layout_width="131dp"
         android:layout_height="62dp"
-        android:backgroundTint="@color/button_red"
+        android:backgroundTint="@color/button_background"
         android:text="Select video"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

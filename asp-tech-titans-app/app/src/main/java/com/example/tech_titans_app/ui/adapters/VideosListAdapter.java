@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
+import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.List;
@@ -35,6 +38,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Video video = videoList.get(position);
@@ -53,6 +57,22 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         Glide.with(holder.itemView.getContext())
                 .load(publisherImageUri)
                 .into(holder.publisherImage);
+
+        if (LoggedIn.getInstance().isLoggedIn()) {
+            String loggedInUsername = LoggedIn.getInstance().getLoggedInUser().getUsername();
+                String videoPublisher = video.getPublisher();
+                if (loggedInUsername.equals(videoPublisher)) {
+                    holder.removeIcon.setVisibility(View.VISIBLE);
+                } else {
+                    holder.removeIcon.setVisibility(View.GONE);
+                }
+        }
+        holder.removeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideosRepository.getInstance().deleteVideo(video);
+            }
+        });
     }
 
     @Override
@@ -65,6 +85,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         public TextView videoTitle, publisher, views, date;
         public ImageView videoImage;
         public CircleImageView publisherImage;
+        public ImageView removeIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +95,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
             date = itemView.findViewById(R.id.date);
             videoImage = itemView.findViewById(R.id.video_image);
             publisherImage = itemView.findViewById(R.id.publisher_image);
+            removeIcon = itemView.findViewById(R.id.remove_icon);
         }
     }
 }

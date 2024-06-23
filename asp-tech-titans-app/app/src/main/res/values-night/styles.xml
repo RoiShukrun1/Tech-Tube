@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="ButtonTheme" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textColor">@color/button_text</item>
+    </style>
+    <style name="Theme.TechTitansApp.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
