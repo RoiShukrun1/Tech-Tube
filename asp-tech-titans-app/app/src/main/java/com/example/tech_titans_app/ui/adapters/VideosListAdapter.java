@@ -29,7 +29,6 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

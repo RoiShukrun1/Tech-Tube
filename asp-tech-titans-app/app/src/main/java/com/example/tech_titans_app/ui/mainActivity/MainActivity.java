@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.CheckVideoActivity;
+import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
@@ -49,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        ImageView addvideoButton = findViewById(R.id.add);
+        addvideoButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, UploadVideoActivity.class);
+            startActivity(intent);
+        });
+
+        TextView checkButton = findViewById(R.id.you);
+        checkButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CheckVideoActivity.class);
             startActivity(intent);
         });
 

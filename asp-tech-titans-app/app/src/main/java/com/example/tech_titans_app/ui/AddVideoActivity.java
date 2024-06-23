@@ -14,11 +14,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.models.account.AccountData;
 import com.example.tech_titans_app.ui.models.add_video.VideoData;
 import com.example.tech_titans_app.ui.models.add_video.VideoDataArray;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
+import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -92,21 +94,22 @@ public class AddVideoActivity extends AppCompatActivity {
         loggedInUser = LoggedIn.getInstance().getLoggedInUser();
 
         if (videoUri != null && thumbnailUri != null) {
-            VideoData currentVideoData = new VideoData(
-                    VideoDataArray.getInstance().getLength() + 1,
+            Video currentVideoData = new Video(
+                    VideosRepository.getInstance().getAllVideos().getValue().size() + 1,
                     videoUri,
                     thumbnailUri,  // Use the selected thumbnail URI
                     titleString,
                     loggedInUser.getNickname(),
                     loggedInUser.getProfilePicture(),
-                    0,
+                    "0",
                     formattedDate,
                     descriptionString,
                     new ArrayList<>(),
                     playlistString,  // Set the selected playlist
-                    new ArrayList<>()
+                    new ArrayList<>(),
+                    "0"
             );
-            VideoDataArray.getInstance().addVideo(currentVideoData);
+            VideosRepository.getInstance().addVideo(currentVideoData);
             showToastMessage("Video data uploaded successfully!");
             Intent intent = new Intent(AddVideoActivity.this, MainActivity.class);
             startActivity(intent);

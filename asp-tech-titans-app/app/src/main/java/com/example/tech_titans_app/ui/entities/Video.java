@@ -34,7 +34,8 @@ public class Video implements Serializable {
     private List<Comment> comments;
     private String likes;
 
-    public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
+    public Video(int id ,Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
+        this.id = id;
         this.thumbnail = thumbnail;
         this.title = title;
         this.publisher = publisher;
@@ -68,6 +69,22 @@ public class Video implements Serializable {
         this.videoUploaded = videoUploaded;
         this.comments = new ArrayList<>();
         this.likes = String.valueOf(likes);
+    }
+
+    public Video(int id, Uri videoUploaded, Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description, List<Video> relatedVideos, String playlist, List<Comment> comments, String likes) {
+        this.id = id;
+        this.videoUploaded = videoUploaded;
+        this.thumbnail = thumbnail;
+        this.title = title;
+        this.publisher = publisher;
+        this.publisherImage = publisherImage;
+        this.views = views;
+        this.date = date;
+        this.description = description;
+        this.relatedVideos = relatedVideos;
+        this.playlist = playlist;
+        this.comments = comments;
+        this.likes = likes;
     }
 
     public void setComments(List<Comment> comments) {
@@ -195,4 +212,15 @@ public class Video implements Serializable {
         this.likes = likes;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public List<Video> getRelatedVideos() {
+        return relatedVideos;
+    }
+
+    public String getPlaylist() {
+        return playlist;
+    }
 }
