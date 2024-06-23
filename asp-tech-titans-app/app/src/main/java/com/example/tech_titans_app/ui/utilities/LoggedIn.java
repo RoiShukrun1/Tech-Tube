@@ -22,7 +22,7 @@ public class LoggedIn {
         this.loggedInUser = loggedInUser;
     }
 
-    public void loggout() {
+    public void logOut() {
         this.loggedInUser = null;
     }
 

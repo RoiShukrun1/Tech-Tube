@@ -9,8 +9,10 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.models.add_video.VideoData;
 import com.example.tech_titans_app.ui.models.add_video.VideoDataArray;
+import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 
 import java.util.List;
 
@@ -42,19 +44,17 @@ public class CheckVideoActivity extends AppCompatActivity {
         relatedVideosTextView = findViewById(R.id.relatedVideosTextView);
         playlistTextView = findViewById(R.id.playlistTextView);
         commentsTextView = findViewById(R.id.commentsTextView);
-
-        VideoDataArray videoDataArray = VideoDataArray.getInstance();
-        List<VideoData> videoDataList = videoDataArray.getVideoArray();
-
+        VideosRepository videoDataArray = VideosRepository.getInstance();
+        List<Video> videoDataList = videoDataArray.getAllVideos().getValue();
         // Example: Display the first video's data
-        if (!videoDataList.isEmpty()) {
-            VideoData videoData = videoDataList.get(0);
+        if (videoDataList != null) {
+            Video videoData = videoDataList.get(0);
             displayVideoData(videoData);
         }
     }
 
-    private void displayVideoData(VideoData videoData) {
-        videoView.setVideoURI(videoData.getVideoUri());
+    private void displayVideoData(Video videoData) {
+        videoView.setVideoURI(videoData.getVideoUploaded());
         videoView.start();
         thumbnailImageView.setImageURI(videoData.getThumbnail());
         titleTextView.setText(videoData.getTitle());

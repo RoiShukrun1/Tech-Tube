@@ -13,7 +13,7 @@ public class MainVideoViewModel extends ViewModel {
     private final VideosRepository repository;
 
     public MainVideoViewModel() {
-        repository = new VideosRepository();
+        repository = VideosRepository.getInstance();
         videos = repository.getAllVideos();
     }
 

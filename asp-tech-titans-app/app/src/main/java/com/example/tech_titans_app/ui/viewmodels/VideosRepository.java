@@ -15,11 +15,22 @@ public class VideosRepository {
     private final MutableLiveData<List<Video>> videos;
     private List<Video> allVideos;
 
+    // Singleton instance
+    private static VideosRepository instance;
 
-    public VideosRepository() {
+    // Private constructor to prevent instantiation
+    private VideosRepository() {
         videos = new MutableLiveData<>();
         allVideos = new ArrayList<>();
         loadVideos();
+    }
+
+    // Public method to provide access to the instance
+    public static synchronized VideosRepository getInstance() {
+        if (instance == null) {
+            instance = new VideosRepository();
+        }
+        return instance;
     }
 
     private void loadVideos() {
@@ -34,16 +45,16 @@ public class VideosRepository {
         Uri image8 = Uri.parse("android.resource://com.example.tech_titans_app/" + R.drawable.image8);
         Uri image9 = Uri.parse("android.resource://com.example.tech_titans_app/" + R.drawable.image9);
         Uri image10 = Uri.parse("android.resource://com.example.tech_titans_app/" + R.drawable.image10);
-        videoList.add(new Video(image1, "Video 1 Title", "Publisher 1",  image1, "50", "10/10/2020"));
-        videoList.add(new Video(image2, "Video 2 Title", "Publisher 2",  image2, "60", "10/10/2020"));
-        videoList.add(new Video(image3, "Video 3 Title", "Publisher 3",  image3, "70", "10/10/2020"));
-        videoList.add(new Video(image4, "Video 4 Title", "Publisher 4",  image4, "80", "10/10/2020"));
-        videoList.add(new Video(image5, "Video 5 Title", "Publisher 4",  image2, "3", "10/10/2020"));
-        videoList.add(new Video(image6, "Video 6 Title", "Publisher 4",  image2, "9", "10/10/2020"));
-        videoList.add(new Video(image7, "Video 7 Title", "Publisher 5",  image2, "17", "10/10/2020"));
-        videoList.add(new Video(image8, "Video 8 Title", "Publisher 6",  image2, "22", "10/10/2020"));
-        videoList.add(new Video(image9, "Video 9 Title", "Publisher 7",  image2, "25", "10/10/2020"));
-        videoList.add(new Video(image10, "Video 10 Title", "Publisher 7",  image2, "77", "10/10/2020"));
+        videoList.add(new Video(0, image1, "Video 1 Title", "Publisher 1", image1, "50", "10/10/2020"));
+        videoList.add(new Video(1, image2, "Video 2 Title", "Publisher 2", image2, "60", "10/10/2020"));
+        videoList.add(new Video(2, image3, "Video 3 Title", "Publisher 3", image3, "70", "10/10/2020"));
+        videoList.add(new Video(3, image4, "Video 4 Title", "Publisher 4", image4, "80", "10/10/2020"));
+        videoList.add(new Video(4, image5, "Video 5 Title", "Publisher 4", image2, "3", "10/10/2020"));
+        videoList.add(new Video(5, image6, "Video 6 Title", "Publisher 4", image2, "9", "10/10/2020"));
+        videoList.add(new Video(6, image7, "Video 7 Title", "Publisher 5", image2, "17", "10/10/2020"));
+        videoList.add(new Video(7, image8, "Video 8 Title", "Publisher 6", image2, "22", "10/10/2020"));
+        videoList.add(new Video(8, image9, "Video 9 Title", "Publisher 7", image2, "25", "10/10/2020"));
+        videoList.add(new Video(9, image10, "Video 10 Title", "Publisher 7", image2, "77", "10/10/2020"));
         allVideos = videoList;
         videos.setValue(allVideos);
     }
@@ -76,5 +87,12 @@ public class VideosRepository {
             }
         }
         return false;
+    }
+
+
+
+    public void addVideo(Video video) {
+        allVideos.add(video);
+        videos.setValue(allVideos);
     }
 }
