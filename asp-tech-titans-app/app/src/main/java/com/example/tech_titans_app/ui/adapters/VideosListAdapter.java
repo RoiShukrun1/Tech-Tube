@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;

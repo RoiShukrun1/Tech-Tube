@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui.adapters;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Comment;
 
@@ -41,7 +43,11 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
         holder.date.setText(comment.getDate());
         holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
         holder.publisher.setText(comment.getPublisherUsername());
-        holder.publisherImage.setImageResource(comment.getImagePath());
+
+        Glide.with(holder.itemView.getContext())
+                .load(comment.getImage())
+                .into(holder.publisherImage);
+//        holder.publisherImage.setImageResource(comment.getImage());
 
         // Set click listeners for like and unlike buttons
         holder.btnLike.setOnClickListener(v -> {
