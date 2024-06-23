@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 public class CommentsActivity extends AppCompatActivity {
@@ -24,7 +26,7 @@ public class CommentsActivity extends AppCompatActivity {
     private commentsViewModel commentsViewModel;
     private commentsAdapter commentsAdapter;
     private Video thisCurrentVideo;
-
+    private LoggedIn loggedIn = LoggedIn.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,13 @@ public class CommentsActivity extends AppCompatActivity {
         String commentText = input.getText().toString().trim();
 
         if (!commentText.isEmpty() && thisCurrentVideo != null) {
-            this.commentsViewModel.addCommentToVideo(thisCurrentVideo, commentText);
+            if (loggedIn.getLoggedInUser() != null) {
+                this.commentsViewModel.addCommentToVideo(thisCurrentVideo, commentText);
+            } else {
+                Toast.makeText(this,
+                        "You have to be logged in to add a comment",
+                        Toast.LENGTH_SHORT).show();
+            }
             input.setText(""); // Clear the input field
         }
     }

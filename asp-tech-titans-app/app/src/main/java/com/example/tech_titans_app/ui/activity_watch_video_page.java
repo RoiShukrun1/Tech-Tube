@@ -24,10 +24,12 @@ import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
 
 import androidx.core.content.ContextCompat;
+
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class activity_watch_video_page extends AppCompatActivity {
     private boolean isLiked = false;
     private boolean isUnliked = false;
     private boolean isSubscribed = false;
+    private LoggedIn loggedIn = LoggedIn.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         addListeners();
         setVideoTitle();
         setVideoDetails();
-        setvideoDescription();
+        setVideoDescription();
     }
 
     private void initiateVideoPlayer() {
@@ -61,14 +64,12 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
         Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
-        // Set the video URI (you can also use a URL or a file path)
         thisCurrentVideo = new Video(image1, "Video 1 Title",
-                "Publisher 1",  image1,
+                "Publisher 1", image1,
                 "100", "10/10/2020", "The world is changing.",
                 video4, 7);
-        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
-//        this.currentVideo.addComment("HI");
+        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
         // Set up MediaController
         MediaController mediaController = new MediaController(this);
@@ -133,41 +134,53 @@ public class activity_watch_video_page extends AppCompatActivity {
         titleTextView.setText(details);
     }
 
-    public void setvideoDescription() {
+    public void setVideoDescription() {
         TextView descriptionTextView = findViewById(R.id.video_description);
         descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
 
     // Method to handle the "Like" click event
     public void likeButtonClick() {
-        TextView likeTextView = findViewById(R.id.btn_like);
-        Drawable likeDrawable =
-                ContextCompat.getDrawable(this, isLiked ? R.drawable.like : R.drawable.like_selected);
-        likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
-        if(isUnliked) {
-            this.unlikeButtonClick();
-        }
-        if(isLiked) {
-            this.thisCurrentVideo.decrementLikes();
+        if (loggedIn.getLoggedInUser() != null) {
+            TextView likeTextView = findViewById(R.id.btn_like);
+            Drawable likeDrawable =
+                    ContextCompat.getDrawable(this, isLiked ? R.drawable.like : R.drawable.like_selected);
+            likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
+            if (isUnliked) {
+                this.unlikeButtonClick();
+            }
+            if (isLiked) {
+                this.thisCurrentVideo.decrementLikes();
+            } else {
+                this.thisCurrentVideo.incrementLikes();
+            }
+            likeTextView.setText(this.thisCurrentVideo.getLikes());
+            isLiked = !isLiked;  // Toggle the state
         } else {
-            this.thisCurrentVideo.incrementLikes();
+            Toast.makeText(this,
+                    "You have to be logged in to mark as liked",
+                    Toast.LENGTH_SHORT).show();
         }
-        likeTextView.setText(this.thisCurrentVideo.getLikes());
-        isLiked = !isLiked;  // Toggle the state
     }
 
     // Method to handle the "Unlike" click event
     public void unlikeButtonClick() {
-        TextView unlikeTextView = findViewById(R.id.btn_unlike);
-        Drawable unlikeDrawable =
-                ContextCompat.getDrawable(this, isUnliked ? R.drawable.dislike : R.drawable.dislike_selected);
-        if (unlikeDrawable != null) {
-            unlikeTextView.setCompoundDrawablesWithIntrinsicBounds(unlikeDrawable, null, null, null);
+        if (loggedIn.getLoggedInUser() != null) {
+            TextView unlikeTextView = findViewById(R.id.btn_unlike);
+            Drawable unlikeDrawable =
+                    ContextCompat.getDrawable(this, isUnliked ? R.drawable.dislike : R.drawable.dislike_selected);
+            if (unlikeDrawable != null) {
+                unlikeTextView.setCompoundDrawablesWithIntrinsicBounds(unlikeDrawable, null, null, null);
+            }
+            if (isLiked) {
+                this.likeButtonClick();
+            }
+            isUnliked = !isUnliked;  // Toggle the state
+        } else {
+            Toast.makeText(this,
+                    "You have to be logged in to mark as liked",
+                    Toast.LENGTH_SHORT).show();
         }
-        if(isLiked) {
-            this.likeButtonClick();
-        }
-        isUnliked = !isUnliked;  // Toggle the state
     }
 
     // Method to handle the "Download" click event
@@ -212,13 +225,5 @@ public class activity_watch_video_page extends AppCompatActivity {
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
 //        intent.putExtra("video", this.currentVideo);
         startActivity(intent);
-    }
-
-    public void setCurrentVideo(Video currentVideo) {
-        this.thisCurrentVideo = currentVideo;
-    }
-
-    public Video getCurrentVideo() {
-        return thisCurrentVideo;
     }
 }
