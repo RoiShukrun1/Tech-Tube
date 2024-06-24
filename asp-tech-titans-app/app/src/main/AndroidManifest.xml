@@ -38,7 +38,12 @@
         <activity
             android:name=".ui.RegistrationActivity">
         </activity>
-
+        <activity
+            android:name=".ui.LoginActivity">
+        </activity>
+        <activity
+            android:name=".ui.mainActivity.MainActivity">
+        </activity>
 
     </application>
 

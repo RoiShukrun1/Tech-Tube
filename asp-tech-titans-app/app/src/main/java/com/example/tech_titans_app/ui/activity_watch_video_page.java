@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,12 +26,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.mainActivity.MainActivity;
+import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
@@ -41,7 +48,7 @@ import java.util.List;
 
 
 public class activity_watch_video_page extends AppCompatActivity {
-
+    private MainVideoViewModel videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
     private boolean isLiked = false;
@@ -55,12 +62,86 @@ public class activity_watch_video_page extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_watch_video_page);
 
+        videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
+
+
+        new SearchBarUtils(findViewById(android.R.id.content));
+        EditText searchInput = findViewById(R.id.search_input);
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                videoViewModel.filterVideos(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+
+
+
+        TextView homeButton = findViewById(R.id.home);
+        homeButton.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        ImageView addVideoButton = findViewById(R.id.add);
+        addVideoButton.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this,
+                            UploadVideoActivity.class);
+            startActivity(intent);
+        });
+
+        LinearLayout profileSection = findViewById(R.id.profile_section);
+        ImageView profilePicture = findViewById(R.id.profile_picture);
+        TextView logoutText = findViewById(R.id.logout_text);
+        TextView loginText = findViewById(R.id.login);
+
+        updateUI(profileSection, profilePicture, logoutText, loginText);
+
+        profileSection.setOnClickListener(v -> {
+            LoggedIn.getInstance().logOut();
+            updateUI(profileSection, profilePicture, logoutText, loginText);
+        });
+
+        loginText.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+
+
+
+
+
+
         initiateVideoPlayer();
         initiateRelatedVideos();
         addListeners();
         setVideoTitle();
         setVideoDetails();
         setVideoDescription();
+    }
+
+    private void updateUI(LinearLayout profileSection, ImageView profilePicture,
+                          TextView logoutText, TextView loginText) {
+        if (LoggedIn.getInstance().isLoggedIn()) {
+            profileSection.setVisibility(View.VISIBLE);
+            loginText.setVisibility(View.GONE);
+            Glide.with(this).load(LoggedIn.getInstance()
+                    .getLoggedInUser().getProfilePicture()).into(profilePicture);
+            logoutText.setText(R.string.logout);
+        } else {
+            profileSection.setVisibility(View.GONE);
+            loginText.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initiateVideoPlayer() {
@@ -94,7 +175,6 @@ public class activity_watch_video_page extends AppCompatActivity {
         adapter = new VideosListAdapter();
         lstVideos.setAdapter(adapter);
 
-        MainVideoViewModel videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
         videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
     }
 
