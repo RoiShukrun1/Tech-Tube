@@ -21,6 +21,7 @@
             android:inputType="text"
             android:textColor="@color/text_primary"
             android:textColorHint="@color/gray"
+            android:backgroundTint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +37,7 @@
             android:textColorHint="@color/gray"
             android:inputType="textPassword"
             android:textColor="@color/text_primary"
+            android:backgroundTint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/usernameEditText" />
