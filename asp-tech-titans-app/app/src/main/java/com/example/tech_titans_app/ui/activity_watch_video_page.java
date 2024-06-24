@@ -121,7 +121,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
 
 
-
+        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
         initiateVideoPlayer();
         initiateRelatedVideos();
         addListeners();
@@ -146,15 +146,16 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     private void initiateVideoPlayer() {
         VideoView videoView = findViewById(R.id.videoView);
+//
+//
+//        Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
+//        Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
+//        thisCurrentVideo = new Video(image1, "Video 1 Title",
+//                "Publisher 1", image1,
+//                "100", "10/10/2020", "The world is changing.",
+//                video4, 7);
 
-        Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
-        Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
-        thisCurrentVideo = new Video(image1, "Video 1 Title",
-                "Publisher 1", image1,
-                "100", "10/10/2020", "The world is changing.",
-                video4, 7);
-
-        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
+//        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
         // Set up MediaController
         MediaController mediaController = new MediaController(this);

@@ -10,6 +10,10 @@ public class currentVideo {
     private Video currentVideo;
 
     private currentVideo() {
+        if (VideosRepository.getInstance().getAllVideos().getValue() == null) {
+            return;
+        }
+        currentVideo = VideosRepository.getInstance().getAllVideos().getValue().get(0);
     }
 
     public static synchronized currentVideo getInstance() {
