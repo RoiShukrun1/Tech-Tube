@@ -29,16 +29,19 @@ import java.util.Date;
 public class AddVideoActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST_THUMBNAIL = 1;
+    private static final String KEY_THUMBNAIL_URI = "thumbnail_uri";
     private Uri videoUri;
     private Uri thumbnailUri;
     private AccountData loggedInUser;
     private ImageView thumbnailImage;
     private Spinner playlistSpinner;
 
+    // Method to show a toast message
     private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    // Method to set up the spinner
     private void setupSpinner() {
         playlistSpinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -69,20 +72,27 @@ public class AddVideoActivity extends AppCompatActivity {
         videoUri = Uri.parse(getIntent().getStringExtra("videoUri"));
         setupSpinner();
         setupThumbnail();
-
-        // Set default image initially
-        thumbnailImage.setImageResource(R.drawable.default_thumbnail);
-
+        // Restore the thumbnail URI from savedInstanceState
+        if (savedInstanceState != null) {
+            thumbnailUri = savedInstanceState.getParcelable(KEY_THUMBNAIL_URI);
+            if (thumbnailUri != null) {
+                thumbnailImage.setImageURI(thumbnailUri);
+            } else {
+                thumbnailImage.setImageResource(R.drawable.default_thumbnail);
+            }
+        } else {
+            thumbnailImage.setImageResource(R.drawable.default_thumbnail);
+        }
+        // Set up the upload button
         Button uploadButton = findViewById(R.id.uploadButton);
         uploadButton.setOnClickListener(v -> uploadVideoData());
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(AddVideoActivity.this, MainActivity.class);
+            Intent intent = new Intent(AddVideoActivity.this, UploadVideoActivity.class);
             startActivity(intent);
         });
-
     }
-
+    // Handle the result of the gallery intent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,7 +101,28 @@ public class AddVideoActivity extends AppCompatActivity {
             thumbnailImage.setImageURI(thumbnailUri);  // Set the selected image URI to the ImageView
         }
     }
-
+    // Save the thumbnail URI in onSaveInstanceState
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save the thumbnail URI
+        if (thumbnailUri != null) {
+            outState.putParcelable(KEY_THUMBNAIL_URI, thumbnailUri);
+        }
+    }
+    // Restore the thumbnail URI from onRestoreInstanceState
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore the thumbnail URI
+        if (savedInstanceState != null) {
+            thumbnailUri = savedInstanceState.getParcelable(KEY_THUMBNAIL_URI);
+            if (thumbnailUri != null) {
+                thumbnailImage.setImageURI(thumbnailUri);
+            }
+        }
+    }
+    // Upload video data to the Singlton
     private void uploadVideoData() {
         EditText title = findViewById(R.id.addpagetitle);
         EditText description = findViewById(R.id.addpagedescription);
@@ -133,4 +164,3 @@ public class AddVideoActivity extends AppCompatActivity {
         }
     }
 }
-
