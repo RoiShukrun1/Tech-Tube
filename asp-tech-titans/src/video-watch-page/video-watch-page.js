@@ -24,7 +24,6 @@ const VideoWatchPage = () => {
   const { login, setLogin } = useContext(LoginContext);
   const { accounts, setAccounts } = useContext(AccountContext);
   const {videoData, setVideoData} = useContext(VideoDataContext);
-  console.log(videoData);
 
   useEffect(() => {
     if (videoUrl) {

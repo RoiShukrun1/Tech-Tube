@@ -57,10 +57,13 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
         });
 
         holder.btnUnlike.setOnClickListener(v -> {
-            comment.unlikeButtonClick(holder.btnUnlike, holder.btnLike);
+            comment.unlikeButtonClick(holder.btnLike, holder.btnUnlike);
             // Update likes count after click
             holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
         });
+
+        comment.updateLikesButtonsUI(holder.btnLike, holder.btnUnlike);
+
     }
 
     @Override

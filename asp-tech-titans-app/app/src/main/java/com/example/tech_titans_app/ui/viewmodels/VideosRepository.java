@@ -93,6 +93,29 @@ public class VideosRepository {
                 "This is a video description4.", null,
                 "sport", new ArrayList<>(), "40"));
         videoList.add(new Video(5, video5, image5, "Video 5 Title",
+<<<<<<< feature-branch-video-watch-page-android
+                "Publisher 5", image2, "3", "10/10/2020",
+                "This is a video description5.", null,
+                "sport", new ArrayList<>(), "50"));
+        videoList.add(new Video(6, video6, image6, "Video 6 Title",
+                "Publisher 6", image2, "9", "10/10/2020",
+                "This is a video description6.", null,
+                "sport", new ArrayList<>(), "60"));
+        videoList.add(new Video(7, video7, image7, "Video 7 Title",
+                "Publisher 7", image2, "17", "10/10/2020",
+                "This is a video description7.", null,
+                "sport", new ArrayList<>(), "70"));
+        videoList.add(new Video(8, video8, image8, "Video 8 Title",
+                "Publisher 8", image2, "22", "10/10/2020",
+                "This is a video description8.", null,
+                "sport", new ArrayList<>(), "80"));
+        videoList.add(new Video(9, video9, image9, "Video 9 Title",
+                "Publisher 9", image2, "25", "10/10/2020",
+                "This is a video description9.", null,
+                "sport", new ArrayList<>(), "90"));
+        videoList.add(new Video(10, video10, image10, "Video 10 Title",
+                "Publisher 10", image2, "77", "10/10/2020",
+=======
                 "Publisher 4", image2, "3", "10/10/2020",
                 "This is a video description5.", null,
                 "sport", new ArrayList<>(), "50"));
@@ -114,6 +137,7 @@ public class VideosRepository {
                 "sport", new ArrayList<>(), "90"));
         videoList.add(new Video(10, video10, image10, "Video 10 Title",
                 "Publisher 7", image2, "77", "10/10/2020",
+>>>>>>> main
                 "This is a video description10.", null,
                 "sport", new ArrayList<>(), "100"));
 

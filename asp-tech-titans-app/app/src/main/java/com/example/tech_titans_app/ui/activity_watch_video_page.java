@@ -46,13 +46,18 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
+<<<<<<< feature-branch-video-watch-page-android
+
+=======
+>>>>>>> main
 public class activity_watch_video_page extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
-    private boolean isLiked = false;
-    private boolean isUnliked = false;
+    private boolean isLiked;
+    private boolean isUnliked;
     private boolean isSubscribed = false;
     private LoggedIn loggedIn = LoggedIn.getInstance();
 
@@ -63,6 +68,12 @@ public class activity_watch_video_page extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
+<<<<<<< feature-branch-video-watch-page-android
+        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+
+        addSearchBarLogic();
+        addBottomBarLogic();
+=======
 
 
         new SearchBarUtils(findViewById(android.R.id.content));
@@ -122,12 +133,29 @@ public class activity_watch_video_page extends AppCompatActivity {
 
 
         thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+>>>>>>> main
         initiateVideoPlayer();
         initiateRelatedVideos();
         addListeners();
         setVideoTitle();
         setVideoDetails();
         setVideoDescription();
+        setPublisherInfo();
+        updateLikesButtonsUI();
+    }
+
+    private void updateUI(LinearLayout profileSection, ImageView profilePicture,
+                          TextView logoutText, TextView loginText) {
+        if (LoggedIn.getInstance().isLoggedIn()) {
+            profileSection.setVisibility(View.VISIBLE);
+            loginText.setVisibility(View.GONE);
+            Glide.with(this).load(LoggedIn.getInstance()
+                    .getLoggedInUser().getProfilePicture()).into(profilePicture);
+            logoutText.setText(R.string.logout);
+        } else {
+            profileSection.setVisibility(View.GONE);
+            loginText.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
@@ -155,8 +183,11 @@ public class activity_watch_video_page extends AppCompatActivity {
 //                "100", "10/10/2020", "The world is changing.",
 //                video4, 7);
 
+<<<<<<< feature-branch-video-watch-page-android
+=======
 //        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
+>>>>>>> main
         // Set up MediaController
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
@@ -211,6 +242,71 @@ public class activity_watch_video_page extends AppCompatActivity {
         PencilTextView.setOnClickListener(v -> PencilButtonClick());
     }
 
+    public void addSearchBarLogic() {
+        new SearchBarUtils(findViewById(android.R.id.content));
+        EditText searchInput = findViewById(R.id.search_input);
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                videoViewModel.filterVideos(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+    }
+
+    public void addBottomBarLogic() {
+        TextView homeButton = findViewById(R.id.home);
+        homeButton.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        ImageView addVideoButton = findViewById(R.id.add);
+        addVideoButton.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this,
+                            UploadVideoActivity.class);
+            startActivity(intent);
+        });
+
+        LinearLayout profileSection = findViewById(R.id.profile_section);
+        ImageView profilePicture = findViewById(R.id.profile_picture);
+        TextView logoutText = findViewById(R.id.logout_text);
+        TextView loginText = findViewById(R.id.login);
+
+        updateUI(profileSection, profilePicture, logoutText, loginText);
+
+        profileSection.setOnClickListener(v -> {
+            LoggedIn.getInstance().logOut();
+            updateUI(profileSection, profilePicture, logoutText, loginText);
+        });
+
+        loginText.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this, LoginActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    public void setPublisherInfo() {
+        Uri publisherImageUri = currentVideo.getInstance().getCurrentVideo().getPublisherImage();
+        CircleImageView publisherImage = findViewById(R.id.publisher_image_VWP);
+        Glide.with(publisherImage.getContext())
+                .load(publisherImageUri)
+                .into(publisherImage);
+
+        TextView publisherTextView = findViewById(R.id.publisher_name_VWP);
+        publisherTextView.setText(this.thisCurrentVideo.getPublisher());
+    }
+
     public void setVideoTitle() {
         TextView titleTextView = findViewById(R.id.video_title);
         titleTextView.setText(thisCurrentVideo.getTitle());
@@ -228,48 +324,89 @@ public class activity_watch_video_page extends AppCompatActivity {
         descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
 
-    // Method to handle the "Like" click event
-    public void likeButtonClick() {
-        if (loggedIn.getLoggedInUser() != null) {
-            TextView likeTextView = findViewById(R.id.btn_like);
-            Drawable likeDrawable =
-                    ContextCompat.getDrawable(this, isLiked ? R.drawable.like : R.drawable.like_selected);
-            likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
-            if (isUnliked) {
-                this.unlikeButtonClick();
-            }
-            if (isLiked) {
-                this.thisCurrentVideo.decrementLikes();
-            } else {
-                this.thisCurrentVideo.incrementLikes();
-            }
-            likeTextView.setText(this.thisCurrentVideo.getLikes());
-            isLiked = !isLiked;  // Toggle the state
+    public void getLikesStatus() {
+        if (!loggedIn.isLoggedIn()) {
+            isUnliked = false;
+            isLiked = false;
         } else {
-            Toast.makeText(this,
-                    "You have to be logged in to mark as liked",
-                    Toast.LENGTH_SHORT).show();
+            isUnliked =
+                    thisCurrentVideo.getUsersUnlikedId().contains(loggedIn.getLoggedInUser().getId());
+            isLiked =
+                    thisCurrentVideo.getUsersLikedId().contains(loggedIn.getLoggedInUser().getId());
         }
     }
 
-    // Method to handle the "Unlike" click event
-    public void unlikeButtonClick() {
-        if (loggedIn.getLoggedInUser() != null) {
-            TextView unlikeTextView = findViewById(R.id.btn_unlike);
-            Drawable unlikeDrawable =
-                    ContextCompat.getDrawable(this, isUnliked ? R.drawable.dislike : R.drawable.dislike_selected);
-            if (unlikeDrawable != null) {
-                unlikeTextView.setCompoundDrawablesWithIntrinsicBounds(unlikeDrawable, null, null, null);
-            }
-            if (isLiked) {
-                this.likeButtonClick();
-            }
-            isUnliked = !isUnliked;  // Toggle the state
+    // Method to handle the "Like" click event
+    public void likeButtonClick() {
+        if (loggedIn.isLoggedIn()) {
+            handleLike();
         } else {
-            Toast.makeText(this,
-                    "You have to be logged in to mark dis-like",
-                    Toast.LENGTH_SHORT).show();
+            showLoginToast("You have to be logged in to mark as liked");
         }
+    }
+
+    public void unlikeButtonClick() {
+        if (loggedIn.isLoggedIn()) {
+            handleUnlike();
+        } else {
+            showLoginToast("You have to be logged in to mark as disliked");
+        }
+    }
+
+    private void handleLike() {
+        getLikesStatus();
+        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+
+        if (isUnliked) {
+            thisCurrentVideo.getUsersUnlikedId().remove(loggedInUserId);
+        }
+        if (isLiked) {
+            thisCurrentVideo.decrementLikes();
+            thisCurrentVideo.getUsersLikedId().remove(loggedInUserId);
+        } else {
+            thisCurrentVideo.incrementLikes();
+            thisCurrentVideo.getUsersLikedId().add(loggedInUserId);
+        }
+
+        updateLikesButtonsUI();
+    }
+
+    private void handleUnlike() {
+        getLikesStatus();
+        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+
+        if (isLiked) {
+            thisCurrentVideo.getUsersLikedId().remove(loggedInUserId);
+            thisCurrentVideo.decrementLikes();
+        }
+        if (isUnliked) {
+            thisCurrentVideo.getUsersUnlikedId().remove(loggedInUserId);
+        } else {
+            thisCurrentVideo.getUsersUnlikedId().add(loggedInUserId);
+        }
+
+        updateLikesButtonsUI();
+    }
+
+    private void showLoginToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateLikesButtonsUI() {
+        getLikesStatus();
+        TextView unlikeTextView = findViewById(R.id.btn_unlike);
+        Drawable unlikeDrawable = ContextCompat.getDrawable
+                (this, isUnliked ? R.drawable.dislike_selected : R.drawable.dislike);
+        unlikeTextView.setCompoundDrawablesWithIntrinsicBounds
+                (unlikeDrawable, null, null, null);
+
+        TextView likeTextView = findViewById(R.id.btn_like);
+        Drawable likeDrawable = ContextCompat.getDrawable
+                (this, isLiked ? R.drawable.like_selected : R.drawable.like);
+        likeTextView.setCompoundDrawablesWithIntrinsicBounds
+                (likeDrawable, null, null, null);
+
+        likeTextView.setText(String.valueOf(thisCurrentVideo.getLikes()));
     }
 
     // Method to handle the "Download" click event
@@ -282,8 +419,27 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     // Method to handle the "Download" click event
     public void subscribeButtonClick() {
+        if (!loggedIn.isLoggedIn()) {
+            showLoginToast("You have to be logged in to subscribe");
+            return;
+        }
+        isSubscribed =
+                loggedIn.getLoggedInUser().getSubscriptions()
+                        .contains(thisCurrentVideo.getPublisher());
+
+        if (isSubscribed) {
+            loggedIn.getLoggedInUser().getSubscriptions()
+                    .remove(thisCurrentVideo.getPublisher());
+        } else {
+            loggedIn.getLoggedInUser().getSubscriptions()
+                    .add(thisCurrentVideo.getPublisher());
+        }
+
+        setSubscribeUI();
+    }
+
+    public void setSubscribeUI() {
         Button subscribeButton = findViewById(R.id.btn_subscribe);
-        isSubscribed = !isSubscribed;
         if (isSubscribed) {
             // Subscribed state: text color black, background white, text "Subscribed"
             subscribeButton.setTextColor(Color.BLACK);
@@ -309,6 +465,16 @@ public class activity_watch_video_page extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
+<<<<<<< feature-branch-video-watch-page-android
+    public void PencilButtonClick() {
+        if (loggedIn.getLoggedInUser() == null) {
+            Toast.makeText(this,
+                    "You have to be logged in to edit the video title",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+=======
     public void PencilButtonClick(){
 //        if (loggedIn.getLoggedInUser() == null) {
 //            Toast.makeText(this,
@@ -320,6 +486,7 @@ public class activity_watch_video_page extends AppCompatActivity {
             Toast.makeText(this,
                     "OK",
                     Toast.LENGTH_LONG).show();
+>>>>>>> main
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(this);
             View dialogView =
@@ -340,6 +507,20 @@ public class activity_watch_video_page extends AppCompatActivity {
                         // Update the video title with the new value
                         String newTitle = editTitleInput.getText().toString();
                         thisCurrentVideo.setTitle(newTitle);
+<<<<<<< feature-branch-video-watch-page-android
+                        setVideoTitle();
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            // Show the dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            Toast.makeText(this,
+                    "You are not the publisher of this video",
+                    Toast.LENGTH_LONG).show();
+        }
+=======
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -352,12 +533,12 @@ public class activity_watch_video_page extends AppCompatActivity {
 //                    "You are not the publisher of this video",
 //                    Toast.LENGTH_LONG).show();
 //        }
+>>>>>>> main
     }
 
     public void openCommentsActivity() {
         Intent intent =
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
-//        intent.putExtra("video", this.currentVideo);
         startActivity(intent);
     }
 }

@@ -1,18 +1,18 @@
 package com.example.tech_titans_app.ui.entities;
 
+
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
+
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Comment implements Serializable {
@@ -20,13 +20,14 @@ public class Comment implements Serializable {
     private int id;
     private int numberOfLikes;
     private Uri userImage;
-    private List<Integer> usersLikeId;
-    private List<Integer> usersUnlikeId;
     private String publisherUsername;
     private String comment;
     private String date;
-    private boolean isLiked = false;
-    private boolean isUnliked = false;
+    private boolean isLiked;
+    private boolean isUnliked;
+    private List<Integer> usersLikedId;
+    private List<Integer> usersUnlikedId;
+    private final LoggedIn loggedIn = LoggedIn.getInstance();
 
     public Comment(int id, int numberOfLikes, String publisherUsername,
                    String comment, String date, Uri userImagePath, Video parent) {
@@ -37,6 +38,95 @@ public class Comment implements Serializable {
         this.comment = comment;
         this.date = date;
         this.userImage = userImagePath;
+        this.usersLikedId = new ArrayList<>();
+        this.usersUnlikedId = new ArrayList<>();
+    }
+
+    public void getLikesStatus() {
+        if (!loggedIn.isLoggedIn()) {
+            isUnliked = false;
+            isLiked = false;
+        } else {
+            isUnliked =
+                    this.getUsersUnlikedId().contains(loggedIn.getLoggedInUser().getId());
+            isLiked =
+                    this.getUsersLikedId().contains(loggedIn.getLoggedInUser().getId());
+        }
+    }
+
+    public void likeButtonClick(TextView likeTextView, TextView unlikeTextView) {
+        getLikesStatus();
+        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+
+        if (isUnliked) {
+            this.getUsersUnlikedId().remove(loggedInUserId);
+        }
+        if (isLiked) {
+            this.decrementLikes();
+            this.getUsersLikedId().remove(loggedInUserId);
+        } else {
+            this.incrementLikes();
+            this.getUsersLikedId().add(loggedInUserId);
+        }
+
+        updateLikesButtonsUI(likeTextView, unlikeTextView);
+    }
+
+    public void unlikeButtonClick(TextView likeTextView, TextView unlikeTextView) {
+        getLikesStatus();
+        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+
+        if (isLiked) {
+            this.getUsersLikedId().remove(loggedInUserId);
+            this.decrementLikes();
+        }
+        if (isUnliked) {
+            this.getUsersUnlikedId().remove(loggedInUserId);
+        } else {
+            this.getUsersUnlikedId().add(loggedInUserId);
+        }
+
+        updateLikesButtonsUI(likeTextView, unlikeTextView);
+    }
+
+    public void updateLikesButtonsUI(TextView likeTextView, TextView unlikeTextView) {
+        getLikesStatus();
+        Drawable unlikeDrawable = ContextCompat.getDrawable
+                (unlikeTextView.getContext(),
+                        isUnliked ? R.drawable.dislike_selected : R.drawable.dislike);
+        unlikeTextView.setCompoundDrawablesWithIntrinsicBounds
+                (unlikeDrawable, null, null, null);
+
+        Drawable likeDrawable = ContextCompat.getDrawable
+                (likeTextView.getContext(), isLiked ? R.drawable.like_selected : R.drawable.like);
+        likeTextView.setCompoundDrawablesWithIntrinsicBounds
+                (likeDrawable, null, null, null);
+
+        likeTextView.setText(String.valueOf(this.numberOfLikes));
+    }
+
+    public void incrementLikes() {
+        this.numberOfLikes += 1;
+    }
+
+    public void decrementLikes() {
+        this.numberOfLikes -= 1;
+    }
+
+    public List<Integer> getUsersLikedId() {
+        return usersLikedId;
+    }
+
+    public void setUsersLikedId(List<Integer> usersLikedId) {
+        this.usersLikedId = usersLikedId;
+    }
+
+    public List<Integer> getUsersUnlikedId() {
+        return usersUnlikedId;
+    }
+
+    public void setUsersUnlikedId(List<Integer> usersUnlikedId) {
+        this.usersUnlikedId = usersUnlikedId;
     }
 
     public void setId(int id) {
@@ -49,14 +139,6 @@ public class Comment implements Serializable {
 
     public void setImagePath(Uri imagePath) {
         this.userImage = imagePath;
-    }
-
-    public void setUsersLikeId(List<Integer> usersLikeId) {
-        this.usersLikeId = usersLikeId;
-    }
-
-    public void setUsersunLikeId(List<Integer> usersunLikeId) {
-        this.usersUnlikeId = usersunLikeId;
     }
 
     public void setComment(String comment) {
@@ -73,14 +155,6 @@ public class Comment implements Serializable {
 
     public Uri getImage() {
         return userImage;
-    }
-
-    public List<Integer> getUsersLikeId() {
-        return usersLikeId;
-    }
-
-    public List<Integer> getUsersunLikeId() {
-        return usersUnlikeId;
     }
 
     public String getPublisherUsername() {
@@ -101,61 +175,5 @@ public class Comment implements Serializable {
 
     public int getId() {
         return id;
-    }
-
-    // Method to handle the "Like" click event
-    public void likeButtonClick(TextView likeTextView, TextView unlikeTextView) {
-        isLiked = !isLiked;
-        if (isLiked) {
-            Drawable likeDrawable = ContextCompat.getDrawable(unlikeTextView.getContext(),
-                    R.drawable.like_selected);
-            likeTextView.setCompoundDrawablesWithIntrinsicBounds
-                    (likeDrawable, null, null, null);
-            incrementLikes();
-        } else {
-            Drawable likeDrawable = ContextCompat.getDrawable(unlikeTextView.getContext(),
-                    R.drawable.like);
-            likeTextView.setCompoundDrawablesWithIntrinsicBounds
-                    (likeDrawable, null, null, null);
-            decrementLikes();
-        }
-        if (isUnliked) {
-            isUnliked = false;
-            Drawable unlikeDrawable = ContextCompat.getDrawable(unlikeTextView.getContext(),
-                    R.drawable.dislike);
-            unlikeTextView.setCompoundDrawablesWithIntrinsicBounds
-                    (unlikeDrawable, null, null, null);
-        }
-    }
-
-    // Method to handle the "Unlike" click event
-    public void unlikeButtonClick(TextView unlikeTextView, TextView likeTextView) {
-        isUnliked = !isUnliked;
-        Drawable unlikeDrawable;
-        if (isUnliked) {
-            unlikeDrawable = ContextCompat.getDrawable(unlikeTextView.getContext(),
-                    R.drawable.dislike_selected);
-        } else {
-            unlikeDrawable = ContextCompat.getDrawable(unlikeTextView.getContext(),
-                    R.drawable.dislike);
-        }
-        unlikeTextView.setCompoundDrawablesWithIntrinsicBounds
-                (unlikeDrawable, null, null, null);
-        if (isLiked) {
-            isLiked = false;
-            Drawable likeDrawable = ContextCompat.getDrawable(unlikeTextView.getContext(),
-                    R.drawable.like);
-            likeTextView.setCompoundDrawablesWithIntrinsicBounds
-                    (likeDrawable, null, null, null);
-            decrementLikes();
-        }
-    }
-
-    public void incrementLikes() {
-        this.numberOfLikes += 1;
-    }
-
-    public void decrementLikes() {
-        this.numberOfLikes -= 1;
     }
 }
