@@ -23,10 +23,13 @@ import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
+import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
 
 import androidx.core.content.ContextCompat;
+
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
@@ -35,11 +38,12 @@ import java.util.List;
 
 public class activity_watch_video_page extends AppCompatActivity {
 
-    private Video currentVideo;
+    private Video thisCurrentVideo;
     private VideosListAdapter adapter;
     private boolean isLiked = false;
     private boolean isUnliked = false;
     private boolean isSubscribed = false;
+    private LoggedIn loggedIn = LoggedIn.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         addListeners();
         setVideoTitle();
         setVideoDetails();
-        setvideoDescription();
+        setVideoDescription();
     }
 
     private void initiateVideoPlayer() {
@@ -60,18 +64,12 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
         Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
-        // Set the video URI (you can also use a URL or a file path)
-        this.currentVideo = new Video(image1, "Video 1 Title",
-                "Publisher 1",  image1,
+        thisCurrentVideo = new Video(image1, "Video 1 Title",
+                "Publisher 1", image1,
                 "100", "10/10/2020", "The world is changing.",
                 video4, 7);
 
-        this.currentVideo.addComment("HI");
-
-        String videoPath = "android.resource://"
-                + getPackageName() + "/" + this.currentVideo.getVideoUploaded();
-
-        Uri videoUri = Uri.parse(videoPath);
+        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
         // Set up MediaController
         MediaController mediaController = new MediaController(this);
@@ -79,7 +77,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         videoView.setMediaController(mediaController);
 
         // Set the URI to the VideoView
-        videoView.setVideoURI(videoUri);
+        videoView.setVideoURI(this.thisCurrentVideo.getVideoUploaded());
 
         // Start the video
         videoView.start();
@@ -100,7 +98,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Handle click event of the "Like" TextView
         TextView likeTextView = findViewById(R.id.btn_like);
-        likeTextView.setText(this.currentVideo.getLikes());
+        likeTextView.setText(this.thisCurrentVideo.getLikes());
         likeTextView.setOnClickListener(v -> likeButtonClick());
 
         // Handle click event of the "Unlike" TextView
@@ -122,55 +120,71 @@ public class activity_watch_video_page extends AppCompatActivity {
         // Handle click event of the comment collapsed view
         TextView commentCollapsedView = findViewById(R.id.comment_collapsed_view);
         commentCollapsedView.setOnClickListener(v -> openCommentsActivity());
+
+        // Handle click event of pencil click - edit video title
+        TextView PencilTextView = findViewById(R.id.editTitle);
+        PencilTextView.setOnClickListener(v -> PencilButtonClick());
     }
 
     public void setVideoTitle() {
         TextView titleTextView = findViewById(R.id.video_title);
-        titleTextView.setText(currentVideo.getTitle());
+        titleTextView.setText(thisCurrentVideo.getTitle());
     }
 
     public void setVideoDetails() {
         TextView titleTextView = findViewById(R.id.video_details);
         String details;
-        details = this.currentVideo.getViews() + " views " + this.currentVideo.getDate();
+        details = this.thisCurrentVideo.getViews() + " views " + this.thisCurrentVideo.getDate();
         titleTextView.setText(details);
     }
 
-    public void setvideoDescription() {
+    public void setVideoDescription() {
         TextView descriptionTextView = findViewById(R.id.video_description);
-        descriptionTextView.setText(currentVideo.getInfo());
+        descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
 
     // Method to handle the "Like" click event
     public void likeButtonClick() {
-        TextView likeTextView = findViewById(R.id.btn_like);
-        Drawable likeDrawable =
-                ContextCompat.getDrawable(this, isLiked ? R.drawable.like : R.drawable.like_selected);
-        likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
-        if(isUnliked) {
-            this.unlikeButtonClick();
-        }
-        if(isLiked) {
-            this.currentVideo.decrementLikes();
+        if (loggedIn.getLoggedInUser() != null) {
+            TextView likeTextView = findViewById(R.id.btn_like);
+            Drawable likeDrawable =
+                    ContextCompat.getDrawable(this, isLiked ? R.drawable.like : R.drawable.like_selected);
+            likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
+            if (isUnliked) {
+                this.unlikeButtonClick();
+            }
+            if (isLiked) {
+                this.thisCurrentVideo.decrementLikes();
+            } else {
+                this.thisCurrentVideo.incrementLikes();
+            }
+            likeTextView.setText(this.thisCurrentVideo.getLikes());
+            isLiked = !isLiked;  // Toggle the state
         } else {
-            this.currentVideo.incrementLikes();
+            Toast.makeText(this,
+                    "You have to be logged in to mark as liked",
+                    Toast.LENGTH_SHORT).show();
         }
-        likeTextView.setText(this.currentVideo.getLikes());
-        isLiked = !isLiked;  // Toggle the state
     }
 
     // Method to handle the "Unlike" click event
     public void unlikeButtonClick() {
-        TextView unlikeTextView = findViewById(R.id.btn_unlike);
-        Drawable unlikeDrawable =
-                ContextCompat.getDrawable(this, isUnliked ? R.drawable.dislike : R.drawable.dislike_selected);
-        if (unlikeDrawable != null) {
-            unlikeTextView.setCompoundDrawablesWithIntrinsicBounds(unlikeDrawable, null, null, null);
+        if (loggedIn.getLoggedInUser() != null) {
+            TextView unlikeTextView = findViewById(R.id.btn_unlike);
+            Drawable unlikeDrawable =
+                    ContextCompat.getDrawable(this, isUnliked ? R.drawable.dislike : R.drawable.dislike_selected);
+            if (unlikeDrawable != null) {
+                unlikeTextView.setCompoundDrawablesWithIntrinsicBounds(unlikeDrawable, null, null, null);
+            }
+            if (isLiked) {
+                this.likeButtonClick();
+            }
+            isUnliked = !isUnliked;  // Toggle the state
+        } else {
+            Toast.makeText(this,
+                    "You have to be logged in to mark dis-like",
+                    Toast.LENGTH_SHORT).show();
         }
-        if(isLiked) {
-            this.likeButtonClick();
-        }
-        isUnliked = !isUnliked;  // Toggle the state
     }
 
     // Method to handle the "Download" click event
@@ -200,7 +214,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     public void shareButtonClick() {
         String s = "android.resource://"
-                + getPackageName() + "/" + this.currentVideo.getVideoUploaded();
+                + getPackageName() + "/" + this.thisCurrentVideo.getVideoUploaded();
         // Create the share intent
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
@@ -210,18 +224,28 @@ public class activity_watch_video_page extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
+    public void PencilButtonClick(){
+        if (loggedIn.getLoggedInUser() == null) {
+            Toast.makeText(this,
+                    "You have to be logged in to edit the video title",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
+            Toast.makeText(this,
+                    "OK",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this,
+                    "You are not the publisher of this video",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void openCommentsActivity() {
         Intent intent =
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
-        intent.putExtra("video", this.currentVideo);
+//        intent.putExtra("video", this.currentVideo);
         startActivity(intent);
-    }
-
-    public void setCurrentVideo(Video currentVideo) {
-        this.currentVideo = currentVideo;
-    }
-
-    public Video getCurrentVideo() {
-        return currentVideo;
     }
 }

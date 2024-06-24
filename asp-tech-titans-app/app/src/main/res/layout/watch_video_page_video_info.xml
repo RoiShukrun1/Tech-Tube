@@ -6,13 +6,32 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Video Title -->
-    <TextView
-        android:id="@+id/video_title"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/editTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/main_filter_button_background_selector"
+            android:clickable="true"
+            android:focusable="true"
+            app:drawableStartCompat="@drawable/edit" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/video_details"
@@ -27,29 +46,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <TextView
-        android:id="@+id/video_description"
-        android:layout_width="157dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/btn_subscribe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#000000"
-        android:text="@string/subscribe"
-        android:textColor="#FFFFFF"
+        <TextView
+            android:id="@+id/video_description"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp" />
 
-    />
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_subscribe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#000000"
+            android:text="@string/subscribe"
+            android:textColor="#FFFFFF"
+
+            />
+    </LinearLayout>
 
 
-<LinearLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -60,16 +80,15 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:background="@drawable/main_filter_button_background_selector"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
             android:padding="8dp"
             android:textColor="#000000"
             app:drawableStartCompat="@drawable/like"
-            android:drawablePadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            android:clickable="true"
-            android:focusable="true"
-            />
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
         <TextView
             android:id="@+id/btn_unlike"
@@ -77,34 +96,32 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:background="@drawable/main_filter_button_background_selector"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
             android:padding="8dp"
             android:textColor="#000000"
             app:drawableStartCompat="@drawable/dislike"
-            android:drawablePadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            android:clickable="true"
-            android:focusable="true"
-            />
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
         <TextView
             android:id="@+id/btn_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/main_filter_button_background_selector"
-            android:padding="8dp"
             android:layout_marginEnd="5dp"
+            android:background="@drawable/main_filter_button_background_selector"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:padding="8dp"
             android:text="@string/share"
             android:textColor="#000000"
-            android:drawablePadding="8dp"
             app:drawableStartCompat="@drawable/share_24"
-            app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
             app:layout_constraintEnd_toEndOf="parent"
-            android:clickable="true"
-            android:focusable="true"
-            />
+            app:layout_constraintStart_toEndOf="@id/video_title"
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
         <TextView
             android:id="@+id/btn_download"
@@ -112,17 +129,16 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:background="@drawable/main_filter_button_background_selector"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
             android:padding="8dp"
             android:text="@string/download"
             android:textColor="#000000"
             app:drawableStartCompat="@drawable/download"
-            android:drawablePadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            android:clickable="true"
-            android:focusable="true"
-            />
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
     </LinearLayout>
 
