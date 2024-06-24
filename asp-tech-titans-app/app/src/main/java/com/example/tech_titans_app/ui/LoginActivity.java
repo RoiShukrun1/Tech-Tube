@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         registerRedirectText = findViewById(R.id.registerRedirectText);
         guestRedirectText = findViewById(R.id.guestRedirectText);
 
+        // Set click listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 checkLogin(username, password);
             }
         });
-
+        // Set click listener for the redirect to registrtion
         registerRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        // Set click listener for the redirect to main page
         guestRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
+    // Method to check login credentials
     private void checkLogin(String username, String password) {
         AccountDataArray accountDataArray = AccountDataArray.getInstance();
         List<AccountData> accounts = accountDataArray.getAccountArray();
