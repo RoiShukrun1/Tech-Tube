@@ -76,27 +76,47 @@ public class VideosRepository {
         Uri video10 = Uri.parse("android.resource://com.example.tech_titans_app/"
                 + R.raw.video10);
 
-        //int id, Uri videoUploaded, Uri thumbnail, String title, String publisher,
-        //                 Uri publisherImage, String views, String date, String description,
-        //                 List<Video> relatedVideos, String playlist,
-        //                 List<Comment> comments, String likes
-
-
-        videoList.add(new Video(0, video1, image1, "Video 1 Title",
+        videoList.add(new Video(1, video1, image1, "Video 1 Title",
                 "Publisher 1", image1, "50", "10/10/2020",
                 "This is a video description1.", null,
                 "sport", new ArrayList<>(), "10"));
+        videoList.add(new Video(2, video2, image2, "Video 2 Title",
+                "Publisher 2", image2, "60", "10/10/2020",
+                "This is a video description2.", null,
+                "sport", new ArrayList<>(), "20"));
+        videoList.add(new Video(3, video3, image3, "Video 3 Title",
+                "Publisher 3", image3, "70", "10/10/2020",
+                "This is a video description3.", null,
+                "sport", new ArrayList<>(), "30"));
+        videoList.add(new Video(4, video4, image4, "Video 4 Title",
+                "Publisher 4", image4, "80", "10/10/2020",
+                "This is a video description4.", null,
+                "sport", new ArrayList<>(), "40"));
+        videoList.add(new Video(5, video5, image5, "Video 5 Title",
+                "Publisher 4", image2, "3", "10/10/2020",
+                "This is a video description5.", null,
+                "sport", new ArrayList<>(), "50"));
+        videoList.add(new Video(6, video6, image6, "Video 6 Title",
+                "Publisher 4", image2, "9", "10/10/2020",
+                "This is a video description6.", null,
+                "sport", new ArrayList<>(), "60"));
+        videoList.add(new Video(7, video7, image7, "Video 7 Title",
+                "Publisher 5", image2, "17", "10/10/2020",
+                "This is a video description7.", null,
+                "sport", new ArrayList<>(), "70"));
+        videoList.add(new Video(8, video8, image8, "Video 8 Title",
+                "Publisher 6", image2, "22", "10/10/2020",
+                "This is a video description8.", null,
+                "sport", new ArrayList<>(), "80"));
+        videoList.add(new Video(9, video9, image9, "Video 9 Title",
+                "Publisher 7", image2, "25", "10/10/2020",
+                "This is a video description9.", null,
+                "sport", new ArrayList<>(), "90"));
+        videoList.add(new Video(10, video10, image10, "Video 10 Title",
+                "Publisher 7", image2, "77", "10/10/2020",
+                "This is a video description10.", null,
+                "sport", new ArrayList<>(), "100"));
 
-
-        videoList.add(new Video(1, image2, "Video 2 Title", "Publisher 2", image2, "60", "10/10/2020"));
-        videoList.add(new Video(2, image3, "Video 3 Title", "Publisher 3", image3, "70", "10/10/2020"));
-        videoList.add(new Video(3, image4, "Video 4 Title", "Publisher 4", image4, "80", "10/10/2020"));
-        videoList.add(new Video(4, image5, "Video 5 Title", "Publisher 4", image2, "3", "10/10/2020"));
-        videoList.add(new Video(5, image6, "Video 6 Title", "Publisher 4", image2, "9", "10/10/2020"));
-        videoList.add(new Video(6, image7, "Video 7 Title", "Publisher 5", image2, "17", "10/10/2020"));
-        videoList.add(new Video(7, image8, "Video 8 Title", "Publisher 6", image2, "22", "10/10/2020"));
-        videoList.add(new Video(8, image9, "Video 9 Title", "Publisher 7", image2, "25", "10/10/2020"));
-        videoList.add(new Video(9, image10, "Video 10 Title", "Publisher 7", image2, "77", "10/10/2020"));
         allVideos = videoList;
         videos.setValue(allVideos);
     }
