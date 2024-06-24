@@ -21,6 +21,7 @@ export const Login = () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const account = accounts.find(acc => acc.username === username && acc.password === password);
+    // Check if the account exists
     if (!account) {
       alert('Incorrect password or username');
       return;

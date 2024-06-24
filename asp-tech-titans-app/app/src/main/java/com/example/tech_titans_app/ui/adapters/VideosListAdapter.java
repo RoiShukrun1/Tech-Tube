@@ -26,10 +26,18 @@ import java.util.List;
 import com.example.tech_titans_app.ui.entities.currentVideo;
 
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
-
     private List<Video> videoList;
     private final currentVideo currentVideo = com.example.tech_titans_app.ui.entities.currentVideo.getInstance();
 
+    public VideosListAdapter() {
+        // Set the logout listener
+        LoggedIn.getInstance().setLogoutListener(new LoggedIn.LogoutListener() {
+            @Override
+            public void onLogout() {
+                notifyDataSetChanged();
+            }
+        });
+    }
     @SuppressLint("NotifyDataSetChanged")
     public void setVideos(List<Video> videos) {
         this.videoList = videos;
@@ -66,7 +74,10 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
             currentVideo.setCurrentVideo(video);
+<<<<<<< feature-branch-video-watch-page-android
             currentVideo.getCurrentVideo().incrementViews();
+=======
+>>>>>>> main
             Intent intent = new Intent(context, activity_watch_video_page.class);
             context.startActivity(intent);
         });
@@ -76,14 +87,18 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
                 String videoPublisher = video.getPublisher();
                 if (loggedInUsername.equals(videoPublisher)) {
                     holder.removeIcon.setVisibility(View.VISIBLE);
+
                 } else {
                     holder.removeIcon.setVisibility(View.GONE);
                 }
+        } else {
+            holder.removeIcon.setVisibility(View.GONE);
         }
         holder.removeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 VideosRepository.getInstance().deleteVideo(video);
+                notifyDataSetChanged();
             }
         });
     }

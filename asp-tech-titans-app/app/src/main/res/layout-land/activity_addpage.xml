@@ -74,6 +74,7 @@
                 android:textColor="@color/text_primary"
                 android:layout_height="wrap_content"
                 android:hint="Add a title"
+                android:backgroundTint="@color/gray"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Add description"
                 android:textColor="@color/text_primary"
+                android:backgroundTint="@color/gray"
                 android:inputType="textMultiLine"
                 android:minHeight="100dp"
                 android:gravity="start|top"/>
