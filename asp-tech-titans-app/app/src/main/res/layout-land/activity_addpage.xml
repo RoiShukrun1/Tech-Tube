@@ -71,6 +71,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addpagetitle"
                 android:layout_width="match_parent"
+                android:textColor="@color/text_primary"
                 android:layout_height="wrap_content"
                 android:hint="Add a title"
                 android:inputType="text" />
@@ -105,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Add description"
+                android:textColor="@color/text_primary"
                 android:inputType="textMultiLine"
                 android:minHeight="100dp"
                 android:gravity="start|top"/>
