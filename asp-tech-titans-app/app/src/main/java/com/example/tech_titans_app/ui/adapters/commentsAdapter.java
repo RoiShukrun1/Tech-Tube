@@ -47,7 +47,6 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
         Glide.with(holder.itemView.getContext())
                 .load(comment.getImage())
                 .into(holder.publisherImage);
-//        holder.publisherImage.setImageResource(comment.getImage());
 
         // Set click listeners for like and unlike buttons
         holder.btnLike.setOnClickListener(v -> {

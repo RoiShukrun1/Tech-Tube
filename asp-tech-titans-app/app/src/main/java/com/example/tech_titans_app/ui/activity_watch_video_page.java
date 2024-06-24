@@ -351,12 +351,14 @@ public class activity_watch_video_page extends AppCompatActivity {
         if (isSubscribed) {
             // Subscribed state: text color black, background white, text "Subscribed"
             subscribeButton.setTextColor(Color.BLACK);
-            subscribeButton.setBackgroundColor(Color.WHITE);
+//            subscribeButton.setBackgroundColor(Color.WHITE);
+//            subscribeButton.setBackgroundResource(R.drawable.sub_btn_default);
             subscribeButton.setText(getString(R.string.subscribed));
         } else {
             // Not subscribed state: text color white, background black, text "Subscribe"
             subscribeButton.setTextColor(Color.WHITE);
-            subscribeButton.setBackgroundColor(Color.BLACK);
+//            subscribeButton.setBackgroundColor(Color.BLACK);
+//            subscribeButton.setBackgroundResource(R.drawable.sub_but);
             subscribeButton.setText(getString(R.string.subscribe));
         }
     }
