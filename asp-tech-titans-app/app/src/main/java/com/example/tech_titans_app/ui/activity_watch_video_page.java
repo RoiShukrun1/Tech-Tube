@@ -155,7 +155,8 @@ public class activity_watch_video_page extends AppCompatActivity {
         EditText searchInput = findViewById(R.id.search_input);
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -163,7 +164,8 @@ public class activity_watch_video_page extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -229,8 +231,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         TextView descriptionTextView = findViewById(R.id.video_description);
         descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
+
     public void getLikesStatus() {
-        if (!loggedIn.isLoggedIn()){
+        if (!loggedIn.isLoggedIn()) {
             isUnliked = false;
             isLiked = false;
         } else {
@@ -324,8 +327,27 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     // Method to handle the "Download" click event
     public void subscribeButtonClick() {
+        if (!loggedIn.isLoggedIn()) {
+            showLoginToast("You have to be logged in to subscribe");
+            return;
+        }
+        isSubscribed =
+                loggedIn.getLoggedInUser().getSubscriptions()
+                        .contains(thisCurrentVideo.getPublisher());
+
+        if (isSubscribed) {
+            loggedIn.getLoggedInUser().getSubscriptions()
+                    .remove(thisCurrentVideo.getPublisher());
+        } else {
+            loggedIn.getLoggedInUser().getSubscriptions()
+                    .add(thisCurrentVideo.getPublisher());
+        }
+
+        setSubscribeUI();
+    }
+
+    public void setSubscribeUI() {
         Button subscribeButton = findViewById(R.id.btn_subscribe);
-        isSubscribed = !isSubscribed;
         if (isSubscribed) {
             // Subscribed state: text color black, background white, text "Subscribed"
             subscribeButton.setTextColor(Color.BLACK);
@@ -351,14 +373,14 @@ public class activity_watch_video_page extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
-    public void PencilButtonClick(){
-//        if (loggedIn.getLoggedInUser() == null) {
-//            Toast.makeText(this,
-//                    "You have to be logged in to edit the video title",
-//                    Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+    public void PencilButtonClick() {
+        if (loggedIn.getLoggedInUser() == null) {
+            Toast.makeText(this,
+                    "You have to be logged in to edit the video title",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(this);
             View dialogView =
@@ -386,17 +408,16 @@ public class activity_watch_video_page extends AppCompatActivity {
             // Show the dialog
             AlertDialog dialog = builder.create();
             dialog.show();
-//        } else {
-//            Toast.makeText(this,
-//                    "You are not the publisher of this video",
-//                    Toast.LENGTH_LONG).show();
-//        }
+        } else {
+            Toast.makeText(this,
+                    "You are not the publisher of this video",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void openCommentsActivity() {
         Intent intent =
                 new Intent(activity_watch_video_page.this, CommentsActivity.class);
-//        intent.putExtra("video", this.currentVideo);
         startActivity(intent);
     }
 }
