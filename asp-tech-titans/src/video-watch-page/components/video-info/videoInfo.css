@@ -14,6 +14,8 @@
 }
 .btn{
     padding: 0%;
+    border: none;
+    margin-right: 1px;
 }.download-button{
     border: none;
     border-radius: 20px;
@@ -50,4 +52,11 @@
 }
 .alert{
     margin: 0%;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-left: 10px;
+    background-color: white;
 }
