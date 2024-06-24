@@ -5,6 +5,7 @@ import com.example.tech_titans_app.ui.models.account.AccountData;
 public class LoggedIn {
     private static LoggedIn instance;
     private AccountData loggedInUser;
+    private LogoutListener logoutListener;
 
     private LoggedIn() {}
 
@@ -18,15 +19,27 @@ public class LoggedIn {
     public AccountData getLoggedInUser() {
         return loggedInUser;
     }
+
     public void setLoggedInUser(AccountData loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
     public void logOut() {
         this.loggedInUser = null;
+        if (logoutListener != null) {
+            logoutListener.onLogout();
+        }
     }
+
     public boolean isLoggedIn() {
         return loggedInUser != null;
     }
 
+    public void setLogoutListener(LogoutListener listener) {
+        this.logoutListener = listener;
+    }
+
+    public interface LogoutListener {
+        void onLogout();
+    }
 }
