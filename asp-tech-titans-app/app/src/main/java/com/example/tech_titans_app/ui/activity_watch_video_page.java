@@ -352,13 +352,13 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     public void PencilButtonClick(){
-        if (loggedIn.getLoggedInUser() == null) {
-            Toast.makeText(this,
-                    "You have to be logged in to edit the video title",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+//        if (loggedIn.getLoggedInUser() == null) {
+//            Toast.makeText(this,
+//                    "You have to be logged in to edit the video title",
+//                    Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(this);
             View dialogView =
@@ -379,17 +379,18 @@ public class activity_watch_video_page extends AppCompatActivity {
                         // Update the video title with the new value
                         String newTitle = editTitleInput.getText().toString();
                         thisCurrentVideo.setTitle(newTitle);
+                        setVideoTitle();
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
             // Show the dialog
             AlertDialog dialog = builder.create();
             dialog.show();
-        } else {
-            Toast.makeText(this,
-                    "You are not the publisher of this video",
-                    Toast.LENGTH_LONG).show();
-        }
+//        } else {
+//            Toast.makeText(this,
+//                    "You are not the publisher of this video",
+//                    Toast.LENGTH_LONG).show();
+//        }
     }
 
     public void openCommentsActivity() {
