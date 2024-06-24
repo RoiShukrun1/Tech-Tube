@@ -37,6 +37,8 @@ public class Video {
     private String playlist;
     private List<Comment> comments;
     private String likes;
+    private List<Integer> usersLikedId;
+    private List<Integer> usersUnlikedId;
 
     public Video(int id ,Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
         this.id = id;
@@ -47,6 +49,8 @@ public class Video {
         this.views = views;
         this.date = date;
         this.comments = new ArrayList<>();
+        this.usersLikedId = new ArrayList<>();
+        this.usersUnlikedId = new ArrayList<>();
     }
 
     public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description) {
@@ -58,6 +62,8 @@ public class Video {
         this.date = date;
         this.description = description;
         this.comments = new ArrayList<>();
+        this.usersLikedId = new ArrayList<>();
+        this.usersUnlikedId = new ArrayList<>();
     }
 
     public Video(Uri thumbnail, String title, String publisher,
@@ -73,6 +79,8 @@ public class Video {
         this.videoUploaded = videoUploaded;
         this.comments = new ArrayList<>();
         this.likes = String.valueOf(likes);
+        this.usersLikedId = new ArrayList<>();
+        this.usersUnlikedId = new ArrayList<>();
     }
 
     public Video(int id, Uri videoUploaded, Uri thumbnail, String title, String publisher,
@@ -92,12 +100,29 @@ public class Video {
         this.playlist = playlist;
         this.comments = comments;
         this.likes = likes;
+        this.usersLikedId = new ArrayList<>();
+        this.usersUnlikedId = new ArrayList<>();
+    }
+
+    public List<Integer> getUsersLikedId() {
+        return usersLikedId;
+    }
+
+    public void setUsersLikedId(List<Integer> usersLikedId) {
+        this.usersLikedId = usersLikedId;
+    }
+
+    public List<Integer> getUsersUnlikedId() {
+        return usersUnlikedId;
+    }
+
+    public void setUsersUnlikedId(List<Integer> usersUnlikedId) {
+        this.usersUnlikedId = usersUnlikedId;
     }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-
 
     public int getId() {
         return id;

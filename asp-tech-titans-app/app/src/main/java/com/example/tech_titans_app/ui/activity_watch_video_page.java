@@ -53,8 +53,8 @@ public class activity_watch_video_page extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
-    private boolean isLiked = false;
-    private boolean isUnliked = false;
+    private boolean isLiked;
+    private boolean isUnliked;
     private boolean isSubscribed = false;
     private LoggedIn loggedIn = LoggedIn.getInstance();
 
@@ -76,6 +76,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         setVideoDetails();
         setVideoDescription();
         setPublisherInfo();
+        updateLikesButtonsUI();
     }
 
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
@@ -228,49 +229,89 @@ public class activity_watch_video_page extends AppCompatActivity {
         TextView descriptionTextView = findViewById(R.id.video_description);
         descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
-
-    // Method to handle the "Like" click event
-    public void likeButtonClick() {
-        if (loggedIn.getLoggedInUser() != null) {
-            TextView likeTextView = findViewById(R.id.btn_like);
-            Drawable likeDrawable =
-                    ContextCompat.getDrawable(this, isLiked ? R.drawable.like : R.drawable.like_selected);
-            likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
-            if (isUnliked) {
-                this.unlikeButtonClick();
-            }
-            if (isLiked) {
-                this.thisCurrentVideo.decrementLikes();
-            } else {
-                this.thisCurrentVideo.incrementLikes();
-            }
-            likeTextView.setText(this.thisCurrentVideo.getLikes());
-            isLiked = !isLiked;  // Toggle the state
+    public void getLikesStatus() {
+        if (!loggedIn.isLoggedIn()){
+            isUnliked = false;
+            isLiked = false;
         } else {
-            Toast.makeText(this,
-                    "You have to be logged in to mark as liked",
-                    Toast.LENGTH_SHORT).show();
+            isUnliked =
+                    thisCurrentVideo.getUsersUnlikedId().contains(loggedIn.getLoggedInUser().getId());
+            isLiked =
+                    thisCurrentVideo.getUsersLikedId().contains(loggedIn.getLoggedInUser().getId());
         }
     }
 
-    // Method to handle the "Unlike" click event
-    public void unlikeButtonClick() {
-        if (loggedIn.getLoggedInUser() != null) {
-            TextView unlikeTextView = findViewById(R.id.btn_unlike);
-            Drawable unlikeDrawable =
-                    ContextCompat.getDrawable(this, isUnliked ? R.drawable.dislike : R.drawable.dislike_selected);
-            if (unlikeDrawable != null) {
-                unlikeTextView.setCompoundDrawablesWithIntrinsicBounds(unlikeDrawable, null, null, null);
-            }
-            if (isLiked) {
-                this.likeButtonClick();
-            }
-            isUnliked = !isUnliked;  // Toggle the state
+    // Method to handle the "Like" click event
+    public void likeButtonClick() {
+        if (loggedIn.isLoggedIn()) {
+            handleLike();
         } else {
-            Toast.makeText(this,
-                    "You have to be logged in to mark dis-like",
-                    Toast.LENGTH_SHORT).show();
+            showLoginToast("You have to be logged in to mark as liked");
         }
+    }
+
+    public void unlikeButtonClick() {
+        if (loggedIn.isLoggedIn()) {
+            handleUnlike();
+        } else {
+            showLoginToast("You have to be logged in to mark as disliked");
+        }
+    }
+
+    private void handleLike() {
+        getLikesStatus();
+        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+
+        if (isUnliked) {
+            thisCurrentVideo.getUsersUnlikedId().remove(loggedInUserId);
+        }
+        if (isLiked) {
+            thisCurrentVideo.decrementLikes();
+            thisCurrentVideo.getUsersLikedId().remove(loggedInUserId);
+        } else {
+            thisCurrentVideo.incrementLikes();
+            thisCurrentVideo.getUsersLikedId().add(loggedInUserId);
+        }
+
+        updateLikesButtonsUI();
+    }
+
+    private void handleUnlike() {
+        getLikesStatus();
+        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+
+        if (isLiked) {
+            thisCurrentVideo.getUsersLikedId().remove(loggedInUserId);
+            thisCurrentVideo.decrementLikes();
+        }
+        if (isUnliked) {
+            thisCurrentVideo.getUsersUnlikedId().remove(loggedInUserId);
+        } else {
+            thisCurrentVideo.getUsersUnlikedId().add(loggedInUserId);
+        }
+
+        updateLikesButtonsUI();
+    }
+
+    private void showLoginToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateLikesButtonsUI() {
+        getLikesStatus();
+        TextView unlikeTextView = findViewById(R.id.btn_unlike);
+        Drawable unlikeDrawable = ContextCompat.getDrawable
+                (this, isUnliked ? R.drawable.dislike_selected : R.drawable.dislike);
+        unlikeTextView.setCompoundDrawablesWithIntrinsicBounds
+                (unlikeDrawable, null, null, null);
+
+        TextView likeTextView = findViewById(R.id.btn_like);
+        Drawable likeDrawable = ContextCompat.getDrawable
+                (this, isLiked ? R.drawable.like_selected : R.drawable.like);
+        likeTextView.setCompoundDrawablesWithIntrinsicBounds
+                (likeDrawable, null, null, null);
+
+        likeTextView.setText(String.valueOf(thisCurrentVideo.getLikes()));
     }
 
     // Method to handle the "Download" click event

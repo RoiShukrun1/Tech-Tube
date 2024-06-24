@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
+import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.currentVideo;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
@@ -32,10 +33,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_comments);
 
-        // Retrieve the video object from intent
-        Intent intent = getIntent();
         thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
-//        currentVideo = (Video) intent.getSerializableExtra("video");
 
         initiateCommentsSection();
 
