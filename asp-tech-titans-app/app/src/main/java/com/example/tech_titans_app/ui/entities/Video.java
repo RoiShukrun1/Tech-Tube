@@ -75,7 +75,10 @@ public class Video {
         this.likes = String.valueOf(likes);
     }
 
-    public Video(int id, Uri videoUploaded, Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description, List<Video> relatedVideos, String playlist, List<Comment> comments, String likes) {
+    public Video(int id, Uri videoUploaded, Uri thumbnail, String title, String publisher,
+                 Uri publisherImage, String views, String date, String description,
+                 List<Video> relatedVideos, String playlist,
+                 List<Comment> comments, String likes) {
         this.id = id;
         this.videoUploaded = videoUploaded;
         this.thumbnail = thumbnail;

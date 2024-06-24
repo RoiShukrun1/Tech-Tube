@@ -63,14 +63,11 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
                 .load(publisherImageUri)
                 .into(holder.publisherImage);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                currentVideo.setCurrentVideo(video);
-                Intent intent = new Intent(context, activity_watch_video_page.class);
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            currentVideo.setCurrentVideo(video);
+            Intent intent = new Intent(context, activity_watch_video_page.class);
+            context.startActivity(intent);
         });
 
         if (LoggedIn.getInstance().isLoggedIn()) {
