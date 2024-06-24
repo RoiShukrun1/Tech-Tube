@@ -19,7 +19,7 @@ export const AddVideo = () => {
     const handleImageUpload = (event) => {
         setImage(URL.createObjectURL(event.target.files[0]));
     };
-
+    // Function to handle the form submission
     const handleSubmit = (event) => {
         const newData = {
             id: videoList.length + 10,
