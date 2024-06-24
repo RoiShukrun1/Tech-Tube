@@ -1,7 +1,8 @@
 package com.example.tech_titans_app.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,6 +23,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,8 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
-import com.example.tech_titans_app.ui.adapters.commentsAdapter;
-import com.example.tech_titans_app.ui.entities.Comment;
+
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.currentVideo;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
@@ -43,9 +44,6 @@ import androidx.core.content.ContextCompat;
 
 import android.graphics.drawable.Drawable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -57,6 +55,9 @@ public class activity_watch_video_page extends AppCompatActivity {
     private boolean isUnliked;
     private boolean isSubscribed = false;
     private LoggedIn loggedIn = LoggedIn.getInstance();
+    private ImageView darkModeButton;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,8 @@ public class activity_watch_video_page extends AppCompatActivity {
         setVideoDescription();
         setPublisherInfo();
         updateLikesButtonsUI();
+        listenToDarkModeSwitch();
+
     }
 
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
@@ -201,6 +204,31 @@ public class activity_watch_video_page extends AppCompatActivity {
             Intent intent =
                     new Intent(activity_watch_video_page.this, LoginActivity.class);
             startActivity(intent);
+        });
+    }
+
+    public void listenToDarkModeSwitch() {
+        darkModeButton = findViewById(R.id.dark_mode);
+        sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        darkModeButton.setOnClickListener(v -> {
+            if (isDarkModeOn) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean("isDarkModeOn", false);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean("isDarkModeOn", true);
+            }
+            editor.apply();
+            recreate();
         });
     }
 
@@ -353,14 +381,14 @@ public class activity_watch_video_page extends AppCompatActivity {
         Button subscribeButton = findViewById(R.id.btn_subscribe);
         if (isSubscribed) {
             // Subscribed state: text color black, background white, text "Subscribed"
-            subscribeButton.setTextColor(Color.BLACK);
+            subscribeButton.setTextColor(getResources().getColor(R.color.gray));
             subscribeButton.setBackgroundResource(R.drawable.unsub_but);
-            subscribeButton.setText(getString(R.string.subscribed));
+            subscribeButton.setText(R.string.subscribed);
         } else {
             // Not subscribed state: text color white, background black, text "Subscribe"
-            subscribeButton.setTextColor(Color.WHITE);
+            subscribeButton.setTextColor(getResources().getColor(R.color.gray));
             subscribeButton.setBackgroundResource(R.drawable.sub_but);
-            subscribeButton.setText(getString(R.string.subscribe));
+            subscribeButton.setText(R.string.subscribe);
         }
     }
 
