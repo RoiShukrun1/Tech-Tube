@@ -31,7 +31,7 @@ export const Registration = () => {
     const [usernameImage, setUsernameImage] = useState(true);
     const navigate = useNavigate();
     const { addAccount } = useContext(AccountContext);
-
+    // Function to handle the nickname input
     const handleNickname = (event) => {
         const newNickname = event.target.value;
         if (nameValidation(newNickname)){
@@ -39,11 +39,11 @@ export const Registration = () => {
             setNicknameImage(false);
         }
         else {  
-            setNicknameMassage("Nickname must contain only letters");
+            setNicknameMassage("Nickname must contain only letters and cannot be less then 2 characters.");
             setNicknameImage(true);
         }
     }
-
+    // Function to validate the nickname
     const handleUsername = (event) => {
         const newUsername = event.target.value;
         if (nameValidation(newUsername)){
@@ -51,13 +51,13 @@ export const Registration = () => {
             setUsernameImage(false);
         }
         else {
-            setUsernameMassage("Username must contain only letters");
+            setUsernameMassage("Username must contain only letters and cannot be less then 2 characters.");
             setUsernameImage(true);
         }
     }
-
+    // Function to validate the username
     const nameValidation = (name) => {
-        const namePattern = /^[a-zA-Z]+$/;
+        const namePattern = /^[a-zA-Z]{2,}$/;
         if (!namePattern.test(name)) {
             return false;
           }
@@ -65,7 +65,7 @@ export const Registration = () => {
           return true;
     } 
 
-
+    // Function to handle the password input
     const handlePasswordValidation = (event) => {
         const newPassword = event.target.value;
         setPassword(newPassword);
@@ -87,7 +87,7 @@ export const Registration = () => {
 
         }
     }
-
+    // Function to validate the password
     const passwordValidtion = (password) => {
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!passwordPattern.test(password)) {
@@ -96,7 +96,7 @@ export const Registration = () => {
         else 
           return true;
     }
-
+    // Function to handle the password confirmation input
     const handlePasswordConfirmtion = (event) => {
         const newConfermtionPassword = event.target.value;
         setConfirmPassword(newConfermtionPassword);
@@ -109,7 +109,7 @@ export const Registration = () => {
             setConfirmPasswordImage(true);
         }
     }
-    
+    // Function to confirm the password
     const passwordConfrmtion = (password, confirmPassword) => {
         if (password === confirmPassword){
             return true;
@@ -118,7 +118,7 @@ export const Registration = () => {
             return false;
         }
     }
-    
+    // Function to handle the submit button
     const handleSubmit = (event) => {
         if(nicknameImage || usernameImage || PasswordImage || ConfirmPasswordImage){
             alert("Please fill all the fields correctly");
@@ -180,6 +180,7 @@ export const Registration = () => {
         <input type="submit" value="Register" onClick={handleSubmit} />
         <div>
             <p>Already have an account? <Link to="/login">Log-in</Link></p>
+            <p>Continue as guest:   <Link to="/mainPage">Hompage</Link></p>    
         </div>
         </form>
     </div>

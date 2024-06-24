@@ -1,33 +1,42 @@
 import React, { useState, useRef, useContext } from 'react';
 import './upload-video.css';
 import { ReactComponent as UploadIcon } from '../images/addVideo.svg'; 
-import { Link } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { VideoContext } from '../contexts/videoContext'; // Import the VideoContext
 import { ThemeContext } from '../contexts/themeContext';
+
 
 const UploadPage = () => {
   const [video, setVideo] = useState(null);
   const videoInputRef = useRef(null);
   const { addNewVideo } = useContext(VideoContext);
   const { darkMode } = useContext(ThemeContext);
-
+  const navigate = useNavigate();
+  // Function to handle the video upload
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
-    const videoURL = URL.createObjectURL(file);
-    setVideo(videoURL);
+    if (file) {
+      const videoURL = URL.createObjectURL(file);
+      setVideo(videoURL);
 
-    // Create a video object to store in context
-    const videoObject = {
-      file,
-      url: videoURL,
-    };
-
-    // Add the video object to the global context
-    addNewVideo(videoObject);
+      const videoObject = {
+        file,
+        url: videoURL,
+      };
+      addNewVideo(videoObject);
+    }
   };
-
+  // Function to handle the button click
   const handleButtonClick = () => {
     videoInputRef.current.click();
+  };
+  // Function to handle the next button click
+  const handleNextClick = () => {
+    if (video) {
+      navigate('/addVideo');
+    } else {
+      alert("Please upload a video before proceeding to the next page.");
+    }
   };
 
   return (
@@ -52,9 +61,7 @@ const UploadPage = () => {
         </div>
         <button className="upload-button" type="button" onClick={handleButtonClick}>SELECT FILE</button>
         {video && <video src={video} className="video-preview" controls />}
-        <Link to="/addVideo">
-          <button className="next-button" type="button">Next</button>
-        </Link>
+        <button className="next-button" type="button" onClick={handleNextClick}>Next</button>
         <Link to="/mainPage">
           <button className="back-button" type="button">Back</button>
         </Link>
