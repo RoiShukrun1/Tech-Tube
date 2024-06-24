@@ -84,8 +84,12 @@
             android:id="@+id/btn_subscribe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sub_btn_default"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#000000"
             android:text="@string/subscribe"
+            android:textColor="#FFFFFF"
             />
     </LinearLayout>
 

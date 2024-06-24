@@ -331,16 +331,19 @@ public class activity_watch_video_page extends AppCompatActivity {
             showLoginToast("You have to be logged in to subscribe");
             return;
         }
+
+        String publisher = thisCurrentVideo.getPublisher();
+
         isSubscribed =
                 loggedIn.getLoggedInUser().getSubscriptions()
-                        .contains(thisCurrentVideo.getPublisher());
+                        .contains(publisher);
 
         if (isSubscribed) {
             loggedIn.getLoggedInUser().getSubscriptions()
-                    .remove(thisCurrentVideo.getPublisher());
+                    .remove(publisher);
         } else {
             loggedIn.getLoggedInUser().getSubscriptions()
-                    .add(thisCurrentVideo.getPublisher());
+                    .add(publisher);
         }
 
         setSubscribeUI();
@@ -351,14 +354,12 @@ public class activity_watch_video_page extends AppCompatActivity {
         if (isSubscribed) {
             // Subscribed state: text color black, background white, text "Subscribed"
             subscribeButton.setTextColor(Color.BLACK);
-//            subscribeButton.setBackgroundColor(Color.WHITE);
-//            subscribeButton.setBackgroundResource(R.drawable.sub_btn_default);
+            subscribeButton.setBackgroundResource(R.drawable.unsub_but);
             subscribeButton.setText(getString(R.string.subscribed));
         } else {
             // Not subscribed state: text color white, background black, text "Subscribe"
             subscribeButton.setTextColor(Color.WHITE);
-//            subscribeButton.setBackgroundColor(Color.BLACK);
-//            subscribeButton.setBackgroundResource(R.drawable.sub_but);
+            subscribeButton.setBackgroundResource(R.drawable.sub_but);
             subscribeButton.setText(getString(R.string.subscribe));
         }
     }
