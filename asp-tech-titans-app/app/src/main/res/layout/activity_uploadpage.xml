@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
     <include
         layout="@layout/toolbaruploadpage" />
 
@@ -15,17 +17,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29" />
+        app:layout_constraintVertical_bias="0.286"
+        />
 
     <Button
         android:id="@+id/select_button"
         android:layout_width="131dp"
         android:layout_height="62dp"
         android:backgroundTint="@color/button_background"
+        android:textColor="@color/white"
         android:text="Select video"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoView" />
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        style="@style/ButtonTheme"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
