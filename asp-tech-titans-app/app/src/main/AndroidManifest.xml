@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.CommentsActivity">
+        </activity>
+        <activity
             android:name=".ui.activity_watch_video_page">
         </activity>
         <activity
@@ -38,8 +41,9 @@
         <activity
             android:name=".ui.RegistrationActivity">
         </activity>
-
-
+        <activity
+            android:name=".ui.LoginActivity">
+        </activity>
     </application>
 
 

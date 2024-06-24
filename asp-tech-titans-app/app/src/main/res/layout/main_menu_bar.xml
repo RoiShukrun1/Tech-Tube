@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:gravity="center"
     android:padding="8dp">
 
@@ -17,6 +17,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/home"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/home_icon" />
 
@@ -28,6 +29,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/for_you"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/for_you_icon" />
 
@@ -48,6 +50,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/subscriptions"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/subscriptions_icon" />
 
@@ -72,6 +75,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/logout"
+            android:textColor="@color/text_primary"
             android:textSize="11sp" />
     </LinearLayout>
 
@@ -83,6 +87,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/login"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/ic_login" />
 </LinearLayout>

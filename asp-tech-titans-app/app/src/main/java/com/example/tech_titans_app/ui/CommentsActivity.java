@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,14 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.commentsAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
+import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 public class CommentsActivity extends AppCompatActivity {
 
     private commentsViewModel commentsViewModel;
     private commentsAdapter commentsAdapter;
-    private Video currentVideo;
-
+    private Video thisCurrentVideo;
+    private LoggedIn loggedIn = LoggedIn.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,8 @@ public class CommentsActivity extends AppCompatActivity {
 
         // Retrieve the video object from intent
         Intent intent = getIntent();
-        currentVideo = (Video) intent.getSerializableExtra("video");
+        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+//        currentVideo = (Video) intent.getSerializableExtra("video");
 
         initiateCommentsSection();
 
@@ -61,7 +65,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentsViewModel = new ViewModelProvider(this).get(commentsViewModel.class);
 
-        commentsViewModel.getRepository().loadComments(this.currentVideo);
+        commentsViewModel.getRepository().loadComments(this.thisCurrentVideo);
 
         commentsViewModel.getAllComments()
                 .observe(this, comments -> commentsAdapter.setComments(comments));
@@ -81,8 +85,14 @@ public class CommentsActivity extends AppCompatActivity {
         EditText input = findViewById(R.id.input_edit_Text_Comment);
         String commentText = input.getText().toString().trim();
 
-        if (!commentText.isEmpty() && currentVideo != null) {
-            this.commentsViewModel.addCommentToVideo(currentVideo, commentText);
+        if (!commentText.isEmpty() && thisCurrentVideo != null) {
+            if (loggedIn.getLoggedInUser() != null) {
+                this.commentsViewModel.addCommentToVideo(thisCurrentVideo, commentText);
+            } else {
+                Toast.makeText(this,
+                        "You have to be logged in to add a comment",
+                        Toast.LENGTH_SHORT).show();
+            }
             input.setText(""); // Clear the input field
         }
     }
