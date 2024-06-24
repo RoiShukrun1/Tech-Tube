@@ -2,7 +2,7 @@
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:padding="8dp">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="All"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/computer_programming_filter"
@@ -28,7 +28,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Computer programming"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/music_filter"
@@ -38,7 +38,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Music"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/gaming_filter"
@@ -48,7 +48,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Gaming"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/restaurants_filter"
@@ -58,7 +58,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Restaurants"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/mixes_filter"
@@ -68,7 +68,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Mixes"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/barbells_filter"
@@ -78,7 +78,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Barbells"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/sitcoms_filter"
@@ -88,7 +88,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Sitcoms"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/satire_filter"
@@ -98,7 +98,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Satire"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/brawl_stars_filter"
@@ -108,7 +108,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Brawl Stars"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/functions_filter"
@@ -118,7 +118,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Functions"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/playlists_filter"
@@ -128,7 +128,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Playlists"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/uefa_champions_league_filter"
@@ -138,7 +138,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="UEFA Champions League"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/cdj_filter"
@@ -148,7 +148,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="CDJ"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/news_filter"
@@ -158,7 +158,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="News"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/live_filter"
@@ -168,7 +168,7 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Live"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/sports_filter"
@@ -178,6 +178,6 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Sports"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
 </HorizontalScrollView>

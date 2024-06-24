@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:padding="8dp">
 
     <ImageView
@@ -57,6 +57,8 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:hint="@string/search_techtube"
+            android:textColorHint="@color/text_primary"
+            android:textColor="@color/text_primary"
             android:padding="8dp"
             android:background="@drawable/search_input_background"
             android:layout_alignParentEnd="true" />

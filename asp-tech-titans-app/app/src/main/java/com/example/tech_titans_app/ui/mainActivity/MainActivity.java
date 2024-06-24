@@ -98,26 +98,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         darkModeButton = findViewById(R.id.dark_mode);
-//        sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-//        editor = sharedPreferences.edit();
-//
-//        boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
-//        if (isDarkModeOn) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//        }
-//
-//        darkModeButton.setOnClickListener(v -> {
-//            if (isDarkModeOn) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                editor.putBoolean("isDarkModeOn", false);
-//            } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                editor.putBoolean("isDarkModeOn", true);
-//            }
-//            editor.apply();
-//        });
+        sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        darkModeButton.setOnClickListener(v -> {
+            if (isDarkModeOn) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean("isDarkModeOn", false);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean("isDarkModeOn", true);
+            }
+            editor.apply();
+            recreate();
+        });
     }
 
     private void updateUI(LinearLayout profileSection, ImageView profilePicture, TextView logoutText, TextView loginText) {
