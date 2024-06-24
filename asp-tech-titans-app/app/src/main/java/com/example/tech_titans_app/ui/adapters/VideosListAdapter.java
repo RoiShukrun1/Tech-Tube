@@ -1,6 +1,8 @@
 package com.example.tech_titans_app.ui.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.activity_watch_video_page;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
@@ -20,10 +23,12 @@ import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.List;
+import com.example.tech_titans_app.ui.entities.currentVideo;
 
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
 
     private List<Video> videoList;
+    private final currentVideo currentVideo = com.example.tech_titans_app.ui.entities.currentVideo.getInstance();
 
     @SuppressLint("NotifyDataSetChanged")
     public void setVideos(List<Video> videos) {
@@ -57,6 +62,16 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         Glide.with(holder.itemView.getContext())
                 .load(publisherImageUri)
                 .into(holder.publisherImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                currentVideo.setCurrentVideo(video);
+                Intent intent = new Intent(context, activity_watch_video_page.class);
+                context.startActivity(intent);
+            }
+        });
 
         if (LoggedIn.getInstance().isLoggedIn()) {
             String loggedInUsername = LoggedIn.getInstance().getLoggedInUser().getUsername();

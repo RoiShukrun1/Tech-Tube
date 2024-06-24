@@ -9,5 +9,6 @@
     <color name="button_background">#9A0606</color>
     <color name="image_background">#FEFEFE</color>
     <color name="toolbar_background">#FDF6FE</color>
-
+    <color name="main_filters_background">#C5C3C5</color>
+    <color name="main_filters_background_pressed">#B1B1B1</color>
 </resources>
