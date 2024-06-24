@@ -42,8 +42,8 @@ public class AddVideoActivity extends AppCompatActivity {
     private void setupSpinner() {
         playlistSpinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.spinner_options, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         playlistSpinner.setAdapter(adapter);
     }
 
