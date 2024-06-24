@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
         <TextView
             android:id="@+id/video_title"
             android:layout_width="match_parent"
@@ -40,34 +39,55 @@
         android:textSize="12sp"
         android:textStyle="normal" />
 
-    <!-- Horizontal ScrollView for Like, Dislike, Download, Share -->
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/video_description"
-            android:layout_width="157dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp" />
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/publisher_image_VWP"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/image2" />
+
+            <TextView
+                android:id="@+id/publisher_name_VWP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Publisher Name"
+                android:textColor="@color/text_primary" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn_subscribe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
             android:backgroundTint="#000000"
             android:text="@string/subscribe"
             android:textColor="#FFFFFF"
-
             />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/video_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -46,6 +46,8 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class activity_watch_video_page extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
@@ -63,71 +65,17 @@ public class activity_watch_video_page extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
-
-
-        new SearchBarUtils(findViewById(android.R.id.content));
-        EditText searchInput = findViewById(R.id.search_input);
-        searchInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                videoViewModel.filterVideos(charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
-
-
-
-
-        TextView homeButton = findViewById(R.id.home);
-        homeButton.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(activity_watch_video_page.this, MainActivity.class);
-            startActivity(intent);
-        });
-
-        ImageView addVideoButton = findViewById(R.id.add);
-        addVideoButton.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(activity_watch_video_page.this,
-                            UploadVideoActivity.class);
-            startActivity(intent);
-        });
-
-        LinearLayout profileSection = findViewById(R.id.profile_section);
-        ImageView profilePicture = findViewById(R.id.profile_picture);
-        TextView logoutText = findViewById(R.id.logout_text);
-        TextView loginText = findViewById(R.id.login);
-
-        updateUI(profileSection, profilePicture, logoutText, loginText);
-
-        profileSection.setOnClickListener(v -> {
-            LoggedIn.getInstance().logOut();
-            updateUI(profileSection, profilePicture, logoutText, loginText);
-        });
-
-        loginText.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(activity_watch_video_page.this, LoginActivity.class);
-            startActivity(intent);
-        });
-
-
-
-
-
-
         thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+
+        addSearchBarLogic();
+        addBottomBarLogic();
         initiateVideoPlayer();
         initiateRelatedVideos();
         addListeners();
         setVideoTitle();
         setVideoDetails();
         setVideoDescription();
+        setPublisherInfo();
     }
 
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
@@ -146,16 +94,6 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     private void initiateVideoPlayer() {
         VideoView videoView = findViewById(R.id.videoView);
-//
-//
-//        Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
-//        Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
-//        thisCurrentVideo = new Video(image1, "Video 1 Title",
-//                "Publisher 1", image1,
-//                "100", "10/10/2020", "The world is changing.",
-//                video4, 7);
-
-//        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
 
         // Set up MediaController
         MediaController mediaController = new MediaController(this);
@@ -209,6 +147,69 @@ public class activity_watch_video_page extends AppCompatActivity {
         // Handle click event of pencil click - edit video title
         TextView PencilTextView = findViewById(R.id.editTitle);
         PencilTextView.setOnClickListener(v -> PencilButtonClick());
+    }
+
+    public void addSearchBarLogic() {
+        new SearchBarUtils(findViewById(android.R.id.content));
+        EditText searchInput = findViewById(R.id.search_input);
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                videoViewModel.filterVideos(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    public void addBottomBarLogic() {
+        TextView homeButton = findViewById(R.id.home);
+        homeButton.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        ImageView addVideoButton = findViewById(R.id.add);
+        addVideoButton.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this,
+                            UploadVideoActivity.class);
+            startActivity(intent);
+        });
+
+        LinearLayout profileSection = findViewById(R.id.profile_section);
+        ImageView profilePicture = findViewById(R.id.profile_picture);
+        TextView logoutText = findViewById(R.id.logout_text);
+        TextView loginText = findViewById(R.id.login);
+
+        updateUI(profileSection, profilePicture, logoutText, loginText);
+
+        profileSection.setOnClickListener(v -> {
+            LoggedIn.getInstance().logOut();
+            updateUI(profileSection, profilePicture, logoutText, loginText);
+        });
+
+        loginText.setOnClickListener(v -> {
+            Intent intent =
+                    new Intent(activity_watch_video_page.this, LoginActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    public void setPublisherInfo() {
+        Uri publisherImageUri = currentVideo.getInstance().getCurrentVideo().getPublisherImage();
+        CircleImageView publisherImage = findViewById(R.id.publisher_image_VWP);
+        Glide.with(publisherImage.getContext())
+                .load(publisherImageUri)
+                .into(publisherImage);
+
+        TextView publisherTextView = findViewById(R.id.publisher_name_VWP);
+        publisherTextView.setText(this.thisCurrentVideo.getPublisher());
     }
 
     public void setVideoTitle() {
@@ -310,16 +311,13 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     public void PencilButtonClick(){
-//        if (loggedIn.getLoggedInUser() == null) {
-//            Toast.makeText(this,
-//                    "You have to be logged in to edit the video title",
-//                    Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
+        if (loggedIn.getLoggedInUser() == null) {
             Toast.makeText(this,
-                    "OK",
+                    "You have to be logged in to edit the video title",
                     Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(this);
             View dialogView =
@@ -343,15 +341,14 @@ public class activity_watch_video_page extends AppCompatActivity {
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
-        // Show the dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-//        } else {
-//            Toast.makeText(this,
-//                    "You are not the publisher of this video",
-//                    Toast.LENGTH_LONG).show();
-//        }
+            // Show the dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            Toast.makeText(this,
+                    "You are not the publisher of this video",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void openCommentsActivity() {
