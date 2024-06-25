@@ -88,6 +88,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         updateLikesButtonsUI();
         listenToDarkModeSwitch();
         orientationConfigurationChangeListener();
+        setSubscribeUI();
 
     }
 
@@ -136,10 +137,6 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     private void exitFullscreenMode() {
-//        FrameLayout frameLayout = findViewById(R.id.frame_Layout_video_Player);
-//        ViewGroup.LayoutParams params = frameLayout.getLayoutParams();
-//        params.height = ViewGroup.LayoutParams(200dp);
-//        frameLayout.setLayoutParams(params);
 
         // Show header and menu bar when exiting fullscreen
         header.setVisibility(View.VISIBLE);
@@ -451,6 +448,15 @@ public class activity_watch_video_page extends AppCompatActivity {
     }
 
     public void setSubscribeUI() {
+        String publisher = thisCurrentVideo.getPublisher();
+        if (loggedIn.isLoggedIn()) {
+            isSubscribed =
+                    loggedIn.getLoggedInUser().getSubscriptions()
+                            .contains(publisher);
+        } else {
+            isSubscribed = false;
+        }
+
         Button subscribeButton = findViewById(R.id.btn_subscribe);
         if (isSubscribed) {
             // Subscribed state: text color black, background white, text "Subscribed"
