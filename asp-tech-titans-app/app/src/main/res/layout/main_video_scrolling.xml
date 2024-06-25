@@ -6,6 +6,7 @@
     android:id="@+id/swipeRefreshLayout"
     android:textColor="@color/text_primary">
 
+    <!-- RecyclerView for displaying the list of videos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lstVideos"
         android:layout_width="match_parent"

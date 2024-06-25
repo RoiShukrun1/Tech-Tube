@@ -22,9 +22,10 @@
   display: none;
 }
 
+/* Fade effect for the first and last filter buttons */
 .video-categories.fade-left .filter-button:first-child,
 .video-categories.fade-right .filter-button:last-child {
-  opacity: 0.5; /* Apply fade effect */
+  opacity: 0.5;
 }
 
 .filter-button {
@@ -33,7 +34,7 @@
   margin-right: 1%;
   border: none;
   background-color: var(--button-background-color);
-  color:  var(--text-color);
+  color: var(--text-color);
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, opacity 0.3s ease;
@@ -41,15 +42,18 @@
   font-weight: bold;
 }
 
+/* Hover effect for filter buttons */
 .filter-button:hover {
   background-color: #ccc;
 }
 
+/* Active filter button style */
 .filter-button.active {
   background-color: var(--filter-active-background-color);
   color: var(--filter-active-text-color);
 }
 
+/* Remove margin for the last filter button */
 .filter-button:last-child {
   margin-right: 0;
 }
@@ -57,7 +61,7 @@
 .scroll-button {
   border: none;
   background-color: transparent;
-  color:var(--text-color);
+  color: var(--text-color);
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -68,9 +72,9 @@
   align-items: center;
   justify-content: center;
   font-size: 2em; /* Increase size of the arrow */
-
 }
 
+/* Hover effect for scroll buttons */
 .scroll-button:hover {
   background-color: var(--button-background-color);
 }

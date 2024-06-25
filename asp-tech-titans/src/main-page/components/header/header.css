@@ -1,15 +1,15 @@
+/* Styles for the main page header */
 .main-page-header {
-  display: flex;
-  align-items: center;
-  padding: 0.5% 1%;
-  background-color: var(--background-color);
-  height: auto;
-  border: none;
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  padding: 0.5% 1%; /* Add padding around the header */
+  background-color: var(--background-color); /* Background color from CSS variables */
+  height: auto; /* Set height to auto */
+  border: none; /* Remove any default border */
 }
 
+/* Styles for the header buttons container */
 .header-buttons-place {
-  display: inline-block;
-  align-items: center;
-  justify-content: left;
-  margin-top: 2%;
+  display: inline-block; /* Use inline-block for layout */
+  margin-top: 2%; /* Add top margin */
 }

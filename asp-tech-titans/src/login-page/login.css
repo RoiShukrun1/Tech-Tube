@@ -1,91 +1,72 @@
-.login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #ffffff;
-  font-family: Arial, sans-serif;
-  font-size: 153%; 
-  font-weight: bold;
-}
+/* Ensure the wrapper fills the entire viewport */
+.login-wrapper,
 .login-wrapper-dark {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Ensures full height */
   margin: 0;
-  background-color: #000000;
   font-family: Arial, sans-serif;
-  font-size: 153%; 
+  font-size: 153%;
   font-weight: bold;
+}
+
+.login-wrapper {
+  background-color: #ffffff;
+}
+
+.login-wrapper-dark {
+  background-color: #000000;
   color: white;
 }
 
 .login-container {
-  max-width: 640px; 
+  max-width: 640px;
   margin: 0 auto;
-  padding: 26px; 
-  border: 3px solid #ccc; 
-  border-radius: 38px; 
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); 
-  transform-style: preserve-3d; 
+  padding: 26px;
+  border: 3px solid #ccc;
+  border-radius: 38px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
 }
 
 .login-img {
   display: block;
-  margin-bottom: 6px; 
-  width: 100%; 
+  margin-bottom: 6px;
+  width: 100%;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 13px; 
+  gap: 13px;
 }
 
 .login-container input[type="submit"] {
   width: 100%;
   background-color: #ff0000;
   color: white;
-  padding: 13px; 
+  padding: 13px;
   border: none;
   cursor: pointer;
-  border-radius: 13px; 
+  border-radius: 13px;
 }
-  
+
 .login-container input[type="submit"]:hover {
   background-color: #cc0000;
 }
 
 .login-container input[type="text"],
 .login-container input[type="password"] {
-  width: 80%; 
+  width: 80%;
   border: none;
-  border-bottom: 3px solid black; 
+  border-bottom: 3px solid black;
   background: transparent;
-  font-size: 153%; 
-  padding-left: 10px; 
+  font-size: 153%;
+  padding-left: 10px;
   position: relative;
-}
-
-.login-container .input-icon {
-  position: absolute;
-  left: 9px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 25px;
-  height: 25px;
-}
-
-.login-container .input-container {
-  position: relative;
-  width: 100%;
-}
-
-input::placeholder {
-  font-size: 85%; 
+  color: black; /* Default text color */
 }
 
 .login-wrapper-dark .login-container input[type="text"],
@@ -101,9 +82,11 @@ input::placeholder {
 
 .ManIcon,
 .LockIcon {
-  width: 40px; 
-  height: 40px; 
+  width: 40px;
+  height: 40px;
   margin: 10px;
 }
 
-
+input::placeholder {
+  font-size: 85%;
+}

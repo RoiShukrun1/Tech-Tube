@@ -1,20 +1,12 @@
 package com.example.tech_titans_app.ui.entities;
 
-import android.content.Context;
 import android.net.Uri;
-import android.widget.Toast;
 
-import androidx.core.content.ContentProviderCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.CommentsActivity;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
-import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +32,7 @@ public class Video {
     private List<Integer> usersLikedId;
     private List<Integer> usersUnlikedId;
 
+    // Constructor for a simple Video object
     public Video(int id ,Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
         this.id = id;
         this.thumbnail = thumbnail;
@@ -53,6 +46,7 @@ public class Video {
         this.usersUnlikedId = new ArrayList<>();
     }
 
+    // Constructor with description
     public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description) {
         this.thumbnail = thumbnail;
         this.title = title;
@@ -66,6 +60,7 @@ public class Video {
         this.usersUnlikedId = new ArrayList<>();
     }
 
+    // Constructor with video upload URI and likes count
     public Video(Uri thumbnail, String title, String publisher,
                  Uri publisherImage, String views,
                  String date, String description, Uri videoUploaded, int likes) {
@@ -83,6 +78,7 @@ public class Video {
         this.usersUnlikedId = new ArrayList<>();
     }
 
+    // Constructor for a detailed Video object
     public Video(int id, Uri videoUploaded, Uri thumbnail, String title, String publisher,
                  Uri publisherImage, String views, String date, String description,
                  List<Video> relatedVideos, String playlist,
@@ -104,6 +100,7 @@ public class Video {
         this.usersUnlikedId = new ArrayList<>();
     }
 
+    // Getters and setters for user liked and unliked IDs
     public List<Integer> getUsersLikedId() {
         return usersLikedId;
     }
@@ -124,6 +121,7 @@ public class Video {
         this.comments = comments;
     }
 
+    // Getters and setters for Video properties
     public int getId() {
         return id;
     }
@@ -195,9 +193,12 @@ public class Video {
     public void setVideoUploaded(Uri videoUploaded) {
         this.videoUploaded = videoUploaded;
     }
+
+    // Methods for managing comments
     public List<Comment> getComments() {
         return comments;
     }
+
     public void addComment(String comment) {
         LoggedIn loggedIn = LoggedIn.getInstance();
         if (loggedIn.getLoggedInUser() != null) {
@@ -210,6 +211,7 @@ public class Video {
         }
     }
 
+    // Static method to get today's date
     public static String getTodayDate() {
         // Get a Calendar instance
         Calendar calendar = Calendar.getInstance();
@@ -218,28 +220,34 @@ public class Video {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }
-    public void incrementViews(){
+
+    // Methods to increment and decrement views count
+    public void incrementViews() {
         int numOfViews = Integer.parseInt(this.views);
         numOfViews++;
         this.views = String.valueOf(numOfViews);
     }
-    public void decrementViews(){
+
+    public void decrementViews() {
         int numOfViews = Integer.parseInt(this.views);
         numOfViews--;
         this.views = String.valueOf(numOfViews);
     }
 
-    public void incrementLikes(){
+    // Methods to increment and decrement likes count
+    public void incrementLikes() {
         int numOfViews = Integer.parseInt(this.likes);
         numOfViews++;
         this.likes = String.valueOf(numOfViews);
     }
-    public void decrementLikes(){
+
+    public void decrementLikes() {
         int numOfViews = Integer.parseInt(this.likes);
         numOfViews--;
         this.likes = String.valueOf(numOfViews);
     }
 
+    // Getters and setters for likes and other properties
     public String getLikes() {
         return likes;
     }

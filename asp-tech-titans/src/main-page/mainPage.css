@@ -7,3 +7,11 @@
   background-color: black; /* Background color for dark mode */
 }
 
+/* Common styles for HTML and body */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+

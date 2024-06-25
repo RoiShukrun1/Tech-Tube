@@ -1,61 +1,68 @@
+/* Styles for the dark mode button */
 .dark-mode-button {
   position: relative;
-  padding: 5% 5%;
-  border: none;
-  background-color: #e7e7e7;
-  color: #333;
-  border-radius: 40px; 
-  cursor: pointer;
+  padding: 5% 5%; /* Padding for the button */
+  border: none; /* No border */
+  background-color: #e7e7e7; /* Light grey background */
+  color: #333; /* Dark grey text color */
+  border-radius: 40px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
 
+/* Styles for the button image */
 .dark-mode-button-img {
-  height: 5dvh;
-  width: 3dvw;
-  border-radius: 40px; 
-  object-fit: cover;
+  height: 5dvh; /* Dynamic viewport height */
+  width: 3dvw; /* Dynamic viewport width */
+  border-radius: 40px; /* Rounded corners */
+  object-fit: cover; /* Ensures the image covers the area */
 }
 
+/* Styles for the tooltip text */
 .dark-mode-button .tooltip-text {
-  visibility: hidden;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px 10px;
-  position: absolute;
-  z-index: 1;
-  top: 125%; 
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+  visibility: hidden; /* Hidden by default */
+  background-color: #555; /* Dark background */
+  color: #fff; /* White text */
+  text-align: center; /* Centered text */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding for the tooltip */
+  position: absolute; /* Positioned absolutely */
+  z-index: 1; /* Ensures it appears above other elements */
+  top: 125%; /* Positions below the button */
+  left: 50%; /* Centered horizontally */
+  transform: translateX(-50%); /* Centers it exactly */
+  opacity: 0; /* Initially transparent */
+  transition: opacity 0.3s; /* Smooth transition for opacity */
 }
 
+/* Tooltip arrow styles */
 .dark-mode-button .tooltip-text::after {
   content: '';
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  bottom: 100%; /* Position above the tooltip */
+  left: 50%; /* Centered horizontally */
+  margin-left: -5px; /* Centers the arrow */
+  border-width: 5px; /* Arrow size */
   border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  border-color: #555 transparent transparent transparent; /* Dark arrow pointing downwards */
 }
 
+/* Button hover state */
 .dark-mode-button:hover {
-  background-color: #ccc;
+  background-color: #ccc; /* Slightly darker grey background on hover */
 }
 
+/* Active state for the button */
 .dark-mode-button.active {
-  background-color: #333;
-  color: #fff;
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
 }
 
+/* Tooltip visibility on hover */
 .dark-mode-button:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+  visibility: visible; /* Makes the tooltip visible */
+  opacity: 1; /* Fully opaque */
 }

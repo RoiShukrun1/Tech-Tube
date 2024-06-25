@@ -1,102 +1,116 @@
+/* Styles for the scrolling menu container */
 .scrolling-menu {
-  width: 15%;
-  position: fixed;
+  width: 15%; /* Width of the menu */
+  position: fixed; /* Fixed position to stay on the screen */
   left: -15%; /* Start off-screen */
-  top: 0;
-  height: 100%;
-  background-color: var(--background-color);
-  padding: auto;
-  transition: left 0.3s ease; /* Smooth transition */
-  z-index: 1001; 
-  display: flex;
-  flex-direction: column;
+  top: 0; /* Align to the top of the screen */
+  height: 100%; /* Full height of the screen */
+  background-color: var(--background-color); /* Background color from CSS variables */
+  padding: auto; /* Automatic padding */
+  transition: left 0.3s ease; /* Smooth transition for sliding in and out */
+  z-index: 1001; /* Ensure it appears above other elements */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Arrange children in a column */
 }
 
+/* Styles when the menu is open */
 .scrolling-menu.open {
   left: 0; /* Slide in from the left */
 }
 
+/* Styles for the scrollable menu content */
 .scrollable-menu {
-  flex-grow: 1; 
+  flex-grow: 1; /* Allow it to grow and fill available space */
   overflow-y: auto; /* Enable vertical scrolling */
-  margin-top:  auto;
+  margin-top: auto; /* Automatic top margin */
 }
 
+/* Reset padding for the list group */
 .list-group {
   padding-left: 0;
 }
 
+/* Styles for each list group item */
 .list-group-item {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  padding: auto 0;
-  cursor: pointer;
-  border: none; 
-  font-size: auto; 
+  background-color: var(--background-color); /* Background color from CSS variables */
+  color: var(--text-color); /* Text color from CSS variables */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  padding: auto 0; /* Automatic padding */
+  cursor: pointer; /* Pointer cursor on hover */
+  border: none; /* Remove default border */
+  font-size: auto; /* Automatic font size */
 }
 
+/* Styles for the icons inside list group items */
 .list-group-item img {
-  margin-left: 0%; 
-  margin-right: 10%; 
-  width: 10%; 
-  height: 10%;
+  margin-left: 0%; /* No left margin */
+  margin-right: 10%; /* Right margin */
+  width: 10%; /* Icon width */
+  height: 10%; /* Icon height */
 }
 
+/* Hover state for list group items */
 .list-group-item:hover {
-  border: 1px solid #ccc; 
-  border-radius: 4px;
+  border: 1px solid #ccc; /* Add a border on hover */
+  border-radius: 4px; /* Rounded corners */
 }
 
+/* Styles for list group items without icons */
 .list-group-item.no-icon {
-  color: var(--text-color);
-  background-color: var(--background-color);
-  padding-left: 22%; /* Add padding to align text with items that have icons */
+  color: var(--text-color); /* Text color from CSS variables */
+  background-color: var(--background-color); /* Background color from CSS variables */
+  padding-left: 22%; /* Padding to align text with items that have icons */
 }
 
+/* Styles for dividers */
 .divider {
-  border-top: 1px solid var(--divider-background-color);
-  margin: auto 0;
-  color: var(--button-background-color);
+  border-top: 1px solid var(--divider-background-color); /* Divider color from CSS variables */
+  margin: auto 0; /* Automatic margin */
+  color: var(--button-background-color); /* Divider color from CSS variables */
 }
 
+/* Styles for category labels */
 .categories-label {
-  color: var(--text-color);
-  font-weight: bold;
-  font-size: x-large;
-  padding-left: 5%; 
-  margin-top: auto;
-  margin-bottom: auto;
-  display: flex;
-  align-items: center;
+  color: var(--text-color); /* Text color from CSS variables */
+  font-weight: bold; /* Bold font weight */
+  font-size: x-large; /* Large font size */
+  padding-left: 5%; /* Left padding */
+  margin-top: auto; /* Automatic top margin */
+  margin-bottom: auto; /* Automatic bottom margin */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
 }
 
+/* Styles for the overlay */
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed; /* Fixed position to cover the screen */
+  top: 0; /* Align to the top of the screen */
+  left: 0; /* Align to the left of the screen */
+  width: 100%; /* Full width of the screen */
+  height: 100%; /* Full height of the screen */
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
   z-index: 1000; /* Just below the scrolling menu */
   display: none; /* Initially hidden */
 }
 
+/* Styles when the overlay is active */
 .overlay.show {
   display: block; /* Show when active */
 }
 
-/* Custom scrollbar styling */
+/* Custom scrollbar styling for scrollable menu */
 .scrollable-menu::-webkit-scrollbar {
   width: auto; /* Width of the scrollbar */
 }
 
+/* Custom scrollbar handle styling */
 .scrollable-menu::-webkit-scrollbar-thumb {
   background-color: var(--button-background-color); /* Color of the scrollbar handle */
   border-radius: 6px; /* Rounded corners for the scrollbar handle */
 }
 
+/* Custom scrollbar track styling */
 .scrollable-menu::-webkit-scrollbar-track {
   background: var(--background-color); /* Color of the scrollbar track */
 }
