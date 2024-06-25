@@ -22,10 +22,22 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     const [isPencilClicked, setIsPencilClicked] = useState(false);
     const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title);
 
+    const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description);
+
+
     const { videoData, setVideoData } = useContext(VideoDataContext);
+
+    const handleChange = (event) => {
+        handleVideoTitleInputChange(event);
+        handleDescriptionInputValueChange(event);
+    }
 
     const handleVideoTitleInputChange = (event) => {
         setVideoTitleInputValue(event.target.value);
+    };
+
+    const handleDescriptionInputValueChange = (event) => {
+        setDescriptionInputValue(event.target.value);
     };
 
     const handleKeyDown = (event) => {
@@ -48,8 +60,23 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         });
     };
 
+    const setNewDescription = (NewDescription) => {
+        setVideoData(prevVideos => {
+            const updatedVideos = [...prevVideos];
+
+            const thisVideo = updatedVideos.find(video => video.id === currentVideo.id);
+
+            if (thisVideo) {
+                thisVideo.description = NewDescription;
+            }
+
+            return updatedVideos;
+        });
+    };
+
     const closeInput = () => {
         setNewVideoTitle(VideoTitleInputValue);
+        setNewDescription(descriptionInputValue);
         setIsPencilClicked(false);
     };
 
@@ -203,7 +230,14 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
                 </button>
                 <div className={`collapse ${moreInfoPressed ? 'show' : ''}`} id={collapseId}>
                     <div className="more-info">
-                        {description}
+                        <div>{isPencilClicked ? <input
+                            className='inputVideoTitle'
+                            onChange={handleDescriptionInputValueChange}
+                            onKeyDown={handleKeyDown}
+                            value={descriptionInputValue}
+                        />
+                            : description}
+                        </div>
                     </div>
                 </div>
             </div>
