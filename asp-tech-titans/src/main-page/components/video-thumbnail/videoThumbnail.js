@@ -23,6 +23,7 @@ const VideoThumbnail = ({ video, onClick }) => {
    * Sets the hover state to true.
    */
   const handleMouseEnter = () => {
+    if(isHovered) return;
     setIsHovered(true);
   };
 
