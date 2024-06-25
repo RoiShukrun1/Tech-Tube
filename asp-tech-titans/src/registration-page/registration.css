@@ -1,57 +1,54 @@
-.registration-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #ffffff;
-  font-family: Arial, sans-serif;
-  font-size: 145%; 
-  font-weight: bold;
-}
+.registration-wrapper,
 .registration-wrapper-dark {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #000000;
   font-family: Arial, sans-serif;
-  font-size: 145%; 
+  font-size: 145%;
   font-weight: bold;
-  color: white
+}
+
+.registration-wrapper {
+  background-color: #ffffff;
+}
+
+.registration-wrapper-dark {
+  background-color: #000000;
+  color: white;
 }
 
 .registration-container {
-  max-width: 600px; 
+  max-width: 600px;
   margin: 0 auto;
-  padding: 25px; 
-  border: 3px solid #ccc; 
-  border-radius: 36px; 
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); 
-  transform-style: preserve-3d; 
+  padding: 25px;
+  border: 3px solid #ccc;
+  border-radius: 36px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
 }
 
 .registration-img {
   display: block;
-  margin-bottom: 25px; 
+  margin-bottom: 25px;
 }
 
 .registration-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px; 
+  gap: 12px;
 }
 
 .registration-container input[type="submit"] {
   width: 100%;
   background-color: #ff0000;
   color: white;
-  padding: 12px; 
+  padding: 12px;
   border: none;
   cursor: pointer;
-  border-radius: 12px; 
+  border-radius: 12px;
 }
 
 .registration-container input[type="submit"]:hover {
@@ -61,39 +58,38 @@
 .registration-container input[type="text"],
 .registration-container input[type="password"] {
   border: none;
-  border-bottom: 3px solid black; 
+  border-bottom: 3px solid black;
   background: transparent;
 }
 
 .registration-wrapper-dark .registration-container input[type="text"],
 .registration-wrapper-dark .registration-container input[type="password"] {
-  color: white; /* Text color in dark mode */
-  border-bottom: 3px solid white; /* Bottom border color in dark mode */
+  color: white; 
+  border-bottom: 3px solid white; 
 }
 
-.registration-wrapper-dark .Icon
-{
-  fill: white; /* Change icon color to white in dark mode */
+.registration-wrapper-dark .Icon {
+  fill: white; 
 }
 
 .Icon {
-  width: 24px; 
+  width: 24px;
   height: 24px;
 }
 
 .ImageIcon {
-  width: 60px; 
+  width: 60px;
   height: 60px;
 }
 
 p {
-  font-size: 14.4px; 
+  font-size: 14.4px;
 }
 
 .conditiomImage {
-  width: 24px; 
-  height: 24px; 
-  margin-left: 12px; 
+  width: 24px;
+  height: 24px;
+  margin-left: 12px;
 }
 
 .passwordContainer {
@@ -103,7 +99,7 @@ p {
 
 .error {
   color: rgb(249, 8, 8);
-  font-size: 14px; 
-  width: 335px; 
-  text-align: center; 
+  font-size: 14px;
+  width: 335px;
+  text-align: center;
 }

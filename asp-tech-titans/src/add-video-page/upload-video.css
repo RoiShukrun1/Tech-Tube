@@ -1,13 +1,17 @@
-.upload-warpper {
+.upload-warpper,
+.upload-warpper-dark {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
-  background-color: #ffffff;
   font-family: Arial, sans-serif;
   font-size: 120%;
   font-weight: bold;
+}
+
+.upload-warpper {
+  background-color: #ffffff;
 }
 
 .upload-warpper-dark {
@@ -100,8 +104,8 @@
 
 .upload-button {
   position: absolute;
-  bottom: 30px; 
-  right: 42%; 
+  bottom: 30px;
+  right: 42%;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -125,8 +129,8 @@
 
 .next-button {
   position: absolute;
-  bottom: 30px; 
-  right: 30px; 
+  bottom: 30px;
+  right: 30px;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -142,8 +146,8 @@
 
 .back-button {
   position: absolute;
-  bottom: 30px; 
-  left: 30px; 
+  bottom: 30px;
+  left: 30px;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
