@@ -27,11 +27,6 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
 
     const { setVideoData } = useContext(VideoDataContext);
 
-    // const handleChange = (event) => {
-    //     handleVideoTitleInputChange(event);
-    //     handleDescriptionInputValueChange(event);
-    // }
-
     const handleVideoTitleInputChange = (event) => {
         setVideoTitleInputValue(event.target.value);
     };

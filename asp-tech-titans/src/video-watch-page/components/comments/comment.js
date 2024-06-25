@@ -3,8 +3,59 @@ import { ReactComponent as Like } from './like.svg';
 import { ReactComponent as Dislike } from './dislike.svg';
 import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
+import { useState } from 'react';
+import { ReactComponent as Pencil } from './pencil.svg';
 
 function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
+
+    var username = commentObj.username
+    var date = commentObj.date
+    var comment = commentObj.comment
+    var profilePicture = commentObj.image
+    var likesNumber = commentObj.likes
+
+    const [commentInputValue, setCommentInputValue] = useState(comment);
+    const [isPencilClicked, setIsPencilClicked] = useState(false);
+
+    const handleCommentInputChange = (event) => {
+        setCommentInputValue(event.target.value);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            closeInput();
+        }
+    };
+
+    const closeInput = () => {
+        setNewCommentContent(commentInputValue);
+        setIsPencilClicked(false);
+    };
+
+    const setNewCommentContent = (newCommentContent) => {
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video => {
+                if (video.id !== currentVideoId) return video;
+
+                const updatedComments = video.comments.map(comment => {
+                    if (comment.id !== commentObj.id) return comment;
+
+                    return {
+                        ...comment,
+                        comment: newCommentContent
+                    };
+                });
+
+                return {
+                    ...video,
+                    comments: updatedComments
+                };
+            });
+
+            return updatedVideos;
+        });
+    };
+
 
     const userLike = () => {
         if (currentUser === null) return false;
@@ -15,12 +66,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         if (currentUser === null) return false;
         return commentObj.usersUnLikedId.some(user => user.id === currentUser.id);
     }
-
-    var username = commentObj.username
-    var date = commentObj.date
-    var comment = commentObj.comment
-    var profilePicture = commentObj.image
-    var likesNumber = commentObj.likes
 
     var isLiked = userLike();
     var isUnLiked = userUnLike();
@@ -133,6 +178,33 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         });
     };
 
+    const currentUserIsOwnerOfComment = () => {
+        return currentUser && currentUser.username === commentObj.username;
+    }
+
+    const handlePencilClicked = () => {
+        setIsPencilClicked(true)
+        setCommentInputValue(comment)
+    }
+
+    const deleteComment = () => {
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video => {
+                if (video.id !== currentVideoId) return video;
+    
+                const updatedComments = video.comments.filter(comment => comment.id !== commentObj.id);
+    
+                return {
+                    ...video,
+                    comments: updatedComments
+                };
+            });
+    
+            return updatedVideos;
+        });
+    };
+    
+
     return (
         <div className="border">
             <div className="row">
@@ -142,9 +214,32 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                 <div className="col-11" style={{ padding: 0 }}>
 
                     <div className="comment">
+
+                    <span className="usernameAndclosebutton">
                         <h2 className="username">@{username}</h2>
+                        {currentUser && currentUserIsOwnerOfComment() && 
+                        <button type="button" className="close-button btn btn-secondary" 
+                        onClick={deleteComment}>X</button> }
+                    </span>
+
                         <h3 className="date">{date}</h3>
-                        <h3 className="content">{comment}</h3>
+
+                        <span className="inputWithComment">
+                            <h3 className="content">{isPencilClicked ? <input
+                                className='comment-input'
+                                onChange={handleCommentInputChange}
+                                placeholder='comment...'
+                                onKeyDown={handleKeyDown}
+                                value={commentInputValue}
+                            /> : comment}</h3>
+
+                            {currentUser && currentUserIsOwnerOfComment() &&
+                                <button type="button" className='pencil-button' onClick={() => handlePencilClicked()}>
+                                    <Pencil />
+                                </button>
+                            }
+
+                        </span>
 
                         <div className="container">
                             <button onClick={() => {

@@ -15,6 +15,7 @@
     font-weight: bold;
     text-align: left;
     display: flex;
+    flex: 1;
 }
 .date{
     font-size: small;
@@ -61,4 +62,15 @@
 }.comment {
     margin-left: 2%;
     padding: 1%;
+}.comment-input {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: none;
+}.pencil-button{
+    float: left;
+}.usernameAndclosebutton{
+    display: flex;
+}.close-button{
+    width: 4%;
+    margin-right: 2%;
 }
