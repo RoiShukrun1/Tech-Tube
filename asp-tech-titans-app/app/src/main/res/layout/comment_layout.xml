@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@color/background"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="5dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        tools:ignore="RtlSymmetry"
-        android:background="@color/background"
-        >
+        tools:ignore="RtlSymmetry">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/comment_publisher_image"
@@ -30,17 +28,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@color/background"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:background="@color/background"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/comment_publisher"
@@ -49,8 +45,8 @@
                     android:layout_marginEnd="7dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/comment_date"
@@ -58,36 +54,33 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:background="@color/background"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/Comment_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:textColor="@color/text_primary"
-                    />
+                    android:textColor="@color/text_primary" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:background="@color/background"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/comment_btn_like"
@@ -97,17 +90,9 @@
                     android:clickable="true"
                     android:drawablePadding="8dp"
                     android:focusable="true"
-                    app:drawableStartCompat="@drawable/like"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
-
-                <TextView
-                    android:id="@+id/Comment_likes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:textColor="@color/text_primary"
-                    />
+                    app:drawableStartCompat="@drawable/like"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <TextView
                     android:id="@+id/comment_btn_unlike"
@@ -117,9 +102,9 @@
                     android:clickable="true"
                     android:drawablePadding="8dp"
                     android:focusable="true"
+                    android:textColor="@color/text_primary"
                     app:drawableStartCompat="@drawable/dislike"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/text_primary"/>
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </LinearLayout>
         </LinearLayout>
