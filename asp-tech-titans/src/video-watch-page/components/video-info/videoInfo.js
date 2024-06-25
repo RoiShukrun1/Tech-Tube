@@ -167,10 +167,11 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     return (
         <div className='video-info-section'>
             <h1 className="title">{isPencilClicked ? <input
-                className='inputVideoTitle'
                 onChange={handleVideoTitleInputChange}
+                placeholder='Title...'
                 onKeyDown={handleKeyDown}
                 value={VideoTitleInputValue}
+                style={{ 'background-color': 'var(--background-color)', 'color': 'var(--text-color)', 'border': 'none'}}
             />
                 : title}
                 {currentUser && currentUserIsOwnerOfVideo()
@@ -202,16 +203,16 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
                     className={"btn btn-outline-secondary"}
                     style={{ marginLeft: '1%' }}
                 >
-                    {isLiked ? <LikeSelected className='icon' style={{ margin: 0 }} /> :
-                        <Like className='icon' style={{ margin: 0 }} />}
+                    {isLiked ? <LikeSelected className='icons' style={{ margin: 0 }} /> :
+                        <Like className='icons' style={{ margin: 0 }} />}
                 </button>
 
                 <h3 className="likesNumber">{currentVideo.usersLikes.length}</h3>
 
                 <button onClick={() => unlikePressed()} type="button"
                     className={"btn btn-outline-secondary"}>
-                    {isUnLiked ? <DislikeSelected className='icon' style={{ margin: 0 }} /> :
-                        <Dislike className='icon' style={{ margin: 0 }} />}
+                    {isUnLiked ? <DislikeSelected className='icons' style={{ margin: 0 }} /> :
+                        <Dislike className='icons' style={{ margin: 0 }} />}
                 </button>
 
             </span>
@@ -232,6 +233,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
                     <div className="more-info">
                         <div>{isPencilClicked ? <input
                             className='inputVideoTitle'
+                            placeholder='Description...'
                             onChange={handleDescriptionInputValueChange}
                             onKeyDown={handleKeyDown}
                             value={descriptionInputValue}
