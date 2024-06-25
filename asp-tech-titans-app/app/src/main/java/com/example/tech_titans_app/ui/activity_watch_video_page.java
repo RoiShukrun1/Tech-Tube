@@ -3,13 +3,16 @@ package com.example.tech_titans_app.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.view.View;
 import android.widget.Button;
@@ -54,10 +57,15 @@ public class activity_watch_video_page extends AppCompatActivity {
     private boolean isLiked;
     private boolean isUnliked;
     private boolean isSubscribed = false;
-    private LoggedIn loggedIn = LoggedIn.getInstance();
+    private final LoggedIn loggedIn = LoggedIn.getInstance();
     private ImageView darkModeButton;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private View header;
+    private View menuBar;
+    private View videoInfo;
+    private View comments;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +87,68 @@ public class activity_watch_video_page extends AppCompatActivity {
         setPublisherInfo();
         updateLikesButtonsUI();
         listenToDarkModeSwitch();
+        orientationConfigurationChangeListener();
 
     }
+
+    private void orientationConfigurationChangeListener() {
+        header = findViewById(R.id.header);
+        menuBar = findViewById(R.id.menu_bar);
+        videoInfo = findViewById(R.id.watch_video_page_video_info);
+        comments = findViewById(R.id.watch_video_page_comments);
+        recyclerView = findViewById(R.id.listVideosVWP);
+
+        View rootView = getWindow().getDecorView().getRootView();
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int orientation = getResources().getConfiguration().orientation;
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // Handle landscape orientation
+                handleOrientationChange(true);
+            } else {
+                // Handle portrait orientation
+                handleOrientationChange(false);
+            }
+        });
+    }
+
+    private void handleOrientationChange(boolean isLandscape) {
+        if (isLandscape) {
+            // Execute code for landscape orientation
+            enterFullscreenMode();
+        } else {
+            // Execute code for portrait orientation
+            exitFullscreenMode();
+        }
+    }
+
+    private void enterFullscreenMode() {
+        FrameLayout frameLayout = findViewById(R.id.frame_Layout_video_Player);
+        ViewGroup.LayoutParams params = frameLayout.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        frameLayout.setLayoutParams(params);
+
+        // Hide header and menu bar for fullscreen video
+        header.setVisibility(View.GONE);
+        menuBar.setVisibility(View.GONE);
+        videoInfo.setVisibility(View.GONE);
+        comments.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void exitFullscreenMode() {
+//        FrameLayout frameLayout = findViewById(R.id.frame_Layout_video_Player);
+//        ViewGroup.LayoutParams params = frameLayout.getLayoutParams();
+//        params.height = ViewGroup.LayoutParams(200dp);
+//        frameLayout.setLayoutParams(params);
+
+        // Show header and menu bar when exiting fullscreen
+        header.setVisibility(View.VISIBLE);
+        menuBar.setVisibility(View.VISIBLE);
+        videoInfo.setVisibility(View.VISIBLE);
+        comments.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
 
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
                           TextView logoutText, TextView loginText) {
@@ -151,6 +219,11 @@ public class activity_watch_video_page extends AppCompatActivity {
         // Handle click event of pencil click - edit video title
         TextView PencilTextView = findViewById(R.id.editTitle);
         PencilTextView.setOnClickListener(v -> PencilButtonClick());
+
+        // Handle click event of pencil description click - edit video description
+        TextView PencilDescriptionTextView = findViewById(R.id.editDescription);
+        PencilDescriptionTextView.setOnClickListener(v -> pencilDescriptionButtonClick());
+
     }
 
     public void addSearchBarLogic() {
@@ -402,6 +475,49 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         // Start the chooser activity
         startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
+    public void pencilDescriptionButtonClick() {
+        if (loggedIn.getLoggedInUser() == null) {
+            Toast.makeText(this,
+                    "You have to be logged in to edit the video description",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+            // Inflate the dialog layout
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View dialogView =
+                    inflater.inflate(R.layout.watch_page_video_dialog_edit_title, null);
+
+            // Get the EditText from the dialog layout
+            EditText editDescriptionInput = dialogView.findViewById(R.id.dialog_edit_title_input);
+
+            // Set the current title in the EditText
+            String currentDescription = thisCurrentVideo.getDescription();
+            editDescriptionInput.setText(currentDescription);
+
+            // Build the dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView)
+                    .setTitle("Edit Video Description")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        // Update the video title with the new value
+                        String newDescription = editDescriptionInput.getText().toString();
+                        thisCurrentVideo.setDescription(newDescription);
+                        TextView DescriptionTextView = findViewById(R.id.video_description);
+                        DescriptionTextView.setText(thisCurrentVideo.getDescription());
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            // Show the dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            Toast.makeText(this,
+                    "You are not the publisher of this video",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void PencilButtonClick() {
