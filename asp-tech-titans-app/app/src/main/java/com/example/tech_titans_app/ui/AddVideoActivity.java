@@ -134,9 +134,10 @@ public class AddVideoActivity extends AppCompatActivity {
         String formattedDate = dateFormat.format(currentDate);
         loggedInUser = LoggedIn.getInstance().getLoggedInUser();
 
-        // Use default image if no image selected
-        if (thumbnailUri == null) {
-            thumbnailUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.default_thumbnail);
+        // Validation checks
+        if (titleString.isEmpty() || descriptionString.isEmpty() || playlistString.equals("Add to playlist:") || videoUri == null || thumbnailUri == null) {
+            showToastMessage("All fields are required.");
+            return;
         }
 
         if (videoUri != null && thumbnailUri != null) {
