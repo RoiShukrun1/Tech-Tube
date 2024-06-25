@@ -6,9 +6,15 @@ import android.widget.TextView;
 import com.example.tech_titans_app.R;
 
 public class FilterUtils {
-
+    // Store the last selected filter TextView
     private TextView lastSelectedFilter;
 
+    /**
+     * Sets up click listeners for filter buttons.
+     * When a filter button is clicked, it updates the selection state.
+     *
+     * @param rootView The root view containing all the filter buttons.
+     */
     public void setupFilterClickListeners(View rootView) {
         View.OnClickListener filterClickListener = view -> {
             if (lastSelectedFilter != null) {

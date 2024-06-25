@@ -1,136 +1,118 @@
 package com.example.tech_titans_app.ui.mainActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.CheckVideoActivity;
 import com.example.tech_titans_app.ui.LoginActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
-
-import com.example.tech_titans_app.ui.models.account.AccountData;
-import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private VideosListAdapter adapter;
-    private ImageView darkModeButton;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private ProfileManager profileManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setup filter click listeners
         new FilterUtils().setupFilterClickListeners(findViewById(android.R.id.content));
+
+        // Setup search bar functionality
         new SearchBarUtils(findViewById(android.R.id.content));
 
+        // Setup RecyclerView for displaying videos
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
         lstVideos.setLayoutManager(new LinearLayoutManager(this));
 
+        // Initialize the adapter and set it to the RecyclerView
         adapter = new VideosListAdapter();
         lstVideos.setAdapter(adapter);
 
+        // Initialize ViewModel and observe changes in the video list
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
         videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
 
+        // Setup navigation buttons
+        setupNavigationButtons();
+
+        // Setup search bar functionality
+        setupSearchBar();
+
+        // Setup profile section logic
+        setupProfileSection();
+
+        // Setup dark mode functionality
+        setupDarkMode();
+    }
+
+    private void setupNavigationButtons() {
+        // Home button to reload the MainActivity
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
+        // Add video button to navigate to the UploadVideoActivity
         ImageView addVideoButton = findViewById(R.id.add);
         addVideoButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, UploadVideoActivity.class);
             startActivity(intent);
         });
+    }
 
+    private void setupSearchBar() {
+        // Initialize search input field
+        EditText searchInput = findViewById(R.id.search_input);
+
+        // Create and set TextWatcher for search input
+        SearchBarHandler searchBarHandler = new SearchBarHandler(videoViewModel);
+        searchInput.addTextChangedListener(searchBarHandler);
+    }
+
+    private void setupProfileSection() {
+        // Get references to profile section views
         LinearLayout profileSection = findViewById(R.id.profile_section);
         ImageView profilePicture = findViewById(R.id.profile_picture);
         TextView logoutText = findViewById(R.id.logout_text);
         TextView loginText = findViewById(R.id.login);
 
-        updateUI(profileSection, profilePicture, logoutText, loginText);
+        // Initialize ProfileManager and update UI
+        profileManager = new ProfileManager(this, profileSection, profilePicture, logoutText, loginText);
+        profileManager.updateUI();
 
+        // Set click listener for profile section to handle logout
         profileSection.setOnClickListener(v -> {
-            LoggedIn.getInstance().logOut();
-            updateUI(profileSection, profilePicture, logoutText, loginText);
+            profileManager.handleLogout();
+            profileManager.updateUI();
         });
 
+        // Set click listener for login text to navigate to LoginActivity
         loginText.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         });
-
-        EditText searchInput = findViewById(R.id.search_input);
-        searchInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                videoViewModel.filterVideos(charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
-
-        darkModeButton = findViewById(R.id.dark_mode);
-        sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
-        if (isDarkModeOn) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
-        darkModeButton.setOnClickListener(v -> {
-            if (isDarkModeOn) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                editor.putBoolean("isDarkModeOn", false);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                editor.putBoolean("isDarkModeOn", true);
-            }
-            editor.apply();
-            recreate();
-        });
     }
 
-    private void updateUI(LinearLayout profileSection, ImageView profilePicture, TextView logoutText, TextView loginText) {
-        if (LoggedIn.getInstance().isLoggedIn()) {
-            profileSection.setVisibility(View.VISIBLE);
-            loginText.setVisibility(View.GONE);
-            Glide.with(this).load(LoggedIn.getInstance().getLoggedInUser().getProfilePicture()).into(profilePicture);
-            logoutText.setText(R.string.logout);
-        } else {
-            profileSection.setVisibility(View.GONE);
-            loginText.setVisibility(View.VISIBLE);
-        }
+    private void setupDarkMode() {
+        // Get reference to dark mode button
+        ImageView darkModeButton = findViewById(R.id.dark_mode);
+
+        // Initialize DarkModeManager
+        DarkModeManager darkModeManager = new DarkModeManager(this, darkModeButton);
     }
 }
