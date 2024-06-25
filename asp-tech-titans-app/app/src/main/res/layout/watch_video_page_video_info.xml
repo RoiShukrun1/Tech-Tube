@@ -62,9 +62,9 @@
             android:id="@+id/publisher_name_VWP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="8dp"
             android:text="@string/publisher_name"
-            android:layout_marginStart="5dp"
             android:textColor="@color/text_primary" />
 
         <View
@@ -90,8 +90,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/text_primary"
-        android:textSize="14sp" />
         android:orientation="horizontal">
 
 
@@ -115,6 +113,7 @@
             app:drawableStartCompat="@drawable/edit" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
