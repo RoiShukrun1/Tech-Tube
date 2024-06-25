@@ -1,11 +1,17 @@
 package com.example.tech_titans_app.ui.entities;
 
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.example.tech_titans_app.R;
@@ -54,39 +60,50 @@ public class Comment implements Serializable {
         }
     }
 
-    public void likeButtonClick(TextView likeTextView, TextView unlikeTextView) {
-        getLikesStatus();
-        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
-
-        if (isUnliked) {
-            this.getUsersUnlikedId().remove(loggedInUserId);
-        }
-        if (isLiked) {
-            this.decrementLikes();
-            this.getUsersLikedId().remove(loggedInUserId);
+    public void likeButtonClick(TextView likeTextView, TextView unlikeTextView, Context context) {
+        if (!loggedIn.isLoggedIn()) {
+            Toast.makeText(context,
+                    "You have to be logged in to press the like button",
+                    Toast.LENGTH_LONG).show();
         } else {
-            this.incrementLikes();
-            this.getUsersLikedId().add(loggedInUserId);
+            getLikesStatus();
+            Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+            if (isUnliked) {
+                this.getUsersUnlikedId().remove(loggedInUserId);
+            }
+            if (isLiked) {
+                this.decrementLikes();
+                this.getUsersLikedId().remove(loggedInUserId);
+            } else {
+                this.incrementLikes();
+                this.getUsersLikedId().add(loggedInUserId);
+            }
+            updateLikesButtonsUI(likeTextView, unlikeTextView);
         }
-
-        updateLikesButtonsUI(likeTextView, unlikeTextView);
     }
 
-    public void unlikeButtonClick(TextView likeTextView, TextView unlikeTextView) {
-        getLikesStatus();
-        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
-
-        if (isLiked) {
-            this.getUsersLikedId().remove(loggedInUserId);
-            this.decrementLikes();
-        }
-        if (isUnliked) {
-            this.getUsersUnlikedId().remove(loggedInUserId);
+    public void unlikeButtonClick(TextView likeTextView,
+                                  TextView unlikeTextView, Context context) {
+        if (!loggedIn.isLoggedIn()) {
+            Toast.makeText(context,
+                    "You have to be logged in to press the unlike button",
+                    Toast.LENGTH_LONG).show();
         } else {
-            this.getUsersUnlikedId().add(loggedInUserId);
-        }
+            getLikesStatus();
+            Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
 
-        updateLikesButtonsUI(likeTextView, unlikeTextView);
+            if (isLiked) {
+                this.getUsersLikedId().remove(loggedInUserId);
+                this.decrementLikes();
+            }
+            if (isUnliked) {
+                this.getUsersUnlikedId().remove(loggedInUserId);
+            } else {
+                this.getUsersUnlikedId().add(loggedInUserId);
+            }
+
+            updateLikesButtonsUI(likeTextView, unlikeTextView);
+        }
     }
 
     public void updateLikesButtonsUI(TextView likeTextView, TextView unlikeTextView) {
@@ -103,6 +120,62 @@ public class Comment implements Serializable {
                 (likeDrawable, null, null, null);
 
         likeTextView.setText(String.valueOf(this.numberOfLikes));
+    }
+
+    public void deleteComment(Context context) {
+        if (!loggedIn.isLoggedIn()) {
+            Toast.makeText(context,
+                    "You have to be logged in to delete a comment",
+                    Toast.LENGTH_LONG).show();
+        } else if (this.publisherUsername.equals(loggedIn.getLoggedInUser().getUsername())) {
+            this.parentVideo.getComments().remove(this);
+        } else {
+            Toast.makeText(context,
+                    "You are not the publisher of this comment",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void pencilCommentButtonClick(Context context, TextView CommentTextView) {
+        if (loggedIn.getLoggedInUser() == null) {
+            Toast.makeText(context,
+                    "You have to be logged in to edit the comment content",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (this.getPublisherUsername().equals(loggedIn.getLoggedInUser().getUsername())) {
+            // Inflate the dialog layout
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View dialogView =
+                    inflater.inflate(R.layout.watch_page_video_dialog_edit_title, null);
+
+            // Get the EditText from the dialog layout
+            EditText editCommentInput = dialogView.findViewById(R.id.dialog_edit_title_input);
+
+            // Set the current title in the EditText
+            String currentComment = this.getComment();
+            editCommentInput.setText(currentComment);
+
+            // Build the dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setView(dialogView)
+                    .setTitle("Edit Comment content")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        // Update the video title with the new value
+                        String newContent = editCommentInput.getText().toString();
+                        this.setComment(newContent);
+                        CommentTextView.setText(this.getComment());
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            // Show the dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            Toast.makeText(context,
+                    "You are not the publisher of this comment",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void incrementLikes() {

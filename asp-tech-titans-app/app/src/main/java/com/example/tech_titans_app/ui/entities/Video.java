@@ -205,7 +205,7 @@ public class Video {
             int numberOfComments = comments.size();
             Comment newComment = new Comment(numberOfComments + 1,
                     0, loggedIn.getLoggedInUser().getUsername(),
-                    Video.getTodayDate(), comment,
+                    comment, Video.getTodayDate(),
                     loggedIn.getLoggedInUser().getProfilePicture(), this);
             comments.add(newComment);
         }

@@ -58,7 +58,7 @@ public class CommentsActivity extends AppCompatActivity {
         RecyclerView listComments = findViewById(R.id.comments_scrolling);
         listComments.setLayoutManager(new LinearLayoutManager(this));
 
-        commentsAdapter = new commentsAdapter();
+        commentsAdapter = new commentsAdapter(this);
         listComments.setAdapter(commentsAdapter);
 
         commentsViewModel = new ViewModelProvider(this).get(commentsViewModel.class);
