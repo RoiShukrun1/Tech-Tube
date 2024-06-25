@@ -260,6 +260,10 @@ public class Video {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Video> getRelatedVideos() {
         return relatedVideos;
     }

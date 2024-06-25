@@ -42,9 +42,11 @@
 }
 .inputVideoTitle {
     border: none;
-    border-bottom: 1px solid #000;
     border-radius: 0px;
     outline: none;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    width: 100%;
 }
 .video-info-section{
     background-color: var(--background-color);
@@ -53,7 +55,7 @@
 .alert{
     margin: 0%;
 }
-.icon{
+.icons{
     width: 30px;
     height: 30px;
     float: left;
