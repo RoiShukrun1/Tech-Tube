@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:background="@color/background"
-    >
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/background"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/video_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/editTitle"
@@ -32,8 +30,8 @@
             android:background="@drawable/main_filter_button_background_selector"
             android:clickable="true"
             android:focusable="true"
-            app:drawableStartCompat="@drawable/edit"
-            android:textColor="@color/text_primary"/>
+            android:textColor="@color/text_primary"
+            app:drawableStartCompat="@drawable/edit" />
 
     </LinearLayout>
 
@@ -42,9 +40,9 @@
         android:id="@+id/video_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_primary"
         android:textSize="12sp"
-        android:textStyle="normal"
-        android:textColor="@color/text_primary"/>
+        android:textStyle="normal" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -53,27 +51,21 @@
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/publisher_image_VWP"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/image2" />
+
+        <TextView
+            android:id="@+id/publisher_name_VWP"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/publisher_image_VWP"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/image2" />
-
-            <TextView
-                android:id="@+id/publisher_name_VWP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/publisher_name"
-                android:textColor="@color/text_primary"
-                />
-
-        </LinearLayout>
+            android:layout_marginEnd="8dp"
+            android:text="@string/publisher_name"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/text_primary" />
 
         <View
             android:layout_width="0dp"
@@ -98,8 +90,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:textSize="14sp"
-        android:textColor="@color/text_primary"/>
+        android:textColor="@color/text_primary"
+        android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -116,11 +108,11 @@
             android:drawablePadding="8dp"
             android:focusable="true"
             android:padding="8dp"
+            android:textColor="@color/text_primary"
             app:drawableStartCompat="@drawable/like"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            android:textColor="@color/text_primary"/>
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
         <TextView
             android:id="@+id/btn_unlike"
@@ -135,8 +127,7 @@
             app:drawableStartCompat="@drawable/dislike"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            />
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
         <TextView
             android:id="@+id/btn_share"
@@ -149,11 +140,11 @@
             android:focusable="true"
             android:padding="8dp"
             android:text="@string/share"
+            android:textColor="@color/text_primary"
             app:drawableStartCompat="@drawable/share_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            android:textColor="@color/text_primary"/>
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
         <TextView
             android:id="@+id/btn_download"
@@ -166,11 +157,11 @@
             android:focusable="true"
             android:padding="8dp"
             android:text="@string/download"
+            android:textColor="@color/text_primary"
             app:drawableStartCompat="@drawable/download"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/video_title"
-            app:layout_constraintTop_toTopOf="@id/video_title"
-            android:textColor="@color/text_primary"/>
+            app:layout_constraintTop_toTopOf="@id/video_title" />
 
     </LinearLayout>
 

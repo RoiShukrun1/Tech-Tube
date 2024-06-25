@@ -41,7 +41,6 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
         Comment comment = commentList.get(position);
         holder.comment.setText(comment.getComment());
         holder.date.setText(comment.getDate());
-        holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
         holder.publisher.setText(comment.getPublisherUsername());
 
         Glide.with(holder.itemView.getContext())
@@ -51,14 +50,10 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
         // Set click listeners for like and unlike buttons
         holder.btnLike.setOnClickListener(v -> {
             comment.likeButtonClick(holder.btnLike, holder.btnUnlike);
-            // Update likes count after click
-            holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
         });
 
         holder.btnUnlike.setOnClickListener(v -> {
             comment.unlikeButtonClick(holder.btnLike, holder.btnUnlike);
-            // Update likes count after click
-            holder.likes.setText(String.valueOf(comment.getNumberOfLikes()));
         });
 
         comment.updateLikesButtonsUI(holder.btnLike, holder.btnUnlike);
@@ -71,7 +66,7 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView comment, publisher, likes, date;
+        public TextView comment, publisher, date;
         public CircleImageView publisherImage;
         public TextView btnLike, btnUnlike, commentSubmit, commentCancel;
         public EditText commentEditText;
@@ -82,7 +77,6 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
             publisher = itemView.findViewById(R.id.comment_publisher);
             date = itemView.findViewById(R.id.comment_date);
             publisherImage = itemView.findViewById(R.id.comment_publisher_image);
-            likes = itemView.findViewById(R.id.Comment_likes);
             btnLike = itemView.findViewById(R.id.comment_btn_like);
             btnUnlike = itemView.findViewById(R.id.comment_btn_unlike);
         }
