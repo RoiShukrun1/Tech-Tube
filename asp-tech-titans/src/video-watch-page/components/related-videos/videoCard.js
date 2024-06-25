@@ -12,7 +12,6 @@ export const incrementViews = (setVideos, video) => {
         const updatedVideo = { ...updatedVideos[index] };
 
         updatedVideo.views++;
-        console.log(updatedVideo);
 
         updatedVideos[index] = updatedVideo;
 
