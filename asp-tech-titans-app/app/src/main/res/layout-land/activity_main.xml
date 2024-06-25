@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.mainActivity.MainActivity">
 
+    <!-- Header layout containing search bar and other header elements -->
     <include
         android:id="@+id/header"
         layout="@layout/main_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <!-- Filters layout containing filter options for videos -->
     <include
         android:id="@+id/filters"
         layout="@layout/main_filters"
@@ -17,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/header" />
 
+    <!-- Scrolling video list layout to display videos -->
     <include
         android:id="@+id/video_scrolling"
         layout="@layout/main_video_scrolling"
@@ -25,6 +28,7 @@
         android:layout_below="@id/filters"
         android:layout_above="@id/menu_bar"/>
 
+    <!-- Menu bar layout at the bottom of the screen -->
     <include
         android:id="@+id/menu_bar"
         layout="@layout/main_menu_bar"
