@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './login.css'
 import logo from '../images/Logo.png'
 import { ReactComponent as ManIcon } from '../images/user.svg'; 

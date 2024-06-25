@@ -25,12 +25,12 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description);
 
 
-    const { videoData, setVideoData } = useContext(VideoDataContext);
+    const { setVideoData } = useContext(VideoDataContext);
 
-    const handleChange = (event) => {
-        handleVideoTitleInputChange(event);
-        handleDescriptionInputValueChange(event);
-    }
+    // const handleChange = (event) => {
+    //     handleVideoTitleInputChange(event);
+    //     handleDescriptionInputValueChange(event);
+    // }
 
     const handleVideoTitleInputChange = (event) => {
         setVideoTitleInputValue(event.target.value);
@@ -80,7 +80,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         setIsPencilClicked(false);
     };
 
-    const inputIsEmpty = () => { return VideoTitleInputValue === '' ? true : false; };
+    // const inputIsEmpty = () => { return VideoTitleInputValue === '' ? true : false; };
 
     const currentUserIsOwnerOfVideo = () => {
         return currentUser && currentUser.username === currentVideo.publisher;

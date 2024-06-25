@@ -18,7 +18,7 @@ function getObjectByUrl(jsonData, url) {
 const MainPage = () => {
 
   const { setVideoUrl } = useContext(CurrentVideoContext);
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { darkMode } = useContext(ThemeContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState(videoData);
 

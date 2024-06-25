@@ -21,8 +21,8 @@ const VideoWatchPage = () => {
 
   const { darkMode } = useContext(ThemeContext);
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
-  const { login, setLogin } = useContext(LoginContext);
-  const { accounts, setAccounts } = useContext(AccountContext);
+  const { login } = useContext(LoginContext);
+  const { setAccounts } = useContext(AccountContext);
   const {videoData, setVideoData} = useContext(VideoDataContext);
 
   useEffect(() => {
