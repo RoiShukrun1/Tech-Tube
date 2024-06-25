@@ -1,9 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:padding="8dp">
 
+    <!-- Logo ImageView -->
     <ImageView
         android:id="@+id/logo"
         android:layout_width="85dp"
@@ -13,6 +14,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/logo" />
 
+    <!-- Dark Mode Toggle ImageView -->
     <ImageView
         android:id="@+id/dark_mode"
         android:layout_width="35dp"
@@ -22,6 +24,7 @@
         android:layout_centerVertical="true"
         android:src="@drawable/main_dark_mode_icon" />
 
+    <!-- Search Icon ImageView -->
     <ImageView
         android:id="@+id/search"
         android:layout_width="30dp"
@@ -31,6 +34,7 @@
         android:layout_centerVertical="true"
         android:src="@drawable/search_icon" />
 
+    <!-- Search Layout (Initially Hidden) -->
     <RelativeLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
@@ -38,6 +42,7 @@
         android:layout_centerVertical="true"
         android:visibility="gone">
 
+        <!-- Back Button ImageView in Search Layout -->
         <ImageView
             android:id="@+id/back_button"
             android:layout_width="50dp"
@@ -49,6 +54,7 @@
             android:layout_marginStart="0dp"
             android:padding="8dp" />
 
+        <!-- Search Input EditText in Search Layout -->
         <EditText
             android:id="@+id/search_input"
             android:layout_width="0dp"
@@ -57,6 +63,8 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:hint="@string/search_techtube"
+            android:textColorHint="@color/text_primary"
+            android:textColor="@color/text_primary"
             android:padding="8dp"
             android:background="@drawable/search_input_background"
             android:layout_alignParentEnd="true" />

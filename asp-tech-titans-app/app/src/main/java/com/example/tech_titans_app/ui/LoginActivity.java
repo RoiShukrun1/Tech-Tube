@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private TextView registerRedirectText;
+    private TextView guestRedirectText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
         registerRedirectText = findViewById(R.id.registerRedirectText);
+        guestRedirectText = findViewById(R.id.guestRedirectText);
 
+        // Set click listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 checkLogin(username, password);
             }
         });
-
+        // Set click listener for the redirect to registrtion
         registerRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,8 +54,17 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Set click listener for the redirect to main page
+        guestRedirectText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(LoginActivity.this, "Continuing as guest", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
+    // Method to check login credentials
     private void checkLogin(String username, String password) {
         AccountDataArray accountDataArray = AccountDataArray.getInstance();
         List<AccountData> accounts = accountDataArray.getAccountArray();

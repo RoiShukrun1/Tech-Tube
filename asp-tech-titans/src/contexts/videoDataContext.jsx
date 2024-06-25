@@ -1,9 +1,11 @@
 import React, { createContext, useState } from 'react';
+import jsonData from '../db/videos.json';
+
 
 export const VideoDataContext = createContext();
 
 export const VideoDataProvider = ({ children }) => {
-  const [videoData, setVideoData] = useState([]);
+  const [videoData, setVideoData] = useState(jsonData);
 
   const addVideoData = (newVideoData) => {
     setVideoData((prevVideoData) => [...prevVideoData, newVideoData]);
@@ -14,7 +16,7 @@ export const VideoDataProvider = ({ children }) => {
   };
 
   return (
-    <VideoDataContext.Provider value={{ videoData, addVideoData, deleteVideo }}>
+    <VideoDataContext.Provider value={{ videoData, addVideoData, deleteVideo, setVideoData }}>
       {children}
     </VideoDataContext.Provider>
   );

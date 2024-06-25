@@ -2,7 +2,7 @@
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:padding="8dp">
 
     <LinearLayout
@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!-- Filter for "All" category -->
         <TextView
             android:id="@+id/all_filter"
             android:layout_width="wrap_content"
@@ -18,8 +19,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="All"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Computer Programming" category -->
         <TextView
             android:id="@+id/computer_programming_filter"
             android:layout_width="wrap_content"
@@ -28,8 +30,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Computer programming"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Music" category -->
         <TextView
             android:id="@+id/music_filter"
             android:layout_width="wrap_content"
@@ -38,8 +41,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Music"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Gaming" category -->
         <TextView
             android:id="@+id/gaming_filter"
             android:layout_width="wrap_content"
@@ -48,8 +52,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Gaming"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Restaurants" category -->
         <TextView
             android:id="@+id/restaurants_filter"
             android:layout_width="wrap_content"
@@ -58,8 +63,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Restaurants"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Mixes" category -->
         <TextView
             android:id="@+id/mixes_filter"
             android:layout_width="wrap_content"
@@ -68,8 +74,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Mixes"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Barbells" category -->
         <TextView
             android:id="@+id/barbells_filter"
             android:layout_width="wrap_content"
@@ -78,8 +85,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Barbells"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Sitcoms" category -->
         <TextView
             android:id="@+id/sitcoms_filter"
             android:layout_width="wrap_content"
@@ -88,8 +96,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Sitcoms"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Satire" category -->
         <TextView
             android:id="@+id/satire_filter"
             android:layout_width="wrap_content"
@@ -98,8 +107,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Satire"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Brawl Stars" category -->
         <TextView
             android:id="@+id/brawl_stars_filter"
             android:layout_width="wrap_content"
@@ -108,8 +118,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Brawl Stars"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Functions" category -->
         <TextView
             android:id="@+id/functions_filter"
             android:layout_width="wrap_content"
@@ -118,8 +129,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Functions"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Playlists" category -->
         <TextView
             android:id="@+id/playlists_filter"
             android:layout_width="wrap_content"
@@ -128,8 +140,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Playlists"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "UEFA Champions League" category -->
         <TextView
             android:id="@+id/uefa_champions_league_filter"
             android:layout_width="wrap_content"
@@ -138,8 +151,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="UEFA Champions League"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "CDJ" category -->
         <TextView
             android:id="@+id/cdj_filter"
             android:layout_width="wrap_content"
@@ -148,8 +162,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="CDJ"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "News" category -->
         <TextView
             android:id="@+id/news_filter"
             android:layout_width="wrap_content"
@@ -158,8 +173,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="News"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Live" category -->
         <TextView
             android:id="@+id/live_filter"
             android:layout_width="wrap_content"
@@ -168,8 +184,9 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Live"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
 
+        <!-- Filter for "Sports" category -->
         <TextView
             android:id="@+id/sports_filter"
             android:layout_width="wrap_content"
@@ -178,6 +195,6 @@
             android:padding="8dp"
             android:layout_marginEnd="5dp"
             android:text="Sports"
-            android:textColor="#000000" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
 </HorizontalScrollView>

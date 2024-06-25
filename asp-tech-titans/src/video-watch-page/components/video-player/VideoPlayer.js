@@ -3,7 +3,7 @@ import './VideoPlayer.css';
 
 const VideoPlayer = ({ url }) => {
   return (
-    <div>
+    <div className="video-player-container">
       <video className="video-player" src={url} controls></video> 
     </div>
   );

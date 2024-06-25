@@ -1,11 +1,18 @@
 import React from 'react';
 import './subscribeButton.css';
 
-function subscribeButton({ onClick, setUsers, currentUser, publisher }) {
+function subscribeButton({ setUsers, currentUser, publisher }) {
 
-    const isSubscribed = currentUser.subscriptions.includes(publisher);
+    var isSubscribed = false;
+    if (currentUser && currentUser.subscriptions) {
+        isSubscribed = currentUser.subscriptions.includes(publisher);
+    }
 
     const switchButtons = () => {
+        if (!currentUser) {
+            alert('You must login to press subscribe!');
+            return;
+        }
         if (isSubscribed) {
             removeSubscription();
         } else {
@@ -24,6 +31,7 @@ function subscribeButton({ onClick, setUsers, currentUser, publisher }) {
     };
 
     const addSubscription = () => {
+        console.log(currentUser)
         setUsers(prevUsers => {
             const updatedUsers = [...prevUsers];
             if (currentUser && currentUser.subscriptions) {

@@ -6,10 +6,23 @@ import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../../../contexts/themeContext';
 import { LoginContext } from '../../../../../contexts/loginContext';
 
+/**
+ * LoginButton Component
+ * 
+ * This component renders a button for logging in or out. It uses React Router's Link component 
+ * to navigate to the login or home page based on the user's login state. The button icon and 
+ * tooltip text change based on the current theme and login state.
+ */
 function LoginButton() {
+  // Retrieve darkMode value from ThemeContext
   const { darkMode } = useContext(ThemeContext);
+  // Retrieve login state and logout function from LoginContext
   const { login, loggedOut } = useContext(LoginContext);
 
+  /**
+   * Handle button click event
+   * Logs out the user if they are logged in.
+   */
   const handleButtonClick = () => {
     if (login) {
       loggedOut();

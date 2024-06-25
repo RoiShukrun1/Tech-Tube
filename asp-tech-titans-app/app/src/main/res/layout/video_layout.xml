@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
-    <ImageView
-        android:id="@+id/video_image"
+    <!-- Container for video thumbnail image -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/image1"
-        android:scaleType="centerCrop" />
+        android:layout_height="200dp">
 
+        <!-- Video thumbnail image -->
+        <ImageView
+            android:id="@+id/video_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true" />
+    </FrameLayout>
+
+    <!-- Container for video details -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,65 +29,88 @@
         android:gravity="center_vertical"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:paddingStart="5dp">
+        android:paddingStart="5dp"
+        tools:ignore="RtlSymmetry">
 
+        <!-- Publisher profile image -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/publisher_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/image2"
             android:layout_marginEnd="8dp" />
 
+        <!-- Container for video title and metadata -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Video title -->
             <TextView
                 android:id="@+id/video_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Video title"
                 android:textStyle="bold"
                 android:paddingTop="4dp"
-                android:paddingBottom="4dp" />
+                android:paddingBottom="4dp"
+                android:textColor="@color/text_primary"/>
 
+            <!-- Container for publisher name, views, and date -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
+                <!-- Publisher name -->
                 <TextView
                     android:id="@+id/publisher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Publisher Name"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/text_primary"/>
 
+                <!-- Dot separator -->
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/dot"
                     android:layout_marginEnd="8dp" />
 
+                <!-- Views count -->
                 <TextView
                     android:id="@+id/views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Views"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/text_primary"/>
 
+                <!-- Dot separator -->
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/dot"
                     android:layout_marginEnd="8dp" />
 
+                <!-- Date -->
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date" />
+                    android:text="Date"
+                    android:textColor="@color/text_primary"/>
+
+                <!-- Remove icon (initially hidden) -->
+                <ImageView
+                    android:id="@+id/remove_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/remove_icon"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

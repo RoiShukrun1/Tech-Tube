@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:gravity="center"
     android:padding="8dp">
 
+    <!-- Home button -->
     <TextView
         android:id="@+id/home"
         android:layout_width="0dp"
@@ -17,9 +18,11 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/home"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/home_icon" />
 
+    <!-- For You button -->
     <TextView
         android:id="@+id/shorts"
         android:layout_width="0dp"
@@ -28,9 +31,11 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/for_you"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/for_you_icon" />
 
+    <!-- Add New Video button -->
     <ImageView
         android:id="@+id/add"
         android:layout_width="0dp"
@@ -40,6 +45,7 @@
         android:src="@drawable/main_add_new_video_icon"
         android:contentDescription="@string/add_new_video" />
 
+    <!-- Subscriptions button -->
     <TextView
         android:id="@+id/subscriptions"
         android:layout_width="0dp"
@@ -48,17 +54,49 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/subscriptions"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
         app:drawableTopCompat="@drawable/subscriptions_icon" />
 
+    <!-- Profile section (initially hidden) -->
+    <LinearLayout
+        android:id="@+id/profile_section"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <!-- Profile Picture -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="@string/profile_picture" />
+
+        <!-- Logout Text -->
+        <TextView
+            android:id="@+id/logout_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/logout"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <!-- Login button -->
     <TextView
-        android:id="@+id/you"
+        android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:drawablePadding="4dp"
         android:gravity="center"
-        android:text="@string/you"
+        android:text="@string/login"
+        android:textColor="@color/text_primary"
         android:textSize="11sp"
-        app:drawableTopCompat="@drawable/for_you_icon" />
+        app:drawableTopCompat="@drawable/ic_login" />
 </LinearLayout>

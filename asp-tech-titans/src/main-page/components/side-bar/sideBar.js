@@ -15,17 +15,24 @@ import report from '../../../db/icons/comment-blog-icon.svg';
 import help from '../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../db/icons/pencil-icon.svg';
 import techTitansLogo from '../../../db/techTitansLogo.png';
-import techTitansLogoDM from '../../../db/techTitansLogoDM.jpg';
+import techTitansLogoDM from '../../../db/techTitansLogoDM.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { ThemeContext } from '../../../contexts/themeContext'; 
+import { ThemeContext } from '../../../contexts/themeContext';
 
-
-
+/**
+ * Sidebar Component
+ * 
+ * This component renders the sidebar menu with various navigation options. It includes a button to toggle a scrolling menu.
+ * 
+ * The sidebar adapts its appearance based on the current theme (dark or light mode).
+ */
 function Sidebar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { darkMode } = useContext(ThemeContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage the menu's open/closed status
+  const { darkMode } = useContext(ThemeContext); // Retrieve the darkMode value from ThemeContext
 
-
+  /**
+   * Toggle the menu's open/closed status
+   */
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -35,7 +42,7 @@ function Sidebar() {
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <ScrollingMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <div className={`sidebar ${darkMode ? 'dark-mode' : ''}`} id="sidebar-wrapper">
-      <div className="logo-container-sidebar">
+        <div className="logo-container-sidebar">
           <img src={darkMode ? techTitansLogoDM : techTitansLogo} alt="Logo" className='logo-sidebar-img'/>
         </div>
         <div className="scrollable-menu">
@@ -67,8 +74,8 @@ function Sidebar() {
             <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
             <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
             <li className="list-group-item"><img src={help} alt="Home" />Help</li>
-            <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>
-          </ul>
+            <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>        
+             </ul>
         </div>
       </div>
     </div>

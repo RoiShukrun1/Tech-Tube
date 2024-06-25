@@ -2,7 +2,6 @@
     font-size: x-large;
     font-weight: bold;
     text-align: left;
-    margin-top: 22px;
 }
 .addComment {
     width: 100%;
@@ -22,4 +21,9 @@
     margin-top: 2%;
     margin-left: 10px;
     float: right;
+}
+.comments-section {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding-top: 1%;
 }

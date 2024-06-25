@@ -2,6 +2,23 @@ import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
 
+export const incrementViews = (setVideos, video) => {
+    setVideos(prevVideos => {
+        const updatedVideos = [...prevVideos];
+
+        var thisVideoTitle = video.title;
+        const index = updatedVideos.findIndex(video => video.title === thisVideoTitle);
+
+        const updatedVideo = { ...updatedVideos[index] };
+
+        updatedVideo.views++;
+        console.log(updatedVideo);
+
+        updatedVideos[index] = updatedVideo;
+
+        return updatedVideos;
+    });
+};
 
 function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
 
@@ -16,27 +33,10 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
     };
 
     const handleClick = () => {
-        setUrl(video.videoUrl);
-        incrementViews();
+        setUrl(video.videoUploaded);
+        incrementViews(setVideos, video);
         setMoreInfoPressed(false);
         setInputValue('');
-    };
-
-    const incrementViews = () => {
-        setVideos(prevVideos => {
-            const updatedVideos = [...prevVideos];
-
-            var thisVideoTitle = video.videoTitle;
-            const index = updatedVideos.findIndex(video => video.videoTitle === thisVideoTitle);
-
-            const updatedVideo = { ...updatedVideos[index] };
-
-            updatedVideo.views++;
-
-            updatedVideos[index] = updatedVideo;
-
-            return updatedVideos;
-        });
     };
 
     const renderPlayIcon = () => {
@@ -57,7 +57,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                 <div className="col"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
-                    <img src={video.imgUrl}
+                    <img src={video.thumbnail}
                         className="img-fluid rounded-start videoCard-image"
                         onClick={handleClick}
                     />
@@ -65,9 +65,9 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                 </div>
                 <div className="col">
                     <div className="card-body">
-                        <h5 className="card-title">{video.videoTitle}</h5>
+                        <h5 className="card-title">{video.title}</h5>
                         <p className="card-text">{video.publisher}</p>
-                        <p className="card-text"><small className="text-body-secondary">{video.views} • {video.date}</small></p>
+                        <p className="card-text"><small className="views">{video.views} • {video.date}</small></p>
                     </div>
                 </div>
             </div>
