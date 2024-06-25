@@ -46,7 +46,7 @@ All of the mendatory features are working in both of the platforms, Including ex
 - We are very pleased with the final result and hope you enjoy it as much as we do.
 
 # Acknowledgements
-We would like to thank our course instructors and fellow students for their support and feedback throughout this project. Special thanks to the open-source community for providing valuable resources and libraries that made this project possible.
+We would like to thank our course instructors and fellow students for their support and feedback throughout this project.
 
 Happy coding!
 
