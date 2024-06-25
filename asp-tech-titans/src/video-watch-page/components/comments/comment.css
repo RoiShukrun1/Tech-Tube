@@ -70,7 +70,10 @@
     float: left;
 }.usernameAndclosebutton{
     display: flex;
-}.close-button{
+}.inputWithComment{
+    display: flex;
+}
+.close-button{
     width: 4%;
     margin-right: 2%;
 }
