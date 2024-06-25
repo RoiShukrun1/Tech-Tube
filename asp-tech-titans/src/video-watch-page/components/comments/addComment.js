@@ -41,7 +41,8 @@ function AddComment({ comments, currentVideoId, currentUser,
     return (
         <div className="row">
             <div className="col-1">
-                <img className="circle-image" src={currentUser.image} style={{ marginLeft: '35%' }} />
+                <img className="circle-image" alt=""
+                src={currentUser.image} style={{ marginLeft: '35%' }} />
             </div>
             <div className="col">
                 <input type="text"

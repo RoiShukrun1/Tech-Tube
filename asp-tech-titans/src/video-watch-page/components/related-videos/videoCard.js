@@ -57,7 +57,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                 <div className="col"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
-                    <img src={video.thumbnail}
+                    <img src={video.thumbnail} alt=""
                         className="img-fluid rounded-start videoCard-image"
                         onClick={handleClick}
                     />

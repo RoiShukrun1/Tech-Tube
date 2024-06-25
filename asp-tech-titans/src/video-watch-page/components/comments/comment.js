@@ -137,7 +137,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         <div className="border">
             <div className="row">
                 <div className="col">
-                    <img className="circle-image" src={profilePicture} />
+                    <img className="circle-image" alt="" src={profilePicture} />
                 </div>
                 <div className="col-11" style={{ padding: 0 }}>
 

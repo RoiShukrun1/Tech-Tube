@@ -29,7 +29,7 @@ const VideoWatchPage = () => {
     if (videoUrl) {
       setVideoUrl(videoUrl);
     }
-  }, [videoUrl]);
+  }, [videoUrl, setVideoUrl]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
