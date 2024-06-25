@@ -28,7 +28,8 @@ All of the mendatory features are working in both of the platforms, Including ex
 - To delete a video you need to click on the bin icon below the video in the homepage (logged in user only)
 - To edit the title,description,edit a commant you need to click on the pencil icon near those fields in the watch page screen (logged in user only)
 - To delete a commant you need to press on the bin icon near the commant you want to delete (logged in user only)
-- ![image](https://github.com/AvielSegev/Tech-Titans/assets/127956356/34446a8d-4312-4daf-a82b-0fadacb9b6e5) 
+- ![image](https://github.com/AvielSegev/Tech-Titans/assets/127956356/34446a8d-4312-4daf-a82b-0fadacb9b6e5)
+  
 this icons located right from the serch tab and there funcuntaly from left to right is : dark mode, upload new video, login
 - in App - login button located in the button right corner , dark mode is in the upper left, and add a video in the middle of the button
 
