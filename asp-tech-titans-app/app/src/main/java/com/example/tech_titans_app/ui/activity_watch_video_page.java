@@ -46,10 +46,7 @@ import android.graphics.drawable.Drawable;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-<<<<<<< feature-branch-video-watch-page-android
 
-=======
->>>>>>> main
 public class activity_watch_video_page extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private Video thisCurrentVideo;
@@ -69,72 +66,10 @@ public class activity_watch_video_page extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
-<<<<<<< feature-branch-video-watch-page-android
         thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
 
         addSearchBarLogic();
         addBottomBarLogic();
-=======
-
-
-        new SearchBarUtils(findViewById(android.R.id.content));
-        EditText searchInput = findViewById(R.id.search_input);
-        searchInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                videoViewModel.filterVideos(charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
-
-
-
-
-        TextView homeButton = findViewById(R.id.home);
-        homeButton.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(activity_watch_video_page.this, MainActivity.class);
-            startActivity(intent);
-        });
-
-        ImageView addVideoButton = findViewById(R.id.add);
-        addVideoButton.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(activity_watch_video_page.this,
-                            UploadVideoActivity.class);
-            startActivity(intent);
-        });
-
-        LinearLayout profileSection = findViewById(R.id.profile_section);
-        ImageView profilePicture = findViewById(R.id.profile_picture);
-        TextView logoutText = findViewById(R.id.logout_text);
-        TextView loginText = findViewById(R.id.login);
-
-        updateUI(profileSection, profilePicture, logoutText, loginText);
-
-        profileSection.setOnClickListener(v -> {
-            LoggedIn.getInstance().logOut();
-            updateUI(profileSection, profilePicture, logoutText, loginText);
-        });
-
-        loginText.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(activity_watch_video_page.this, LoginActivity.class);
-            startActivity(intent);
-        });
-
-
-
-
-
-
-        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
->>>>>>> main
         initiateVideoPlayer();
         initiateRelatedVideos();
         addListeners();
@@ -161,36 +96,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
-    private void updateUI(LinearLayout profileSection, ImageView profilePicture,
-                          TextView logoutText, TextView loginText) {
-        if (LoggedIn.getInstance().isLoggedIn()) {
-            profileSection.setVisibility(View.VISIBLE);
-            loginText.setVisibility(View.GONE);
-            Glide.with(this).load(LoggedIn.getInstance()
-                    .getLoggedInUser().getProfilePicture()).into(profilePicture);
-            logoutText.setText(R.string.logout);
-        } else {
-            profileSection.setVisibility(View.GONE);
-            loginText.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void initiateVideoPlayer() {
         VideoView videoView = findViewById(R.id.videoView);
-//
-//
-//        Uri image1 = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.image1);
-//        Uri video4 = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video4);
-//        thisCurrentVideo = new Video(image1, "Video 1 Title",
-//                "Publisher 1", image1,
-//                "100", "10/10/2020", "The world is changing.",
-//                video4, 7);
 
-<<<<<<< feature-branch-video-watch-page-android
-=======
-//        currentVideo.getInstance().setCurrentVideo(thisCurrentVideo);
-
->>>>>>> main
         // Set up MediaController
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
@@ -496,7 +404,6 @@ public class activity_watch_video_page extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
-<<<<<<< feature-branch-video-watch-page-android
     public void PencilButtonClick() {
         if (loggedIn.getLoggedInUser() == null) {
             Toast.makeText(this,
@@ -505,19 +412,6 @@ public class activity_watch_video_page extends AppCompatActivity {
             return;
         }
         if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
-=======
-    public void PencilButtonClick(){
-//        if (loggedIn.getLoggedInUser() == null) {
-//            Toast.makeText(this,
-//                    "You have to be logged in to edit the video title",
-//                    Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//        if (thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())){
-            Toast.makeText(this,
-                    "OK",
-                    Toast.LENGTH_LONG).show();
->>>>>>> main
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(this);
             View dialogView =
@@ -538,7 +432,6 @@ public class activity_watch_video_page extends AppCompatActivity {
                         // Update the video title with the new value
                         String newTitle = editTitleInput.getText().toString();
                         thisCurrentVideo.setTitle(newTitle);
-<<<<<<< feature-branch-video-watch-page-android
                         setVideoTitle();
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
@@ -551,20 +444,6 @@ public class activity_watch_video_page extends AppCompatActivity {
                     "You are not the publisher of this video",
                     Toast.LENGTH_LONG).show();
         }
-=======
-                    })
-                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-
-        // Show the dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-//        } else {
-//            Toast.makeText(this,
-//                    "You are not the publisher of this video",
-//                    Toast.LENGTH_LONG).show();
-//        }
->>>>>>> main
     }
 
     public void openCommentsActivity() {

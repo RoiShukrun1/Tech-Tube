@@ -74,10 +74,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
             currentVideo.setCurrentVideo(video);
-<<<<<<< feature-branch-video-watch-page-android
             currentVideo.getCurrentVideo().incrementViews();
-=======
->>>>>>> main
             Intent intent = new Intent(context, activity_watch_video_page.class);
             context.startActivity(intent);
         });
