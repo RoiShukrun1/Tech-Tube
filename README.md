@@ -25,8 +25,12 @@ All of the mendatory features are working in both of the platforms, Including ex
 
 # Working process:
 
-- First we analized the assignments requirments and split the work between us (including documents in the jira)
-- We had weekly meetings on sundays, and dailys every 
+- First, we analyzed the assignment requirements and divided the work among team members, documenting everything in Jira.
+- We held weekly meetings on Sundays and occasional daily stand-ups.
+- Additionally, we added our personal touch to the project, such as designing the logo and naming the app.
+- Whenever we encountered bugs or difficult features, we collaborated to find solutions together.
+- Throughout the process, we learned a lot about both platforms and strengthened our coding skills.
+- We are very pleased with the final result and hope you enjoy it as much as we do.
 
 # Acknowledgements
 We would like to thank our course instructors and fellow students for their support and feedback throughout this project. Special thanks to the open-source community for providing valuable resources and libraries that made this project possible.
