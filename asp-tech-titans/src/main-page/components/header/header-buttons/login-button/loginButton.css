@@ -1,63 +1,69 @@
-/* loginButton.css */
+/* Styles for the login button */
 .login-button {
-  position: relative;
-  padding: 5% 5%;
-  border: none;
-  background-color: var(--button-background-color);
-  color: var(--button-text-color);
-  border-radius: 40px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-  margin-left: 10%;
+  position: relative; /* Positions the button relatively */
+  padding: 5% 5%; /* Adds padding for spacing */
+  border: none; /* Removes the border */
+  background-color: var(--button-background-color); /* Background color from CSS variables */
+  color: var(--button-text-color); /* Text color from CSS variables */
+  border-radius: 40px; /* Adds rounded corners */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  display: flex; /* Uses flexbox for layout */
+  align-items: center; /* Centers items vertically */
+  justify-content: center; /* Centers items horizontally */
+  transition: background-color 0.3s ease; /* Adds a smooth transition for background color */
+  margin-left: 10%; /* Adds left margin */
 }
 
+/* Styles for the button image */
 .login-button-img {
-  height: 5dvh;
-  width: 3dvw;
-  border-radius: 40px; 
-  object-fit: cover;
+  height: 5dvh; /* Sets the height based on the viewport height */
+  width: 3dvw; /* Sets the width based on the viewport width */
+  border-radius: 40px; /* Adds rounded corners */
+  object-fit: cover; /* Ensures the image covers the area */
 }
 
+/* Styles for the tooltip text */
 .login-button .tooltip-text {
-  visibility: hidden;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px 10px;
-  position: absolute;
-  z-index: 1;
-  top: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+  visibility: hidden; /* Hides the tooltip text by default */
+  background-color: #555; /* Sets a dark background color */
+  color: #fff; /* Sets the text color to white */
+  text-align: center; /* Centers the text */
+  border-radius: 5px; /* Adds rounded corners */
+  padding: 5px 10px; /* Adds padding for the tooltip */
+  position: absolute; /* Positions the tooltip absolutely */
+  z-index: 1; /* Ensures the tooltip appears above other elements */
+  top: 125%; /* Positions the tooltip below the button */
+  left: 50%; /* Centers the tooltip horizontally */
+  transform: translateX(-50%); /* Adjusts the horizontal positioning */
+  opacity: 0; /* Makes the tooltip transparent */
+  transition: opacity 0.3s; /* Adds a smooth transition for opacity */
 }
 
+/* Styles for the tooltip arrow */
 .login-button .tooltip-text::after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  content: ''; /* No additional content */
+  position: absolute; /* Positions the arrow absolutely */
+  bottom: 100%; /* Positions the arrow above the tooltip */
+  left: 50%; /* Centers the arrow horizontally */
+  margin-left: -5px; /* Adjusts the horizontal positioning */
+  border-width: 5px; /* Sets the size of the arrow */
+  border-style: solid; /* Sets the style of the arrow */
+  border-color: #555 transparent transparent transparent; /* Sets the color of the arrow */
 }
 
+/* Hover state for the login button */
 .login-button:hover {
-  background-color: var(--button-hover-background-color);
+  background-color: var(--button-hover-background-color); /* Changes the background color on hover */
 }
 
+/* Active state for the login button */
 .login-button.active {
-  background-color: var(--dark-mode-button-background-color);
-  color: var(--dark-mode-button-text-color);
+  background-color: var(--dark-mode-button-background-color); /* Changes the background color in dark mode */
+  color: var(--dark-mode-button-text-color); /* Changes the text color in dark mode */
 }
 
+/* Tooltip visibility on hover */
 .login-button:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+  visibility: visible; /* Makes the tooltip visible */
+  opacity: 1; /* Makes the tooltip fully opaque */
 }

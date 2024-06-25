@@ -1,49 +1,53 @@
-/* searchBar.css */
+/* Styles for the search bar container */
 .search-bar {
-  width: 80%;
-  height: 10dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1%;
-  margin-left: 0;
+  width: 80%; /* Width of the search bar */
+  height: 10dvh; /* Height of the search bar based on viewport height */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  margin-top: 1%; /* Top margin */
+  margin-left: 0; /* Left margin */
 }
 
+/* Styles for the search input field */
 .search-bar-input {
-  width: 60%;
-  height: 80%;
-  padding: 0.5% 1%;
-  padding-left: 30px;
-  border: 1px solid var(--input-border-color);
-  border-radius: 30px 0 0 30px;
-  margin-top: 1%;
-  outline: none;
-  font-size: x-large;
-  background-color: var(--input-background-color);
-  color: var(--input-text-color);
+  width: 60%; /* Width of the input field */
+  height: 80%; /* Height of the input field */
+  padding: 0.5% 1%; /* Padding for the input field */
+  padding-left: 30px; /* Additional padding on the left */
+  border: 1px solid var(--input-border-color); /* Border color from CSS variables */
+  border-radius: 30px 0 0 30px; /* Rounded corners on the left side */
+  margin-top: 1%; /* Top margin */
+  outline: none; /* Remove default outline */
+  font-size: x-large; /* Large font size */
+  background-color: var(--input-background-color); /* Background color from CSS variables */
+  color: var(--input-text-color); /* Text color from CSS variables */
 }
 
+/* Styles for the search button */
 .search-bar-button {
-  width: 8%;
-  height: 80%;
-  padding: 0.5%;
-  border: 1px solid var(--input-border-color);
-  border-left: none;
-  border-radius: 0 30px 30px 0;
-  background-color: var(--button-background-color);
-  margin-top: 1%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 8%; /* Width of the button */
+  height: 80%; /* Height of the button */
+  padding: 0.5%; /* Padding for the button */
+  border: 1px solid var(--input-border-color); /* Border color from CSS variables */
+  border-left: none; /* No left border to merge with the input field */
+  border-radius: 0 30px 30px 0; /* Rounded corners on the right side */
+  background-color: var(--button-background-color); /* Background color from CSS variables */
+  margin-top: 1%; /* Top margin */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
 }
 
+/* Styles for the input field when focused */
 .search-bar-input:focus-visible {
-  border-color: blue;
-  width: 65%;
+  border-color: blue; /* Border color when the input is focused */
+  width: 65%; /* Increase the width when the input is focused */
 }
 
+/* Styles for the search icon inside the button */
 .search-bar-button img {
-  height: 50%;
-  width: 50%;
+  height: 50%; /* Height of the icon based on the button height */
+  width: 50%; /* Width of the icon based on the button width */
 }

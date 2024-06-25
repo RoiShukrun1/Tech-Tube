@@ -22,9 +22,20 @@ import techTitansLogoDM from '../../../../db/techTitansLogoDM.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../../../contexts/themeContext';
 
-
+/**
+ * ScrollingMenu Component
+ * 
+ * This component renders a scrolling sidebar menu with various navigation options.
+ * It uses ThemeContext to adjust its styles based on the current theme (dark or light mode).
+ * The menu can be toggled open or closed.
+ * 
+ * Props:
+ * - isOpen (boolean): Indicates whether the menu is open or closed.
+ * - toggleMenu (function): A function to toggle the menu open or closed.
+ */
 const ScrollingMenu = ({ isOpen, toggleMenu }) => {
   const { darkMode } = useContext(ThemeContext);
+
   return (
     <>
       <div className={`overlay ${isOpen ? 'show' : ''}`} onClick={toggleMenu}></div>
