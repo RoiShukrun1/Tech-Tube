@@ -12,75 +12,73 @@ import { ReactComponent as Dislike } from '../comments/dislike.svg';
 import { ReactComponent as LikeSelected } from '../comments/like-selected.svg';
 import { ReactComponent as DislikeSelected } from '../comments/dislike-selected.svg';
 
+// Function to copy the current URL to the clipboard
 function copyUrl() {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
 }
 
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
+    const [isPencilClicked, setIsPencilClicked] = useState(false); // State to manage pencil button click
+    const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title); // State for video title input
+    const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description); // State for description input
 
-    const [isPencilClicked, setIsPencilClicked] = useState(false);
-    const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title);
+    const { setVideoData } = useContext(VideoDataContext); // Context for setting video data
 
-    const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description);
-
-
-    const { setVideoData } = useContext(VideoDataContext);
-
+    // Handle changes in video title input
     const handleVideoTitleInputChange = (event) => {
         setVideoTitleInputValue(event.target.value);
     };
 
+    // Handle changes in description input
     const handleDescriptionInputValueChange = (event) => {
         setDescriptionInputValue(event.target.value);
     };
 
+    // Handle 'Enter' key press to close input fields
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             closeInput();
         }
     };
 
+    // Set new video title in video data context
     const setNewVideoTitle = (newTitle) => {
         setVideoData(prevVideos => {
             const updatedVideos = [...prevVideos];
-
             const thisVideo = updatedVideos.find(video => video.id === currentVideo.id);
-
             if (thisVideo) {
                 thisVideo.title = newTitle;
             }
-
             return updatedVideos;
         });
     };
 
+    // Set new description in video data context
     const setNewDescription = (NewDescription) => {
         setVideoData(prevVideos => {
             const updatedVideos = [...prevVideos];
-
             const thisVideo = updatedVideos.find(video => video.id === currentVideo.id);
-
             if (thisVideo) {
                 thisVideo.description = NewDescription;
             }
-
             return updatedVideos;
         });
     };
 
+    // Close input fields and save changes
     const closeInput = () => {
         setNewVideoTitle(VideoTitleInputValue);
         setNewDescription(descriptionInputValue);
         setIsPencilClicked(false);
     };
 
-    // const inputIsEmpty = () => { return VideoTitleInputValue === '' ? true : false; };
-
+    // Check if the current user is the owner of the video
     const currentUserIsOwnerOfVideo = () => {
         return currentUser && currentUser.username === currentVideo.publisher;
-    }
+    };
 
+    // Handle video download
     const download = () => {
         const downloadUrl = currentVideo.videoUploaded;
         const link = document.createElement('a');
@@ -89,8 +87,9 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-    }
+    };
 
+    // Handle like button press
     const likePressed = () => {
         if (!currentUser) {
             alert('You must login to press like!');
@@ -105,7 +104,6 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
                     } else {
                         video.usersLikes.splice(index, 1);
                     }
-
                     video.usersUnlikes = video.usersUnlikes.filter(item => item.username !== currentUser.username);
                 }
                 return video;
@@ -114,6 +112,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         });
     };
 
+    // Handle dislike button press
     const unlikePressed = () => {
         if (!currentUser) {
             alert('You must login to press dislike!');
@@ -136,9 +135,10 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         });
     };
 
+    // Destructure properties from the current video
     const { title, views, date, publisherImage, publisher, description } = currentVideo;
 
-    // Generate a unique ID for each instance of the component
+    // Generate a unique ID for the collapse component
     const collapseId = `collapse-${title.replace(/\s+/g, '-')}`;
 
     // Reset collapse state when currentVideo or setMoreInfoPressed changes
@@ -146,94 +146,111 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
         setMoreInfoPressed(false);
     }, [currentVideo, setMoreInfoPressed]);
 
+    // Check if the current user has liked the video
     const userLike = () => {
         if (!currentUser || !currentVideo.usersLikes) return false;
         return currentVideo.usersLikes.some(user => user.username === currentUser.username);
-    }
+    };
 
+    // Check if the current user has disliked the video
     const userUnLike = () => {
         if (!currentUser || !currentVideo.usersUnlikes) return false;
         return currentVideo.usersUnlikes.some(user => user.username === currentUser.username);
-    }
+    };
 
     var isLiked = userLike();
     var isUnLiked = userUnLike();
 
     return (
         <div className='video-info-section'>
-            <h1 className="title">{isPencilClicked ? <input
-                onChange={handleVideoTitleInputChange}
-                placeholder='Title...'
-                onKeyDown={handleKeyDown}
-                value={VideoTitleInputValue}
-                style={{ 'background-color': 'var(--background-color)', 'color': 'var(--text-color)', 'border': 'none'}}
-            />
-                : title}
-                {currentUser && currentUserIsOwnerOfVideo()
-                    && <button type="button" className='pencil-button' onClick={() => setIsPencilClicked(true)}>
+            <h1 className="title">
+                {isPencilClicked ? (
+                    <input
+                        onChange={handleVideoTitleInputChange}
+                        placeholder='Title...'
+                        onKeyDown={handleKeyDown}
+                        value={VideoTitleInputValue}
+                        style={{ 'background-color': 'var(--background-color)', 'color': 'var(--text-color)', 'border': 'none' }}
+                    />
+                ) : (
+                    title
+                )}
+                {currentUser && currentUserIsOwnerOfVideo() && (
+                    <button type="button" className='pencil-button' onClick={() => setIsPencilClicked(true)}>
                         <Pencil />
-                    </button>}
+                    </button>
+                )}
             </h1>
-            <PublisherInfo publisherImage={publisherImage} publisher={publisher}
-                setUsers={setUsers} currentUser={currentUser} />
-            <button type="button" className="btn btn-light download-button"
-                onClick={download}><Download /> Download
+            <PublisherInfo
+                publisherImage={publisherImage}
+                publisher={publisher}
+                setUsers={setUsers}
+                currentUser={currentUser}
+            />
+            <button type="button" className="btn btn-light download-button" onClick={download}>
+                <Download /> Download
             </button>
-
             <div className="btn-group" role="group" style={{ float: 'right' }}>
-                <button type="button"
+                <button
+                    type="button"
                     className="btn btn-light share-button dropdown-toggle"
                     data-bs-toggle="dropdown"
-                    aria-expanded="false"><Share /> Share
+                    aria-expanded="false"
+                >
+                    <Share /> Share
                 </button>
                 <ul className="dropdown-menu">
-                    <li><button className="dropdown-item" href="#" onClick={copyUrl}>Copy Url</button></li>
+                    <li>
+                        <button className="dropdown-item" href="#" onClick={copyUrl}>
+                            Copy Url
+                        </button>
+                    </li>
                 </ul>
             </div>
-
             <span>
-
-                <button onClick={() => likePressed()}
+                <button
+                    onClick={() => likePressed()}
                     type="button"
                     className={"btn btn-outline-secondary"}
                     style={{ marginLeft: '1%' }}
                 >
-                    {isLiked ? <LikeSelected className='icons' style={{ margin: 0 }} /> :
-                        <Like className='icons' style={{ margin: 0 }} />}
+                    {isLiked ? <LikeSelected className='icons' style={{ margin: 0 }} /> : <Like className='icons' style={{ margin: 0 }} />}
                 </button>
-
                 <h3 className="likesNumber">{currentVideo.usersLikes.length}</h3>
-
-                <button onClick={() => unlikePressed()} type="button"
-                    className={"btn btn-outline-secondary"}>
-                    {isUnLiked ? <DislikeSelected className='icons' style={{ margin: 0 }} /> :
-                        <Dislike className='icons' style={{ margin: 0 }} />}
+                <button onClick={() => unlikePressed()} type="button" className={"btn btn-outline-secondary"}>
+                    {isUnLiked ? <DislikeSelected className='icons' style={{ margin: 0 }} /> : <Dislike className='icons' style={{ margin: 0 }} />}
                 </button>
-
             </span>
-
             <div className="alert alert-secondary" role="alert">
                 <h2 className='views'>Views: {views}</h2>
                 <h2 className='date'>Date: {date}</h2>
-                <button className="btn" type="button" data-bs-toggle="collapse"
+                <button
+                    className="btn"
+                    type="button"
+                    data-bs-toggle="collapse"
                     data-bs-target={`#${collapseId}`}
                     aria-expanded={moreInfoPressed ? "true" : "false"}
                     aria-controls={collapseId}
                     onClick={() => {
                         setMoreInfoPressed(!moreInfoPressed);
-                    }}>
+                    }}
+                >
                     {moreInfoPressed ? "...less" : "...more"}
                 </button>
                 <div className={`collapse ${moreInfoPressed ? 'show' : ''}`} id={collapseId}>
                     <div className="more-info">
-                        <div>{isPencilClicked ? <input
-                            className='inputVideoTitle'
-                            placeholder='Description...'
-                            onChange={handleDescriptionInputValueChange}
-                            onKeyDown={handleKeyDown}
-                            value={descriptionInputValue}
-                        />
-                            : description}
+                        <div>
+                            {isPencilClicked ? (
+                                <input
+                                    className='inputVideoTitle'
+                                    placeholder='Description...'
+                                    onChange={handleDescriptionInputValueChange}
+                                    onKeyDown={handleKeyDown}
+                                    value={descriptionInputValue}
+                                />
+                            ) : (
+                                description
+                            )}
                         </div>
                     </div>
                 </div>

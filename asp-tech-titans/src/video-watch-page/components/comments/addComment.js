@@ -1,17 +1,22 @@
 
+// function to add a comment to the video
 function AddComment({ comments, currentVideoId, currentUser,
     setVideos, inputValue, setInputValue, isFocused, setIsFocused }) {
 
+    // Function to handle input change
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
 
+    // Function to handle focus
     const handleFocus = () => {
         setIsFocused(true);
     };
 
+    // Function to check if input is empty
     const inputIsEmpty = () => { return inputValue === '' ? true : false; };
 
+    // Function to submit a comment
     const submitComment = () => {
         const newComment = {
             id: comments.length + 1,
@@ -24,6 +29,7 @@ function AddComment({ comments, currentVideoId, currentUser,
             usersUnLikedId: []
         };
 
+        // Update the videos state
         setVideos(prevVideos => {
             const updatedVideos = [...prevVideos];
 
@@ -34,6 +40,7 @@ function AddComment({ comments, currentVideoId, currentUser,
             return updatedVideos;
 
         });
+
         setIsFocused(false);
         setInputValue('');
     };
@@ -42,7 +49,7 @@ function AddComment({ comments, currentVideoId, currentUser,
         <div className="row">
             <div className="col-1">
                 <img className="circle-image" alt=""
-                src={currentUser.image} style={{ marginLeft: '35%' }} />
+                    src={currentUser.image} style={{ marginLeft: '35%' }} />
             </div>
             <div className="col">
                 <input type="text"
@@ -52,12 +59,12 @@ function AddComment({ comments, currentVideoId, currentUser,
                     onChange={handleInputChange}
                     value={inputValue}
                 />
-                {isFocused && <button
+                {isFocused && <button // If the input is focused, show the cancel button
                     onClick={() => setIsFocused(false)}
                     type="button"
                     className="btn btn-light comment-add-button">cancel
                 </button>}
-                {isFocused &&
+                {isFocused && // If the input is focused, show the comment button
                     <button type="button"
                         className="btn btn-light comment-add-button"
                         onClick={submitComment}
