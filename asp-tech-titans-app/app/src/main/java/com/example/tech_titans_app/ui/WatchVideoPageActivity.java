@@ -36,7 +36,7 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
 import com.example.tech_titans_app.ui.entities.Video;
-import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
@@ -50,7 +50,7 @@ import android.graphics.drawable.Drawable;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class activity_watch_video_page extends AppCompatActivity {
+public class WatchVideoPageActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
@@ -58,8 +58,6 @@ public class activity_watch_video_page extends AppCompatActivity {
     private boolean isUnliked;
     private boolean isSubscribed = false;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
-    private ImageView darkModeButton;
-    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private View header;
     private View menuBar;
@@ -79,7 +77,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
-        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
 
         addSearchBarLogic();
         addBottomBarLogic();
@@ -287,14 +285,14 @@ public class activity_watch_video_page extends AppCompatActivity {
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
             Intent intent =
-                    new Intent(activity_watch_video_page.this, MainActivity.class);
+                    new Intent(WatchVideoPageActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
         ImageView addVideoButton = findViewById(R.id.add);
         addVideoButton.setOnClickListener(v -> {
             Intent intent =
-                    new Intent(activity_watch_video_page.this,
+                    new Intent(WatchVideoPageActivity.this,
                             UploadVideoActivity.class);
             startActivity(intent);
         });
@@ -313,7 +311,7 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         loginText.setOnClickListener(v -> {
             Intent intent =
-                    new Intent(activity_watch_video_page.this, LoginActivity.class);
+                    new Intent(WatchVideoPageActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }
@@ -322,8 +320,8 @@ public class activity_watch_video_page extends AppCompatActivity {
      * Method to listen to the dark mode switch.
      */
     public void listenToDarkModeSwitch() {
-        darkModeButton = findViewById(R.id.dark_mode);
-        sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
+        ImageView darkModeButton = findViewById(R.id.dark_mode);
+        SharedPreferences sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
@@ -350,7 +348,7 @@ public class activity_watch_video_page extends AppCompatActivity {
      * Method to set the publisher info.
      */
     public void setPublisherInfo() {
-        Uri publisherImageUri = currentVideo.getInstance().getCurrentVideo().getPublisherImage();
+        Uri publisherImageUri = CurrentVideo.getInstance().getCurrentVideo().getPublisherImage();
         CircleImageView publisherImage = findViewById(R.id.publisher_image_VWP);
         Glide.with(publisherImage.getContext())
                 .load(publisherImageUri)
@@ -667,7 +665,7 @@ public class activity_watch_video_page extends AppCompatActivity {
      */
     public void openCommentsActivity() {
         Intent intent =
-                new Intent(activity_watch_video_page.this, CommentsActivity.class);
+                new Intent(WatchVideoPageActivity.this, CommentsActivity.class);
         startActivity(intent);
     }
 }

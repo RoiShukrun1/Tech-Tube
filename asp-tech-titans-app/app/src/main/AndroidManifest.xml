@@ -30,7 +30,7 @@
             android:name=".ui.CommentsActivity">
         </activity>
         <activity
-            android:name=".ui.activity_watch_video_page">
+            android:name=".ui.WatchVideoPageActivity">
         </activity>
         <activity
             android:name=".ui.UploadVideoActivity">

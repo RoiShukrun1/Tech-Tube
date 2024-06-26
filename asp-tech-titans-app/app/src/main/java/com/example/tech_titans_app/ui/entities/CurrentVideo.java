@@ -5,15 +5,15 @@ import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 /**
  * Singleton class to manage the current video being viewed.
  */
-public class currentVideo {
-    private static currentVideo instance;
+public class CurrentVideo {
+    private static CurrentVideo instance;
     private Video currentVideo;
 
     /**
      * Private constructor to initialize the current video.
      * If there are no videos in the repository, the current video remains null.
      */
-    private currentVideo() {
+    private CurrentVideo() {
         if (VideosRepository.getInstance().getAllVideos().getValue() == null) {
             return;
         }
@@ -25,9 +25,9 @@ public class currentVideo {
      *
      * @return The singleton instance of the currentVideo class.
      */
-    public static synchronized currentVideo getInstance() {
+    public static synchronized CurrentVideo getInstance() {
         if (instance == null) {
-            instance = new currentVideo();
+            instance = new CurrentVideo();
         }
         return instance;
     }

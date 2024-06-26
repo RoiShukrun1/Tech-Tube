@@ -23,10 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Adapter class for managing the comments in a RecyclerView.
  */
-public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHolder> {
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
     private List<Comment> commentList;
-    private final LoggedIn loggedIn = LoggedIn.getInstance();
     private final Context context;
 
     /**
@@ -34,7 +33,7 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
      *
      * @param context The context of the application.
      */
-    public commentsAdapter(Context context) {
+    public CommentsAdapter(Context context) {
         this.context = context;
     }
 
@@ -83,13 +82,11 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
                 .into(holder.publisherImage);
 
         // Set click listeners for like and unlike buttons
-        holder.btnLike.setOnClickListener(v -> {
-            comment.likeButtonClick(holder.btnLike, holder.btnUnlike, context);
-        });
+        holder.btnLike.setOnClickListener(v ->
+                comment.likeButtonClick(holder.btnLike, holder.btnUnlike, context));
 
-        holder.btnUnlike.setOnClickListener(v -> {
-            comment.unlikeButtonClick(holder.btnLike, holder.btnUnlike, context);
-        });
+        holder.btnUnlike.setOnClickListener(v ->
+                comment.unlikeButtonClick(holder.btnLike, holder.btnUnlike, context));
 
         // Set click listener for delete button
         holder.deleteComment.setOnClickListener(v -> {

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.activity_watch_video_page;
+import com.example.tech_titans_app.ui.WatchVideoPageActivity;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
@@ -23,11 +23,11 @@ import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.List;
-import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.entities.CurrentVideo;
 
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
     private List<Video> videoList;
-    private final currentVideo currentVideo = com.example.tech_titans_app.ui.entities.currentVideo.getInstance();
+    private final CurrentVideo currentVideo = CurrentVideo.getInstance();
 
     /**
      * Constructor for VideosListAdapter.
@@ -101,7 +101,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
             Context context = v.getContext();
             currentVideo.setCurrentVideo(video);
             currentVideo.getCurrentVideo().incrementViews();
-            Intent intent = new Intent(context, activity_watch_video_page.class);
+            Intent intent = new Intent(context, WatchVideoPageActivity.class);
             context.startActivity(intent);
         });
 
