@@ -11,4 +11,6 @@
     <color name="gray">#888888</color>
     <color name="main_filters_background">#C5C3C5</color>
     <color name="main_filters_background_pressed">#B1B1B1</color>
+    <color name="darker_gray">#4C4C4C</color>
+
 </resources>

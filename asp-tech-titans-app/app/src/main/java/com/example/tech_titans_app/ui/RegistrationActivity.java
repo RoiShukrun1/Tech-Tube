@@ -1,10 +1,12 @@
 package com.example.tech_titans_app.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ViewTreeObserver;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
@@ -29,6 +32,7 @@ import java.util.regex.Pattern;
 public class RegistrationActivity extends AppCompatActivity {
     private EditText nicknameText, usernameText, passwordText, confirmPasswordText;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAPTURE_IMAGE_REQUEST = 2;
     private static final String KEY_IMAGE_URI = "image_uri";
     private ImageButton uploadPhotoButton;
     private Button signInButton;
@@ -82,7 +86,76 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(RegistrationActivity.this, "Continuing as guest", Toast.LENGTH_SHORT).show();
         });
 
-        uploadPhotoButton.setOnClickListener(v -> openGallery());
+        uploadPhotoButton.setOnClickListener(v -> showPictureDialog());
+    }
+
+    private void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera"
+        };
+        pictureDialog.setItems(pictureDialogItems,
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            openGallery();
+                            break;
+                        case 1:
+                            openCamera();
+                            break;
+                    }
+                });
+        pictureDialog.show();
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+    }
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
+    }
+
+    // Handle the result of the gallery and camera intents
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == PICK_IMAGE_REQUEST || requestCode == CAPTURE_IMAGE_REQUEST) && resultCode == RESULT_OK && data != null) {
+            selectedImageUri = data.getData();
+            if (selectedImageUri == null && data.getExtras() != null) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                selectedImageUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), photo, null, null));
+            }
+            loadImageButton();
+        }
+    }
+
+    // Load the selected image into the ImageButton
+    private void loadImageButton() {
+        ViewTreeObserver observer = uploadPhotoButton.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (uploadPhotoButton.getViewTreeObserver().isAlive()) {
+                    uploadPhotoButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                try {
+                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImageUri));
+                    int targetWidth = uploadPhotoButton.getWidth();
+                    int targetHeight = uploadPhotoButton.getHeight();
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
+                    // Set the scaled bitmap as the source of the ImageButton
+                    uploadPhotoButton.setImageBitmap(scaledBitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     // TextWatcher to monitor changes in EditText fields and perform validation
@@ -172,42 +245,6 @@ public class RegistrationActivity extends AppCompatActivity {
         return namePattern.matcher(name).matches();
     }
 
-    private void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-    }
-    // Handle the result of the gallery intent
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            selectedImageUri = data.getData();
-            loadImageButton();
-        }
-    }
-    // Load the selected image into the ImageButton
-    private void loadImageButton() {
-        ViewTreeObserver observer = uploadPhotoButton.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (uploadPhotoButton.getViewTreeObserver().isAlive()) {
-                    uploadPhotoButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                try {
-                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImageUri));
-                    int targetWidth = uploadPhotoButton.getWidth();
-                    int targetHeight = uploadPhotoButton.getHeight();
-                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
-                    // Set the scaled bitmap as the source of the ImageButton
-                    uploadPhotoButton.setImageBitmap(scaledBitmap);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
     // Save the image URI
     @Override
     protected void onSaveInstanceState(Bundle outState) {

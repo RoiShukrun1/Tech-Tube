@@ -14,4 +14,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Customize your dialog here. -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:background">@color/darker_gray</item>
+    </style>
 </resources>
