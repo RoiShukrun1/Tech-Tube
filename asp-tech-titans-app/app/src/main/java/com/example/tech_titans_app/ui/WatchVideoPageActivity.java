@@ -36,7 +36,7 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
 import com.example.tech_titans_app.ui.entities.Video;
-import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
@@ -50,7 +50,7 @@ import android.graphics.drawable.Drawable;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class activity_watch_video_page extends AppCompatActivity {
+public class WatchVideoPageActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
@@ -58,8 +58,6 @@ public class activity_watch_video_page extends AppCompatActivity {
     private boolean isUnliked;
     private boolean isSubscribed = false;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
-    private ImageView darkModeButton;
-    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private View header;
     private View menuBar;
@@ -67,6 +65,11 @@ public class activity_watch_video_page extends AppCompatActivity {
     private View comments;
     private RecyclerView recyclerView;
 
+    /**
+     * Method to handle the creation of the activity.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,7 @@ public class activity_watch_video_page extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
-        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
 
         addSearchBarLogic();
         addBottomBarLogic();
@@ -92,6 +95,9 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to handle the configuration change of the device.
+     */
     private void orientationConfigurationChangeListener() {
         header = findViewById(R.id.header);
         menuBar = findViewById(R.id.menu_bar);
@@ -112,6 +118,11 @@ public class activity_watch_video_page extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to handle the orientation change of the device.
+     *
+     * @param isLandscape The boolean value to check if the orientation is landscape.
+     */
     private void handleOrientationChange(boolean isLandscape) {
         if (isLandscape) {
             // Execute code for landscape orientation
@@ -122,6 +133,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to enter fullscreen mode.
+     */
     private void enterFullscreenMode() {
         FrameLayout frameLayout = findViewById(R.id.frame_Layout_video_Player);
         ViewGroup.LayoutParams params = frameLayout.getLayoutParams();
@@ -136,6 +150,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         recyclerView.setVisibility(View.GONE);
     }
 
+    /**
+     * Method to exit fullscreen mode.
+     */
     private void exitFullscreenMode() {
 
         // Show header and menu bar when exiting fullscreen
@@ -146,7 +163,14 @@ public class activity_watch_video_page extends AppCompatActivity {
         recyclerView.setVisibility(View.VISIBLE);
     }
 
-
+    /**
+     * Method to update the UI based on the user's login status.
+     *
+     * @param profileSection The profile section of the activity.
+     * @param profilePicture The profile picture of the user.
+     * @param logoutText The logout text view.
+     * @param loginText The login text view.
+     */
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
                           TextView logoutText, TextView loginText) {
         if (LoggedIn.getInstance().isLoggedIn()) {
@@ -161,6 +185,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to initiate the video player.
+     */
     private void initiateVideoPlayer() {
         VideoView videoView = findViewById(R.id.videoView);
 
@@ -176,6 +203,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         videoView.start();
     }
 
+    /**
+     * Method to initiate the related videos.
+     */
     private void initiateRelatedVideos() {
         RecyclerView lstVideos = findViewById(R.id.listVideosVWP);
         lstVideos.setLayoutManager(new LinearLayoutManager(this));
@@ -186,6 +216,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
     }
 
+    /**
+     * Method to add listeners to the activity.
+     */
     public void addListeners() {
 
         // Handle click event of the "Like" TextView
@@ -223,6 +256,9 @@ public class activity_watch_video_page extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to add search bar logic to the activity.
+     */
     public void addSearchBarLogic() {
         new SearchBarUtils(findViewById(android.R.id.content));
         EditText searchInput = findViewById(R.id.search_input);
@@ -242,18 +278,21 @@ public class activity_watch_video_page extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to add bottom bar logic to the activity.
+     */
     public void addBottomBarLogic() {
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
             Intent intent =
-                    new Intent(activity_watch_video_page.this, MainActivity.class);
+                    new Intent(WatchVideoPageActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
         ImageView addVideoButton = findViewById(R.id.add);
         addVideoButton.setOnClickListener(v -> {
             Intent intent =
-                    new Intent(activity_watch_video_page.this,
+                    new Intent(WatchVideoPageActivity.this,
                             UploadVideoActivity.class);
             startActivity(intent);
         });
@@ -272,14 +311,17 @@ public class activity_watch_video_page extends AppCompatActivity {
 
         loginText.setOnClickListener(v -> {
             Intent intent =
-                    new Intent(activity_watch_video_page.this, LoginActivity.class);
+                    new Intent(WatchVideoPageActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }
 
+    /**
+     * Method to listen to the dark mode switch.
+     */
     public void listenToDarkModeSwitch() {
-        darkModeButton = findViewById(R.id.dark_mode);
-        sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
+        ImageView darkModeButton = findViewById(R.id.dark_mode);
+        SharedPreferences sharedPreferences = getSharedPreferences("themeSharedPrefs", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
@@ -302,8 +344,11 @@ public class activity_watch_video_page extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to set the publisher info.
+     */
     public void setPublisherInfo() {
-        Uri publisherImageUri = currentVideo.getInstance().getCurrentVideo().getPublisherImage();
+        Uri publisherImageUri = CurrentVideo.getInstance().getCurrentVideo().getPublisherImage();
         CircleImageView publisherImage = findViewById(R.id.publisher_image_VWP);
         Glide.with(publisherImage.getContext())
                 .load(publisherImageUri)
@@ -313,11 +358,17 @@ public class activity_watch_video_page extends AppCompatActivity {
         publisherTextView.setText(this.thisCurrentVideo.getPublisher());
     }
 
+    /**
+     * Method to set the video title.
+     */
     public void setVideoTitle() {
         TextView titleTextView = findViewById(R.id.video_title);
         titleTextView.setText(thisCurrentVideo.getTitle());
     }
 
+    /**
+     * Method to set the video details.
+     */
     public void setVideoDetails() {
         TextView titleTextView = findViewById(R.id.video_details);
         String details;
@@ -325,11 +376,17 @@ public class activity_watch_video_page extends AppCompatActivity {
         titleTextView.setText(details);
     }
 
+    /**
+     * Method to set the video description.
+     */
     public void setVideoDescription() {
         TextView descriptionTextView = findViewById(R.id.video_description);
         descriptionTextView.setText(thisCurrentVideo.getInfo());
     }
 
+    /**
+     * Method to get the likes status.
+     */
     public void getLikesStatus() {
         if (!loggedIn.isLoggedIn()) {
             isUnliked = false;
@@ -342,7 +399,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
-    // Method to handle the "Like" click event
+    /**
+     * Method to handle the "Like" click event.
+     */
     public void likeButtonClick() {
         if (loggedIn.isLoggedIn()) {
             handleLike();
@@ -351,6 +410,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to handle the "Unlike" click event.
+     */
     public void unlikeButtonClick() {
         if (loggedIn.isLoggedIn()) {
             handleUnlike();
@@ -359,6 +421,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to handle the like and unlike actions.
+     */
     private void handleLike() {
         getLikesStatus();
         Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
@@ -377,6 +442,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         updateLikesButtonsUI();
     }
 
+    /**
+     * Method to handle the unlike action.
+     */
     private void handleUnlike() {
         getLikesStatus();
         Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
@@ -394,10 +462,18 @@ public class activity_watch_video_page extends AppCompatActivity {
         updateLikesButtonsUI();
     }
 
+    /**
+     * Method to show a toast message.
+     *
+     * @param message The message to be shown.
+     */
     private void showLoginToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Method to update the likes buttons UI.
+     */
     private void updateLikesButtonsUI() {
         getLikesStatus();
         TextView unlikeTextView = findViewById(R.id.btn_unlike);
@@ -415,7 +491,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         likeTextView.setText(String.valueOf(thisCurrentVideo.getLikes()));
     }
 
-    // Method to handle the "Download" click event
+    /**
+     * Method to handle the "Download" click event.
+     */
     public void downloadButtonClick() {
         Toast.makeText(this,
                 "Will be implemented after data will migrate to server side." +
@@ -423,7 +501,9 @@ public class activity_watch_video_page extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
     }
 
-    // Method to handle the "Download" click event
+    /**
+     * Method to handle the "Subscribe" click event.
+     */
     public void subscribeButtonClick() {
         if (!loggedIn.isLoggedIn()) {
             showLoginToast("You have to be logged in to subscribe");
@@ -447,6 +527,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         setSubscribeUI();
     }
 
+    /**
+     * Method to set the subscribe UI.
+     */
     public void setSubscribeUI() {
         String publisher = thisCurrentVideo.getPublisher();
         if (loggedIn.isLoggedIn()) {
@@ -471,6 +554,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to handle the "Share" click event.
+     */
     public void shareButtonClick() {
         String s = "android.resource://"
                 + getPackageName() + "/" + this.thisCurrentVideo.getVideoUploaded();
@@ -483,6 +569,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
+    /**
+     * Method to handle the "Pencil" click event.
+     */
     public void pencilDescriptionButtonClick() {
         if (loggedIn.getLoggedInUser() == null) {
             Toast.makeText(this,
@@ -526,6 +615,9 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to handle the "Pencil" click event.
+     */
     public void PencilButtonClick() {
         if (loggedIn.getLoggedInUser() == null) {
             Toast.makeText(this,
@@ -568,9 +660,12 @@ public class activity_watch_video_page extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to open the comments activity.
+     */
     public void openCommentsActivity() {
         Intent intent =
-                new Intent(activity_watch_video_page.this, CommentsActivity.class);
+                new Intent(WatchVideoPageActivity.this, CommentsActivity.class);
         startActivity(intent);
     }
 }

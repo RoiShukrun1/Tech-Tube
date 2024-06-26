@@ -15,25 +15,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tech_titans_app.R;
-import com.example.tech_titans_app.ui.adapters.commentsAdapter;
-import com.example.tech_titans_app.ui.entities.Comment;
+import com.example.tech_titans_app.ui.adapters.CommentsAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
-import com.example.tech_titans_app.ui.entities.currentVideo;
+import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.commentsViewModel;
 
 public class CommentsActivity extends AppCompatActivity {
 
     private commentsViewModel commentsViewModel;
-    private commentsAdapter commentsAdapter;
+    private CommentsAdapter commentsAdapter;
     private Video thisCurrentVideo;
-    private LoggedIn loggedIn = LoggedIn.getInstance();
+    private final LoggedIn loggedIn = LoggedIn.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_comments);
 
-        thisCurrentVideo = currentVideo.getInstance().getCurrentVideo();
+        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
 
         initiateCommentsSection();
 
@@ -58,7 +57,7 @@ public class CommentsActivity extends AppCompatActivity {
         RecyclerView listComments = findViewById(R.id.comments_scrolling);
         listComments.setLayoutManager(new LinearLayoutManager(this));
 
-        commentsAdapter = new commentsAdapter();
+        commentsAdapter = new CommentsAdapter(this);
         listComments.setAdapter(commentsAdapter);
 
         commentsViewModel = new ViewModelProvider(this).get(commentsViewModel.class);
@@ -73,7 +72,7 @@ public class CommentsActivity extends AppCompatActivity {
     }
 
     private void navigateBackToMain() {
-        Intent intent = new Intent(this, activity_watch_video_page.class);
+        Intent intent = new Intent(this, WatchVideoPageActivity.class);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
