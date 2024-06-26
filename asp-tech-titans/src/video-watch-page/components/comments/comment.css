@@ -29,17 +29,11 @@
 }
 .dislike-icon-button {
     padding: 0;
-    --bs-btn-padding-y: '.0rem';
-    --bs-btn-padding-x: '.0rem';
-    --bs-btn-font-size: '.50rem';
     float: left;
     margin: 6px;
     border: none;
 }
 .like-icon-button {
-    --bs-btn-padding-y: '.0rem';
-    --bs-btn-padding-x: '.0rem';
-    --bs-btn-font-size: '.50rem';
     float: left;
     margin-right: 5px;
     border: none;

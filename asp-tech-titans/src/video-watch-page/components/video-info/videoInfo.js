@@ -190,7 +190,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             <button type="button" className="btn btn-light download-button" onClick={download}>
                 <Download /> Download
             </button>
-            <div className="btn-group" role="group" style={{ float: 'right' }}>
+            <div className="btn-group" role="group" style={{ float: 'right', 'margin-right': '1%' }}>
                 <button
                     type="button"
                     className="btn btn-light share-button dropdown-toggle"
@@ -216,7 +216,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
                 >
                     {isLiked ? <LikeSelected className='icons' style={{ margin: 0 }} /> : <Like className='icons' style={{ margin: 0 }} />}
                 </button>
-                <h3 className="likesNumber">{currentVideo.usersLikes.length}</h3>
+                <h3 className="likesNumber" style={{ margin: '1%' }}>{currentVideo.usersLikes.length}</h3>
                 <button onClick={() => unlikePressed()} type="button" className={"btn btn-outline-secondary"}>
                     {isUnLiked ? <DislikeSelected className='icons' style={{ margin: 0 }} /> : <Dislike className='icons' style={{ margin: 0 }} />}
                 </button>
