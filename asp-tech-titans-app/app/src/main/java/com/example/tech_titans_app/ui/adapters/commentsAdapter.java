@@ -1,17 +1,12 @@
 package com.example.tech_titans_app.ui.adapters;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,29 +20,56 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Adapter class for managing the comments in a RecyclerView.
+ */
 public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHolder> {
 
     private List<Comment> commentList;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
     private final Context context;
 
+    /**
+     * Constructor for the commentsAdapter.
+     *
+     * @param context The context of the application.
+     */
     public commentsAdapter(Context context) {
         this.context = context;
     }
 
+    /**
+     * Sets the comments to be displayed in the RecyclerView.
+     *
+     * @param comments The list of comments.
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void setComments(List<Comment> comments) {
         this.commentList = comments;
         notifyDataSetChanged();
     }
+
+    /**
+     * Creates and returns a ViewHolder object, inflating the comment layout.
+     *
+     * @param parent The parent ViewGroup.
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.comment_layout, parent, false);
+                .inflate(R.layout.comment_layout, parent, false);
         return new ViewHolder(view);
     }
 
+    /**
+     * Binds the data to the ViewHolder at the specified position.
+     *
+     * @param holder The ViewHolder which should be updated.
+     * @param position The position of the item within the adapter's data set.
+     */
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -81,23 +103,33 @@ public class commentsAdapter extends RecyclerView.Adapter<commentsAdapter.ViewHo
             notifyDataSetChanged();
         });
 
-
-
         comment.updateLikesButtonsUI(holder.btnLike, holder.btnUnlike);
-
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
     @Override
     public int getItemCount() {
         return commentList.size();
     }
 
+    /**
+     * ViewHolder class to represent each comment item.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView comment, publisher, date, editComment;
         public CircleImageView publisherImage;
         public TextView btnLike, btnUnlike;
         public ImageButton deleteComment;
 
+        /**
+         * Constructor for the ViewHolder.
+         *
+         * @param itemView The view of the comment item.
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             comment = itemView.findViewById(R.id.Comment_content);
