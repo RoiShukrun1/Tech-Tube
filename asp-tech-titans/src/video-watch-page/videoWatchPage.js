@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+
 import { CurrentVideoContext } from './currentVideoContext';
 import VideoPlayer from './components/video-player/VideoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
@@ -11,44 +12,55 @@ import { LoginContext } from '../contexts/loginContext';
 import { AccountContext } from '../contexts/accountContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
-import './video-watch-page.css';
+import './videoWatchPage.css';
 
+// Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
   return jsonData.find(obj => obj.videoUploaded === url);
 }
 
 const VideoWatchPage = () => {
 
+  // Destructuring values from various contexts
   const { darkMode } = useContext(ThemeContext);
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
   const { login } = useContext(LoginContext);
   const { setAccounts } = useContext(AccountContext);
-  const {videoData, setVideoData} = useContext(VideoDataContext);
+  const { videoData, setVideoData } = useContext(VideoDataContext);
 
+  // Effect to set the video URL whenever it changes
   useEffect(() => {
     if (videoUrl) {
       setVideoUrl(videoUrl);
     }
   }, [videoUrl, setVideoUrl]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  // State to manage input focus
   const [isFocused, setIsFocused] = useState(false);
+
+  // State to manage input value
   const [inputValue, setInputValue] = useState('');
+
+  // State to manage "more info" button press
   const [moreInfoPressed, setMoreInfoPressed] = useState(false);
 
+  // Get the current video object by URL
   const currentVideo = getObjectByUrl(videoData, videoUrl);
   const currentUser = login;
 
+  // Function to handle search and filter videos
   const handleSearch = (query) => {
     const filteredVideos = videoData.filter(video => video.title.toLowerCase().includes(query.toLowerCase()));
     if (filteredVideos.length === 0) {
       return;
     }
     setVideoUrl(filteredVideos[0].videoUploaded);
+  };
+
+  // Toggle function for the menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -80,7 +92,6 @@ const VideoWatchPage = () => {
                 login={login} />
             </div>
           </div>
-
           <div className="col-5">
             <RelatedVideos
               relatedVideos={currentVideo.relatedVideos}
@@ -93,11 +104,8 @@ const VideoWatchPage = () => {
           </div>
         </div>
       </div>
-
     </div>
-
   );
 };
 
 export default VideoWatchPage;
-

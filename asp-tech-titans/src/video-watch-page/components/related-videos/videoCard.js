@@ -2,6 +2,7 @@ import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
 
+// Function to increment views
 export const incrementViews = (setVideos, video) => {
     setVideos(prevVideos => {
         const updatedVideos = [...prevVideos];
@@ -19,18 +20,22 @@ export const incrementViews = (setVideos, video) => {
     });
 };
 
+// Video card component
 function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
 
     const [isHovered, setIsHovered] = useState(false);
 
+    // Functions to handle mouse enter, mouse leave and click
     const handleMouseEnter = () => {
         setIsHovered(!isHovered);
     };
 
+    // Function to handle mouse leave
     const handleMouseLeave = () => {
         setIsHovered(!isHovered);
     };
 
+    // Function to handle click
     const handleClick = () => {
         setUrl(video.videoUploaded);
         incrementViews(setVideos, video);
@@ -38,6 +43,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
         setInputValue('');
     };
 
+    // Function to render play icon
     const renderPlayIcon = () => {
         return (
             <div className="play-icon">

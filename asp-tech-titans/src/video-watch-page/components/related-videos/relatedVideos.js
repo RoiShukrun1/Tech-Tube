@@ -2,11 +2,13 @@ import React from "react";
 import VideoCard from "./videoCard";
 import "./relatedVideos.css";
 
+// Function to get video by id
 function getVideoById(jsonData, id) {
     return jsonData.find(obj => obj.id === id);
 }
 
-function relatedVideos( {videos, relatedVideos, setUrl, setVideos, setMoreInfoPressed, setInputValue} ) {
+// Related videos component
+function relatedVideos({ videos, relatedVideos, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
     return (
         <div className="related-videos">
             <div className="video-list">

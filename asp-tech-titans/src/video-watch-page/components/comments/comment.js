@@ -3,28 +3,83 @@ import { ReactComponent as Like } from './like.svg';
 import { ReactComponent as Dislike } from './dislike.svg';
 import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
+import { useState } from 'react';
+import { ReactComponent as Pencil } from './pencil.svg';
 
 function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
-    const userLike = () => {
-        if (currentUser === null) return false;
-        return commentObj.usersLikedId.some(user => user.id === currentUser.id);
-    }
-
-    const userUnLike = () => {
-        if (currentUser === null) return false;
-        return commentObj.usersUnLikedId.some(user => user.id === currentUser.id);
-    }
-
+    // set variables derived from commentObj
     var username = commentObj.username
     var date = commentObj.date
     var comment = commentObj.comment
     var profilePicture = commentObj.image
     var likesNumber = commentObj.likes
 
+    // set states
+    const [commentInputValue, setCommentInputValue] = useState(comment);
+    const [isPencilClicked, setIsPencilClicked] = useState(false);
+
+    // handle input change
+    const handleCommentInputChange = (event) => {
+        setCommentInputValue(event.target.value);
+    };
+
+    // handle key down
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            closeInput();
+        }
+    };
+
+    // close input
+    const closeInput = () => {
+        setNewCommentContent(commentInputValue);
+        setIsPencilClicked(false);
+    };
+
+    // set new comment content
+    const setNewCommentContent = (newCommentContent) => {
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video => {
+                if (video.id !== currentVideoId) return video;
+
+                const updatedComments = video.comments.map(comment => {
+                    if (comment.id !== commentObj.id) return comment;
+
+                    return {
+                        ...comment,
+                        comment: newCommentContent
+                    };
+                });
+
+                return {
+                    ...video,
+                    comments: updatedComments
+                };
+            });
+
+            return updatedVideos;
+        });
+    };
+
+
+    // user like function
+    const userLike = () => {
+        if (currentUser === null) return false;
+        return commentObj.usersLikedId.some(user => user.id === currentUser.id);
+    }
+
+    // user unlike function
+    const userUnLike = () => {
+        if (currentUser === null) return false;
+        return commentObj.usersUnLikedId.some(user => user.id === currentUser.id);
+    }
+
+    // variables to check if user liked or unliked
     var isLiked = userLike();
     var isUnLiked = userUnLike();
 
+    // set the comment as liked
     const setIsLiked = () => {
         setVideos(prevVideos => {
             const updatedVideos = prevVideos.map(video => {
@@ -51,6 +106,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         });
     };
 
+    // set the comment as unliked
     const setIsUnLiked = () => {
         setVideos(prevVideos => {
             const updatedVideos = prevVideos.map(video => {
@@ -77,6 +133,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         });
     };
 
+    // increase like number
     const increaseLikeNumber = () => {
         setVideos(prevVideos => {
 
@@ -106,6 +163,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         });
     };
 
+    // decrease like number
     const decreaseLikeNumber = () => {
         setVideos(prevVideos => {
             const updatedVideos = [...prevVideos];
@@ -133,6 +191,36 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         });
     };
 
+    // check if current user is owner of comment
+    const currentUserIsOwnerOfComment = () => {
+        return currentUser && currentUser.username === commentObj.username;
+    }
+
+    // handle pencil clicked
+    const handlePencilClicked = () => {
+        setIsPencilClicked(true)
+        setCommentInputValue(comment)
+    }
+
+    // delete comment
+    const deleteComment = () => {
+        setVideos(prevVideos => {
+            const updatedVideos = prevVideos.map(video => {
+                if (video.id !== currentVideoId) return video;
+
+                const updatedComments = video.comments.filter(comment => comment.id !== commentObj.id);
+
+                return {
+                    ...video,
+                    comments: updatedComments
+                };
+            });
+
+            return updatedVideos;
+        });
+    };
+
+
     return (
         <div className="border">
             <div className="row">
@@ -142,9 +230,32 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                 <div className="col-11" style={{ padding: 0 }}>
 
                     <div className="comment">
-                        <h2 className="username">@{username}</h2>
+
+                        <span className="usernameAndclosebutton">
+                            <h2 className="username">@{username}</h2>
+                            {currentUser && currentUserIsOwnerOfComment() &&
+                                <button type="button" className="close-button btn btn-secondary"
+                                    onClick={deleteComment}>X</button>}
+                        </span>
+
                         <h3 className="date">{date}</h3>
-                        <h3 className="content">{comment}</h3>
+
+                        <span className="inputWithComment">
+                            <h3 className="content">{isPencilClicked ? <input
+                                className='comment-input'
+                                onChange={handleCommentInputChange}
+                                placeholder='comment...'
+                                onKeyDown={handleKeyDown}
+                                value={commentInputValue}
+                            /> : comment}</h3>
+
+                            {currentUser && currentUserIsOwnerOfComment() &&
+                                <button type="button" className='pencil-button' onClick={() => handlePencilClicked()}>
+                                    <Pencil />
+                                </button>
+                            }
+
+                        </span>
 
                         <div className="container">
                             <button onClick={() => {

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from '../main-page/mainPage';
 import Login from '../login-page/login';
 import Registration from '../registration-page/registration';
-import VideoWatchPage from '../video-watch-page/video-watch-page';
+import VideoWatchPage from '../video-watch-page/videoWatchPage';
 import UploadPage from '../add-video-page/upload-video';
 import AddPage from '../add-video-page/add-video';
 import VideoList from '../contexts/contextCheck';

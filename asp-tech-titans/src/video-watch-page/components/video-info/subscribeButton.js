@@ -3,11 +3,15 @@ import './subscribeButton.css';
 
 function subscribeButton({ setUsers, currentUser, publisher }) {
 
+    // Variable to check if the current user is subscribed to the publisher
     var isSubscribed = false;
+
+    // Check if the current user is subscribed to the publisher
     if (currentUser && currentUser.subscriptions) {
         isSubscribed = currentUser.subscriptions.includes(publisher);
     }
 
+    // Function to switch between subscribe and unsubscribe buttons
     const switchButtons = () => {
         if (!currentUser) {
             alert('You must login to press subscribe!');
@@ -20,6 +24,7 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
         }
     }
 
+    // Function to remove subscription
     const removeSubscription = () => {
         setUsers(prevUsers => {
             const updatedUsers = [...prevUsers];
@@ -30,6 +35,7 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
         });
     };
 
+    // Function to add subscription
     const addSubscription = () => {
         console.log(currentUser)
         setUsers(prevUsers => {
