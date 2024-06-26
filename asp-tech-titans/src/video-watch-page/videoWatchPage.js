@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import { CurrentVideoContext } from './currentVideoContext';
-import VideoPlayer from './components/video-player/VideoPlayer';
+import VideoPlayer from './components/video-player/videoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
 import Comments from './components/comments/comments';
 import RelatedVideos from './components/related-videos/relatedVideos';
