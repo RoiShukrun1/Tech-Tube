@@ -92,6 +92,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         listenToDarkModeSwitch();
         orientationConfigurationChangeListener();
         setSubscribeUI();
+        handleEditIconsVisibility();
 
     }
 
@@ -667,5 +668,18 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         Intent intent =
                 new Intent(WatchVideoPageActivity.this, CommentsActivity.class);
         startActivity(intent);
+    }
+
+    private void handleEditIconsVisibility() {
+        TextView pencilTitleTextView = findViewById(R.id.editTitle);
+        TextView pencilDescriptionTextView = findViewById(R.id.editDescription);
+
+        if (loggedIn.isLoggedIn() && thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+            pencilTitleTextView.setVisibility(View.VISIBLE);
+            pencilDescriptionTextView.setVisibility(View.VISIBLE);
+        } else {
+            pencilTitleTextView.setVisibility(View.GONE);
+            pencilDescriptionTextView.setVisibility(View.GONE);
+        }
     }
 }
