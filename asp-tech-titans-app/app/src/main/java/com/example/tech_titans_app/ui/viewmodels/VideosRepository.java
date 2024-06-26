@@ -75,46 +75,64 @@ public class VideosRepository {
                 + R.raw.video9);
         Uri video10 = Uri.parse("android.resource://com.example.tech_titans_app/"
                 + R.raw.video10);
+        Uri publisherImage1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.drawable.rick_astely);
+        Uri publisherImage2 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.drawable.rotem);
+        Uri publisherImage3 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.drawable.shahar);
+        Uri publisherImage4 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.drawable.omer_adam);
 
-        videoList.add(new Video(1, video1, image1, "Video 1 Title",
-                "Publisher 1", image1, "50", "10/10/2020",
-                "This is a video description1.", null,
+        videoList.add(new Video(1, video1, image1, "Digitalization; Where to start",
+                "Rick Astley", publisherImage1, "500", "2021-10-01",
+                "An introductory guide to digitalization, outlining the essential steps to begin your digital transformation journey effectively.",
+                null,
                 "sport", new ArrayList<>(), "10"));
-        videoList.add(new Video(2, video2, image2, "Video 2 Title",
-                "Publisher 2", image2, "60", "10/10/2020",
-                "This is a video description2.", null,
+        videoList.add(new Video(2, video2, image2, "Technology Background Video Loop For Website",
+                "רותם שפירו", publisherImage2, "20", "2021-10-01",
+                "A seamless technology-themed background video loop perfect for enhancing the visual appeal of your website.",
+                null,
                 "sport", new ArrayList<>(), "20"));
-        videoList.add(new Video(3, video3, image3, "Video 3 Title",
-                "Publisher 3", image3, "70", "10/10/2020",
-                "This is a video description3.", null,
+        videoList.add(new Video(3, video3, image3, "10 MINUTE DINNER! The Best Honey Garlic Chicken Recipe",
+                "Omer Adam", publisherImage3, "999", "2021-10-01",
+                "A quick and delicious honey garlic chicken recipe that can be prepared in just 10 minutes, perfect for busy evenings.",
+                null,
                 "sport", new ArrayList<>(), "30"));
-        videoList.add(new Video(4, video4, image4, "Video 4 Title",
-                "Publisher 4", image4, "80", "10/10/2020",
-                "This is a video description4.", null,
-                "sport", new ArrayList<>(), "40"));
-        videoList.add(new Video(5, video5, image5, "Video 5 Title",
-                "Publisher 5", image2, "3", "10/10/2020",
-                "This is a video description5.", null,
+        videoList.add(new Video(4, video4, image4, "Road Nature video clip 4k",
+                "Shahar Saul", publisherImage4, "3", "2021-10-01",
+                "A stunning 4K video clip showcasing the serene beauty of nature along a scenic road, ideal for relaxation and inspiration.",
+                null,
+                "sport", new ArrayList<>(), "3"));
+        videoList.add(new Video(5, video5, image5, "How to make PERFECT CHURROS with Hot Chocolate",
+                "Omer Adam", publisherImage4, "78", "2024-03-13",
+                "A step-by-step tutorial on making perfect churros, accompanied by a rich and indulgent hot chocolate dip",
+                null,
                 "sport", new ArrayList<>(), "50"));
-        videoList.add(new Video(6, video6, image6, "Video 6 Title",
-                "Publisher 6", image2, "9", "10/10/2020",
-                "This is a video description6.", null,
+        videoList.add(new Video(6, video6, image6, "Futuristic interface - HUD sound effects",
+                "Omer Adam", publisherImage4, "80", "2024-03-13",
+                "A collection of high-quality sound effects designed for futuristic interfaces and heads-up displays (HUDs).",
+                null,
                 "sport", new ArrayList<>(), "60"));
-        videoList.add(new Video(7, video7, image7, "Video 7 Title",
-                "Publisher 7", image2, "17", "10/10/2020",
-                "This is a video description7.", null,
-                "sport", new ArrayList<>(), "70"));
-        videoList.add(new Video(8, video8, image8, "Video 8 Title",
-                "Publisher 8", image2, "22", "10/10/2020",
-                "This is a video description8.", null,
+        videoList.add(new Video(7, video7, image7, "Sci-fi Hologram UI Sound Design",
+                "Omer Adam", publisherImage4, "1", "2024-03-13",
+                "An immersive sound design collection featuring sci-fi hologram user interface (UI) effects, perfect for enhancing futuristic projects.",
+                null,
+                "sport", new ArrayList<>(), "1"));
+        videoList.add(new Video(8, video8, image8, "TASTY CHICKEN CURRY - Easy food recipes for dinner to make at home",
+                "Omer Adam", publisherImage4, "90", "2024-03-13",
+                "A simple yet flavorful chicken curry recipe that's easy to make at home, offering a delicious dinner option.",
+                null,
                 "sport", new ArrayList<>(), "80"));
-        videoList.add(new Video(9, video9, image9, "Video 9 Title",
-                "Publisher 9", image2, "25", "10/10/2020",
-                "This is a video description9.", null,
-                "sport", new ArrayList<>(), "90"));
-        videoList.add(new Video(10, video10, image10, "Video 10 Title",
-                "Publisher 10", image2, "77", "10/10/2020",
-                "This is a video description10.", null,
+        videoList.add(new Video(9, video9, image9, "short Sunset Video Clip (4K) Philippines",
+                "Omer Adam", publisherImage4, "25", "10/10/2020",
+                "A breathtaking short video clip capturing the vibrant hues of a sunset in the Philippines, presented in stunning 4K resolution.",
+                null,
+                "sport", new ArrayList<>(), "20"));
+        videoList.add(new Video(10, video10, image10, "Nature Beautiful short video",
+                "Omer Adam", publisherImage4, "200", "2024-03-13",
+                "A brief yet captivating video showcasing the serene beauty of nature, perfect for relaxation and mindfulness.",
+                null,
                 "sport", new ArrayList<>(), "100"));
 
         allVideos = videoList;
