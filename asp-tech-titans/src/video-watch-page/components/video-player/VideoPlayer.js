@@ -1,5 +1,5 @@
 import React from 'react';
-import './VideoPlayer.css';
+import './videoPlayer.css';
 
 // Video player component
 const VideoPlayer = ({ url }) => {
