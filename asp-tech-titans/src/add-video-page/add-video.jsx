@@ -18,7 +18,10 @@ export const AddVideo = () => {
     const { darkMode } = useContext(ThemeContext);
 
     const handleImageUpload = (event) => {
-        setImage(URL.createObjectURL(event.target.files[0]));
+        const file = event.target.files[0];
+        if (file) {
+            setImage(URL.createObjectURL(file));
+        }
     };
 
     const handleSubmit = (event) => {
@@ -34,9 +37,9 @@ export const AddVideo = () => {
         const newData = {
             id: videoList.length + 10,
             videoUploaded: mostRecentVideo ? mostRecentVideo.url : '',
-            thumbnail: image ,
+            thumbnail: image,
             title: title,
-            publisher: login.nickname,
+            publisher: login.username,
             publisherImage: login.image,
             views: 0,
             date: new Date().toLocaleDateString(),
