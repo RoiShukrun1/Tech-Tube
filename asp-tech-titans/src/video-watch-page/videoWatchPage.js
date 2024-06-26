@@ -12,7 +12,7 @@ import { LoginContext } from '../contexts/loginContext';
 import { AccountContext } from '../contexts/accountContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
-import './video-watch-page.css';
+import './videoWatchPage.css';
 
 // Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
