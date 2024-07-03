@@ -8,6 +8,12 @@ export const getAccount = async (req, res) => {
         if (!account) {
             return res.status(404).json({ message: 'Account not found' });
         }
+    
+        // // Ensure no caching headers are sent to prevent 304 responses
+        // res.set({
+        //     'Cache-Control': 'no-store', // Do not cache response
+        //     'Pragma': 'no-cache', // Do not cache response
+        // });
 
         res.status(200).json(account); // Send the account object as JSON response
     } catch (error) {

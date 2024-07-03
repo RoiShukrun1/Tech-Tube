@@ -19,7 +19,7 @@ server.use('/uploads', express.static('uploads')); // Serve static files from th
 server.use('/accounts', accountRoutes);
 server.use('/api/users', usersRoutes);
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }) // Connect to MongoDB
+mongoose.connect(mongoURI) // Connect to MongoDB
     .then(() => console.log('MongoDB connected')) // Log success message on successful connection
     .catch(err => console.error(err)); // Log error message on connection failure
 
