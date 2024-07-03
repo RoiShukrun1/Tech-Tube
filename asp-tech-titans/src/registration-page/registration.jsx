@@ -8,17 +8,43 @@ import { ReactComponent as XIcon } from '../images/X.svg'; // Replace '../images
 import { ReactComponent as VIcon } from '../images/V.svg'; // Replace '../images/image.svg' with the path to your image icon
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+import { useEffect } from 'react';
 import { AccountContext } from '../contexts/accountContext';
 import { ThemeContext } from '../contexts/themeContext';
 import darkLogo from '../images/darkmodelogo.png';
 import defultProfile from '../images/profile.png';
+import axios from 'axios';
+
 
 export const Registration = () => {
     const [image, setImage] = useState(null);
     const { darkMode } = useContext(ThemeContext);
+    const [base64Image, setBase64Image] = useState(null);
+
+    useEffect(() => {
+        fetch(defultProfile)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setBase64Image(reader.result);
+            };
+            reader.readAsDataURL(blob);
+          })
+          .catch((error) => console.error('Error converting image to base64:', error));
+      }, []);
+
     const handleImageUpload = (event) => {
-      setImage(URL.createObjectURL(event.target.files[0]));
-    }
+        setImage(URL.createObjectURL(event.target.files[0]));
+        const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onloadend = () => {
+              setBase64Image(reader.result); // Store the Base64 string
+              console.log(reader.result);
+          };
+          reader.readAsDataURL(file);
+      }
+
     const [PasswordImage, setPasswordImage] = useState(true);
     const [ConfirmPasswordImage, setConfirmPasswordImage] = useState(true);
     const [passwordError, setPasswordMassage] = useState(null);
@@ -119,23 +145,34 @@ export const Registration = () => {
         }
     }
     // Function to handle the submit button
-    const handleSubmit = (event) => {
-        if(nicknameImage || usernameImage || PasswordImage || ConfirmPasswordImage){
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (nicknameImage || usernameImage || PasswordImage || ConfirmPasswordImage) {
             alert("Please fill all the fields correctly");
-        }
-        else {
-        const newData = {
-            username: document.getElementById("username").value,
-            nickname: document.getElementById("nickname").value,
-            password: document.getElementById("password").value,
-            subscriptions: [],
-            image: image || defultProfile,
-        };
-        addAccount(newData);
-        alert("Registration successful");
-        navigate('/login'); // Navigate to the login page
+        } else {
+            const newData = {
+                username: document.getElementById("username").value,
+                nickname: document.getElementById("nickname").value,
+                password: document.getElementById("password").value,
+                subscriptions: [],
+                image: base64Image
+            };
+            try {
+                console.log(base64Image); 
+                await axios.post('http://localhost:5001/accounts/register', newData); // Connect to your backend API
+                alert("Registration successful");
+                navigate('/login'); // Navigate to the login page
+            } catch (error) {
+                if (error.response && error.response.data && error.response.data.message) {
+                    alert(`Registration failed: ${error.response.data.message}`);
+                } else {
+                    alert("Registration failed. Please try again.");
+                }
+                console.error(error);
+            }
         }
     }
+
   return (
     <div className={'registration-wrapper'+ (darkMode ? '-dark' : '')}>
     <div className='registration-container'>
