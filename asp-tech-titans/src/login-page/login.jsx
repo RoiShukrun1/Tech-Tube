@@ -9,6 +9,7 @@ import { AccountContext } from '../contexts/accountContext';
 import { LoginContext } from '../contexts/loginContext.jsx';
 import { ThemeContext } from '../contexts/themeContext';
 import darkLogo from '../images/darkmodelogo.png'
+import axios from 'axios';
 
 
 export const Login = () => {
@@ -16,11 +17,20 @@ export const Login = () => {
   const { loggedIn } = useContext(LoginContext);
   const { darkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
-  const hundleLogin = (event) => {
+  const hundleLogin = async (event) => {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const account = accounts.find(acc => acc.username === username && acc.password === password);
+
+    // Fetch the account from the server
+    var account = (await axios.get('http://localhost/api/users/' + username)).data;
+    // Check if the password is correct
+    if (account && account.password !== password) {
+      account = null;
+    }
+
+    // const account = accounts.find(acc => acc.username === username && acc.password === password);
+
     // Check if the account exists
     if (!account) {
       alert('Incorrect password or username');

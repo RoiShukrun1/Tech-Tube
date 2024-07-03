@@ -5,9 +5,9 @@ export const getAccount = async (req, res) => {
         const accountUsername = req.params.id;
         const account = await getAccountFromDB(accountUsername);
 
-        if (!account) {
-            return res.status(404).json({ message: 'Account not found' });
-        }
+        // if (!account) {
+        //     return res.status(404).json({ message: 'Account not found' });
+        // }
     
         // // Ensure no caching headers are sent to prevent 304 responses
         // res.set({

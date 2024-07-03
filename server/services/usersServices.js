@@ -2,7 +2,6 @@ import { MongoClient } from 'mongodb';
 
 export const getAccountFromDB = async (username) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
-
     try {
         await client.connect(); // Connect to MongoDB
 
