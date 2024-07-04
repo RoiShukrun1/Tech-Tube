@@ -1,4 +1,6 @@
 import { getAccountFromDB } from '../services/usersServices.js';
+import { deleteAccountFromDB } from '../services/usersServices.js';
+
 
 export const getAccount = async (req, res) => {
     try {
@@ -18,6 +20,18 @@ export const getAccount = async (req, res) => {
         res.status(200).json(account); // Send the account object as JSON response
     } catch (error) {
         console.error('Error fetching account:', error);
+        res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
+    }
+};
+
+export const deleteAccount = async (req, res) => {
+    try {
+        const accountUsername = req.params.id;
+        await deleteAccountFromDB(accountUsername);
+
+        res.status(200).json({ message: 'Account deleted successfully' }); // Send success message
+    } catch (error) {
+        console.error('Error deleting account:', error);
         res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
     }
 };
