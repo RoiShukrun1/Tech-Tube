@@ -3,7 +3,7 @@ import { getUser } from '../controllers/usersController.js';
 import { deleteUser } from '../controllers/usersController.js';
 import { registerUser } from '../controllers/usersController.js';
 import uploadFile from '../multerConfig.js'; // Import uploadFile from the new module
-
+import videosRouter from './videosRouter.js';
 
 const router = express.Router();
 
