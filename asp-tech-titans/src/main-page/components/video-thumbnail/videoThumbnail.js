@@ -3,6 +3,17 @@ import './videoThumbnail.css';
 import { Link } from 'react-router-dom';
 import { LoginContext } from '../../../contexts/loginContext';
 import { VideoDataContext } from '../../../contexts/videoDataContext';
+import { incrementViews } from '../../../video-watch-page/components/related-videos/videoCard';
+import { CurrentVideoContext } from '../../../video-watch-page/currentVideoContext';
+import { UserContext } from '../../../contexts/userContext';
+import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
+
+
+
+
+function getObjectByUrl(jsonData, url) {
+  return jsonData.find(obj => obj.videoUploaded === url);
+}
 
 /**
  * VideoThumbnail Component
@@ -13,10 +24,13 @@ import { VideoDataContext } from '../../../contexts/videoDataContext';
  * - video (object): The video data object containing details like id, title, thumbnail, publisher, etc.
  * - onClick (function): A callback function to handle click events on the thumbnail.
  */
-const VideoThumbnail = ({ video, onClick }) => {
+const VideoThumbnail = ({ video }) => {
   const [isHovered, setIsHovered] = useState(false); // State to manage hover status
   const { login } = useContext(LoginContext); // Retrieve the login context
-  const { deleteVideo } = useContext(VideoDataContext); // Retrieve the deleteVideo function from video data context
+  const { videoData, deleteVideo, setVideoData } = useContext(VideoDataContext); // Retrieve the deleteVideo function from video data context
+  const { setVideoUrl } = useContext(CurrentVideoContext);
+  const { users } = useContext(UserContext);
+  const { setPublisher } = useContext(CurrentPublisherContext);
 
   /**
    * Handle mouse enter event
@@ -34,7 +48,6 @@ const VideoThumbnail = ({ video, onClick }) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-
   /**
    * Handle delete button click event
    * Prevents default action and deletes the video.
@@ -44,18 +57,39 @@ const VideoThumbnail = ({ video, onClick }) => {
     deleteVideo(video.id);
   };
 
+  /**
+   * Handle video click event
+   * Redirects to the video page.
+   */
+  const handleVideoClick = (videoUrl) => {
+    setVideoUrl(videoUrl);
+    incrementViews(setVideoData, getObjectByUrl(videoData, videoUrl));
+  };
+
+  /**
+   * Handle publisher click event
+   * Redirects to the publisher channel page.
+   */
+  const handlePublisherClick = (publisher) => {
+    setPublisher(publisher);
+  };
+
+
   return (
-    <Link to="/video">
       <div
         className="video-thumbnail"
-        onClick={onClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <img src={video.thumbnail} alt={video.title} className="thumbnail-image" />
+        <Link to="/video">
+          <img src={video.thumbnail} alt={video.title} className="thumbnail-image" onClick={() => handleVideoClick(video.videoUploaded)} />
+        </Link>
+
         <div className="video-info">
           <div className="video-header">
-            <img src={video.publisherImage} alt={video.publisher} className="publisher-image" />
+            <Link to="/publisherChannel">
+            <img src={video.publisherImage} alt={video.publisher} className="publisher-image" onClick={handlePublisherClick(video.publisher)}/>
+            </Link>
             <h3 className="video-title">{video.title}</h3>
             {login && login.username === video.publisher && (
               <button className="delete-button" onClick={handleDeleteClick}>
@@ -65,11 +99,12 @@ const VideoThumbnail = ({ video, onClick }) => {
           </div>
           <div className="video-details">
             <p className="video-views">{video.views} views • <span className="video-date">{video.date}</span></p>
-            <p className="video-publisher">{video.publisher}</p>
+            <Link to="/publisherChannel">
+              <p className="video-publisher">{video.publisher}</p>
+            </Link>
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 

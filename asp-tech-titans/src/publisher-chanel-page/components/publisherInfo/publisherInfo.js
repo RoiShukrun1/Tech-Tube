@@ -2,15 +2,15 @@ import React from 'react';
 import './publisherInfo.css';
 import SubscribeButton from '../../../video-watch-page/components/video-info/subscribeButton';
 
-const PublisherInfo = ({ username, nickname, subscribers, videos, bannerUrl, logoUrl, currentUser, setUsers}) => {
+const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image, currentUser, setUsers}) => {
     return (
         <div className="publisher-info-div-pcp">
             <div className="publisher-banner-pcp">
-                <img className="publisher-banner-image-pcp" src={bannerUrl} alt="publisherBanner" />
+                <img className="publisher-banner-image-pcp" src={banner} alt="publisherBanner" />
             </div>
             <div className="publisher-content">
                 <div className="publisher-image-div-pcp">
-                    <img className="publisher-image-pcp" src={logoUrl} alt="publisherImage" />
+                    <img className="publisher-image-pcp" src={image} alt="publisherImage" />
                 </div>
                 <div className="publisher-info">
                     <p className='publisher-info-p1'>{username}</p>
