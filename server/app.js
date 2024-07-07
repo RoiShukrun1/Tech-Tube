@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import accountRoutes from './routes/accountsRoutes.js';
+// import accountRoutes from './routes/accountsRoutes.js';
 import usersRoutes from './routes/usersRoutes.js';
 import customEnv from 'custom-env';
 
@@ -16,7 +16,7 @@ server.use(cors()); // Use the CORS middleware
 server.use(bodyParser.json({ limit: '10mb' })); // Adjust the limit as needed
 server.use('/uploads', express.static('uploads')); // Serve static files from the uploads folder
 
-server.use('/accounts', accountRoutes);
+// server.use('/api/users', accountRoutes);
 server.use('/api/users', usersRoutes);
 
 mongoose.connect(mongoURI) // Connect to MongoDB
