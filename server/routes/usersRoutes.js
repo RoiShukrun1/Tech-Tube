@@ -11,6 +11,8 @@ router.post('/register', uploadFile, registerUser);
 
 router.route('/:id')
   .get(getUser)
-  .delete(deleteUser); 
+  .delete(deleteUser);
+
+router.use('/:id/videos', videosRouter);
 
 export default router;
