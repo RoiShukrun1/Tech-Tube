@@ -1,4 +1,4 @@
-import { getCommentFromDB, getCommentsFromDB, deleteCommentFromDB, patchCommentinDB } from '../services/commentsServices.js';
+import { getCommentFromDB, getCommentsFromDB, deleteCommentFromDB, putCommentinDB } from '../services/commentsServices.js';
 
 export const getComment = async (req, res) => {
     try {
@@ -43,9 +43,9 @@ export const updateComment = async (req, res) => {
         const videoId = req.params.pid;
         const commentId = req.params.cid;
 
-        const updatedparms = req.body;
+        const newComment = req.body;
 
-        const result = await patchCommentinDB(videoId, commentId, updatedparms);
+        const result = await putCommentinDB(videoId, commentId, newComment);
 
         res.status(200).json(result);
 

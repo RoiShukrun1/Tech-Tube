@@ -7,7 +7,7 @@ const commentsRouter = express.Router({ mergeParams: true });
 commentsRouter.route('/:cid')
     .get(getComment)
     .delete(deleteComment)
-    .patch(updateComment);
+    .put(updateComment);
 
     commentsRouter.route('/')
     .get(getComments)

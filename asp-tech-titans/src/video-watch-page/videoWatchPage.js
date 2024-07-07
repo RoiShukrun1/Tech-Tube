@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-
 import { CurrentVideoContext } from './currentVideoContext';
 import VideoPlayer from './components/video-player/videoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
@@ -52,6 +51,7 @@ const VideoWatchPage = () => {
 
   // Function to handle search and filter videos
   const handleSearch = async (query) => {
+
     const filteredVideos = videoData.filter(video => video.title.toLowerCase().includes(query.toLowerCase()));
     if (filteredVideos.length === 0) {
       return;
