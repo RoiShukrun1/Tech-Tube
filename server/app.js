@@ -2,22 +2,27 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-// import accountRoutes from './routes/accountsRoutes.js';
 import usersRoutes from './routes/usersRoutes.js';
 import customEnv from 'custom-env';
+import cookieParser from 'cookie-parser';
+import tokenRoutes from './routes/tokenRoutes.js';
 
 customEnv.env(process.env.NODE_ENV, './config')
 
 const mongoURI = process.env.CONNECTION_STRING;
 const server = express();
 const port = process.env.PORT;
+server.use(cookieParser());
 
-server.use(cors()); // Use the CORS middleware
+server.use(cors({
+    origin: 'http://localhost:3000', // Allow requests from this origin
+    credentials: true // Allow credentials (cookies) to be included
+  }));
 server.use(bodyParser.json({ limit: '10mb' })); // Adjust the limit as needed
 server.use('/uploads', express.static('uploads')); // Serve static files from the uploads folder
 
-// server.use('/api/users', accountRoutes);
 server.use('/api/users', usersRoutes);
+server.use('/api/token',tokenRoutes);
 
 mongoose.connect(mongoURI) // Connect to MongoDB
     .then(() => console.log('MongoDB connected')) // Log success message on successful connection

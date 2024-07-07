@@ -1,34 +1,33 @@
-import Account from '../models/usersModel.js';
+import User from '../models/usersModel.js';
+import fs from 'fs';
 import path from 'path';
-import { getAccountFromDB } from '../services/usersServices.js';
-import { deleteAccountFromDB } from '../services/usersServices.js';
-import { patchAccountinDB } from '../services/usersServices.js';
-import { saveBase64Image } from '../services/usersServices.js';
+import { getUserFromDB } from '../services/usersServices.js';
+import { deleteUserFromDB } from '../services/usersServices.js';
 
-export const getAccount = async (req, res) => {
+export const getUser = async (req, res) => {
     try {
-        const accountUsername = req.params.id;
-        const account = await getAccountFromDB(accountUsername);
+        const userUsername = req.params.id;
+        const user = await getUserFromDB(userUsername);
 
-        // if (!account) {
-        //     return res.status(404).json({ message: 'Account not found' });
+        // if (!user) {
+        //     return res.status(404).json({ message: 'User not found' });
         // }
 
-        res.status(200).json(account); // Send the account object as JSON response
+        res.status(200).json(user); // Send the user object as JSON response
     } catch (error) {
-        console.error('Error fetching account:', error);
+        console.error('Error fetching user:', error);
         res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
     }
 };
 
-export const deleteAccount = async (req, res) => {
+export const deleteUser = async (req, res) => {
     try {
-        const accountUsername = req.params.id;
-        await deleteAccountFromDB(accountUsername);
+        const userUsername = req.params.id;
+        await deleteUserFromDB(userUsername);
 
-        res.status(200).json({ message: 'Account deleted successfully' }); // Send success message
+        res.status(200).json({ message: 'user deleted successfully' }); // Send success message
     } catch (error) {
-        console.error('Error deleting account:', error);
+        console.error('Error deleting user:', error);
         res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
     }
 };
@@ -49,13 +48,13 @@ export const updateAccount = async (req, res) => {
     }
 };
 
-export const registerAccount = async (req, res) => {
-    const session = await Account.startSession();
+export const registerUser = async (req, res) => {
+    const session = await User.startSession();
     session.startTransaction();
     try {
         const { nickname, username, password, subscriptions, image } = req.body;
         // Create a new User instance with the extracted data
-        const newUser = new Account({ nickname, username, password, image: null, subscriptions });
+        const newUser = new User({ nickname, username, password, image: null, subscriptions });
         // Save the new user to the database
         await newUser.save({ session });
 
