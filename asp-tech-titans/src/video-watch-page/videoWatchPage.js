@@ -9,7 +9,7 @@ import Header from '../main-page/components/header/header';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 import { LoginContext } from '../contexts/loginContext';
-import { AccountContext } from '../contexts/accountContext';
+import { UserContext } from '../contexts/userContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
@@ -25,7 +25,7 @@ const VideoWatchPage = () => {
   const { darkMode } = useContext(ThemeContext);
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
   const { login } = useContext(LoginContext);
-  const { setAccounts } = useContext(AccountContext);
+  const { setUsers } = useContext(UserContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
 
   // Effect to set the video URL whenever it changes
@@ -76,7 +76,7 @@ const VideoWatchPage = () => {
               <VideoInfo
                 currentVideo={currentVideo}
                 currentUser={currentUser}
-                setUsers={setAccounts}
+                setUsers={setUsers}
                 setMoreInfoPressed={setMoreInfoPressed}
                 moreInfoPressed={moreInfoPressed}
               />
