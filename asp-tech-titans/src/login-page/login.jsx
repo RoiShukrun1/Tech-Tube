@@ -22,7 +22,8 @@ export const Login = () => {
     try {
       const response = await axios.post('http://localhost/api/token', { username, password }, { withCredentials: true });
       if (response.data.message === 'Login successful') {
-        loggedIn({ username }); // Update login context
+        const { username, image } = response.data.user;
+        loggedIn({ username, image }); // Update login context with image
         alert('Login successful');
         navigate('/mainPage'); // Navigate to main page
       } else {

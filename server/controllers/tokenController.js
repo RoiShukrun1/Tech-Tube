@@ -9,7 +9,7 @@ const login = async (req, res) => {
     if (user && user.password === password) {
       const token = generateToken(user);
       res.cookie('token', token, { httpOnly: true});
-      res.json({ message: 'Login successful' });
+      res.json({ message: 'Login successful', user:{ username: user.username, image: user.image }});
     } else {
       res.status(401).json({ message: 'Invalid username or password' });
     }
@@ -19,25 +19,26 @@ const login = async (req, res) => {
 };
 
 const authenticate = (req, res, next) => {
-  const token = req.cookies.token; // Get the token from cookies
+  const token = req.cookies.token;
   if (!token) return res.status(403).json({ message: 'No token provided' });
 
   try {
-    const decoded = verifyToken(token); // Verify the token
-    req.userId = decoded.id; // Attach user ID to request object
-    next(); // Proceed to the next middleware or route handler
+    const decoded = verifyToken(token);
+    req.userId = decoded.id;
+    next();
   } catch (err) {
     res.status(500).json({ message: 'Failed to authenticate token' });
   }
 };
 
-const checkAuth = (req, res) => {
-  const token = req.cookies.token; // Get the token from cookies
+const checkAuth = async (req, res) => {
+  const token = req.cookies.token;
   if (!token) return res.status(200).json({ isAuthenticated: false });
 
   try {
-    verifyToken(token); // Verify the token
-    res.status(200).json({ isAuthenticated: true });
+    const decoded = verifyToken(token);
+    const user = await User.findById(decoded.id);
+    res.status(200).json({ isAuthenticated: true, user: { username: user.username, image: user.image } });
   } catch (err) {
     res.status(200).json({ isAuthenticated: false });
   }
@@ -48,4 +49,4 @@ const logout = (req, res) => {
   res.json({ message: 'Logout successful' });
 };
 
-export { login, authenticate, checkAuth , logout};
+export { login, authenticate, checkAuth, logout };
