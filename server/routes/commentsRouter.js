@@ -1,5 +1,6 @@
 import express from 'express';
-import { getComment, getComments, deleteComment, updateComment } from '../controllers/commentsController.js';
+import { getComment, getComments, addComment, deleteComment, 
+    updateComment } from '../controllers/commentsController.js';
 
 
 const commentsRouter = express.Router({ mergeParams: true });
@@ -11,5 +12,6 @@ commentsRouter.route('/:cid')
 
     commentsRouter.route('/')
     .get(getComments)
+    .post(addComment)
 
 export default commentsRouter;

@@ -59,9 +59,9 @@ export const getPublisherVideos = async (req, res) => {
 
 export const getMainPageVideos = async (req, res) => {
     try {
-        const videos = await getMainPageVideosFromDB();
+        const mainPageVideos = await getMainPageVideosFromDB();
 
-        res.status(200).json(videos);
+        res.status(200).json(mainPageVideos);
     } catch (error) {
         console.error('Error fetching videos:', error);
         res.status(500).json({ message: 'Internal server error' });

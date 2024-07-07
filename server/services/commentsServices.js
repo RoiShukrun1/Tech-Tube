@@ -114,3 +114,34 @@ export const deleteCommentFromDB = async (videoId, commentId) => {
         await client.close();
     }
 };
+
+export const addCommentToDB = async (videoId, newComment) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const db = client.db('TechTitans');
+        const collection = db.collection('Videos');
+
+        const videoIdtoNum = parseInt(videoId);
+
+        const result = await collection.updateOne(
+            { id: videoIdtoNum },
+            { $push: { comments: newComment } }
+        );
+
+        if (result.matchedCount === 0) {
+            throw new Error('video not found'); // Throw an error if no account was deleted
+        }
+
+        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+
+        return video.comments.find(comment => comment.id === newComment.id);
+
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        throw error; // Throw the error to be handled by the caller
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+}
