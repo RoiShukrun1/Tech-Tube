@@ -118,7 +118,7 @@ export const getallVideosFromDB = async () => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videos = await collection.find({}).toArray();
+        const videos = await collection.find({}).sort({ id: 1 }).toArray();
 
         return videos; // Return the fetched account
     } catch (error) {
