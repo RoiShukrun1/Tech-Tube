@@ -157,7 +157,7 @@ export const Registration = () => {
             };
             try {
                 console.log(base64Image); 
-                await axios.post('http://localhost:5001/users/register', newData); // Connect to your backend API
+                await axios.post('http://localhost/api/users/register', newData); // Connect to your backend API
                 alert("Registration successful");
                 navigate('/login'); // Navigate to the login page
             } catch (error) {
