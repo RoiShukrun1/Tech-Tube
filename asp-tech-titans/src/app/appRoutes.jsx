@@ -6,12 +6,11 @@ import Registration from '../registration-page/registration';
 import VideoWatchPage from '../video-watch-page/videoWatchPage';
 import UploadPage from '../add-video-page/upload-video';
 import AddPage from '../add-video-page/add-video';
-import VideoList from '../contexts/contextCheck';
-import { VideoProvider } from '../contexts/videoContext'; // Import the VideoContext
-import { AccountProvider } from '../contexts/accountContext'; // Import the AccountContext
-import { LoginProvider } from '../contexts/loginContext'; // Import the LoginContext
+import { VideoProvider } from '../contexts/videoContext'; 
+import { UserProvider } from '../contexts/userContext'; 
+import { LoginProvider } from '../contexts/loginContext'; 
 import { VideoDataProvider } from '../contexts/videoDataContext';
-import LoginValidation from './loginValidation'; // Import the LoginValidation component
+import LoginValidation from './loginValidation';
 import { CurrentVideoProvider } from '../video-watch-page/currentVideoContext';
 import PublisherChannelPage from '../publisher-chanel-page/publisherChannelPage';
 
@@ -19,7 +18,7 @@ const AppRoutes = () => {
   return (
     <VideoDataProvider>
       <LoginProvider>
-        <AccountProvider>
+        <UserProvider>
           <VideoProvider>
             <CurrentVideoProvider>
               <Routes>
@@ -35,7 +34,7 @@ const AppRoutes = () => {
               </Routes>
             </CurrentVideoProvider>
           </VideoProvider>
-        </AccountProvider>
+        </UserProvider>
       </LoginProvider>
     </VideoDataProvider>
   );

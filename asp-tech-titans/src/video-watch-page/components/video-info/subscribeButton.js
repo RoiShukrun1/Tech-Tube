@@ -1,5 +1,6 @@
 import React from 'react';
 import './subscribeButton.css';
+import axios from 'axios';
 
 function subscribeButton({ setUsers, currentUser, publisher }) {
 
@@ -36,8 +37,7 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
     };
 
     // Function to add subscription
-    const addSubscription = () => {
-        console.log(currentUser)
+    const addSubscription = async () => {
         setUsers(prevUsers => {
             const updatedUsers = [...prevUsers];
             if (currentUser && currentUser.subscriptions) {
@@ -45,6 +45,9 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
             }
             return updatedUsers;
         });
+
+        // const path = 'http://localhost/api/users/' + currentUser.username;
+        // const result = await axios.patch(path, {subscription : ['Aviel Segev', 'ROI GOLAN']});
     };
 
     return (
