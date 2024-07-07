@@ -7,6 +7,7 @@ import customEnv from 'custom-env';
 import cookieParser from 'cookie-parser';
 import tokenRoutes from './routes/tokenRoutes.js';
 import videoUploadedRoutes from './routes/videoUploadedRoutes.js'; // Import video routes
+import mainPageVideosRouter from './routes/mainPageVideosRouter.js';
 
 // Load environment variables from ./config based on the NODE_ENV
 customEnv.env(process.env.NODE_ENV, './config');
@@ -28,6 +29,7 @@ server.use('/uploads', express.static('uploads')); // Serve static files correct
 server.use('/api/users', usersRoutes);
 server.use('/api/token', tokenRoutes);
 server.use('/api/users/:id', videoUploadedRoutes); // Use video routes
+server.use('/api/videos',mainPageVideosRouter);
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
