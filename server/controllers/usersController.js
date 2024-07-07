@@ -2,6 +2,7 @@ import User from '../models/usersModel.js';
 import fs from 'fs';
 import path from 'path';
 import { getUserFromDB, deleteUserFromDB, patchUserinDB } from '../services/usersServices.js';
+import { saveBase64Image } from '../services/usersServices.js';
 
 export const getUser = async (req, res) => {
     try {

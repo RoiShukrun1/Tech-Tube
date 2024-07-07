@@ -26,18 +26,43 @@ const UploadPage = () => {
       addNewVideo(videoObject);
     }
   };
+
+
+
+
   // Function to handle the button click
   const handleButtonClick = () => {
     videoInputRef.current.click();
   };
   // Function to handle the next button click
-  const handleNextClick = () => {
-    if (video) {
-      navigate('/addVideo');
-    } else {
-      alert("Please upload a video before proceeding to the next page.");
+  const handleNextClick = async (e) => {
+    /*
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('video', videoInputRef.current.files[0]); // Ensure the correct file input reference
+    try {
+        const response = await fetch('http://localhost/api/videos/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Video uploaded successfully:', data);
+        } else {
+            const error = await response.json();
+            console.error('Error uploading video:', error);
+        }
+    } catch (error) {
+        console.error('Error uploading video:', error);
     }
-  };
+    */
+    if (video) {
+        navigate('/addVideo');
+    } else {
+        alert("Please upload a video before proceeding to the next page.");
+    }
+};
 
   return (
     <div className={`upload-warpper ${darkMode ? 'upload-warpper-dark' : ''}`}>
