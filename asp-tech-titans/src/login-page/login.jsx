@@ -20,16 +20,13 @@ export const Login = () => {
     const password = document.getElementById('password').value;
 
     try {
-      // Fetch the account from the server
-      const user = (await axios.get('http://localhost/api/users/' + username)).data;
-
-      // Check if the password is correct
-      if (user && user.password === password) {
-        loggedIn(user);
+      const response = await axios.post('http://localhost/api/token', { username, password }, { withCredentials: true });
+      if (response.data.message === 'Login successful') {
+        loggedIn({ username }); // Update login context
         alert('Login successful');
-        navigate('/mainPage');
+        navigate('/mainPage'); // Navigate to main page
       } else {
-        alert('Incorrect password or username');
+        alert('Login failed');
       }
     } catch (error) {
       alert('Error logging in');
