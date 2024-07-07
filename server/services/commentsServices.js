@@ -1,32 +1,35 @@
 import { MongoClient } from 'mongodb';
 
-export const patchCommentinDB = async (videoId, commentId, updatedParams) => {
-
+export const putCommentinDB = async (videoId, commentId, newComment) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
-
     try {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId); 
+        const videoIdtoNum = parseInt(videoId);
+        const commentIdtoNum = parseInt(commentId);
 
-        const result = await collection.updateOne({ id: videoIdtoNum }, { $set: updatedParams });
+        const result = await collection.updateOne(
+            { id: videoIdtoNum, 'comments.id': commentIdtoNum },
+            { $set: { 'comments.$': newComment } }
+        );
 
         if (result.matchedCount === 0) {
-            throw new Error('Video not found'); // Throw an error if no account was updated
+            throw new Error('Comment not found'); // Throw an error if no comment was updated
         }
 
-        return await collection.findOne({ id: videoIdtoNum });
+        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+
+        return video.comments.find(comment => comment.id === commentIdtoNum);
 
     } catch (error) {
-        console.error('Error updating video:', error);
+        console.error('Error updating comment:', error);
         throw error; // Throw the error to be handled by the caller
     } finally {
         await client.close(); // Close the MongoDB client connection
     }
-
 };
 
 export const getCommentFromDB = async (videoId, commentId) => {
@@ -41,10 +44,11 @@ export const getCommentFromDB = async (videoId, commentId) => {
         const commentIdtoNum = parseInt(commentId);
 
         const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+
         return video.comments.find(comment => comment.id === commentIdtoNum);
 
     } catch (error) {
-        console.error('Error fetching video:', error);
+        console.error('Error fetching comment:', error);
         throw error; // Throw the error to be handled by the caller
     } finally {
         await client.close(); // Close the MongoDB client connection
@@ -59,10 +63,11 @@ export const getCommentsFromDB = async (videoId) => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId); 
-        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        const videoIdtoNum = parseInt(videoId);
 
-        return video; // Return the fetched account
+        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        return video.comments;
+
     } catch (error) {
         console.error('Error fetching video:', error);
         throw error; // Throw the error to be handled by the caller
@@ -71,7 +76,46 @@ export const getCommentsFromDB = async (videoId) => {
     }
 };
 
+// Define the function to delete a specific comment from MongoDB
 export const deleteCommentFromDB = async (videoId, commentId) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    
+    try {
+        // Connect to MongoDB
+        await client.connect();
+
+        // Access the TechTitans database and Videos collection
+        const db = client.db('TechTitans');
+        const collection = db.collection('Videos');
+
+        // Convert parameters to integers if necessary
+        const videoIdNum = parseInt(videoId);
+        const commentIdNum = parseInt(commentId);
+
+        // Delete the comment from the video based on videoId and commentId
+        const result = await collection.updateOne(
+            { id: videoIdNum },
+            { $pull: { comments: { id: commentIdNum } } }
+        );
+
+        // Check if the deletion was successful
+        if (result.modifiedCount > 0) {
+            return { success: true };
+        } else {
+            throw new Error('Comment not found or not deleted');
+        }
+
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        throw error; // Throw the error to be handled by the caller
+
+    } finally {
+        // Ensure client connection is closed after operation
+        await client.close();
+    }
+};
+
+export const addCommentToDB = async (videoId, newComment) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
     try {
         await client.connect(); // Connect to MongoDB
@@ -79,17 +123,25 @@ export const deleteCommentFromDB = async (videoId, commentId) => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId); 
+        const videoIdtoNum = parseInt(videoId);
 
-        const result = await collection.deleteOne({ id: videoIdtoNum });
+        const result = await collection.updateOne(
+            { id: videoIdtoNum },
+            { $push: { comments: newComment } }
+        );
 
-        if (result.deletedCount === 0) {
+        if (result.matchedCount === 0) {
             throw new Error('video not found'); // Throw an error if no account was deleted
         }
+
+        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+
+        return video.comments.find(comment => comment.id === newComment.id);
+
     } catch (error) {
-        console.error('Error deleting video:', error);
+        console.error('Error adding comment:', error);
         throw error; // Throw the error to be handled by the caller
     } finally {
         await client.close(); // Close the MongoDB client connection
     }
-};
+}

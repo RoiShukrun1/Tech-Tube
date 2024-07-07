@@ -190,15 +190,15 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             <button type="button" className="btn btn-light download-button" onClick={download}>
                 <Download /> Download
             </button>
-            <div className="btn-group" role="group" style={{ float: 'right', 'margin-right': '1%' }}>
-                <button
-                    type="button"
-                    className="btn btn-light share-button dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    <Share /> Share
-                </button>
+            <button
+                type="button"
+                className="btn btn-light share-button dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                <Share /> Share
+            </button>
+            <div className="btn-group" role="group" style={{ float: 'right' }}>
                 <ul className="dropdown-menu">
                     <li>
                         <button className="dropdown-item" href="#" onClick={copyUrl}>
