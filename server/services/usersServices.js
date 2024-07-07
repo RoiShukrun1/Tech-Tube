@@ -10,7 +10,7 @@ export const patchUserinDB = async (username, updatedParams) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('accounts');
+        const collection = db.collection('users');
 
         const result = await collection.updateOne({ username: username }, { $set: updatedParams });
 
