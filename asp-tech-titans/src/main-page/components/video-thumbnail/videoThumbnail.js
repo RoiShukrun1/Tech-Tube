@@ -29,7 +29,6 @@ const VideoThumbnail = ({ video }) => {
   const { login } = useContext(LoginContext); // Retrieve the login context
   const { videoData, deleteVideo, setVideoData } = useContext(VideoDataContext); // Retrieve the deleteVideo function from video data context
   const { setVideoUrl } = useContext(CurrentVideoContext);
-  const { users } = useContext(UserContext);
   const { setPublisher } = useContext(CurrentPublisherContext);
 
   /**
@@ -88,9 +87,11 @@ const VideoThumbnail = ({ video }) => {
         <div className="video-info">
           <div className="video-header">
             <Link to="/publisherChannel">
-            <img src={video.publisherImage} alt={video.publisher} className="publisher-image" onClick={handlePublisherClick(video.publisher)}/>
+            <img src={video.publisherImage} alt={video.publisher} className="publisher-image" onClick={() =>handlePublisherClick(video.publisher)}/>
             </Link>
-            <h3 className="video-title">{video.title}</h3>
+            <Link to="/video">
+            <h3 className="video-title" onClick={() => handleVideoClick(video.videoUploaded)}>{video.title}</h3>
+            </Link>
             {login && login.username === video.publisher && (
               <button className="delete-button" onClick={handleDeleteClick}>
                 &#x1F5D1;
@@ -100,7 +101,7 @@ const VideoThumbnail = ({ video }) => {
           <div className="video-details">
             <p className="video-views">{video.views} views • <span className="video-date">{video.date}</span></p>
             <Link to="/publisherChannel">
-              <p className="video-publisher">{video.publisher}</p>
+              <p className="video-publisher" onClick={() =>handlePublisherClick(video.publisher)}>{video.publisher}</p>
             </Link>
           </div>
         </div>

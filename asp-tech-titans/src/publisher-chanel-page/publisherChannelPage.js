@@ -12,28 +12,23 @@ import { UserContext } from "../contexts/userContext";
 import PublisherInfo from "./components/publisherInfo/publisherInfo";
 import { CurrentPublisherContext } from "./currentPublisherContext";
 
-import publisherBanner from "../db/8.jpg";
-import publisherImage from "../db/techTitansLogo.png";
-import axios from "axios";
-
-function getObjectByUrl(jsonData, username) {
-  return jsonData.find((obj) => obj.username === username);
-}
-
 const PublisherChannelPage = () => {
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const { darkMode } = useContext(ThemeContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
-  const [videos, setVideos] = useState(videoData);
+  const [videos, setVideos] = useState([]);
   const { login } = useContext(LoginContext);
   const { setUsers } = useContext(UserContext);
   const { publisher } = useContext(CurrentPublisherContext);
   const [publisherData, setPublisherData] = useState(null);
 
+  const serverBaseUrl = 'http://localhost:80';
+
   useEffect(() => {
     const fetchData = async () => {
-      await updatePublisherData();
-      await updateVideosData();
+      const fetchedVideos = await getPublisherVideos(publisher);
+      setVideos(fetchedVideos);
+      await updatePublisherData(fetchedVideos);
     };
     fetchData();
   }, []);
@@ -42,7 +37,6 @@ const PublisherChannelPage = () => {
     const path = "http://localhost/api/users/" + publisher;
     const response = await fetch(path);
     const user = await response.json();
-    // const response = await axios.get(path);
     return user;
   };
 
@@ -50,34 +44,36 @@ const PublisherChannelPage = () => {
     const path = "http://localhost/api/users/" + publisher +  "/videos";
     const response = await fetch(path);
     const videos = await response.json();
-    console.log(videos);
     return videos;
-}
-
-const updateVideosData = async () => {
-  const vids = await getPublisherVideos(publisher);
-  setVideos(vids);
-}
-  
-  const updatePublisherData = async () => {
-    const usr = await getUser(publisher);
-    if(usr) {
-    const publisherData = {
-      nickname: usr.nickname,
-      username: usr.username,
-      subscribers: "11",
-      videos: videos.length,
-      banner: publisherBanner,
-      image: usr.image,
-      currentUser: login,
-      setUsers: setUsers,
-    };
-
-    setPublisherData(publisherData);
-
-  }
   };
 
+  const getPublisherSubs = async (publisher) => {
+    const path = "http://localhost/api/users/" + publisher +  "/subscribers";
+    const response = await fetch(path);
+    const subscribers = await response.json();
+    return subscribers;
+  };
+
+  const updatePublisherData = async (fetchedVideos) => {
+    const usr = await getUser(publisher);
+    const subs = await getPublisherSubs(publisher);
+    const imageurl = serverBaseUrl + usr.image;
+    // console.log(imageurl)
+    // console.log(usr)
+    if(usr && imageurl) {
+      const publisherData = {
+        nickname: usr.nickname,
+        username: usr.username,
+        subscribers: subs.l,
+        videos: fetchedVideos.length,
+        banner: imageurl,
+        image: imageurl,
+        currentUser: login,
+        setUsers: setUsers,
+      };
+      setPublisherData(publisherData);
+    }
+  };
 
   useEffect(() => {
     document.body.style.overflowX = "hidden";
@@ -89,7 +85,6 @@ const updateVideosData = async () => {
   useEffect(() => {
     setVideos(videoData);
   }, [videoData]);
-
 
   // Function to handle search and filter videos
   const handleSearch = (query) => {

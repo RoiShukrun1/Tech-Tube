@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './publisherInfo.css';
 import SubscribeButton from '../../../video-watch-page/components/video-info/subscribeButton';
 
