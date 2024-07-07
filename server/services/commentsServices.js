@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-export const patchVideoinDB = async (videoId, updatedParams) => {
+export const patchCommentinDB = async (videoId, commentId, updatedParams) => {
 
     const client = new MongoClient(process.env.CONNECTION_STRING);
 
@@ -29,7 +29,29 @@ export const patchVideoinDB = async (videoId, updatedParams) => {
 
 };
 
-export const getVideoFromDB = async (videoId) => {
+export const getCommentFromDB = async (videoId, commentId) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const db = client.db('TechTitans');
+        const collection = db.collection('Videos');
+
+        const videoIdtoNum = parseInt(videoId);
+        const commentIdtoNum = parseInt(commentId);
+
+        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        return video.comments.find(comment => comment.id === commentIdtoNum);
+
+    } catch (error) {
+        console.error('Error fetching video:', error);
+        throw error; // Throw the error to be handled by the caller
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+};
+
+export const getCommentsFromDB = async (videoId) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
     try {
         await client.connect(); // Connect to MongoDB
@@ -49,7 +71,7 @@ export const getVideoFromDB = async (videoId) => {
     }
 };
 
-export const deleteVideoFromDB = async (videoId) => {
+export const deleteCommentFromDB = async (videoId, commentId) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
     try {
         await client.connect(); // Connect to MongoDB
@@ -71,22 +93,3 @@ export const deleteVideoFromDB = async (videoId) => {
         await client.close(); // Close the MongoDB client connection
     }
 };
-
-export const getPublisherVideosFromDB = async (publisher) => {
-    const client = new MongoClient(process.env.CONNECTION_STRING);
-    try {
-        await client.connect(); // Connect to MongoDB
-
-        const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
-
-        const videos = await collection.find({ publisher: publisher }).toArray();
-
-        return videos; // Return the fetched account
-    } catch (error) {
-        console.error('Error fetching videos:', error);
-        throw error; // Throw the error to be handled by the caller
-    } finally {
-        await client.close(); // Close the MongoDB client connection
-    }
-}

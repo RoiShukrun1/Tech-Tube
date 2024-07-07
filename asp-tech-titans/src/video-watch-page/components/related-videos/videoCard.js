@@ -5,6 +5,7 @@ import axios from 'axios';
 
 // Function to increment views
 export const incrementViews = (setVideos, video) => {
+    
     setVideos(prevVideos => {
         const updatedVideos = [...prevVideos];
 
@@ -42,9 +43,6 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
         incrementViews(setVideos, video);
         setMoreInfoPressed(false);
         setInputValue('');
-
-        // const videoObjectFromSrv = await axios.delete('http://localhost/api/users/aviel/videos/' + '20', {title : 'new title'});
-        // console.log(videoObjectFromSrv.data);
     };
 
     // Function to render play icon
