@@ -89,7 +89,7 @@ export const getPublisherVideosFromDB = async (publisher) => {
     } finally {
         await client.close(); // Close the MongoDB client connection
     }
-}
+};
 
 export const getMainPageVideosFromDB = async () => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
@@ -108,4 +108,23 @@ export const getMainPageVideosFromDB = async () => {
     } finally {
         await client.close(); // Close the MongoDB client connection
     }
-}
+};
+
+export const getallVideosFromDB = async () => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const db = client.db('TechTitans');
+        const collection = db.collection('Videos');
+
+        const videos = await collection.find({}).toArray();
+
+        return videos; // Return the fetched account
+    } catch (error) {
+        console.error('Error fetching videos:', error);
+        throw error; // Throw the error to be handled by the caller
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+};
