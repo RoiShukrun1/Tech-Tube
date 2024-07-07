@@ -1,8 +1,9 @@
 import Account from '../models/usersModel.js';
-import fs from 'fs';
 import path from 'path';
 import { getAccountFromDB } from '../services/usersServices.js';
 import { deleteAccountFromDB } from '../services/usersServices.js';
+import { patchAccountinDB } from '../services/usersServices.js';
+import { saveBase64Image } from '../services/usersServices.js';
 
 export const getAccount = async (req, res) => {
     try {
@@ -12,12 +13,6 @@ export const getAccount = async (req, res) => {
         // if (!account) {
         //     return res.status(404).json({ message: 'Account not found' });
         // }
-    
-        // // Ensure no caching headers are sent to prevent 304 responses
-        // res.set({
-        //     'Cache-Control': 'no-store', // Do not cache response
-        //     'Pragma': 'no-cache', // Do not cache response
-        // });
 
         res.status(200).json(account); // Send the account object as JSON response
     } catch (error) {
@@ -38,25 +33,20 @@ export const deleteAccount = async (req, res) => {
     }
 };
 
-const ensureDirectoryExistence = async (filePath) => {
-    const dirname = path.dirname(filePath);
+export const updateAccount = async (req, res) => {
     try {
-        await fs.promises.access(dirname);
-    } catch (e) {
-        await ensureDirectoryExistence(dirname);
-        await fs.promises.mkdir(dirname);
-    }
-};
+        const accountUsername = req.params.id;
+        const updatedparms = req.body;
 
-const saveBase64Image = async (base64Image, filePath) => {
-    const matches = base64Image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-    if (!matches || matches.length !== 3) {
-        throw new Error('Invalid base64 image');
+        const result = await patchAccountinDB(accountUsername, updatedparms);
+        console.log(result)
+        res.status(200).json(result);
+
     }
-    const imageBuffer = Buffer.from(matches[2], 'base64');
-    await ensureDirectoryExistence(filePath);
-    await fs.promises.writeFile(filePath, imageBuffer);
-    console.log('Image saved at:', filePath);
+    catch (error) {
+        console.error('Error update account:', error);
+        res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
+    }
 };
 
 export const registerAccount = async (req, res) => {

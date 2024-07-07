@@ -1,6 +1,7 @@
 import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 // Function to increment views
 export const incrementViews = (setVideos, video) => {
@@ -36,11 +37,13 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
     };
 
     // Function to handle click
-    const handleClick = () => {
+    const handleClick = async () => {
         setUrl(video.videoUploaded);
         incrementViews(setVideos, video);
         setMoreInfoPressed(false);
         setInputValue('');
+        const videoObjectFromSrv = await axios.get('http://localhost/api/users/aviel/videos/' + video.id);
+        console.log(videoObjectFromSrv.data);
     };
 
     // Function to render play icon
