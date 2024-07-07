@@ -13,6 +13,7 @@ import { LoginProvider } from '../contexts/loginContext'; // Import the LoginCon
 import { VideoDataProvider } from '../contexts/videoDataContext';
 import LoginValidation from './loginValidation'; // Import the LoginValidation component
 import { CurrentVideoProvider } from '../video-watch-page/currentVideoContext';
+import PublisherChannelPage from '../publisher-chanel-page/publisherChannelPage';
 
 const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const AppRoutes = () => {
                 <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
                 <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
                 <Route path="/videoList" element={<VideoList />} />
+                <Route path="/publisherChannel" element={<PublisherChannelPage />} />
               </Routes>
             </CurrentVideoProvider>
           </VideoProvider>
