@@ -71,6 +71,28 @@ export const deleteUserFromDB = async (username) => {
     }
 };
 
+export const getSubscribersFromDB = async (username) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const db = client.db('TechTitans');
+        const collection = db.collection('users');
+
+        // Use $in operator to find documents where subscriptions array contains username
+        const subscribers = await collection.find({ subscriptions: { $in: [username] } }).toArray();
+
+        console.log(subscribers)
+
+        return subscribers; // Return the fetched users as an array
+    } catch (error) {
+        console.error('Error fetching subscribers:', error);
+        throw error; // Throw the error to be handled by the caller
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+};
+    
 export const saveBase64Image = async (base64Image, filePath) => {
     const matches = base64Image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     if (!matches || matches.length !== 3) {

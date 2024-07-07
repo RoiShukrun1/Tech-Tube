@@ -52,7 +52,7 @@ const VideoWatchPage = () => {
   // Function to handle search and filter videos
   const handleSearch = async (query) => {
 
-    const response = await axios.get('http://localhost/api/videos/all');
+    const response = await axios.get('http://localhost/api/users/Omer Adam/subscribers');
     console.log(response.data);
 
     const filteredVideos = videoData.filter(video => video.title.toLowerCase().includes(query.toLowerCase()));

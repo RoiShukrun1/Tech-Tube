@@ -1,7 +1,8 @@
 import User from '../models/usersModel.js';
 import fs from 'fs';
 import path from 'path';
-import { getUserFromDB, deleteUserFromDB, patchUserinDB } from '../services/usersServices.js';
+import { getUserFromDB, deleteUserFromDB, 
+    patchUserinDB, getSubscribersFromDB} from '../services/usersServices.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -46,6 +47,19 @@ export const updateAccount = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
     }
 };
+
+export const getSubscribers = async (req, res) => {
+    try {
+        const username = req.params.id;
+        const userSubscribes = await getSubscribersFromDB(username);
+
+        res.status(200).json(userSubscribes);
+    } catch (error) {
+        console.error('Error fetching subscribers:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+
+}
 
 export const registerUser = async (req, res) => {
     const session = await User.startSession();
