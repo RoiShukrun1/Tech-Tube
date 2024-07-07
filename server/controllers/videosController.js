@@ -21,8 +21,8 @@ export const getVideo = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
     try {
-        const accountUsername = req.params.id;
-        await deleteVideoFromDB(accountUsername);
+        const videoId = req.params.pid;
+        await deleteVideoFromDB(videoId);
 
         res.status(200).json({ message: 'video deleted successfully' }); // Send success message
     } catch (error) {
@@ -33,13 +33,12 @@ export const deleteVideo = async (req, res) => {
 
 export const updateVideo = async (req, res) => {
     try {
-        const accountUsername = req.params.id;
+        const videoId = req.params.pid;
         const updatedparms = req.body;
 
-        const result = await patchVideoinDB(accountUsername, updatedparms);
-        console.log(result)
+        const result = await patchVideoinDB(videoId, updatedparms);
+        
         res.status(200).json(result);
-
     }
     catch (error) {
         console.error('Error update video:', error);

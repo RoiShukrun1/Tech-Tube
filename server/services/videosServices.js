@@ -18,7 +18,7 @@ export const patchVideoinDB = async (videoId, updatedParams) => {
             throw new Error('Video not found'); // Throw an error if no account was updated
         }
 
-        return await collection.findOne({ id: videoId });
+        return await collection.findOne({ id: videoIdtoNum });
 
     } catch (error) {
         console.error('Error updating video:', error);
