@@ -1,8 +1,7 @@
 import User from '../models/usersModel.js';
 import fs from 'fs';
 import path from 'path';
-import { getUserFromDB } from '../services/usersServices.js';
-import { deleteUserFromDB } from '../services/usersServices.js';
+import { getUserFromDB, deleteUserFromDB, patchUserinDB } from '../services/usersServices.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -37,7 +36,7 @@ export const updateAccount = async (req, res) => {
         const accountUsername = req.params.id;
         const updatedparms = req.body;
 
-        const result = await patchAccountinDB(accountUsername, updatedparms);
+        const result = await patchUserinDB(accountUsername, updatedparms);
         console.log(result)
         res.status(200).json(result);
 

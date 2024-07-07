@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 import fs from 'fs';
 import path from 'path';
 
-export const patchAccountinDB = async (username, updatedParams) => {
+export const patchUserinDB = async (username, updatedParams) => {
 
     const client = new MongoClient(process.env.CONNECTION_STRING);
     console.log(username, updatedParams)
