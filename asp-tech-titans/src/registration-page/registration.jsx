@@ -9,7 +9,6 @@ import { ReactComponent as VIcon } from '../images/V.svg'; // Replace '../images
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { useEffect } from 'react';
-import { AccountContext } from '../contexts/accountContext';
 import { ThemeContext } from '../contexts/themeContext';
 import darkLogo from '../images/darkmodelogo.png';
 import defultProfile from '../images/profile.png';
@@ -56,7 +55,6 @@ export const Registration = () => {
     const [nicknameImage, setNicknameImage] = useState(true);
     const [usernameImage, setUsernameImage] = useState(true);
     const navigate = useNavigate();
-    const { addAccount } = useContext(AccountContext);
     // Function to handle the nickname input
     const handleNickname = (event) => {
         const newNickname = event.target.value;
@@ -159,7 +157,7 @@ export const Registration = () => {
             };
             try {
                 console.log(base64Image); 
-                await axios.post('http://localhost:5001/accounts/register', newData); // Connect to your backend API
+                await axios.post('http://localhost:5001/users/register', newData); // Connect to your backend API
                 alert("Registration successful");
                 navigate('/login'); // Navigate to the login page
             } catch (error) {
@@ -216,7 +214,7 @@ export const Registration = () => {
         </div>
         <input type="submit" value="Register" onClick={handleSubmit} />
         <div>
-            <p>Already have an account? <Link to="/login">Log-in</Link></p>
+            <p>Already have an user? <Link to="/login">Log-in</Link></p>
             <p>Continue as guest:   <Link to="/mainPage">Hompage</Link></p>    
         </div>
         </form>

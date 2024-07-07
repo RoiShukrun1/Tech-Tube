@@ -5,14 +5,14 @@ import { ReactComponent as ManIcon } from '../images/user.svg';
 import { ReactComponent as LockIcon } from '../images/lock.svg'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AccountContext } from '../contexts/accountContext'; 
+import { UserContext } from '../contexts/userContext'; 
 import { LoginContext } from '../contexts/loginContext.jsx';
 import { ThemeContext } from '../contexts/themeContext';
 import darkLogo from '../images/darkmodelogo.png'
 
 
 export const Login = () => {
-  const { accounts } = useContext(AccountContext); 
+  const { users } = useContext(UserContext); 
   const { loggedIn } = useContext(LoginContext);
   const { darkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -20,13 +20,13 @@ export const Login = () => {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const account = accounts.find(acc => acc.username === username && acc.password === password);
-    // Check if the account exists
-    if (!account) {
+    const user = users.find(acc => acc.username === username && acc.password === password);
+    // Check if the user exists
+    if (!user) {
       alert('Incorrect password or username');
       return;
     } else {
-      loggedIn(account); 
+      loggedIn(user); 
       alert('Login successful');
       navigate('/mainPage');
     }
@@ -47,7 +47,7 @@ export const Login = () => {
         </div>
         <input type="submit" value="Login" onClick={hundleLogin} />
         <div>
-        <p>Don't have an account? <Link to="/registration">Register</Link></p>
+        <p>Don't have an user? <Link to="/registration">Register</Link></p>
         <p>Continue as guest:   <Link to="/mainPage">Hompage</Link></p>               
         </div>
         </form>
