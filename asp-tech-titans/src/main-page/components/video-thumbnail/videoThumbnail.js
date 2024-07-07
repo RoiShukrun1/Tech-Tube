@@ -30,6 +30,8 @@ const VideoThumbnail = ({ video }) => {
   const { videoData, deleteVideo, setVideoData } = useContext(VideoDataContext); // Retrieve the deleteVideo function from video data context
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const { setPublisher } = useContext(CurrentPublisherContext);
+  const serverBaseUrltype1 = 'http://localhost:80/'; // Make sure this matches your server's URL
+  const serverBaseUrltype2 = 'http://localhost:80'; // Make sure this matches your server's URL
 
   /**
    * Handle mouse enter event
@@ -81,13 +83,13 @@ const VideoThumbnail = ({ video }) => {
         onMouseLeave={handleMouseLeave}
       >
         <Link to="/video">
-          <img src={video.thumbnail} alt={video.title} className="thumbnail-image" onClick={() => handleVideoClick(video.videoUploaded)} />
+          <img src={serverBaseUrltype1+video.thumbnail} alt={video.title} className="thumbnail-image" onClick={() => handleVideoClick(video.videoUploaded)} />
         </Link>
 
         <div className="video-info">
           <div className="video-header">
             <Link to="/publisherChannel">
-            <img src={video.publisherImage} alt={video.publisher} className="publisher-image" onClick={() =>handlePublisherClick(video.publisher)}/>
+            <img src={serverBaseUrltype2+video.publisherImage} alt={video.publisher} className="publisher-image" onClick={() =>handlePublisherClick(video.publisher)}/>
             </Link>
             <Link to="/video">
             <h3 className="video-title" onClick={() => handleVideoClick(video.videoUploaded)}>{video.title}</h3>
