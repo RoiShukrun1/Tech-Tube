@@ -1,6 +1,7 @@
 import User from '../models/usersModel.js';
 import fs from 'fs';
 import path from 'path';
+import { saveBase64Image } from '../services/usersServices.js';
 import { getUserFromDB, deleteUserFromDB, 
     patchUserinDB, getSubscribersFromDB} from '../services/usersServices.js';
 

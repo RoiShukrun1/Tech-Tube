@@ -7,24 +7,26 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../contexts/themeContext';
-
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
     const { videoList } = useContext(VideoContext);
+    const [base64Image, setBase64Image] = useState(null);
     const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
     const navigate = useNavigate();
-    const { addVideoData } = useContext(VideoDataContext);
     const { login } = useContext(LoginContext);
     const { darkMode } = useContext(ThemeContext);
 
     const handleImageUpload = (event) => {
+        setImage(URL.createObjectURL(event.target.files[0]));
         const file = event.target.files[0];
-        if (file) {
-            setImage(URL.createObjectURL(file));
-        }
-    };
+          const reader = new FileReader();
+          reader.onloadend = () => {
+              setBase64Image(reader.result); // Store the Base64 string
+          };
+          reader.readAsDataURL(file);
+      }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const title = document.getElementById("title").value;
         const description = document.getElementById("description").value;
@@ -34,23 +36,39 @@ export const AddVideo = () => {
             alert("All fields are required.");
             return;
         }
-        const newData = {
-            id: videoList.length + 10,
-            videoUploaded: mostRecentVideo ? mostRecentVideo.url : '',
-            thumbnail: image,
-            title: title,
-            publisher: login.username,
-            publisherImage: login.image,
-            views: 0,
-            date: new Date().toLocaleDateString(),
-            description: description,
-            relatedVideos: [{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
-            usersLikes: [],
-            usersUnlikes: [],
-            playlist: playlist,
-            comments: []
-        };
-        addVideoData(newData);
+
+        const formData = new FormData();
+        formData.append('id', videoList.length + 10);
+        formData.append('video', mostRecentVideo.file);
+        formData.append('thumbnail', base64Image);
+        formData.append('title', title);
+        formData.append('publisher', login.username);
+        formData.append('publisherImage', login.image);
+        formData.append('views', 0);
+        formData.append('date', new Date().toLocaleDateString());
+        formData.append('description', description);
+        formData.append('relatedVideos', [{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}]);
+        formData.append('usersLikes', []);
+        formData.append('usersUnlikes', []);
+        formData.append('playlist', playlist);
+        formData.append('comments', []);
+        try {
+            const response = await fetch('http://localhost/api/users/:id/videos', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Video uploaded successfully:', data);
+            } else {
+                const error = await response.json();
+                console.error('Error uploading video:', error);
+            }
+        } catch (error) {
+            console.error('Error uploading video:', error);
+        }
+
         alert("Upload successful");
         navigate('/mainPage');
     }

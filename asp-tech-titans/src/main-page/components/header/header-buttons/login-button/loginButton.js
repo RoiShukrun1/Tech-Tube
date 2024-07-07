@@ -19,6 +19,9 @@ function LoginButton() {
   // Retrieve login state and logout function from LoginContext
   const { login, loggedOut } = useContext(LoginContext);
 
+  // Construct the image URL based on the login state
+  const serverBaseUrl = 'http://localhost:80'; // Make sure this matches your server's URL
+  const loginImageUrl = login ? `${serverBaseUrl}${login.image}` : null;
   /**
    * Handle button click event
    * Logs out the user if they are logged in.
@@ -34,7 +37,7 @@ function LoginButton() {
       <button className="login-button" onClick={handleButtonClick}>
         <img
           className='login-button-img'
-          src={darkMode ? (login ? login.image : loginIconDarkMode) : (login ? login.image : loginIcon)}
+          src={darkMode ? (login ? loginImageUrl : loginIconDarkMode) : (login ? loginImageUrl : loginIcon)}
           alt={login ? "logout" : "login"}
         />
         <span className="tooltip-text">{login ? "Log out" : "Login/ Sign Up"}</span>

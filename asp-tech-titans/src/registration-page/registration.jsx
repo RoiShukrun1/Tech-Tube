@@ -39,7 +39,6 @@ export const Registration = () => {
           const reader = new FileReader();
           reader.onloadend = () => {
               setBase64Image(reader.result); // Store the Base64 string
-              console.log(reader.result);
           };
           reader.readAsDataURL(file);
       }
@@ -156,7 +155,6 @@ export const Registration = () => {
                 image: base64Image
             };
             try {
-                console.log(base64Image); 
                 await axios.post('http://localhost/api/users/register', newData); // Connect to your backend API
                 alert("Registration successful");
                 navigate('/login'); // Navigate to the login page
