@@ -1,8 +1,8 @@
 import User from '../models/usersModel.js';
 import fs from 'fs';
 import path from 'path';
-import { getUserFromDB } from '../services/usersServices.js';
-import { deleteUserFromDB } from '../services/usersServices.js';
+import { getUserFromDB, deleteUserFromDB, 
+    patchUserinDB, getSubscribersFromDB} from '../services/usersServices.js';
 
 export const getUser = async (req, res) => {
     try {
@@ -12,12 +12,6 @@ export const getUser = async (req, res) => {
         // if (!user) {
         //     return res.status(404).json({ message: 'User not found' });
         // }
-    
-        // // Ensure no caching headers are sent to prevent 304 responses
-        // res.set({
-        //     'Cache-Control': 'no-store', // Do not cache response
-        //     'Pragma': 'no-cache', // Do not cache response
-        // });
 
         res.status(200).json(user); // Send the user object as JSON response
     } catch (error) {
@@ -38,26 +32,34 @@ export const deleteUser = async (req, res) => {
     }
 };
 
-const ensureDirectoryExistence = async (filePath) => {
-    const dirname = path.dirname(filePath);
+export const updateAccount = async (req, res) => {
     try {
-        await fs.promises.access(dirname);
-    } catch (e) {
-        await ensureDirectoryExistence(dirname);
-        await fs.promises.mkdir(dirname);
+        const accountUsername = req.params.id;
+        const updatedparms = req.body;
+
+        const result = await patchUserinDB(accountUsername, updatedparms);
+        console.log(result)
+        res.status(200).json(result);
+
+    }
+    catch (error) {
+        console.error('Error update account:', error);
+        res.status(500).json({ message: 'Internal server error' }); // Send 500 error response
     }
 };
 
-const saveBase64Image = async (base64Image, filePath) => {
-    const matches = base64Image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-    if (!matches || matches.length !== 3) {
-        throw new Error('Invalid base64 image');
+export const getSubscribers = async (req, res) => {
+    try {
+        const username = req.params.id;
+        const userSubscribes = await getSubscribersFromDB(username);
+
+        res.status(200).json(userSubscribes);
+    } catch (error) {
+        console.error('Error fetching subscribers:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
-    const imageBuffer = Buffer.from(matches[2], 'base64');
-    await ensureDirectoryExistence(filePath);
-    await fs.promises.writeFile(filePath, imageBuffer);
-    console.log('Image saved at:', filePath);
-};
+
+}
 
 export const registerUser = async (req, res) => {
     const session = await User.startSession();

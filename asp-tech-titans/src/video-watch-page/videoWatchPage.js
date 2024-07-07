@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-
 import { CurrentVideoContext } from './currentVideoContext';
 import VideoPlayer from './components/video-player/videoPlayer';
 import VideoInfo from './components/video-info/videoInfo';
@@ -13,6 +12,7 @@ import { UserContext } from '../contexts/userContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
+import axios from 'axios';
 
 // Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
@@ -50,7 +50,11 @@ const VideoWatchPage = () => {
   const currentUser = login;
 
   // Function to handle search and filter videos
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
+
+    const response = await axios.get('http://localhost/api/users/Omer Adam/subscribers');
+    console.log(response.data);
+
     const filteredVideos = videoData.filter(video => video.title.toLowerCase().includes(query.toLowerCase()));
     if (filteredVideos.length === 0) {
       return;
