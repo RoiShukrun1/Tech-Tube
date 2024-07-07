@@ -8,7 +8,7 @@ export const patchVideoinDB = async (videoId, updatedParams) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const videoIdtoNum = parseInt(videoId); 
 
@@ -35,7 +35,7 @@ export const getVideoFromDB = async (videoId) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const videoIdtoNum = parseInt(videoId); 
         const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
@@ -55,7 +55,7 @@ export const deleteVideoFromDB = async (videoId) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const videoIdtoNum = parseInt(videoId); 
 
@@ -78,7 +78,7 @@ export const getPublisherVideosFromDB = async (publisher) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const videos = await collection.find({ publisher: publisher }).toArray();
 
@@ -97,7 +97,7 @@ export const getMainPageVideosFromDB = async () => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const videos = await collection.find({}).sort({ views: -1 }).toArray();
 
@@ -116,7 +116,7 @@ export const getallVideosFromDB = async () => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const videos = await collection.find({}).sort({ id: 1 }).toArray();
 
