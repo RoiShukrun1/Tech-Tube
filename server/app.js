@@ -6,6 +6,7 @@ import usersRoutes from './routes/usersRoutes.js';
 import customEnv from 'custom-env';
 import cookieParser from 'cookie-parser';
 import tokenRoutes from './routes/tokenRoutes.js';
+import mainPageVideosRouter from './routes/mainPageVideosRouter.js';
 
 customEnv.env(process.env.NODE_ENV, './config')
 
@@ -23,6 +24,7 @@ server.use('/uploads', express.static('uploads')); // Serve static files from th
 
 server.use('/api/users', usersRoutes);
 server.use('/api/token',tokenRoutes);
+server.use('/api/videos',mainPageVideosRouter);
 
 mongoose.connect(mongoURI) // Connect to MongoDB
     .then(() => console.log('MongoDB connected')) // Log success message on successful connection
