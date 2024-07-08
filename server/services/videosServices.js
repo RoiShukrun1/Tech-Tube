@@ -56,10 +56,7 @@ export const deleteVideoFromDB = async (videoId) => {
 
         const db = client.db('TechTitans');
         const collection = db.collection('videos');
-
-        const videoIdtoNum = parseInt(videoId); 
-
-        const result = await collection.deleteOne({ id: videoIdtoNum });
+        const result = await collection.deleteOne({ id: videoId });
 
         if (result.deletedCount === 0) {
             throw new Error('video not found'); // Throw an error if no account was deleted
