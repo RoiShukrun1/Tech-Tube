@@ -1,20 +1,36 @@
 import React from 'react';
 import './publisherInfo.css';
 import SubscribeButton from './subscribeButton';
+import { useContext } from 'react';
+import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
+import { Link } from 'react-router-dom';
 
 // Function to display publisher information
-function publisherInfo({ publisherImage, publisher, setUsers, currentUser }) {
+function PublisherInfo({ publisherImage, publisherName, setUsers, currentUser }) {
+
+    const { publisher, setPublisher } = useContext(CurrentPublisherContext);
+
+    /**
+   * Handle publisher click event
+   * Redirects to the publisher channel page.
+   */
+    const handlePublisherClick = (publisher) => {
+        setPublisher(publisher);
+    };
 
     const baseServerUrl = 'http://localhost';
 
     return (
         <span>
-            <img className="publisher-photo" src={baseServerUrl + publisherImage} alt={publisher} />
-            <h1 className='publisher'>{publisher}</h1>
+            <Link to="/publisherChannel">
+                <img className="publisher-photo" src={baseServerUrl + publisherImage} alt={publisherName}
+                    onClick={() => handlePublisherClick(publisherName)} />
+            </Link>
+            <h1 className='publisher'>{publisherName}</h1>
             <SubscribeButton
-                setUsers={setUsers} currentUser={currentUser} publisher={publisher} />
+                setUsers={setUsers} currentUser={currentUser} publisher={publisherName} />
         </span>
     );
 }
 
-export default publisherInfo;
+export default PublisherInfo;

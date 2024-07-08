@@ -186,7 +186,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             </h1>
             <PublisherInfo
                 publisherImage={publisherImage}
-                publisher={publisher}
+                publisherName={publisher}
                 setUsers={setUsers}
                 currentUser={currentUser}
             />
