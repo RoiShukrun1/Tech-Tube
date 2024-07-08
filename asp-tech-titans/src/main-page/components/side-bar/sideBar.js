@@ -18,6 +18,9 @@ import techTitansLogo from '../../../db/techTitansLogo.png';
 import techTitansLogoDM from '../../../db/techTitansLogoDM.png';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../contexts/themeContext';
+import { LoginContext } from '../../../contexts/loginContext';
+import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
+
 
 /**
  * Sidebar Component
@@ -29,12 +32,27 @@ import { ThemeContext } from '../../../contexts/themeContext';
 function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage the menu's open/closed status
   const { darkMode } = useContext(ThemeContext); // Retrieve the darkMode value from ThemeContext
+  const { login } = useContext(LoginContext); // Retrieve the login context
+  const { setPublisher } = useContext(CurrentPublisherContext);
+
 
   /**
    * Toggle the menu's open/closed status
    */
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+   /**
+   * Handle your channel click event
+   * Redirects to the publisher channel page.
+   */
+   const handleYourChannelClick = (login) => {
+    if(!login){
+      alert('You must login to enter your channel!');
+      return;
+    }
+    setPublisher(login);
   };
 
   return (
@@ -49,7 +67,9 @@ function Sidebar() {
           <ul className="list-group list-group-flush">
             <Link to="/mainPage"><li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li></Link>
             <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
-            <li className="list-group-item"><img src={forYouIcon} alt="For You" /> For you</li>
+            <Link to="/publisherChannel">
+            <li className="list-group-item" onClick={() =>handleYourChannelClick(login)}><img src={forYouIcon} alt="For You" /> Your Channel</li>
+            </Link>
             <div className="divider"></div>
             <div className="categories-label">Categories</div>
             <li className="list-group-item no-icon">Sitcoms</li>
