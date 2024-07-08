@@ -29,29 +29,6 @@ function RelatedVideos({ setMoreInfoPressed, setInputValue }) {
 
     const currentVideo = getObjectByUrl(videoData, videoUrl);
 
-    // const currentVideo = {
-    //     "id": "11",
-    //     "videoUploaded": "uploads\\uploadedVideos\\1.mp4",
-    //     "thumbnail": "uploads/thumbnail/1.png",
-    //     "title": "Realme Watch 3 vs. Realme Watch 2 Pro",
-    //     "publisher": "Innovate",
-    //     "publisherImage": "/uploads/profilePictures/Innovate.png",
-    //     "views": 0,
-    //     "date": "8.7.2024",
-    //     "description": "Battle of the smartwatches! See how the Realme Watch 3 stacks up against the Realme Watch 2 Pro. Which one is right for you?",
-    //     "relatedVideos": [
-    //         "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
-    //     ],
-    //     "usersLikes": [
-    //         ""
-    //     ],
-    //     "usersUnlikes": [
-    //         ""
-    //     ],
-    //     "playlist": "music",
-    //     "comments": []
-    // }
-
     useEffect(() => {
         const fetchRelatedVideos = async () => {
             try {
@@ -67,8 +44,6 @@ function RelatedVideos({ setMoreInfoPressed, setInputValue }) {
     return (
         <div className="related-videos">
             <div className="video-list">
-                {console.log('relatedVideos:', relatedVideos)};
-
                 {relatedVideos.map((relateVideo) => (
                     <VideoCard
                         video={relateVideo}

@@ -17,6 +17,8 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     var profilePicture = commentObj.image
     var likesNumber = commentObj.likes
 
+    const baseServerUrl = 'http://localhost';
+
     // set states
     const [commentInputValue, setCommentInputValue] = useState(comment);
     const [isPencilClicked, setIsPencilClicked] = useState(false);
@@ -284,7 +286,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         <div className="border">
             <div className="row">
                 <div className="col">
-                    <img className="circle-image" alt="" src={profilePicture} />
+                    <img className="circle-image" alt="" src={baseServerUrl + profilePicture} />
                 </div>
                 <div className="col-11" style={{ padding: 0 }}>
 

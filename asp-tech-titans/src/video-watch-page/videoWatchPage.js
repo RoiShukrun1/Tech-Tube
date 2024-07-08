@@ -56,33 +56,6 @@ const VideoWatchPage = () => {
 
   // Get the current video object by URL
   const currentVideo = getObjectByUrl(videoData, videoUrl);
-  // const currentVideo = {
-  //   id: 11,
-  //   videoUploaded: 'https://www.youtube.com/watch?v=6v2L2UGZJAM',
-  //   thumbnail: 'https://via.placeholder.com/150',
-  //   title: 'Video Title',
-  //   publisher: 'Publisher Name',
-  //   publisherImage: 'https://via.placeholder.com/150',
-  //   description: 'Video Description',
-  //   views: 100,
-  //   date: '2021-08-01',
-  //   likes: 10,
-  //   dislikes: 1,
-  //   relatedVideos: [{"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
-  //   usersLikes: [1, 2, 3],
-  //   usersUnlikes: [4, 5],
-  //   playlist: 'Playlist Name',
-  //   comments: [
-  //     {
-  //       id: 1,
-  //       userId: 1,
-  //       comment: 'This is a comment',
-  //       likes: 10,
-  //       dislikes: 1,
-
-  //     }
-  //   ],
-  // }
 
   const currentUser = login;
 
