@@ -20,7 +20,9 @@ import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../contexts/themeContext';
 import { LoginContext } from '../../../contexts/loginContext';
 import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
-
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Sidebar Component
@@ -34,7 +36,23 @@ function Sidebar() {
   const { darkMode } = useContext(ThemeContext); // Retrieve the darkMode value from ThemeContext
   const { login } = useContext(LoginContext); // Retrieve the login context
   const { setPublisher } = useContext(CurrentPublisherContext);
+  const navigate = useNavigate();
+  const [loggedInuser, setLoggedInUser] = useState(null); // State to manage the logged-in user
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get('http://localhost/api/token/checkAuth', { withCredentials: true });
+        if (response.data.isAuthenticated) {
+          setLoggedInUser(response.data.user);
+        }
+      } catch (error) {
+        alert("Error checking authentication.");
+      }
+    };
+    
+    checkAuth();
+  }, []); 
 
   /**
    * Toggle the menu's open/closed status
@@ -47,12 +65,26 @@ function Sidebar() {
    * Handle your channel click event
    * Redirects to the publisher channel page.
    */
-   const handleYourChannelClick = (login) => {
-    if(!login){
+   const handleYourChannelClick = () => {
+    if(!loggedInuser){
+      setPublisher(null);
       alert('You must login to enter your channel!');
       return;
+    } else {
+    setPublisher(loggedInuser.username);
+    navigate('/publisherChannel');
     }
-    setPublisher(login);
+  };
+
+  const handleDeleteUserClick = async (e) => {
+    try {
+      const response = await axios.delete(`http://localhost:80/api/users/${loggedInuser.username}`);
+      if (response.status === 200) {
+        alert('User deleted successfully');
+      }
+    } catch (error) {
+      alert('Error deleting user');
+    }
   };
 
   return (
@@ -67,9 +99,7 @@ function Sidebar() {
           <ul className="list-group list-group-flush">
             <Link to="/mainPage"><li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li></Link>
             <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
-            <Link to="/publisherChannel">
-            <li className="list-group-item" onClick={() =>handleYourChannelClick(login)}><img src={forYouIcon} alt="For You" /> Your Channel</li>
-            </Link>
+            <li className="list-group-item" onClick={() =>handleYourChannelClick()}><img src={forYouIcon} alt="For You" /> Your Channel</li>
             <div className="divider"></div>
             <div className="categories-label">Categories</div>
             <li className="list-group-item no-icon">Sitcoms</li>
@@ -94,7 +124,7 @@ function Sidebar() {
             <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
             <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
             <li className="list-group-item"><img src={help} alt="Home" />Help</li>
-            <li className="list-group-item"><img src={feedback} alt="Home" />Send feedback</li>        
+            <li className="list-group-item" onClick={() =>handleDeleteUserClick()} ><img src={feedback} alt="Home" />Delete user </li>        
              </ul>
         </div>
       </div>

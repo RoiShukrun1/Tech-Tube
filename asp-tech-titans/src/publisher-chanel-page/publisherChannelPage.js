@@ -64,7 +64,7 @@ const PublisherChannelPage = () => {
       const publisherData = {
         nickname: usr.nickname,
         username: usr.username,
-        subscribers: subs.l,
+        subscribers: subs.length,
         videos: fetchedVideos.length,
         banner: imageurl,
         image: imageurl,
