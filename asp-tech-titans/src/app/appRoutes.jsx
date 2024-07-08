@@ -12,6 +12,9 @@ import { LoginProvider } from '../contexts/loginContext';
 import { VideoDataProvider } from '../contexts/videoDataContext';
 import LoginValidation from './loginValidation';
 import { CurrentVideoProvider } from '../video-watch-page/currentVideoContext';
+import PublisherChannelPage from '../publisher-chanel-page/publisherChannelPage';
+import { CurrentPublisherProvider } from '../publisher-chanel-page/currentPublisherContext';
+
 
 const AppRoutes = () => {
   return (
@@ -20,6 +23,7 @@ const AppRoutes = () => {
         <UserProvider>
           <VideoProvider>
             <CurrentVideoProvider>
+              <CurrentPublisherProvider>
               <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/registration" element={<Registration />} />
@@ -28,7 +32,9 @@ const AppRoutes = () => {
                 <Route path="/video" element={<VideoWatchPage />} />
                 <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
                 <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
+                <Route path="/publisherChannel" element={<PublisherChannelPage />} />
               </Routes>
+              </CurrentPublisherProvider>
             </CurrentVideoProvider>
           </VideoProvider>
         </UserProvider>

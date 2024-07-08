@@ -6,20 +6,14 @@ import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
 import searchVideos from './components/header/search-bar/searchVideos'; 
-import { incrementViews } from '../video-watch-page/components/related-videos/videoCard';
-import { CurrentVideoContext } from '../video-watch-page/currentVideoContext';
 import { ThemeContext } from '../contexts/themeContext'; 
 import { VideoDataContext } from '../contexts/videoDataContext';
 
-function getObjectByUrl(jsonData, url) {
-  return jsonData.find(obj => obj.videoUploaded === url);
-}
 
 const MainPage = () => {
 
-  const { setVideoUrl } = useContext(CurrentVideoContext);
   const { darkMode } = useContext(ThemeContext);
-  const { videoData, setVideoData } = useContext(VideoDataContext);
+  const { videoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState(videoData);
 
   const handleSearch = (query) => {
@@ -27,10 +21,6 @@ const MainPage = () => {
     setVideos(filteredVideos);
   };
 
-  const handleThumbnailClick = (videoUrl) => {
-    setVideoUrl(videoUrl);
-    incrementViews(setVideoData, getObjectByUrl(videoData, videoUrl));
-  };
 
   useEffect(() => {
     document.body.style.overflowX = 'hidden';
@@ -56,7 +46,7 @@ const MainPage = () => {
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
                 <div key={index} className="col-md-4 p-1">
-                  <VideoThumbnail video={newVideo} onClick={() => handleThumbnailClick(newVideo.videoUploaded)} />
+                  <VideoThumbnail video={newVideo}/>
                 </div>
               ))}
             </div>
