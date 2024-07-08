@@ -12,7 +12,6 @@ import { UserContext } from '../contexts/userContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
-import axios from 'axios';
 
 // Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
@@ -28,12 +27,22 @@ const VideoWatchPage = () => {
   const { setUsers } = useContext(UserContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if(videoData.length === 0) {
+      return;
+    } 
+    setIsLoading(false);
+  }, [videoData]);
+
   // Effect to set the video URL whenever it changes
   useEffect(() => {
     if (videoUrl) {
       setVideoUrl(videoUrl);
     }
   }, [videoUrl, setVideoUrl]);
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // State to manage input focus
@@ -47,6 +56,34 @@ const VideoWatchPage = () => {
 
   // Get the current video object by URL
   const currentVideo = getObjectByUrl(videoData, videoUrl);
+  // const currentVideo = {
+  //   id: 11,
+  //   videoUploaded: 'https://www.youtube.com/watch?v=6v2L2UGZJAM',
+  //   thumbnail: 'https://via.placeholder.com/150',
+  //   title: 'Video Title',
+  //   publisher: 'Publisher Name',
+  //   publisherImage: 'https://via.placeholder.com/150',
+  //   description: 'Video Description',
+  //   views: 100,
+  //   date: '2021-08-01',
+  //   likes: 10,
+  //   dislikes: 1,
+  //   relatedVideos: [{"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}],
+  //   usersLikes: [1, 2, 3],
+  //   usersUnlikes: [4, 5],
+  //   playlist: 'Playlist Name',
+  //   comments: [
+  //     {
+  //       id: 1,
+  //       userId: 1,
+  //       comment: 'This is a comment',
+  //       likes: 10,
+  //       dislikes: 1,
+
+  //     }
+  //   ],
+  // }
+
   const currentUser = login;
 
   // Function to handle search and filter videos
@@ -65,6 +102,7 @@ const VideoWatchPage = () => {
   };
 
   return (
+    isLoading ? <div>Loading...</div> :
     <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -95,11 +133,7 @@ const VideoWatchPage = () => {
           </div>
           <div className="col-5">
             <RelatedVideos
-              relatedVideos={currentVideo.relatedVideos}
-              setUrl={setVideoUrl}
-              setVideos={setVideoData}
               setMoreInfoPressed={setMoreInfoPressed}
-              videos={videoData}
               setInputValue={setInputValue}
             />
           </div>

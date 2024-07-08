@@ -1,25 +1,80 @@
 import React from "react";
 import VideoCard from "./videoCard";
 import "./relatedVideos.css";
+import { useContext, useEffect, useState } from "react";
+import { VideoDataContext } from '../../../contexts/videoDataContext';
+import { CurrentVideoContext } from '../../currentVideoContext';
+import axios from 'axios';
 
 // Function to get video by id
 function getVideoById(jsonData, id) {
+    console.log('jsonData:', jsonData);
     return jsonData.find(obj => obj.id === id);
 }
 
+function getObjectByUrl(jsonData, url) {
+    return jsonData.find(obj => obj.videoUploaded === url);
+}
+
 // Related videos component
-function relatedVideos({ videos, relatedVideos, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
+function RelatedVideos({ setMoreInfoPressed, setInputValue }) {
+
+    const { videoData } = useContext(VideoDataContext);
+    const { videoUrl } = useContext(CurrentVideoContext);
+    const [relatedVideos, setRelatedVideos] = useState([]);
+
+    const getRelatedVideos = async (id) => {
+        return (await axios.get('http://localhost/api/users/ID/videos/' + id + '/relatedvideos')).data;
+    }
+
+    const currentVideo = getObjectByUrl(videoData, videoUrl);
+
+    // const currentVideo = {
+    //     "id": "11",
+    //     "videoUploaded": "uploads\\uploadedVideos\\1.mp4",
+    //     "thumbnail": "uploads/thumbnail/1.png",
+    //     "title": "Realme Watch 3 vs. Realme Watch 2 Pro",
+    //     "publisher": "Innovate",
+    //     "publisherImage": "/uploads/profilePictures/Innovate.png",
+    //     "views": 0,
+    //     "date": "8.7.2024",
+    //     "description": "Battle of the smartwatches! See how the Realme Watch 3 stacks up against the Realme Watch 2 Pro. Which one is right for you?",
+    //     "relatedVideos": [
+    //         "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+    //     ],
+    //     "usersLikes": [
+    //         ""
+    //     ],
+    //     "usersUnlikes": [
+    //         ""
+    //     ],
+    //     "playlist": "music",
+    //     "comments": []
+    // }
+
+    useEffect(() => {
+        const fetchRelatedVideos = async () => {
+            try {
+                setRelatedVideos(await getRelatedVideos(currentVideo.id));
+            } catch (error) {
+                console.error('Error fetching video list:', error);
+            }
+        };
+
+        fetchRelatedVideos();
+    }, [videoUrl]);
+
     return (
         <div className="related-videos">
             <div className="video-list">
+                {console.log('relatedVideos:', relatedVideos)};
+
                 {relatedVideos.map((relateVideo) => (
                     <VideoCard
-                        video={getVideoById(videos, relateVideo.id)}
-                        setUrl={setUrl}
-                        setVideos={setVideos}
+                        video={relateVideo}
                         setMoreInfoPressed={setMoreInfoPressed}
                         setInputValue={setInputValue}
-                        key={getVideoById(videos, relateVideo.id).id}
+                        key={relateVideo.id}
                     />
                 ))}
             </div>
@@ -27,5 +82,5 @@ function relatedVideos({ videos, relatedVideos, setUrl, setVideos, setMoreInfoPr
     );
 }
 
-export default relatedVideos;
+export default RelatedVideos;
 export { getVideoById };

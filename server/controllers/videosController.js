@@ -1,5 +1,6 @@
 import { getVideoFromDB, getMainPageVideosFromDB, deleteVideoFromDB,
-     patchVideoinDB, getPublisherVideosFromDB, getallVideosFromDB } from '../services/videosServices.js';
+     patchVideoinDB, getPublisherVideosFromDB, getallVideosFromDB, 
+     getRelatedVideosFromDB } from '../services/videosServices.js';
 
 export const getVideo = async (req, res) => {
     try {
@@ -78,3 +79,15 @@ export const getAllVideos = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+export const getRelatedVideos = async (req, res) => {
+    try {
+        const videoId = req.params.pid;
+        const videos = await getRelatedVideosFromDB(videoId);
+
+        res.status(200).json(videos);
+    } catch (error) {
+        console.error('Error fetching videos:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};

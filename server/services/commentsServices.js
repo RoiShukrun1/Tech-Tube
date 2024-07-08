@@ -8,11 +8,10 @@ export const putCommentinDB = async (videoId, commentId, newComment) => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId);
         const commentIdtoNum = parseInt(commentId);
 
         const result = await collection.updateOne(
-            { id: videoIdtoNum, 'comments.id': commentIdtoNum },
+            { id: videoId, 'comments.id': commentIdtoNum },
             { $set: { 'comments.$': newComment } }
         );
 
@@ -40,10 +39,9 @@ export const getCommentFromDB = async (videoId, commentId) => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId);
         const commentIdtoNum = parseInt(commentId);
 
-        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        const video = await collection.findOne({ id: parseInt(videoId) });
 
         return video.comments.find(comment => comment.id === commentIdtoNum);
 
@@ -63,9 +61,7 @@ export const getCommentsFromDB = async (videoId) => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId);
-
-        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        const video = await collection.findOne({ id: parseInt(videoId) });
         return video.comments;
 
     } catch (error) {
@@ -89,12 +85,11 @@ export const deleteCommentFromDB = async (videoId, commentId) => {
         const collection = db.collection('Videos');
 
         // Convert parameters to integers if necessary
-        const videoIdNum = parseInt(videoId);
         const commentIdNum = parseInt(commentId);
 
         // Delete the comment from the video based on videoId and commentId
         const result = await collection.updateOne(
-            { id: videoIdNum },
+            { id: videoId },
             { $pull: { comments: { id: commentIdNum } } }
         );
 
@@ -123,10 +118,8 @@ export const addCommentToDB = async (videoId, newComment) => {
         const db = client.db('TechTitans');
         const collection = db.collection('Videos');
 
-        const videoIdtoNum = parseInt(videoId);
-
         const result = await collection.updateOne(
-            { id: videoIdtoNum },
+            { id: videoId },
             { $push: { comments: newComment } }
         );
 

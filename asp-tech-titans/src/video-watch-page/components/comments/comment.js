@@ -62,7 +62,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     }, [putSendToSrv]);
 
     useEffect(() => {
-        console.log('delSendToSrv:', delSendToSrv);
         const delComment = async () => {
             if (currentUser === null) return;
             if (currentVideoId === null) return;

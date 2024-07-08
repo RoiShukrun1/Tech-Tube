@@ -5,7 +5,7 @@ export const CurrentVideoContext = createContext();
 
 // Provider component
 export const CurrentVideoProvider = ({ children }) => {
-  const [videoUrl, setVideoUrl] = useState('/db/videos/1Digitalization; Where to start_.mp4');
+  const [videoUrl, setVideoUrl] = useState('uploads\\uploadedVideos\\11.mp4');
 
   return (
     <CurrentVideoContext.Provider value={{ videoUrl, setVideoUrl }}>
