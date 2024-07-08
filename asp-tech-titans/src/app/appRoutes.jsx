@@ -6,7 +6,7 @@ import Registration from '../registration-page/registration';
 import VideoWatchPage from '../video-watch-page/videoWatchPage';
 import UploadPage from '../add-video-page/upload-video';
 import AddPage from '../add-video-page/add-video';
-import {searchVideos} from '../searched-videos-page/searchedVideosPage';
+import SearchedVideosPage from '../searched-videos-page/searchedVideosPage';
 import { VideoProvider } from '../contexts/videoContext'; 
 import { UserProvider } from '../contexts/userContext'; 
 import { LoginProvider } from '../contexts/loginContext'; 
@@ -34,7 +34,7 @@ const AppRoutes = () => {
                 <Route path="/uploadPage" element={<LoginValidation><UploadPage /></LoginValidation>} />
                 <Route path="/addVideo" element={<LoginValidation><AddPage /></LoginValidation>} />
                 <Route path="/publisherChannel" element={<PublisherChannelPage />} />
-                <Route path="/search" element={<searchVideos />} />
+                <Route path="/search" element={<SearchedVideosPage />} />
               </Routes>
               </CurrentPublisherProvider>
             </CurrentVideoProvider>

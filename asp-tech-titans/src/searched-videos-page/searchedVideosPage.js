@@ -1,80 +1,55 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./searchedVideosPage.css";
-import React, { useState, useEffect, useContext } from "react";
-import VideoThumbnail from "../main-page/components/video-thumbnail/videoThumbnail";
-import Sidebar from "../main-page/components/side-bar/sideBar";
-import Header from "../main-page/components/header/header";
-import { CurrentVideoContext } from "../video-watch-page/currentVideoContext";
-import { ThemeContext } from "../contexts/themeContext";
-import { VideoDataContext } from "../contexts/videoDataContext";
-import { LoginContext } from "../contexts/loginContext";
-import { UserContext } from "../contexts/userContext";
-import PublisherInfo from "./components/publisherInfo/publisherInfo";
-import { CurrentPublisherContext } from "./currentPublisherContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './searchedVideosPage.css'; 
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import VideoThumbnail from '../main-page/components/video-thumbnail/videoThumbnail';
+import Filters from '../main-page/components/filters/filters';
+import Sidebar from '../main-page/components/side-bar/sideBar';
+import Header from '../main-page/components/header/header';
+import searchVideos from '../main-page/components/header/search-bar/searchVideos'; 
+import { ThemeContext } from '../contexts/themeContext'; 
+import { VideoDataContext } from '../contexts/videoDataContext';
 
-const PublisherChannelPage = () => {
-  const { setVideoUrl } = useContext(CurrentVideoContext);
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+const SearchedVideosPage = () => {
   const { darkMode } = useContext(ThemeContext);
-  const { videoData, setVideoData } = useContext(VideoDataContext);
-  const [videos, setVideos] = useState([]);
-//   const { login } = useContext(LoginContext);
-//   const { setUsers } = useContext(UserContext);
-//   const { publisher } = useContext(CurrentPublisherContext);
-//   const [publisherData, setPublisherData] = useState(null);
+  const { videoData } = useContext(VideoDataContext);
+  const [videos, setVideos] = useState(videoData);
 
-  const serverBaseUrl = 'http://localhost:80';
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const fetchedVideos = await getPublisherVideos(publisher);
-//       setVideos(fetchedVideos);
-//       await updatePublisherData(fetchedVideos);
-//     };
-//     fetchData();
-//   }, []);
-
-//   const getUser = async (publisher) => {
-//     const path = "http://localhost/api/users/" + publisher;
-//     const response = await fetch(path);
-//     const user = await response.json();
-//     return user;
-//   };
-
+  const query = useQuery().get('q');
 
   useEffect(() => {
-    document.body.style.overflowX = "hidden";
+    document.body.style.overflowX = 'hidden';
     return () => {
-      document.body.style.overflowX = "auto";
+      document.body.style.overflowX = 'auto';
     };
   }, []);
 
   useEffect(() => {
-    setVideos(videoData);
-  }, [videoData]);
-
-  // Function to handle search and filter videos
-  const handleSearch = (query) => {
-    const filteredVideos = videoData.filter((video) =>
-      video.title.toLowerCase().includes(query.toLowerCase())
-    );
-    if (filteredVideos.length === 0) {
-      return;
+    if (query) {
+      const filteredVideos = searchVideos(videoData, query);
+      setVideos(filteredVideos);
+    } else {
+      setVideos(videoData);
     }
-    setVideoUrl(filteredVideos[0].videoUploaded);
-  };
+  }, [query, videoData]);
 
   return (
-    <div className={`container-fluid main-page ${darkMode ? "dark" : ""}`}>
+    <div className={`container-fluid main-page ${darkMode ? 'dark' : ''}`}>
       <div className="row no-gutters">
         <div className="col-md-2 p-0">
           <Sidebar />
         </div>
         <div className="col-md-10 p-0">
-          <Header onSearch={handleSearch} />
+          <Header onSearch={() => {}} /> {/* Optionally handle search within this page */}
           <div className="container-fluid p-0">
+            <Filters />
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
-                <div key={index} className="col-md-2 p-1">
+                <div key={index} className="col-md-6 p-1">
                   <VideoThumbnail video={newVideo}/>
                 </div>
               ))}
@@ -86,4 +61,4 @@ const PublisherChannelPage = () => {
   );
 };
 
-export default PublisherChannelPage;
+export default SearchedVideosPage;
