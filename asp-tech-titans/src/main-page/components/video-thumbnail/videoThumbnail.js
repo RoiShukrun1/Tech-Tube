@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import './videoThumbnail.css';
 import { Link } from 'react-router-dom';
 import { LoginContext } from '../../../contexts/loginContext';
@@ -7,6 +7,7 @@ import { incrementViews } from '../../../video-watch-page/components/related-vid
 import { CurrentVideoContext } from '../../../video-watch-page/currentVideoContext';
 import { UserContext } from '../../../contexts/userContext';
 import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
+import axios from 'axios';
 
 
 
@@ -32,6 +33,23 @@ const VideoThumbnail = ({ video }) => {
   const { setPublisher } = useContext(CurrentPublisherContext);
   const serverBaseUrltype1 = 'http://localhost:80/'; // Make sure this matches your server's URL
   const serverBaseUrltype2 = 'http://localhost:80'; // Make sure this matches your server's URL
+  
+  const [loggedInuser, setLoggedInUser] = useState(null); // State to manage the logged-in user
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get('http://localhost/api/token/checkAuth', { withCredentials: true });
+        if (response.data.isAuthenticated) {
+          setLoggedInUser(response.data.user);
+        }
+      } catch (error) {
+        alert("Error checking authentication.");
+      }
+    };
+    
+    checkAuth();
+  }, []); // Only run once on mount
+
 
   /**
    * Handle mouse enter event
@@ -53,8 +71,16 @@ const VideoThumbnail = ({ video }) => {
    * Handle delete button click event
    * Prevents default action and deletes the video.
    */
-  const handleDeleteClick = (e) => {
+  const handleDeleteClick = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.delete(`http://localhost:80/api/users/:id/videos/${video.id}`);
+      if (response.status === 200) {
+        alert('Video deleted successfully');
+      }
+    } catch (error) {
+      alert('Error deleting video');
+    }
     deleteVideo(video.id);
   };
 
@@ -94,7 +120,7 @@ const VideoThumbnail = ({ video }) => {
             <Link to="/video">
             <h3 className="video-title" onClick={() => handleVideoClick(video.videoUploaded)}>{video.title}</h3>
             </Link>
-            {login && login.username === video.publisher && (
+            {loggedInuser && (video.publisher === loggedInuser.username)  && (
               <button className="delete-button" onClick={handleDeleteClick}>
                 &#x1F5D1;
               </button>

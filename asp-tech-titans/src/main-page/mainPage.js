@@ -15,7 +15,6 @@ const MainPage = () => {
   const { darkMode } = useContext(ThemeContext);
   const { videoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState(videoData);
-
   const handleSearch = (query) => {
     const filteredVideos = searchVideos(videoData, query);
     setVideos(filteredVideos);
