@@ -12,7 +12,6 @@ const videoSchema = new Schema({
     views: { type: Number, default: 0 }, // Number of views, default is 0
     date: { type: Date, default: Date.now }, // Date when the video was uploaded, default is current date/time
     description: { type: String }, // Description of the video
-    relatedVideos: [{ id: { type: Number } }], // Array of related video IDs
     usersLikes: [{ type: Schema.Types.ObjectId, ref: 'User' }], // Array of users who liked the video (assuming User model exists)
     usersUnlikes: [{ type: Schema.Types.ObjectId, ref: 'User' }], // Array of users who unliked the video (assuming User model exists)
     comments: [{

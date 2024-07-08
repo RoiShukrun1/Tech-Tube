@@ -9,7 +9,7 @@ export const uploadVideo = async (req, res) => {
         await saveBase64Image(req.body.thumbnail, thumbnailPath); // Save the thumbnail
         const video = new Video({
             id: req.body.id,
-            video: req.file.path,
+            videoUploaded: req.file.path,
             thumbnail: thumbnailPath, // Save the path to the thumbnail in the document
             title: req.body.title,
             publisher: req.body.publisher,
@@ -17,11 +17,10 @@ export const uploadVideo = async (req, res) => {
             views: req.body.views,
             date: req.body.date,
             description: req.body.description,
-            relatedVideos: req.body.relatedVideos,
-            usersLikes: req.body.usersLikes,
-            usersUnlikes: req.body.usersUnlikes,
+            usersLikes: req.body.usersLikes ? JSON.parse(req.body.usersLikes) : [],
+            usersUnlikes : req.body.usersUnlikes ? JSON.parse(req.body.usersUnlikes) : [],
             playlist: req.body.playlist,
-            comments: req.body.comments
+            comments : req.body.comments ? JSON.parse(req.body.comments) : [],
         });
 
         await video.save();
