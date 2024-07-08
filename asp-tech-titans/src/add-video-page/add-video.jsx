@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../contexts/themeContext';
+import axios from 'axios';
+
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
     const { videoList } = useContext(VideoContext);
@@ -36,9 +38,9 @@ export const AddVideo = () => {
             alert("All fields are required.");
             return;
         }
-
+        const response = await axios.get('http://localhost/api/videos/all');
         const formData = new FormData();
-        formData.append('id', videoList.length + 10);
+        formData.append('id', parseInt(response.data[response.data.length-1].id, 10) + 1);
         formData.append('video', mostRecentVideo.file);
         formData.append('thumbnail', base64Image);
         formData.append('title', title);
