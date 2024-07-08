@@ -58,8 +58,6 @@ const PublisherChannelPage = () => {
     const usr = await getUser(publisher);
     const subs = await getPublisherSubs(publisher);
     const imageurl = serverBaseUrl + usr.image;
-    // console.log(imageurl)
-    // console.log(usr)
     if(usr && imageurl) {
       const publisherData = {
         nickname: usr.nickname,

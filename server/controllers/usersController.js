@@ -39,7 +39,6 @@ export const updateAccount = async (req, res) => {
         const updatedparms = req.body;
 
         const result = await patchUserinDB(accountUsername, updatedparms);
-        console.log(result)
         res.status(200).json(result);
 
     }
