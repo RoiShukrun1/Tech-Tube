@@ -40,7 +40,7 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
                 ) : (
                     <div className="default-banner">
                         <img className="publisher-banner-image-pcp" src={publisherBanner} alt="defaultBanner" />
-                        {currentUser === username && (
+                        {currentUser.username === username && (
                             <label htmlFor="banner-upload" className="upload-banner-label">
                                 <input 
                                     type="file" 
