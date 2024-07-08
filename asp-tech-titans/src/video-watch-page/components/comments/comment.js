@@ -5,6 +5,8 @@ import { ReactComponent as LikeSelected } from './like-selected.svg';
 import { ReactComponent as DislikeSelected } from './dislike-selected.svg';
 import { useState } from 'react';
 import { ReactComponent as Pencil } from './pencil.svg';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
@@ -15,9 +17,15 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     var profilePicture = commentObj.image
     var likesNumber = commentObj.likes
 
+    const baseServerUrl = 'http://localhost';
+
     // set states
     const [commentInputValue, setCommentInputValue] = useState(comment);
     const [isPencilClicked, setIsPencilClicked] = useState(false);
+
+    // state to turn useEffect request to server
+    const [putSendToSrv, setPutSendToSrv] = useState(false);
+    const [delSendToSrv, setDelSendToSrv] = useState(false);
 
     // handle input change
     const handleCommentInputChange = (event) => {
@@ -37,9 +45,48 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         setIsPencilClicked(false);
     };
 
+    useEffect(() => {
+        const updateComment = async () => {
+            if (currentUser === null) return;
+            if (currentVideoId === null) return;
+            if (commentObj === null) return;
+            if (putSendToSrv === false) {
+                return;
+            };
+            
+            // This code will execute after videos state has been updated and rendered
+            const path = 'http://localhost/api/users/' + currentUser.username +
+                '/videos/' + currentVideoId + '/comments/' + commentObj.id;
+            await axios.put(path, commentObj);
+            setPutSendToSrv(false);
+        };
+        updateComment();
+    }, [putSendToSrv]);
+
+    useEffect(() => {
+        const delComment = async () => {
+            if (currentUser === null) return;
+            if (currentVideoId === null) return;
+            if (commentObj === null) return;
+            if (delSendToSrv === false) {
+                return;
+            };
+            
+            // This code will execute after videos state has been updated and rendered
+            const path = 'http://localhost/api/users/' + currentUser.username +
+                '/videos/' + currentVideoId + '/comments/' + commentObj.id;
+            const res = await axios.delete(path);
+            console.log(res);
+            
+            setDelSendToSrv(false);
+        };
+        delComment();
+    }, [delSendToSrv]);
+
     // set new comment content
-    const setNewCommentContent = (newCommentContent) => {
-        setVideos(prevVideos => {
+    const setNewCommentContent = async (newCommentContent) => {
+
+        await setVideos(prevVideos => {
             const updatedVideos = prevVideos.map(video => {
                 if (video.id !== currentVideoId) return video;
 
@@ -60,8 +107,10 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
             return updatedVideos;
         });
-    };
 
+        setPutSendToSrv(true);
+
+    };
 
     // user like function
     const userLike = () => {
@@ -80,7 +129,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     var isUnLiked = userUnLike();
 
     // set the comment as liked
-    const setIsLiked = () => {
+    const setIsLiked = async () => {
         setVideos(prevVideos => {
             const updatedVideos = prevVideos.map(video => {
                 if (video.id !== currentVideoId) return video;
@@ -104,6 +153,8 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
             return updatedVideos;
         });
+
+        setPutSendToSrv(true);
     };
 
     // set the comment as unliked
@@ -131,10 +182,13 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
             return updatedVideos;
         });
+
+        setPutSendToSrv(true);
+
     };
 
     // increase like number
-    const increaseLikeNumber = () => {
+    const increaseLikeNumber = async () => {
         setVideos(prevVideos => {
 
             const updatedVideos = [...prevVideos];
@@ -161,6 +215,9 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
             return updatedVideos;
         });
+
+        setPutSendToSrv(true);
+
     };
 
     // decrease like number
@@ -189,6 +246,8 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
             }
             return updatedVideos;
         });
+
+        setPutSendToSrv(true);
     };
 
     // check if current user is owner of comment
@@ -218,6 +277,8 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
             return updatedVideos;
         });
+
+        setDelSendToSrv(true);
     };
 
 
@@ -225,7 +286,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         <div className="border">
             <div className="row">
                 <div className="col">
-                    <img className="circle-image" alt="" src={profilePicture} />
+                    <img className="circle-image" alt="" src={baseServerUrl + profilePicture} />
                 </div>
                 <div className="col-11" style={{ padding: 0 }}>
 

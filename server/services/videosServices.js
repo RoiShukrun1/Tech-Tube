@@ -10,9 +10,7 @@ export const patchVideoinDB = async (videoId, updatedParams) => {
         const db = client.db('TechTitans');
         const collection = db.collection('videos');
 
-        const videoIdtoNum = parseInt(videoId); 
-
-        const result = await collection.updateOne({ id: videoIdtoNum }, { $set: updatedParams });
+        const result = await collection.updateOne({ id: videoId }, { $set: updatedParams });
 
         if (result.matchedCount === 0) {
             throw new Error('Video not found'); // Throw an error if no account was updated
@@ -37,8 +35,7 @@ export const getVideoFromDB = async (videoId) => {
         const db = client.db('TechTitans');
         const collection = db.collection('videos');
 
-        const videoIdtoNum = parseInt(videoId); 
-        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        const video = await collection.findOne({ id: videoId });
 
         return video; // Return the fetched account
     } catch (error) {
@@ -56,6 +53,7 @@ export const deleteVideoFromDB = async (videoId) => {
 
         const db = client.db('TechTitans');
         const collection = db.collection('videos');
+
         const result = await collection.deleteOne({ id: videoId });
 
         if (result.deletedCount === 0) {
@@ -118,6 +116,32 @@ export const getallVideosFromDB = async () => {
         const videos = await collection.find({}).sort({ id: 1 }).toArray();
 
         return videos; // Return the fetched account
+    } catch (error) {
+        console.error('Error fetching videos:', error);
+        throw error; // Throw the error to be handled by the caller
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+};
+
+export const getRelatedVideosFromDB = async (videoId) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const db = client.db('TechTitans');
+        const collection = db.collection('videos');
+
+        const video = await collection.findOne({ id: videoId });
+
+        const playlist = video.playlist;
+
+        const relatedVideos = await collection.find({
+             playlist: playlist,
+             id: { $ne: video.id }
+            }).toArray();
+
+        return relatedVideos; // Return the fetched account
     } catch (error) {
         console.error('Error fetching videos:', error);
         throw error; // Throw the error to be handled by the caller
