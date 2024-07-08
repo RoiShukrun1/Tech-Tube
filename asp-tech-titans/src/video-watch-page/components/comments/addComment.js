@@ -1,3 +1,4 @@
+import axios from "axios";
 
 // function to add a comment to the video
 function AddComment({ comments, currentVideoId, currentUser,
@@ -17,10 +18,16 @@ function AddComment({ comments, currentVideoId, currentUser,
     const inputIsEmpty = () => { return inputValue === '' ? true : false; };
 
     // Function to submit a comment
-    const submitComment = () => {
+    const submitComment = async () => {
+
+        const comments =
+            await axios.get('http://localhost/api/users/' + currentUser.username
+                + '/videos/' + currentVideoId + '/comments');
+
+
         const newComment = {
-            id: comments.length + 1,
-            username: currentUser.nickname,
+            id: comments.data[comments.data.length - 1].id + 1,
+            username: currentUser.username,
             image: currentUser.image,
             date: new Date().toLocaleString(),
             comment: inputValue,
@@ -28,6 +35,10 @@ function AddComment({ comments, currentVideoId, currentUser,
             usersLikedId: [],
             usersUnLikedId: []
         };
+
+        const path = 'http://localhost/api/users/' + currentUser.username +
+            '/videos/' + currentVideoId + '/comments';
+        await axios.post(path, newComment);
 
         // Update the videos state
         setVideos(prevVideos => {
