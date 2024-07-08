@@ -80,7 +80,7 @@ const VideoWatchPage = () => {
   };
 
   return (
-    isLoading ? <div>{message}</div> :
+    isLoading ? (message==='Loading...' ? <div>{message}</div> : <div>{alert(message)}</div>) :
     <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
