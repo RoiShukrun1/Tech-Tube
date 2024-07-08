@@ -12,7 +12,6 @@ import { UserContext } from '../contexts/userContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
-import axios from 'axios';
 
 // Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
@@ -28,12 +27,22 @@ const VideoWatchPage = () => {
   const { setUsers } = useContext(UserContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if(videoData.length === 0) {
+      return;
+    } 
+    setIsLoading(false);
+  }, [videoData]);
+
   // Effect to set the video URL whenever it changes
   useEffect(() => {
     if (videoUrl) {
       setVideoUrl(videoUrl);
     }
   }, [videoUrl, setVideoUrl]);
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // State to manage input focus
@@ -47,6 +56,7 @@ const VideoWatchPage = () => {
 
   // Get the current video object by URL
   const currentVideo = getObjectByUrl(videoData, videoUrl);
+
   const currentUser = login;
 
   // Function to handle search and filter videos
@@ -65,6 +75,7 @@ const VideoWatchPage = () => {
   };
 
   return (
+    isLoading ? <div>Loading...</div> :
     <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -95,11 +106,7 @@ const VideoWatchPage = () => {
           </div>
           <div className="col-5">
             <RelatedVideos
-              relatedVideos={currentVideo.relatedVideos}
-              setUrl={setVideoUrl}
-              setVideos={setVideoData}
               setMoreInfoPressed={setMoreInfoPressed}
-              videos={videoData}
               setInputValue={setInputValue}
             />
           </div>

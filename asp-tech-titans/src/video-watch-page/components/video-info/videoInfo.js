@@ -19,11 +19,14 @@ function copyUrl() {
 }
 
 function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
-    const [isPencilClicked, setIsPencilClicked] = useState(false); // State to manage pencil button click
-    const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title); // State for video title input
-    const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description); // State for description input
-
-    const { setVideoData } = useContext(VideoDataContext); // Context for setting video data
+    // State to manage pencil button click
+    const [isPencilClicked, setIsPencilClicked] = useState(false);
+    // State for video title input
+    const [VideoTitleInputValue, setVideoTitleInputValue] = useState(currentVideo.title);
+    // State for description input
+    const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description);
+    // Context for setting video data
+    const { setVideoData } = useContext(VideoDataContext); 
 
     // Handle changes in video title input
     const handleVideoTitleInputChange = (event) => {
@@ -136,7 +139,7 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     };
 
     // Destructure properties from the current video
-    const { title, views, date, publisherImage, publisher, description } = currentVideo;
+    var { title, views, date, publisherImage, publisher, description } = currentVideo;
 
     // Generate a unique ID for the collapse component
     const collapseId = `collapse-${title.replace(/\s+/g, '-')}`;

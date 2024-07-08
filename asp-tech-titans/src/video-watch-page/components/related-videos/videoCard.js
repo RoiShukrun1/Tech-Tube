@@ -2,6 +2,9 @@ import React from 'react';
 import './videoCard.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { useContext } from 'react';
+import { VideoDataContext } from '../../../contexts/videoDataContext';
+import { CurrentVideoContext } from '../../currentVideoContext';
 
 // Function to increment views
 export const incrementViews = (setVideos, video) => {
@@ -23,9 +26,13 @@ export const incrementViews = (setVideos, video) => {
 };
 
 // Video card component
-function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue }) {
+function VideoCard({ video, setMoreInfoPressed, setInputValue }) {
 
     const [isHovered, setIsHovered] = useState(false);
+    const { setVideoData } = useContext(VideoDataContext);
+    const { setVideoUrl } = useContext(CurrentVideoContext);
+
+    const baseServerUrl = 'http://localhost/';
 
     // Functions to handle mouse enter, mouse leave and click
     const handleMouseEnter = () => {
@@ -39,8 +46,8 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
 
     // Function to handle click
     const handleClick = async () => {
-        setUrl(video.videoUploaded);
-        incrementViews(setVideos, video);
+        setVideoUrl(video.videoUploaded);
+        incrementViews(setVideoData, video);
         setMoreInfoPressed(false);
         setInputValue('');
     };
@@ -64,7 +71,7 @@ function VideoCard({ video, setUrl, setVideos, setMoreInfoPressed, setInputValue
                 <div className="col"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} >
-                    <img src={video.thumbnail} alt=""
+                    <img src={baseServerUrl + video.thumbnail} alt=""
                         className="img-fluid rounded-start videoCard-image"
                         onClick={handleClick}
                     />
