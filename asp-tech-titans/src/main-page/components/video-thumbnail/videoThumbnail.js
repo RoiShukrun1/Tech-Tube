@@ -82,7 +82,7 @@ const VideoThumbnail = ({ video }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Link to="/video">
+        <Link to="/video" className='thumbnail-image'>
           <img src={serverBaseUrltype1+video.thumbnail} alt={video.title} className="thumbnail-image" onClick={() => handleVideoClick(video.videoUploaded)} />
         </Link>
 
