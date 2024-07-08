@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./publisherChannelPage.css";
+import "./searchedVideosPage.css";
 import React, { useState, useEffect, useContext } from "react";
 import VideoThumbnail from "../main-page/components/video-thumbnail/videoThumbnail";
 import Sidebar from "../main-page/components/side-bar/sideBar";
@@ -17,63 +17,29 @@ const PublisherChannelPage = () => {
   const { darkMode } = useContext(ThemeContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState([]);
-  const { login } = useContext(LoginContext);
-  const { setUsers } = useContext(UserContext);
-  const { publisher } = useContext(CurrentPublisherContext);
-  const [publisherData, setPublisherData] = useState(null);
+//   const { login } = useContext(LoginContext);
+//   const { setUsers } = useContext(UserContext);
+//   const { publisher } = useContext(CurrentPublisherContext);
+//   const [publisherData, setPublisherData] = useState(null);
 
   const serverBaseUrl = 'http://localhost:80';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedVideos = await getPublisherVideos(publisher);
-      setVideos(fetchedVideos);
-      await updatePublisherData(fetchedVideos);
-    };
-    fetchData();
-  }, []);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const fetchedVideos = await getPublisherVideos(publisher);
+//       setVideos(fetchedVideos);
+//       await updatePublisherData(fetchedVideos);
+//     };
+//     fetchData();
+//   }, []);
 
-  const getUser = async (publisher) => {
-    const path = "http://localhost/api/users/" + publisher;
-    const response = await fetch(path);
-    const user = await response.json();
-    return user;
-  };
+//   const getUser = async (publisher) => {
+//     const path = "http://localhost/api/users/" + publisher;
+//     const response = await fetch(path);
+//     const user = await response.json();
+//     return user;
+//   };
 
-  const getPublisherVideos = async (publisher) => {
-    const path = "http://localhost/api/users/" + publisher +  "/videos";
-    const response = await fetch(path);
-    const videos = await response.json();
-    return videos;
-  };
-
-  const getPublisherSubs = async (publisher) => {
-    const path = "http://localhost/api/users/" + publisher +  "/subscribers";
-    const response = await fetch(path);
-    const subscribers = await response.json();
-    return subscribers;
-  };
-
-  const updatePublisherData = async (fetchedVideos) => {
-    const usr = await getUser(publisher);
-    const subs = await getPublisherSubs(publisher);
-    const imageurl = serverBaseUrl + usr.image;
-    // console.log(imageurl)
-    // console.log(usr)
-    if(usr && imageurl) {
-      const publisherData = {
-        nickname: usr.nickname,
-        username: usr.username,
-        subscribers: subs.length,
-        videos: fetchedVideos.length,
-        banner: imageurl,
-        image: imageurl,
-        currentUser: login,
-        setUsers: setUsers,
-      };
-      setPublisherData(publisherData);
-    }
-  };
 
   useEffect(() => {
     document.body.style.overflowX = "hidden";
@@ -105,17 +71,10 @@ const PublisherChannelPage = () => {
         </div>
         <div className="col-md-10 p-0">
           <Header onSearch={handleSearch} />
-          <div>
-            {publisherData ? (
-              <PublisherInfo {...publisherData} />
-            ) : (
-              <p>Loading...</p>
-            )}
-          </div>
           <div className="container-fluid p-0">
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
-                <div key={index} className="col-md-4 p-1">
+                <div key={index} className="col-md-2 p-1">
                   <VideoThumbnail video={newVideo}/>
                 </div>
               ))}
