@@ -3,6 +3,7 @@ import './searchBar.css';
 import searchIcon from '../../../../db/icons/search-icon.svg';
 import searchIconDm from '../../../../db/icons/search-icon-dm.svg';
 import { ThemeContext } from '../../../../contexts/themeContext';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * SearchBar Component
@@ -18,6 +19,8 @@ import { ThemeContext } from '../../../../contexts/themeContext';
 function SearchBar({ onSearch }) {
   const [query, setQuery] = useState(''); // State to manage the search query
   const { darkMode } = useContext(ThemeContext); // Retrieve darkMode value from ThemeContext
+  const navigate = useNavigate();
+
 
   /**
    * Handles input change event
@@ -32,7 +35,9 @@ function SearchBar({ onSearch }) {
    * Calls the onSearch function with the current query.
    */
   const handleSearch = () => {
-    onSearch(query);
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
   };
 
   /**
