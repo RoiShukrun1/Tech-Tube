@@ -28,11 +28,16 @@ const VideoWatchPage = () => {
   const { videoData, setVideoData } = useContext(VideoDataContext);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState('Loading...');
 
   useEffect(() => {
     if(videoData.length === 0) {
       return;
-    } 
+    }
+    if(!videoUrl) {
+      setMessage('Please select a video from main page.');
+      return;
+    }
     setIsLoading(false);
   }, [videoData]);
 
@@ -75,7 +80,7 @@ const VideoWatchPage = () => {
   };
 
   return (
-    isLoading ? <div>Loading...</div> :
+    isLoading ? <div>{message}</div> :
     <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
