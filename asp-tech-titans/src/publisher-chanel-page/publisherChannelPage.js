@@ -11,6 +11,7 @@ import { LoginContext } from "../contexts/loginContext";
 import { UserContext } from "../contexts/userContext";
 import PublisherInfo from "./components/publisherInfo/publisherInfo";
 import { CurrentPublisherContext } from "./currentPublisherContext";
+import noImage from "../images/noImage.svg";
 
 const PublisherChannelPage = () => {
   const { setVideoUrl } = useContext(CurrentVideoContext);
@@ -57,16 +58,28 @@ const PublisherChannelPage = () => {
   const updatePublisherData = async (fetchedVideos) => {
     const usr = await getUser(publisher);
     const subs = await getPublisherSubs(publisher);
-    const imageurl = serverBaseUrl + usr.image;
-    // console.log(imageurl)
-    // console.log(usr)
-    if(usr && imageurl) {
+    console.log(usr);
+    if(!usr) {
+      const publisherData = {
+        nickname: "Not Available",
+        username: "Not Available",
+        subscribers: "0",
+        videos: fetchedVideos.length,
+        banner: noImage,
+        image: noImage,
+        currentUser: login,
+        setUsers: setUsers,
+      };
+      setPublisherData(publisherData);
+    }
+    else {
+      const imageurl = serverBaseUrl + usr.image;
       const publisherData = {
         nickname: usr.nickname,
         username: usr.username,
         subscribers: subs.length,
         videos: fetchedVideos.length,
-        banner: imageurl,
+        banner: usr.banner,
         image: imageurl,
         currentUser: login,
         setUsers: setUsers,

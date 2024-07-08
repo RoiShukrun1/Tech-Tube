@@ -152,7 +152,8 @@ export const Registration = () => {
                 nickname: document.getElementById("nickname").value,
                 password: document.getElementById("password").value,
                 subscriptions: [],
-                image: base64Image
+                image: base64Image,
+                banner: null
             };
             try {
                 await axios.post('http://localhost/api/users/register', newData); // Connect to your backend API
