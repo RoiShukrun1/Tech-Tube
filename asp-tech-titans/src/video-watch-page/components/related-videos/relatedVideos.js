@@ -8,7 +8,6 @@ import axios from 'axios';
 
 // Function to get video by id
 function getVideoById(jsonData, id) {
-    console.log('jsonData:', jsonData);
     return jsonData.find(obj => obj.id === id);
 }
 
