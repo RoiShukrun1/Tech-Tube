@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import loginIcon from '../../../../../db/icons/login-circle-icon.svg';
 import loginIconDarkMode from '../../../../../db/icons/login-icon-dm.svg';
 import './loginButton.css';
@@ -22,6 +22,12 @@ function LoginButton() {
   // Construct the image URL based on the login state
   const serverBaseUrl = 'http://localhost:80'; // Make sure this matches your server's URL
   const loginImageUrl = login ? `${serverBaseUrl}${login.image}` : null;
+
+  // Effect to handle login state changes
+  useEffect(() => {
+      console.log('Login state changed:', login);
+    }, [login]);
+
   /**
    * Handle button click event
    * Logs out the user if they are logged in.

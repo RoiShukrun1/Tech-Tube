@@ -41,11 +41,6 @@ const MainPage = () => {
       document.body.style.overflowX = 'auto';
     };
   }, []);
-/*
-  useEffect(() => {
-    setVideos(videoData);
-  }, [videoData]);
-  */
 
   useEffect(() => {
     if (location.state && location.state.refresh) {
