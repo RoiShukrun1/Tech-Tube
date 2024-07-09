@@ -97,3 +97,25 @@ export const registerUser = async (req, res) => {
     }
 };
 
+export const updateBanner = async (req, res) => {
+    try {
+        const accountUsername = req.params.id;
+        const { banner } = req.body;
+
+        // Save the Base64 image to disk
+        const bannerPath = `uploads/bannerPictures/${accountUsername}.png`;
+        if (banner) {
+            await saveBase64Image(banner, path.join(process.cwd(), bannerPath));
+        }
+
+        // Update the user with the banner path
+        const updatedParams = { banner: `/${bannerPath}` };
+        const result = await patchUserinDB(accountUsername, updatedParams);
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error updating banner:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
