@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-// import jsonData from '../db/videos.json';
 import axios from 'axios';
 
 export const VideoDataContext = createContext();
@@ -7,16 +6,16 @@ export const VideoDataContext = createContext();
 export const VideoDataProvider = ({ children }) => {
   const [videoData, setVideoData] = useState([]);
 
-  useEffect(() => {
-    const fetchVideoList = async () => {
-      try {
+  const fetchVideoList = async () => {
+    try {
         const response = await axios.get('http://localhost/api/videos/all');
         setVideoData(response.data);
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching video list:', error);
-      }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchVideoList();
   }, []);
 
@@ -28,8 +27,12 @@ export const VideoDataProvider = ({ children }) => {
     setVideoData(videoData.filter(video => video.id !== id));
   };
 
+  const refreshVideoData = () => {
+    fetchVideoList();
+  };
+
   return (
-    <VideoDataContext.Provider value={{ videoData, addVideoData, deleteVideo, setVideoData }}>
+    <VideoDataContext.Provider value={{ videoData, addVideoData, deleteVideo, setVideoData, refreshVideoData }}>
       {children}
     </VideoDataContext.Provider>
   );

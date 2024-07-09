@@ -12,6 +12,7 @@ import axios from 'axios';
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
     const { videoList } = useContext(VideoContext);
+    const { addVideoData } = useContext(VideoDataContext);
     const [base64Image, setBase64Image] = useState(null);
     const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
     const navigate = useNavigate();
@@ -53,9 +54,31 @@ export const AddVideo = () => {
         formData.append('usersUnlikes', JSON.stringify([]));
         formData.append('playlist', playlist);
         formData.append('comments', JSON.stringify([]));
+        const newData = {
+            id: parseInt(response.data[response.data.length-1].id, 10) + 1,
+            videoUploaded: mostRecentVideo ? mostRecentVideo.url : '',
+            thumbnail: base64Image,
+            title: title,
+            publisher: login.username,
+            publisherImage: login.image,
+            views: 0,
+            date: new Date().toLocaleDateString(),
+            description: description,
+            usersLikes: [],
+            usersUnlikes: [],
+            playlist: playlist,
+            comments: []
+        };
+
         try {
             const response = await fetch('http://localhost/api/users/:id/videos', {
                 method: 'POST',
+                /*
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newData)
+                */
                 body: formData
             });
     
@@ -69,9 +92,8 @@ export const AddVideo = () => {
         } catch (error) {
             console.error('Error uploading video:', error);
         }
-
         alert("Upload successful");
-        navigate('/mainPage');
+        navigate('/mainPage', { state: { refresh: true } });
     }
 
     return (

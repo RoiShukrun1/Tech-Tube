@@ -68,12 +68,14 @@ function Sidebar() {
    const handleYourChannelClick = () => {
     if(!loggedInuser){
       setPublisher(null);
+      localStorage.setItem('publisher', null);
       alert('You must login to enter your channel!');
       return;
     } else {
+    localStorage.setItem('publisher', loggedInuser.username);
     setPublisher(loggedInuser.username);
-    navigate('/publisherChannel');
-    }
+    navigate('/publisherChannel', { state: { refresh: Date.now() } });
+  }
   };
 
   const handleDeleteUserClick = async (e) => {
@@ -87,6 +89,10 @@ function Sidebar() {
     }
   };
 
+  const handleHomeClick = () => {
+    navigate('/mainPage', { state: { refresh: true } });
+  };
+
   return (
     <div>
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -97,7 +103,7 @@ function Sidebar() {
         </div>
         <div className="scrollable-menu">
           <ul className="list-group list-group-flush">
-            <Link to="/mainPage"><li className="list-group-item"><img src={homeIcon} alt="Home" /> Home</li></Link>
+            <li className="list-group-item" onClick={() =>handleHomeClick()}><img src={homeIcon} alt="Home" /> Home</li>
             <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
             <li className="list-group-item" onClick={() =>handleYourChannelClick()}><img src={forYouIcon} alt="For You" /> Your Channel</li>
             <div className="divider"></div>
