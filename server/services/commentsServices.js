@@ -6,7 +6,7 @@ export const putCommentinDB = async (videoId, commentId, newComment) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const commentIdtoNum = parseInt(commentId);
 
@@ -19,7 +19,7 @@ export const putCommentinDB = async (videoId, commentId, newComment) => {
             throw new Error('Comment not found'); // Throw an error if no comment was updated
         }
 
-        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        const video = await collection.findOne({ id: videoId });
 
         return video.comments.find(comment => comment.id === commentIdtoNum);
 
@@ -37,11 +37,11 @@ export const getCommentFromDB = async (videoId, commentId) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const commentIdtoNum = parseInt(commentId);
 
-        const video = await collection.findOne({ id: parseInt(videoId) });
+        const video = await collection.findOne({ id: videoId });
 
         return video.comments.find(comment => comment.id === commentIdtoNum);
 
@@ -59,9 +59,10 @@ export const getCommentsFromDB = async (videoId) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
-        const video = await collection.findOne({ id: parseInt(videoId) });
+        const video = await collection.findOne({ id: videoId });
+        console.log(video.comments);
         return video.comments;
 
     } catch (error) {
@@ -82,7 +83,7 @@ export const deleteCommentFromDB = async (videoId, commentId) => {
 
         // Access the TechTitans database and Videos collection
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         // Convert parameters to integers if necessary
         const commentIdNum = parseInt(commentId);
@@ -116,7 +117,7 @@ export const addCommentToDB = async (videoId, newComment) => {
         await client.connect(); // Connect to MongoDB
 
         const db = client.db('TechTitans');
-        const collection = db.collection('Videos');
+        const collection = db.collection('videos');
 
         const result = await collection.updateOne(
             { id: videoId },
@@ -127,7 +128,7 @@ export const addCommentToDB = async (videoId, newComment) => {
             throw new Error('video not found'); // Throw an error if no account was deleted
         }
 
-        const video = await collection.findOne({ id: parseInt(videoIdtoNum) });
+        const video = await collection.findOne({ id: videoId });
 
         return video.comments.find(comment => comment.id === newComment.id);
 
