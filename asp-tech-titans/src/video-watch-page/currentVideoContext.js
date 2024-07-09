@@ -5,7 +5,7 @@ export const CurrentVideoContext = createContext();
 
 // Provider component
 export const CurrentVideoProvider = ({ children }) => {
-  const [videoUrl, setVideoUrl] = useState(null);
+  const [videoUrl, setVideoUrl] = useState(localStorage.getItem("videoURL"));
 
   return (
     <CurrentVideoContext.Provider value={{ videoUrl, setVideoUrl }}>

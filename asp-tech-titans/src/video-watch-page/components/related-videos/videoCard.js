@@ -53,6 +53,7 @@ function VideoCard({ video, setMoreInfoPressed, setInputValue }) {
         incrementViews(setVideoData, video);
         setMoreInfoPressed(false);
         setInputValue('');
+        localStorage.setItem('videoURL', video.videoUploaded)
     };
 
     // Function to render play icon
