@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./publisherChannelPage.css";
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import VideoThumbnail from "../main-page/components/video-thumbnail/videoThumbnail";
 import Sidebar from "../main-page/components/side-bar/sideBar";
 import Header from "../main-page/components/header/header";
@@ -10,29 +11,56 @@ import { VideoDataContext } from "../contexts/videoDataContext";
 import { LoginContext } from "../contexts/loginContext";
 import { UserContext } from "../contexts/userContext";
 import PublisherInfo from "./components/publisherInfo/publisherInfo";
-import { CurrentPublisherContext } from "./currentPublisherContext";
 import noImage from "../images/noImage.svg";
+import { useLocation } from "react-router-dom";
 
 const PublisherChannelPage = () => {
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const { darkMode } = useContext(ThemeContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
-  const [videos, setVideos] = useState([]);
-  const { login } = useContext(LoginContext);
   const { setUsers } = useContext(UserContext);
-  const { publisher } = useContext(CurrentPublisherContext);
+  const [publisher, setPublisher] = useState(null);
   const [publisherData, setPublisherData] = useState(null);
-
+  const [videos, setVideos] = useState([]);
+  const [login, setLogin] = useState(null);
+  const location = useLocation();
   const serverBaseUrl = 'http://localhost:80';
 
+  // Check authentication and set login state
   useEffect(() => {
-    const fetchData = async () => {
-      const fetchedVideos = await getPublisherVideos(publisher);
-      setVideos(fetchedVideos);
-      await updatePublisherData(fetchedVideos);
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get('http://localhost/api/token/checkAuth', { withCredentials: true });
+        if (response.data.isAuthenticated) {
+          setLogin(response.data.user);
+        }
+      } catch (error) {
+        alert("Error checking authentication.");
+      }
     };
-    fetchData();
+
+    checkAuth();
   }, []);
+
+  // Retrieve publisher from local storage and set it in state
+  useEffect(() => {
+    const storedPublisher = localStorage.getItem("publisher");
+    if (storedPublisher) {
+      setPublisher(storedPublisher);
+    }
+  }, [location.state]);
+
+  // Fetch publisher data only after publisher and login are set
+  useEffect(() => {
+    if (publisher && login) {
+      const fetchData = async () => {
+        const fetchedVideos = await getPublisherVideos(publisher);
+        setVideos(fetchedVideos);
+        await updatePublisherData(fetchedVideos);
+      };
+      fetchData();
+    }
+  }, [publisher, login]);
 
   const getUser = async (publisher) => {
     const path = "http://localhost/api/users/" + publisher;
@@ -42,14 +70,14 @@ const PublisherChannelPage = () => {
   };
 
   const getPublisherVideos = async (publisher) => {
-    const path = "http://localhost/api/users/" + publisher +  "/videos";
+    const path = "http://localhost/api/users/" + publisher + "/videos";
     const response = await fetch(path);
     const videos = await response.json();
     return videos;
   };
 
   const getPublisherSubs = async (publisher) => {
-    const path = "http://localhost/api/users/" + publisher +  "/subscribers";
+    const path = "http://localhost/api/users/" + publisher + "/subscribers";
     const response = await fetch(path);
     const subscribers = await response.json();
     return subscribers;
@@ -101,11 +129,14 @@ const PublisherChannelPage = () => {
     setVideos(videoData);
   }, [videoData]);
 
-
   // Function to handle video deletion
   const deleteVideo = (videoId) => {
     setVideos((prevVideos) => prevVideos.filter(video => video.id !== videoId));
   };
+
+  if (!publisher || !login) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={`container-fluid main-page ${darkMode ? "dark" : ""}`}>
@@ -114,7 +145,7 @@ const PublisherChannelPage = () => {
           <Sidebar />
         </div>
         <div className="col-md-10 p-0">
-          <Header/>
+          <Header />
           <div>
             {publisherData ? (
               <PublisherInfo {...publisherData} />

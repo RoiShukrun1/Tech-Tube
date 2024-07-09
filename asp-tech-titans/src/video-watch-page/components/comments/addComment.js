@@ -24,9 +24,15 @@ function AddComment({ comments, currentVideoId, currentUser,
             await axios.get('http://localhost/api/users/' + currentUser.username
                 + '/videos/' + currentVideoId + '/comments');
 
+        let newId;
+        if(comments.data.length === 0) {
+            newId = 1;
+        } else {
+            newId = comments.data[comments.data.length - 1].id + 1;
+        }
 
         const newComment = {
-            id: comments.data[comments.data.length - 1].id + 1,
+            id: newId,
             username: currentUser.username,
             image: currentUser.image,
             date: new Date().toLocaleString(),
