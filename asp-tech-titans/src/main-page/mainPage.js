@@ -6,7 +6,6 @@ import VideoThumbnail from './components/video-thumbnail/videoThumbnail';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
 import Header from './components/header/header';
-import searchVideos from './components/header/search-bar/searchVideos'; 
 import { ThemeContext } from '../contexts/themeContext'; 
 import { VideoDataContext } from '../contexts/videoDataContext';
 import axios from 'axios';

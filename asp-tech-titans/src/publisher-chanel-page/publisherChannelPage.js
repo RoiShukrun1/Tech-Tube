@@ -5,19 +5,16 @@ import axios from "axios";
 import VideoThumbnail from "../main-page/components/video-thumbnail/videoThumbnail";
 import Sidebar from "../main-page/components/side-bar/sideBar";
 import Header from "../main-page/components/header/header";
-import { CurrentVideoContext } from "../video-watch-page/currentVideoContext";
 import { ThemeContext } from "../contexts/themeContext";
 import { VideoDataContext } from "../contexts/videoDataContext";
-import { LoginContext } from "../contexts/loginContext";
 import { UserContext } from "../contexts/userContext";
 import PublisherInfo from "./components/publisherInfo/publisherInfo";
 import noImage from "../images/noImage.svg";
 import { useLocation } from "react-router-dom";
 
 const PublisherChannelPage = () => {
-  const { setVideoUrl } = useContext(CurrentVideoContext);
   const { darkMode } = useContext(ThemeContext);
-  const { videoData, setVideoData } = useContext(VideoDataContext);
+  const { videoData } = useContext(VideoDataContext);
   const { setUsers } = useContext(UserContext);
   const [publisher, setPublisher] = useState(null);
   const [publisherData, setPublisherData] = useState(null);

@@ -18,7 +18,6 @@ import feedback from '../../../db/icons/pencil-icon.svg';
 import techTitansLogo from '../../../db/techTitansLogo.png';
 import techTitansLogoDM from '../../../db/techTitansLogoDM.png';
 import { ThemeContext } from '../../../contexts/themeContext';
-import { LoginContext } from '../../../contexts/loginContext';
 import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -34,7 +33,6 @@ import { useNavigate } from 'react-router-dom';
 function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage the menu's open/closed status
   const { darkMode } = useContext(ThemeContext); // Retrieve the darkMode value from ThemeContext
-  const { login } = useContext(LoginContext); // Retrieve the login context
   const { setPublisher } = useContext(CurrentPublisherContext);
   const navigate = useNavigate();
   const [loggedInuser, setLoggedInUser] = useState(null); // State to manage the logged-in user
