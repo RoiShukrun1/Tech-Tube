@@ -29,6 +29,10 @@ function SubscribeButton({ currentUser, publisher }) {
             alert('You must login to press subscribe!');
             return;
         }
+        if (currentUser.username === publisher) {
+            alert('You cannot subscribe to yourself!');
+            return;
+        }
         if (isSubscribed) {
             removeSubscription();
         } else {
