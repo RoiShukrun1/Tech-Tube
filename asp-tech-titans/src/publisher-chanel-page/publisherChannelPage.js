@@ -11,6 +11,7 @@ import { LoginContext } from "../contexts/loginContext";
 import { UserContext } from "../contexts/userContext";
 import PublisherInfo from "./components/publisherInfo/publisherInfo";
 import { CurrentPublisherContext } from "./currentPublisherContext";
+import noImage from "../images/noImage.svg";
 
 const PublisherChannelPage = () => {
   const { setVideoUrl } = useContext(CurrentVideoContext);
@@ -57,19 +58,33 @@ const PublisherChannelPage = () => {
   const updatePublisherData = async (fetchedVideos) => {
     const usr = await getUser(publisher);
     const subs = await getPublisherSubs(publisher);
-    const imageurl = serverBaseUrl + usr.image;
-    // console.log(imageurl)
-    // console.log(usr)
-    if(usr && imageurl) {
+    const isPublisher = login.username === publisher;
+
+    if (!usr) {
+      const publisherData = {
+        nickname: "Not Available",
+        username: "Not Available",
+        subscribers: "0",
+        videos: fetchedVideos.length,
+        banner: noImage,
+        image: noImage,
+        currentUser: login,
+        setUsers: setUsers,
+        isPublisher: isPublisher,
+      };
+      setPublisherData(publisherData);
+    } else {
+      const imageurl = serverBaseUrl + usr.image;
       const publisherData = {
         nickname: usr.nickname,
         username: usr.username,
         subscribers: subs.length,
         videos: fetchedVideos.length,
-        banner: imageurl,
+        banner: usr.banner,
         image: imageurl,
         currentUser: login,
         setUsers: setUsers,
+        isPublisher: isPublisher,
       };
       setPublisherData(publisherData);
     }
@@ -86,15 +101,10 @@ const PublisherChannelPage = () => {
     setVideos(videoData);
   }, [videoData]);
 
-  // Function to handle search and filter videos
-  const handleSearch = (query) => {
-    const filteredVideos = videoData.filter((video) =>
-      video.title.toLowerCase().includes(query.toLowerCase())
-    );
-    if (filteredVideos.length === 0) {
-      return;
-    }
-    setVideoUrl(filteredVideos[0].videoUploaded);
+
+  // Function to handle video deletion
+  const deleteVideo = (videoId) => {
+    setVideos((prevVideos) => prevVideos.filter(video => video.id !== videoId));
   };
 
   return (
@@ -104,7 +114,7 @@ const PublisherChannelPage = () => {
           <Sidebar />
         </div>
         <div className="col-md-10 p-0">
-          <Header onSearch={handleSearch} />
+          <Header/>
           <div>
             {publisherData ? (
               <PublisherInfo {...publisherData} />
@@ -116,7 +126,7 @@ const PublisherChannelPage = () => {
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
                 <div key={index} className="col-md-4 p-1">
-                  <VideoThumbnail video={newVideo}/>
+                  <VideoThumbnail video={newVideo} onDelete={deleteVideo} />
                 </div>
               ))}
             </div>
