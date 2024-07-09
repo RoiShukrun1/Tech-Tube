@@ -44,12 +44,12 @@ const SearchedVideosPage = () => {
           <Sidebar />
         </div>
         <div className="col-md-10 p-0">
-          <Header onSearch={() => {}} /> {/* Optionally handle search within this page */}
+          <Header />
           <div className="container-fluid p-0">
             <Filters />
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
-                <div key={index} className="col-md-6 p-1">
+                <div key={index} className="col-md-4 p-1">
                   <VideoThumbnail video={newVideo}/>
                 </div>
               ))}

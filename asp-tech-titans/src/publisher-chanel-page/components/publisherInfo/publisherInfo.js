@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './publisherInfo.css';
 import SubscribeButton from '../../../video-watch-page/components/video-info/subscribeButton';
-import addBannerIcon from '../../../images/addimage.svg';
+// import addBannerIcon from '../../../images/addimage.svg';
 import axios from 'axios';
 
 const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image, setUsers }) => {
-    const [imageState, setImageState] = useState(null);
-    const [base64Image, setBase64Image] = useState(null);
+    // const [imageState, setImageState] = useState(null);
+    // const [base64Image, setBase64Image] = useState(null);
     const [currentUser, setLogin] = useState(null);
     // Check authentication and set login state
     useEffect(() => {
@@ -25,35 +25,55 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
     }, []);
 
 
-    useEffect(() => {
-        fetch(addBannerIcon)
-            .then((response) => response.blob())
-            .then((blob) => {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    setBase64Image(reader.result);
-                };
-                reader.readAsDataURL(blob);
-            })
-            .catch((error) => console.error('Error converting image to base64:', error));
-    }, []);
+  // useEffect(() => {
+  //   fetch(addBannerIcon)
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => {
+  //         setBase64Image(reader.result);
+  //       };
+  //       reader.readAsDataURL(blob);
+  //     })
+  //     .catch((error) => console.error('Error converting image to base64:', error));
+  // }, []);
 
-    const handleImageUpload = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImageState(reader.result); // Store the Base64 string
-        };
-        reader.readAsDataURL(file);
-    };
+  // const handleImageUpload = async (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = async () => {
+  //     const base64String = reader.result;
+  //     setImageState(base64String);
 
-    const publisherImage = image;
-    const publisherBanner = banner || imageState || base64Image;
+  //     // Send the banner to the server
+  //     const response = await fetch(`/users/${username}`, {
+  //       method: 'PATCH',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({ banner: base64String })
+  //     });
+
+  //     if (response.ok) {
+  //       const updatedUser = await response.json();
+  //       // Update the user's banner in the state or handle the response as needed
+  //       console.log('Banner updated successfully:', updatedUser);
+  //     } else {
+  //       console.error('Failed to update banner');
+  //     }
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
+
+  const publisherImage = image;
+  // const publisherBanner = banner || imageState || base64Image;
 
     return (
         <div className="publisher-info-div-pcp">
             <div className="publisher-banner-pcp">
-                {banner ? (
+            <img className="publisher-banner-image-pcp" src={publisherImage} alt="publisherImage" />
+            </div>
+                {/* {banner ? (
                     <img className="publisher-banner-image-pcp" src={publisherBanner} alt="publisherBanner" />
                 ) : (
                     <div className="default-banner">
@@ -71,8 +91,7 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
                             </label>
                         )}
                     </div>
-                )}
-            </div>
+                )}  */}
             <div className="publisher-content">
                 <div className="publisher-image-div-pcp">
                     <img className="publisher-image-pcp" src={publisherImage} alt="publisherImage" />
