@@ -8,7 +8,6 @@ import Header from '../main-page/components/header/header';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 import { LoginContext } from '../contexts/loginContext';
-import { UserContext } from '../contexts/userContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
