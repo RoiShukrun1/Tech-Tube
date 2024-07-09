@@ -11,6 +11,7 @@ import { LoginContext } from '../contexts/loginContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
+import { Navigate } from 'react-router-dom';
 
 // Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
@@ -78,7 +79,7 @@ const VideoWatchPage = () => {
   };
 
   return (
-    isLoading ? (message==='Loading...' ? <div>{message}</div> : <div>{alert(message)}</div>) :
+    isLoading ? (message==='Loading...' ? <div>{message}</div> : <Navigate to="/mainPage" />) :
     <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
