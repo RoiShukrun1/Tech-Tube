@@ -29,6 +29,8 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
     // Context for setting video data
     const { setVideoData } = useContext(VideoDataContext);
 
+    const baseServerUrl = 'http://localhost/';
+
     // Handle changes in video title input
     const handleVideoTitleInputChange = (event) => {
         setVideoTitleInputValue(event.target.value);
@@ -109,7 +111,7 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
 
     // Handle video download
     const download = () => {
-        const downloadUrl = currentVideo.videoUploaded;
+        const downloadUrl = baseServerUrl + currentVideo.videoUploaded;
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.setAttribute('download', '');
