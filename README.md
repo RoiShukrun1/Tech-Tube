@@ -21,7 +21,6 @@ User actions are now processed on a server that stores and retrieves data from a
 - Storing new user, video, and comment records.
 - Recording user actions such as liking, unliking, and subscribing.
 - Supporting data modifications: video titles, descriptions, comment content, and more.
-Additionally:
 - In the "Your Channel" dropdown menu, users can navigate to their channel page and delete their account.
 - New web pages added: publisher channel page and searched videos page.
 
