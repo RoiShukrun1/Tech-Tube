@@ -21,7 +21,8 @@ User actions are now processed on a server that stores and retrieves data from a
 - Storing new user, video, and comment records.
 - Recording user actions such as liking, unliking, and subscribing.
 - Supporting data modifications: video titles, descriptions, comment content, and more.
-- In the "Your Channel" dropdown menu, users can navigate to their channel page and delete their account.
+- In the side bar menu, users can navigate to their channel page and delete their account.
+- In the main page user can view the 10 most view videos and 10 random videos.
 - New web pages added: publisher channel page and searched videos page.
 
 # Getting Started
@@ -62,10 +63,9 @@ All of the mendatory features are working in both of the platforms, Including ex
   ![image](https://github.com/AvielSegev/Tech-Titans/assets/127956356/34446a8d-4312-4daf-a82b-0fadacb9b6e5)
 - In web The above icons located to the right of the search tab have the following functions, from left to right:
   Toggle dark mode, Upload New Video, Login.
-  Additionally, clicking on the publisher's image on both the main page and the video watch page will navigate you to the publisher's page.
+  Additionally, clicking on the publisher's image on both the main page and the video watch page will navigate you to the relevent publisher page.
 - In the App: The login button is located in the bottom right corner,the dark mode button is in the upper left corner, the add video button is in the middle of the bottom section.
   
-
 ## Working process
 
 - First, we analyzed the assignment requirements and divided the work among team members, documenting everything in Jira.
