@@ -6,9 +6,9 @@ import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentP
 import { Link } from 'react-router-dom';
 
 // Function to display publisher information
-function PublisherInfo({ publisherImage, publisherName, setUsers, currentUser }) {
+function PublisherInfo({ publisherImage, publisherName, currentUser }) {
 
-    const { publisher, setPublisher } = useContext(CurrentPublisherContext);
+    const { setPublisher } = useContext(CurrentPublisherContext);
 
     /**
    * Handle publisher click event
@@ -28,7 +28,7 @@ function PublisherInfo({ publisherImage, publisherName, setUsers, currentUser })
             </Link>
             <h1 className='publisher'>{publisherName}</h1>
             <SubscribeButton
-                setUsers={setUsers} currentUser={currentUser} publisher={publisherName} />
+                currentUser={currentUser} publisher={publisherName} />
         </span>
     );
 }

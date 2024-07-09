@@ -20,10 +20,12 @@ function AddComment({ comments, currentVideoId, currentUser,
     // Function to submit a comment
     const submitComment = async () => {
 
+        // Get the comments for the current video
         const comments =
             await axios.get('http://localhost/api/users/' + currentUser.username
                 + '/videos/' + currentVideoId + '/comments');
 
+        // generate a new id for the new comment
         let newId;
         if(comments.data.length === 0) {
             newId = 1;
@@ -31,6 +33,7 @@ function AddComment({ comments, currentVideoId, currentUser,
             newId = comments.data[comments.data.length - 1].id + 1;
         }
 
+        // Create the new comment object
         const newComment = {
             id: newId,
             username: currentUser.username,
@@ -42,6 +45,7 @@ function AddComment({ comments, currentVideoId, currentUser,
             usersUnLikedId: []
         };
 
+        // Post the new comment to the server
         const path = 'http://localhost/api/users/' + currentUser.username +
             '/videos/' + currentVideoId + '/comments';
         await axios.post(path, newComment);
@@ -62,11 +66,13 @@ function AddComment({ comments, currentVideoId, currentUser,
         setInputValue('');
     };
 
+    const baseServerUrl = 'http://localhost';
+
     return (
         <div className="row">
             <div className="col-1">
                 <img className="circle-image" alt=""
-                    src={currentUser.image} style={{ marginLeft: '35%' }} />
+                    src={baseServerUrl + currentUser.image} style={{ marginLeft: '35%' }} />
             </div>
             <div className="col">
                 <input type="text"

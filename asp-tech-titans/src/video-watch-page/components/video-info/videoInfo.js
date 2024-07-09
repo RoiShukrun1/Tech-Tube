@@ -11,6 +11,7 @@ import { ReactComponent as Like } from '../comments/like.svg';
 import { ReactComponent as Dislike } from '../comments/dislike.svg';
 import { ReactComponent as LikeSelected } from '../comments/like-selected.svg';
 import { ReactComponent as DislikeSelected } from '../comments/dislike-selected.svg';
+import axios from 'axios';
 
 // Function to copy the current URL to the clipboard
 function copyUrl() {
@@ -18,7 +19,7 @@ function copyUrl() {
     navigator.clipboard.writeText(url);
 }
 
-function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
+function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPressed }) {
     // State to manage pencil button click
     const [isPencilClicked, setIsPencilClicked] = useState(false);
     // State for video title input
@@ -26,7 +27,9 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
     // State for description input
     const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description);
     // Context for setting video data
-    const { setVideoData } = useContext(VideoDataContext); 
+    const { setVideoData } = useContext(VideoDataContext);
+
+    const baseServerUrl = 'http://localhost/';
 
     // Handle changes in video title input
     const handleVideoTitleInputChange = (event) => {
@@ -55,6 +58,19 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             }
             return updatedVideos;
         });
+
+        const updateNewVideoTitleInSrv = async () => {
+            if (currentUser === null) return;
+            if (currentVideo.id === null) return;
+
+            // This code will execute after videos state has been updated and rendered
+            const path = 'http://localhost/api/users/' + currentUser.username +
+                '/videos/' + currentVideo.id;
+            await axios.patch(path, { title: newTitle });
+        };
+
+        updateNewVideoTitleInSrv();
+
     };
 
     // Set new description in video data context
@@ -67,6 +83,18 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             }
             return updatedVideos;
         });
+
+        const updateNewDescriptionInSrv = async () => {
+            if (currentUser === null) return;
+            if (currentVideo.id === null) return;
+
+            // This code will execute after videos state has been updated and rendered
+            const path = 'http://localhost/api/users/' + currentUser.username +
+                '/videos/' + currentVideo.id;
+            await axios.patch(path, { description: NewDescription });
+        };
+
+        updateNewDescriptionInSrv();
     };
 
     // Close input fields and save changes
@@ -83,13 +111,26 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
 
     // Handle video download
     const download = () => {
-        const downloadUrl = currentVideo.videoUploaded;
+        const downloadUrl = baseServerUrl + currentVideo.videoUploaded;
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.setAttribute('download', '');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    };
+
+    const updateLikeOrUnlikePressedInSrv = async () => {
+        if (currentUser === null) return;
+        if (currentVideo.id === null) return;
+
+        const path = 'http://localhost/api/users/' + currentUser.username +
+            '/videos/' + currentVideo.id;
+
+        await axios.patch(path, {
+            usersLikes: currentVideo.usersLikes,
+            usersUnlikes: currentVideo.usersUnlikes
+        });
     };
 
     // Handle like button press
@@ -113,6 +154,9 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             });
             return updatedVideos;
         });
+
+        updateLikeOrUnlikePressedInSrv();
+
     };
 
     // Handle dislike button press
@@ -136,6 +180,8 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             });
             return updatedVideos;
         });
+
+        updateLikeOrUnlikePressedInSrv();
     };
 
     // Destructure properties from the current video
@@ -187,7 +233,6 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             <PublisherInfo
                 publisherImage={publisherImage}
                 publisherName={publisher}
-                setUsers={setUsers}
                 currentUser={currentUser}
             />
             <button type="button" className="btn btn-light download-button" onClick={download}>

@@ -25,7 +25,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
 
     // state to turn useEffect request to server
     const [putSendToSrv, setPutSendToSrv] = useState(false);
-    const [delSendToSrv, setDelSendToSrv] = useState(false);
 
     // handle input change
     const handleCommentInputChange = (event) => {
@@ -53,7 +52,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
             if (putSendToSrv === false) {
                 return;
             };
-            
+
             // This code will execute after videos state has been updated and rendered
             const path = 'http://localhost/api/users/' + currentUser.username +
                 '/videos/' + currentVideoId + '/comments/' + commentObj.id;
@@ -62,25 +61,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
         };
         updateComment();
     }, [putSendToSrv]);
-
-    useEffect(() => {
-        const delComment = async () => {
-            if (currentUser === null) return;
-            if (currentVideoId === null) return;
-            if (commentObj === null) return;
-            if (delSendToSrv === false) {
-                return;
-            };
-            
-            // This code will execute after videos state has been updated and rendered
-            const path = 'http://localhost/api/users/' + currentUser.username +
-                '/videos/' + currentVideoId + '/comments/' + commentObj.id;
-            await axios.delete(path);
-            
-            setDelSendToSrv(false);
-        };
-        delComment();
-    }, [delSendToSrv]);
 
     // set new comment content
     const setNewCommentContent = async (newCommentContent) => {
@@ -114,13 +94,13 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     // user like function
     const userLike = () => {
         if (currentUser === null) return false;
-        return commentObj.usersLikedId.some(user => user.id === currentUser.id);
+        return commentObj.usersLikedId.some(user => user.username === currentUser.username);
     }
 
     // user unlike function
     const userUnLike = () => {
         if (currentUser === null) return false;
-        return commentObj.usersUnLikedId.some(user => user.id === currentUser.id);
+        return commentObj.usersUnLikedId.some(user => user.username === currentUser.username);
     }
 
     // variables to check if user liked or unliked
@@ -138,13 +118,15 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                     comments: video.comments.map(comment => {
                         if (comment.id !== commentObj.id) return comment;
 
-                        const userLikedIndex = comment.usersLikedId.findIndex(user => user.id === currentUser.id);
+                        const userLikedIndex =
+                            comment.usersLikedId.findIndex(user => user.username === currentUser.username);
 
+                        console.log(comment)
                         return {
                             ...comment,
                             usersLikedId: userLikedIndex !== -1
-                                ? comment.usersLikedId.filter(user => user.id !== currentUser.id)
-                                : [...comment.usersLikedId, { id: currentUser.id }]
+                                ? comment.usersLikedId.filter(user => user.username !== currentUser.username)
+                                : [...comment.usersLikedId, { username: currentUser.username }]
                         };
                     })
                 };
@@ -167,13 +149,14 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                     comments: video.comments.map(comment => {
                         if (comment.id !== commentObj.id) return comment;
 
-                        const userLikedIndex = comment.usersUnLikedId.findIndex(user => user.id === currentUser.id);
+                        const userLikedIndex =
+                            comment.usersUnLikedId.findIndex(user => user.username === currentUser.username);
 
                         return {
                             ...comment,
                             usersUnLikedId: userLikedIndex !== -1
-                                ? comment.usersUnLikedId.filter(user => user.id !== currentUser.id)
-                                : [...comment.usersUnLikedId, { id: currentUser.id }]
+                                ? comment.usersUnLikedId.filter(user => user.username !== currentUser.username)
+                                : [...comment.usersUnLikedId, { username: currentUser.username }]
                         };
                     })
                 };
@@ -261,7 +244,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
     }
 
     // delete comment
-    const deleteComment = () => {
+    const deleteComment = async () => {
         setVideos(prevVideos => {
             const updatedVideos = prevVideos.map(video => {
                 if (video.id !== currentVideoId) return video;
@@ -277,7 +260,10 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
             return updatedVideos;
         });
 
-        setDelSendToSrv(true);
+        // This code will execute after videos state has been updated and rendered
+        const path = 'http://localhost/api/users/' + currentUser.username +
+            '/videos/' + currentVideoId + '/comments/' + commentObj.id;
+        await axios.delete(path);
     };
 
 
