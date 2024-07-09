@@ -16,17 +16,34 @@ Tech-Tube is a comprehensive video-sharing platform inspired by YouTube. It allo
 - Commenting and Liking Videos
 - Dark Mode Support
 
+## New features
+User actions are now processed on a server that stores and retrieves data from a dedicated MongoDB server. This enables:
+- Storing new user, video, and comment records.
+- Recording user actions such as liking, unliking, and subscribing.
+- Supporting data modifications: video titles, descriptions, comment content, and more.
+- In the side bar menu, users can navigate to their channel page and delete their account.
+- In the main page user can view the 10 most view videos and 10 random videos.
+- New web pages added: publisher channel page and searched videos page.
+
 # Getting Started
+
+## Instructions to run (Server):
+Please note that the server is crucial for the client-side functionality. Running the client without the server may lead to unexpected errors.
+
+1. Navigate to the following directory: Server.
+2. Ensure all dependencies mentioned in the package.json are installed.
+3. enter: 'npm start'
+Please keep the command window open to ensure the server remains operational. Note that the server is running on port 80.
 
 ## Instructions to run (Web):
 
-1. Go to the following directory: asp-tech-titans
+1. Navigate to the following directory: asp-tech-titans
 2. Insure you install npm and run the build
 3. enter: 'npm start'
 
 ## Instruction to run (AndroidApp)
 
-1. Go to the following directory: asp-tech-titans-app
+1. Navigate to the following directory: asp-tech-titans-app
 2. Add android emulator from version 9.0 and above
 3. Add a configuration that runs the deafault activity and pair it to the emulator
 4. Run the App using the play button or by pressing shift+F10
@@ -46,8 +63,9 @@ All of the mendatory features are working in both of the platforms, Including ex
   ![image](https://github.com/AvielSegev/Tech-Titans/assets/127956356/34446a8d-4312-4daf-a82b-0fadacb9b6e5)
 - In web The above icons located to the right of the search tab have the following functions, from left to right:
   Toggle dark mode, Upload New Video, Login.
+  Additionally, clicking on the publisher's image on both the main page and the video watch page will navigate you to the relevent publisher page.
 - In the App: The login button is located in the bottom right corner,the dark mode button is in the upper left corner, the add video button is in the middle of the bottom section.
-
+  
 ## Working process
 
 - First, we analyzed the assignment requirements and divided the work among team members, documenting everything in Jira.

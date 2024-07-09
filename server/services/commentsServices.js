@@ -121,7 +121,13 @@ export const addCommentToDB = async (videoId, newComment) => {
 
         const result = await collection.updateOne(
             { id: videoId },
-            { $push: { comments: newComment } }
+            { $push: 
+                { comments: {
+                    $each: [newComment],
+                    $position: 0
+                } 
+            } 
+        }
         );
 
         if (result.matchedCount === 0) {
