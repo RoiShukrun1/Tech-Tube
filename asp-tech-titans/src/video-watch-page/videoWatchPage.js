@@ -24,7 +24,6 @@ const VideoWatchPage = () => {
   const { darkMode } = useContext(ThemeContext);
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
   const { login } = useContext(LoginContext);
-  const { setUsers } = useContext(UserContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -93,7 +92,6 @@ const VideoWatchPage = () => {
               <VideoInfo
                 currentVideo={currentVideo}
                 currentUser={currentUser}
-                setUsers={setUsers}
                 setMoreInfoPressed={setMoreInfoPressed}
                 moreInfoPressed={moreInfoPressed}
               />

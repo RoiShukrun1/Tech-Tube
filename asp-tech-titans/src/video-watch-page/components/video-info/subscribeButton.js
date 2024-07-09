@@ -1,16 +1,27 @@
 import React from 'react';
 import './subscribeButton.css';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-function subscribeButton({ setUsers, currentUser, publisher }) {
+function SubscribeButton({ currentUser, publisher }) {
 
-    // Variable to check if the current user is subscribed to the publisher
-    var isSubscribed = false;
+    const [isSubscribed, setIsSubscribed] = useState(false);
 
-    // Check if the current user is subscribed to the publisher
-    if (currentUser && currentUser.subscriptions) {
-        isSubscribed = currentUser.subscriptions.includes(publisher);
-    }
+    useEffect(() => {
+        const updateSubscribeStatus = async () => {
+            if (currentUser === null) return;
+
+            const path = 'http://localhost/api/users/' + currentUser.username;
+
+            // Get the user data
+            const user = (await axios.get(path)).data;
+            
+            if (user && user.subscriptions) {
+                setIsSubscribed(user.subscriptions.includes(publisher));
+            }
+        };
+        updateSubscribeStatus();
+    }, [currentUser]);
 
     // Function to switch between subscribe and unsubscribe buttons
     const switchButtons = () => {
@@ -26,28 +37,42 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
     }
 
     // Function to remove subscription
-    const removeSubscription = () => {
-        setUsers(prevUsers => {
-            const updatedUsers = [...prevUsers];
-            if (currentUser && currentUser.subscriptions) {
-                currentUser.subscriptions = currentUser.subscriptions.filter(sub => sub !== publisher);
-            }
-            return updatedUsers;
-        });
+    const removeSubscription = async () => {
+
+        setIsSubscribed(!isSubscribed);
+
+        // Path to the user data
+        const path = 'http://localhost/api/users/' + currentUser.username;
+
+        // Get the user data
+        const user = (await axios.get(path)).data;
+
+        // remove the publisher from the user subscriptions
+        user.subscriptions = user.subscriptions.filter(sub => sub !== publisher);
+
+        // Update the user subscriptions on the server
+        await axios.patch(path, { subscriptions: user.subscriptions });
     };
 
     // Function to add subscription
     const addSubscription = async () => {
-        setUsers(prevUsers => {
-            const updatedUsers = [...prevUsers];
-            if (currentUser && currentUser.subscriptions) {
-                currentUser.subscriptions.push(publisher);
-            }
-            return updatedUsers;
-        });
 
-        // const path = 'http://localhost/api/users/' + currentUser.username;
-        // const result = await axios.patch(path, {subscription : ['Aviel Segev', 'ROI GOLAN']});
+        setIsSubscribed(!isSubscribed);
+
+        // Path to the user data
+        const path = 'http://localhost/api/users/' + currentUser.username;
+
+        // Get the user data
+        const user = (await axios.get(path)).data;
+
+        if (!user.subscriptions.includes(publisher)) {
+            // Add the publisher to the user subscriptions
+            user.subscriptions.push(publisher);
+
+            // Update the user subscriptions on the server
+            await axios.patch(path, { subscriptions: user.subscriptions });
+        }
+
     };
 
     return (
@@ -58,4 +83,4 @@ function subscribeButton({ setUsers, currentUser, publisher }) {
     );
 }
 
-export default subscribeButton;
+export default SubscribeButton;

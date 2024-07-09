@@ -18,7 +18,7 @@ function copyUrl() {
     navigator.clipboard.writeText(url);
 }
 
-function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, moreInfoPressed }) {
+function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPressed }) {
     // State to manage pencil button click
     const [isPencilClicked, setIsPencilClicked] = useState(false);
     // State for video title input
@@ -187,7 +187,6 @@ function VideoInfo({ currentVideo, currentUser, setUsers, setMoreInfoPressed, mo
             <PublisherInfo
                 publisherImage={publisherImage}
                 publisherName={publisher}
-                setUsers={setUsers}
                 currentUser={currentUser}
             />
             <button type="button" className="btn btn-light download-button" onClick={download}>
