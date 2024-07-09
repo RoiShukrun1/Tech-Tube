@@ -2,10 +2,28 @@ import React, { useState, useEffect } from 'react';
 import './publisherInfo.css';
 import SubscribeButton from '../../../video-watch-page/components/video-info/subscribeButton';
 import addBannerIcon from '../../../images/addimage.svg';
+import axios from 'axios';
 
-const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image, currentUser, setUsers }) => {
+const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image, setUsers }) => {
     const [imageState, setImageState] = useState(null);
     const [base64Image, setBase64Image] = useState(null);
+    const [currentUser, setLogin] = useState(null);
+    // Check authentication and set login state
+    useEffect(() => {
+        const checkAuth = async () => {
+        try {
+            const response = await axios.get('http://localhost/api/token/checkAuth', { withCredentials: true });
+            if (response.data.isAuthenticated) {
+            setLogin(response.data.user);
+            }
+        } catch (error) {
+            alert("Error checking authentication.");
+        }
+        };
+
+        checkAuth();
+    }, []);
+
 
     useEffect(() => {
         fetch(addBannerIcon)
@@ -40,7 +58,7 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
                 ) : (
                     <div className="default-banner">
                         <img className="publisher-banner-image-pcp" src={publisherBanner} alt="defaultBanner" />
-                        {currentUser.username === username && (
+                        {currentUser && currentUser.username === username && (
                             <label htmlFor="banner-upload" className="upload-banner-label">
                                 <input 
                                     type="file" 
