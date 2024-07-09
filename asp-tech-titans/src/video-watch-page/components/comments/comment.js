@@ -75,8 +75,7 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
             // This code will execute after videos state has been updated and rendered
             const path = 'http://localhost/api/users/' + currentUser.username +
                 '/videos/' + currentVideoId + '/comments/' + commentObj.id;
-            const res = await axios.delete(path);
-            console.log(res);
+            await axios.delete(path);
             
             setDelSendToSrv(false);
         };
