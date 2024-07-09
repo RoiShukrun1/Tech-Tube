@@ -11,6 +11,7 @@ import { ReactComponent as Like } from '../comments/like.svg';
 import { ReactComponent as Dislike } from '../comments/dislike.svg';
 import { ReactComponent as LikeSelected } from '../comments/like-selected.svg';
 import { ReactComponent as DislikeSelected } from '../comments/dislike-selected.svg';
+import axios from 'axios';
 
 // Function to copy the current URL to the clipboard
 function copyUrl() {
@@ -26,7 +27,7 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
     // State for description input
     const [descriptionInputValue, setDescriptionInputValue] = useState(currentVideo.description);
     // Context for setting video data
-    const { setVideoData } = useContext(VideoDataContext); 
+    const { setVideoData } = useContext(VideoDataContext);
 
     // Handle changes in video title input
     const handleVideoTitleInputChange = (event) => {
@@ -55,6 +56,19 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
             }
             return updatedVideos;
         });
+
+        const updateNewVideoTitleInSrv = async () => {
+            if (currentUser === null) return;
+            if (currentVideo.id === null) return;
+
+            // This code will execute after videos state has been updated and rendered
+            const path = 'http://localhost/api/users/' + currentUser.username +
+                '/videos/' + currentVideo.id;
+            await axios.patch(path, { title: newTitle });
+        };
+
+        updateNewVideoTitleInSrv();
+
     };
 
     // Set new description in video data context
@@ -67,6 +81,18 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
             }
             return updatedVideos;
         });
+
+        const updateNewDescriptionInSrv = async () => {
+            if (currentUser === null) return;
+            if (currentVideo.id === null) return;
+
+            // This code will execute after videos state has been updated and rendered
+            const path = 'http://localhost/api/users/' + currentUser.username +
+                '/videos/' + currentVideo.id;
+            await axios.patch(path, { description: NewDescription });
+        };
+
+        updateNewDescriptionInSrv();
     };
 
     // Close input fields and save changes
@@ -92,6 +118,19 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
         document.body.removeChild(link);
     };
 
+    const updateLikeOrUnlikePressedInSrv = async () => {
+        if (currentUser === null) return;
+        if (currentVideo.id === null) return;
+
+        const path = 'http://localhost/api/users/' + currentUser.username +
+            '/videos/' + currentVideo.id;
+
+        await axios.patch(path, {
+            usersLikes: currentVideo.usersLikes,
+            usersUnlikes: currentVideo.usersUnlikes
+        });
+    };
+
     // Handle like button press
     const likePressed = () => {
         if (!currentUser) {
@@ -113,6 +152,9 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
             });
             return updatedVideos;
         });
+
+        updateLikeOrUnlikePressedInSrv();
+
     };
 
     // Handle dislike button press
@@ -136,6 +178,8 @@ function VideoInfo({ currentVideo, currentUser, setMoreInfoPressed, moreInfoPres
             });
             return updatedVideos;
         });
+
+        updateLikeOrUnlikePressedInSrv();
     };
 
     // Destructure properties from the current video
