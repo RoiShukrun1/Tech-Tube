@@ -30,8 +30,11 @@ export const Login = () => {
         alert('Login failed');
       }
     } catch (error) {
-      alert('Error logging in');
-    }
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('Error logging in');
+      }}
   };
 
   return (

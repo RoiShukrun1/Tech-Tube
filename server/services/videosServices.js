@@ -164,3 +164,29 @@ export const getRelatedVideosFromDB = async (videoId) => {
         await client.close(); // Close the MongoDB client connection
     }
 };
+
+
+export const getCatagoryVideosFromDB = async (videoCatagory) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const db = client.db('TechTitans');
+        const collection = db.collection('videos');
+
+        const video = await collection.findOne({ playlist: videoCatagory });
+
+        const playlist = video.playlist;
+
+        const relatedVideos = await collection.find({
+            playlist: playlist,
+        }).toArray();
+
+        return relatedVideos; // Return the fetched account
+    } catch (error) {
+        console.error('Error fetching videos:', error);
+        throw error; // Throw the error to be handled by the caller
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+};

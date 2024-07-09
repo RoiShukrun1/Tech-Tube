@@ -9,12 +9,24 @@ import Header from './components/header/header';
 import searchVideos from './components/header/search-bar/searchVideos'; 
 import { ThemeContext } from '../contexts/themeContext'; 
 import { VideoDataContext } from '../contexts/videoDataContext';
+import axios from 'axios';
 
 const MainPage = () => {
   const location = useLocation();
   const { darkMode } = useContext(ThemeContext);
   const { videoData, setVideoData, refreshVideoData } = useContext(VideoDataContext);
-  const [videos, setVideos] = useState(videoData);
+  const [videos, setVideos] = useState([videoData]);
+
+
+  const fetch20VideoList = async () => {
+    try {
+        const response = await axios.get('http://localhost/api/videos');
+        console.log(response.data);
+        setVideos(response.data);
+    } catch (error) {
+        console.error('Error fetching video list:', error);
+    }
+  };
 
   const handleDelete = (videoId) => {
     const updatedVideos = videos.filter(video => video.id !== videoId);
@@ -29,17 +41,22 @@ const MainPage = () => {
       document.body.style.overflowX = 'auto';
     };
   }, []);
-
+/*
   useEffect(() => {
     setVideos(videoData);
   }, [videoData]);
+  */
 
   useEffect(() => {
     if (location.state && location.state.refresh) {
       refreshVideoData();
     }
   }, [location.state, refreshVideoData]);
-
+  
+  useEffect(() => {
+    fetch20VideoList();
+  }, []);
+  
   return (
     <div className={`container-fluid main-page ${darkMode ? 'dark' : ''}`}>
       <div className="row no-gutters">
