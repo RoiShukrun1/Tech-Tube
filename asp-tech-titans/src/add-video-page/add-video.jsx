@@ -41,7 +41,7 @@ export const AddVideo = () => {
         const response = await axios.get('http://localhost/api/videos/all');
         const formData = new FormData();
         formData.append('id', parseInt(response.data[response.data.length-1].id, 10) + 1);
-        formData.append('video', mostRecentVideo.file);
+        formData.append('videoUploaded', mostRecentVideo.file);
         formData.append('thumbnail', base64Image);
         formData.append('title', title);
         formData.append('publisher', login.username);
@@ -49,11 +49,10 @@ export const AddVideo = () => {
         formData.append('views', 0);
         formData.append('date', new Date().toLocaleDateString());
         formData.append('description', description);
-        formData.append('relatedVideos', [{"id":1}, {"id":2}, {"id":3}, {"id":4},{"id":5}, {"id":6}, {"id":7}, {"id":8}, {"id":9}, {"id":10}]);
-        formData.append('usersLikes', []);
-        formData.append('usersUnlikes', []);
+        formData.append('usersLikes', JSON.stringify([]));
+        formData.append('usersUnlikes', JSON.stringify([]));
         formData.append('playlist', playlist);
-        formData.append('comments', []);
+        formData.append('comments', JSON.stringify([]));
         try {
             const response = await fetch('http://localhost/api/users/:id/videos', {
                 method: 'POST',
@@ -95,12 +94,14 @@ export const AddVideo = () => {
                     ></textarea>
 
                     <div className="category-container">
-                        <h2>Playlist:</h2>
+                        <h2>Catgory:</h2>
                         <select name="category" id="category">
-                            <option value="" disabled selected>Select playlist</option>
-                            <option value="music">Music</option>
-                            <option value="sport">Sport</option>
-                            <option value="study">Study</option>
+                            <option value="" disabled selected>Select video catagory</option>
+                            <option value="music">Consoles & PC</option>
+                            <option value="sport">Software and Apps</option>
+                            <option value="study">Gadgets</option>
+                            <option value="study">Any</option>
+
                         </select>
                     </div>
                     <label htmlFor="image" className="thumbnail-label">

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const videoSchema = new mongoose.Schema({
     id : String,
-    video: String,
+    videoUploaded: String,
     thumbnail: String,
     title: String,
     publisher: String,
@@ -10,7 +10,6 @@ const videoSchema = new mongoose.Schema({
     views: Number,
     date: String,
     description: String,
-    relatedVideos: [String],
     usersLikes: [String],
     usersUnlikes: [String],
     playlist: String,

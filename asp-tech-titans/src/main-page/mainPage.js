@@ -13,13 +13,14 @@ import { VideoDataContext } from '../contexts/videoDataContext';
 const MainPage = () => {
 
   const { darkMode } = useContext(ThemeContext);
-  const { videoData } = useContext(VideoDataContext);
+  const { videoData, setVideoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState(videoData);
-  const handleSearch = (query) => {
-    const filteredVideos = searchVideos(videoData, query);
-    setVideos(filteredVideos);
-  };
 
+  const handleDelete = (videoId) => {
+    const updatedVideos = videos.filter(video => video.id !== videoId);
+    setVideos(updatedVideos);
+    setVideoData(updatedVideos);
+  };
 
   useEffect(() => {
     document.body.style.overflowX = 'hidden';
@@ -39,13 +40,13 @@ const MainPage = () => {
           <Sidebar />
         </div>
         <div className="col-md-10 p-0">
-          <Header onSearch={handleSearch} />
+          <Header/>
           <div className="container-fluid p-0">
             <Filters />
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
                 <div key={index} className="col-md-4 p-1">
-                  <VideoThumbnail video={newVideo}/>
+                  <VideoThumbnail video={newVideo} onDelete={handleDelete}/>
                 </div>
               ))}
             </div>

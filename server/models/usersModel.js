@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true ,unique: true }, // Define the username field as a string and required
     password: { type: String, required: true }, // Define the password field as a string and required
     image: { type: String, required: false }, // Define the image field as a string (URL) and not required
-    subscriptions: { type: [String], required: false } // Define the subscriptions field as an array of strings and not required
+    subscriptions: { type: [String], required: false }, // Define the subscriptions field as an array of strings and not required
+    banner: { type: String, required: false }
 });
 
 // Export the User model based on the userSchema
