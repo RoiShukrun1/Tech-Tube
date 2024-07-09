@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './mainPage.css'; 
 import React, { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import VideoThumbnail from './components/video-thumbnail/videoThumbnail';
 import Filters from './components/filters/filters';
 import Sidebar from './components/side-bar/sideBar';
@@ -9,17 +10,17 @@ import searchVideos from './components/header/search-bar/searchVideos';
 import { ThemeContext } from '../contexts/themeContext'; 
 import { VideoDataContext } from '../contexts/videoDataContext';
 
-
 const MainPage = () => {
-
+  const location = useLocation();
   const { darkMode } = useContext(ThemeContext);
-  const { videoData, setVideoData } = useContext(VideoDataContext);
+  const { videoData, setVideoData, refreshVideoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState(videoData);
 
   const handleDelete = (videoId) => {
     const updatedVideos = videos.filter(video => video.id !== videoId);
     setVideos(updatedVideos);
     setVideoData(updatedVideos);
+    refreshVideoData();
   };
 
   useEffect(() => {
@@ -32,6 +33,12 @@ const MainPage = () => {
   useEffect(() => {
     setVideos(videoData);
   }, [videoData]);
+
+  useEffect(() => {
+    if (location.state && location.state.refresh) {
+      refreshVideoData();
+    }
+  }, [location.state, refreshVideoData]);
 
   return (
     <div className={`container-fluid main-page ${darkMode ? 'dark' : ''}`}>

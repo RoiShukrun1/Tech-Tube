@@ -1,4 +1,4 @@
-import Video from '../models/videoUploadedModel.js';
+import Video from '../models/videosModel.js';
 import fs from 'fs';
 import path from 'path';
 import { saveBase64Image } from '../services/videoUploadedServices.js';
