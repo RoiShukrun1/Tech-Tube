@@ -68,6 +68,7 @@ const VideoThumbnail = ({ video, onDelete }) => {
 
   const handlePublisherClick = (publisher) => {
     setPublisher(publisher);
+    localStorage.setItem('publisher', publisher)
   };
 
   return (
