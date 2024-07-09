@@ -16,7 +16,23 @@ Tech-Tube is a comprehensive video-sharing platform inspired by YouTube. It allo
 - Commenting and Liking Videos
 - Dark Mode Support
 
+## New features
+User actions now working against server which store and receive the data information from dedicated mongoDB server. This allow:
+- Store new users, videos and comments records
+- Save users action like pressing like, unlike and subscribe buttons
+- Support changing of data: video title and description, comments content and more...
+- in the scrolling menu "your channel" navigate to channel page and delete user delete the logged in user
+- New web pages - publisher chanael page and searched videos page 
+
 # Getting Started
+
+## Instructions to run (Server):
+Notice that the server is crutial for client side functioning.
+Running the client without the server could cause unexpected errors.
+
+1. Go to the following directory: Server
+2. Insure you install all dependencies metioned in the package.json
+3. enter: 'npm start'
 
 ## Instructions to run (Web):
 
@@ -47,6 +63,8 @@ All of the mendatory features are working in both of the platforms, Including ex
 - In web The above icons located to the right of the search tab have the following functions, from left to right:
   Toggle dark mode, Upload New Video, Login.
 - In the App: The login button is located in the bottom right corner,the dark mode button is in the upper left corner, the add video button is in the middle of the bottom section.
+- Pressing the publisher image in the main page and video watch page will navigate to publisher page
+  
 
 ## Working process
 
