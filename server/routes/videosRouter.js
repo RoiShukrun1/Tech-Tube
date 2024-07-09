@@ -1,6 +1,7 @@
 import express from 'express';
 import { getVideo, deleteVideo, updateVideo, 
-    getPublisherVideos, getRelatedVideos } from '../controllers/videosController.js';
+    getPublisherVideos, getRelatedVideos, 
+    getCatagoryVideos} from '../controllers/videosController.js';
 import commentsRouter from './commentsRouter.js';
 
 const videosRouter = express.Router({ mergeParams: true });
@@ -12,6 +13,9 @@ videosRouter.route('/:pid')
 
 videosRouter.route('/:pid/relatedvideos')
     .get(getRelatedVideos)
+
+videosRouter.route('/:pid/catagoryvideos')
+    .get(getCatagoryVideos)
 
 videosRouter.route('/')
     .get(getPublisherVideos)

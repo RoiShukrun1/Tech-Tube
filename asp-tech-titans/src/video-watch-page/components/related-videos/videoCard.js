@@ -7,7 +7,7 @@ import { VideoDataContext } from '../../../contexts/videoDataContext';
 import { CurrentVideoContext } from '../../currentVideoContext';
 
 // Function to increment views
-export const incrementViews = (setVideos, video) => {
+export const incrementViews = async (setVideos, video) => {
     
     setVideos(prevVideos => {
         const updatedVideos = [...prevVideos];
@@ -23,6 +23,9 @@ export const incrementViews = (setVideos, video) => {
 
         return updatedVideos;
     });
+
+    let updatedViewsNumber = video.views + 1;
+    await axios.patch('http://localhost/api/users/id/videos/' + video.id, { views: updatedViewsNumber });
 };
 
 // Video card component
@@ -50,6 +53,7 @@ function VideoCard({ video, setMoreInfoPressed, setInputValue }) {
         incrementViews(setVideoData, video);
         setMoreInfoPressed(false);
         setInputValue('');
+        localStorage.setItem('videoURL', video.videoUploaded)
     };
 
     // Function to render play icon

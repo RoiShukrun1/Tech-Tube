@@ -8,10 +8,10 @@ import Header from '../main-page/components/header/header';
 import ScrollingMenuButton from '../main-page/components/side-bar/scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from '../main-page/components/side-bar/scrolling-menu/scrollingMenu';
 import { LoginContext } from '../contexts/loginContext';
-import { UserContext } from '../contexts/userContext';
 import { VideoDataContext } from '../contexts/videoDataContext';
 import { ThemeContext } from '../contexts/themeContext';
 import './videoWatchPage.css';
+import { Navigate } from 'react-router-dom';
 
 // Function to get video object by URL from video data
 function getObjectByUrl(jsonData, url) {
@@ -24,7 +24,6 @@ const VideoWatchPage = () => {
   const { darkMode } = useContext(ThemeContext);
   const { videoUrl, setVideoUrl } = useContext(CurrentVideoContext);
   const { login } = useContext(LoginContext);
-  const { setUsers } = useContext(UserContext);
   const { videoData, setVideoData } = useContext(VideoDataContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -80,7 +79,7 @@ const VideoWatchPage = () => {
   };
 
   return (
-    isLoading ? (message==='Loading...' ? <div>{message}</div> : <div>{alert(message)}</div>) :
+    isLoading ? (message==='Loading...' ? <div>{message}</div> : <Navigate to="/mainPage" />) :
     <div className={`video-watch-page ${darkMode ? 'dark' : ''}`}>
       <Header onSearch={handleSearch} />
       <ScrollingMenuButton isOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -93,7 +92,6 @@ const VideoWatchPage = () => {
               <VideoInfo
                 currentVideo={currentVideo}
                 currentUser={currentUser}
-                setUsers={setUsers}
                 setMoreInfoPressed={setMoreInfoPressed}
                 moreInfoPressed={moreInfoPressed}
               />

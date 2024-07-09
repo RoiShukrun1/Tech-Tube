@@ -52,10 +52,11 @@ const PublisherChannelPage = () => {
 
   // Fetch publisher data only after publisher and login are set
   useEffect(() => {
-    if (publisher && login) {
+    if (publisher) {
       const fetchData = async () => {
         const fetchedVideos = await getPublisherVideos(publisher);
         setVideos(fetchedVideos);
+        console.log(fetchedVideos);
         await updatePublisherData(fetchedVideos);
       };
       fetchData();
@@ -86,7 +87,7 @@ const PublisherChannelPage = () => {
   const updatePublisherData = async (fetchedVideos) => {
     const usr = await getUser(publisher);
     const subs = await getPublisherSubs(publisher);
-    const isPublisher = login.username === publisher;
+    const isPublisher = login && login.username === publisher;
 
     if (!usr) {
       const publisherData = {
@@ -96,7 +97,6 @@ const PublisherChannelPage = () => {
         videos: fetchedVideos.length,
         banner: noImage,
         image: noImage,
-        currentUser: login,
         setUsers: setUsers,
         isPublisher: isPublisher,
       };
@@ -110,7 +110,6 @@ const PublisherChannelPage = () => {
         videos: fetchedVideos.length,
         banner: usr.banner,
         image: imageurl,
-        currentUser: login,
         setUsers: setUsers,
         isPublisher: isPublisher,
       };
@@ -134,7 +133,7 @@ const PublisherChannelPage = () => {
     setVideos((prevVideos) => prevVideos.filter(video => video.id !== videoId));
   };
 
-  if (!publisher || !login) {
+  if (!publisher) {
     return <div>Loading...</div>;
   }
 

@@ -63,6 +63,7 @@ const VideoThumbnail = ({ video, onDelete }) => {
 
   const handleVideoClick = (videoUrl) => {
     setVideoUrl(videoUrl);
+    localStorage.setItem('videoURL', videoUrl)
     incrementViews(setVideoData, getObjectByUrl(videoData, videoUrl));
   };
 
