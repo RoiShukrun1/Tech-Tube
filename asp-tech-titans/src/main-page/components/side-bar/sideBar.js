@@ -79,6 +79,10 @@ function Sidebar() {
   };
 
   const handleDeleteUserClick = async (e) => {
+    if (!loggedInuser) {
+      alert('You must login to delete your account!');
+      return;
+    }
     try {
       const response = await axios.delete(`http://localhost:80/api/users/${loggedInuser.username}`);
       if (response.status === 200) {
