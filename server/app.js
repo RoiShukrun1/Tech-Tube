@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import usersRoutes from './routes/usersRoutes.js';
+import reactRoute from './routes/reactRoute.js';
 import customEnv from 'custom-env';
 import cookieParser from 'cookie-parser';
 import tokenRoutes from './routes/tokenRoutes.js';
@@ -32,6 +33,7 @@ server.use('/api/users', usersRoutes);
 server.use('/api/token', tokenRoutes);
 server.use('/api/users/:id', videoUploadedRoutes); // Use video routes
 server.use('/api/videos',mainPageVideosRouter);
+server.use('/', reactRoute); // Use video routes
 
 // Get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -39,11 +41,6 @@ const __dirname = path.dirname(__filename);
 
 // Serve the React app
 server.use(express.static(path.join(__dirname, '../asp-tech-titans/build')));
-
-// Serve the main page when accessing the root path
-server.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../asp-tech-titans/build', 'index.html'));
-});
 
 // Connect to MongoDB
 mongoose.connect(mongoURI)
