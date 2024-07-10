@@ -95,7 +95,7 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
                             <span className="upload-banner-text">Upload Banner</span>
                         </label>
                         {uploadedImage && (
-                            <button className="apply-banner-button" onClick={handleApplyBanner}>
+                            <button className="upload-banner-button" onClick={handleApplyBanner}>
                                 Apply
                             </button>
                         )}

@@ -25,7 +25,6 @@ function LoginButton() {
 
   // Effect to handle login state changes
   useEffect(() => {
-      console.log('Login state changed:', login);
     }, [login]);
 
   /**

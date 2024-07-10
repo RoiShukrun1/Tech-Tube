@@ -31,12 +31,25 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color:var(--text-color);
+    color: var(--background-color);
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
 }
+
+.upload-banner-button {
+    position: absolute;
+    bottom: 10px;
+    left: 65%;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
+    color: var(--background-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 
 .upload-banner-label input[type="file"] {
     display: none;
