@@ -8,13 +8,15 @@ import cookieParser from 'cookie-parser';
 import tokenRoutes from './routes/tokenRoutes.js';
 import videoUploadedRoutes from './routes/videoUploadedRoutes.js'; // Import video routes
 import mainPageVideosRouter from './routes/mainPageVideosRouter.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Load environment variables from ./config based on the NODE_ENV
 customEnv.env(process.env.NODE_ENV, './config');
 
 const mongoURI = process.env.CONNECTION_STRING;
 const server = express();
-const port = process.env.PORT || 5000; // Default to 5000 if PORT is not specified
+const port = process.env.PORT; // Default to 5000 if PORT is not specified
 
 // Middleware setup
 server.use(cookieParser());
@@ -30,6 +32,18 @@ server.use('/api/users', usersRoutes);
 server.use('/api/token', tokenRoutes);
 server.use('/api/users/:id', videoUploadedRoutes); // Use video routes
 server.use('/api/videos',mainPageVideosRouter);
+
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve the React app
+server.use(express.static(path.join(__dirname, '../asp-tech-titans/build')));
+
+// Serve the main page when accessing the root path
+server.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../asp-tech-titans/build', 'index.html'));
+});
 
 // Connect to MongoDB
 mongoose.connect(mongoURI)
