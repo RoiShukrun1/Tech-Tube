@@ -49,12 +49,10 @@ const PublisherChannelPage = () => {
 
   // Fetch publisher data only after publisher and login are set
   useEffect(() => {
-    console.log(publisher);
     if (publisher) {
       const fetchData = async () => {
         const fetchedVideos = await getPublisherVideos(publisher);
         setVideos(fetchedVideos);
-        console.log(fetchedVideos);
         await updatePublisherData(fetchedVideos);
       };
       fetchData();

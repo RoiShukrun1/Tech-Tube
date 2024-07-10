@@ -62,7 +62,6 @@ export const getCommentsFromDB = async (videoId) => {
         const collection = db.collection('videos');
 
         const video = await collection.findOne({ id: videoId });
-        console.log(video.comments);
         return video.comments;
 
     } catch (error) {

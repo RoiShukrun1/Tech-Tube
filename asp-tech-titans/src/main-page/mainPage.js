@@ -20,7 +20,6 @@ const MainPage = () => {
   const fetch20VideoList = async () => {
     try {
         const response = await axios.get('http://localhost/api/videos');
-        console.log(response.data);
         setVideos(response.data);
     } catch (error) {
         console.error('Error fetching video list:', error);

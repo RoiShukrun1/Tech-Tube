@@ -5,7 +5,6 @@ import { LoginContext } from '../../../contexts/loginContext';
 import { VideoDataContext } from '../../../contexts/videoDataContext';
 import { incrementViews } from '../../../video-watch-page/components/related-videos/videoCard';
 import { CurrentVideoContext } from '../../../video-watch-page/currentVideoContext';
-import { UserContext } from '../../../contexts/userContext';
 import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
 import axios from 'axios';
 
@@ -63,13 +62,13 @@ const VideoThumbnail = ({ video, onDelete }) => {
 
   const handleVideoClick = (videoUrl) => {
     setVideoUrl(videoUrl);
-    localStorage.setItem('videoURL', videoUrl)
+    localStorage.setItem('videoURL', videoUrl);
     incrementViews(setVideoData, getObjectByUrl(videoData, videoUrl));
   };
 
   const handlePublisherClick = (publisher) => {
     setPublisher(publisher);
-    localStorage.setItem('publisher', publisher)
+    localStorage.setItem('publisher', publisher);
   };
 
   return (

@@ -37,6 +37,10 @@ const SearchedVideosPage = () => {
     }
   }, [query, videoData]);
 
+  const handleDelete = (videoId) => {
+    setVideos((prevVideos) => prevVideos.filter(video => video.id !== videoId));
+  };
+
   return (
     <div className={`container-fluid main-page ${darkMode ? 'dark' : ''}`}>
       <div className="row no-gutters">
@@ -50,7 +54,7 @@ const SearchedVideosPage = () => {
             <div className="row no-gutters">
               {videos.map((newVideo, index) => (
                 <div key={index} className="col-md-4 p-1">
-                  <VideoThumbnail video={newVideo}/>
+                  <VideoThumbnail video={newVideo} onDelete={handleDelete} />
                 </div>
               ))}
             </div>

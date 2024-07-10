@@ -5,7 +5,6 @@ import path from 'path';
 export const patchUserinDB = async (username, updatedParams) => {
 
     const client = new MongoClient(process.env.CONNECTION_STRING);
-    console.log(username, updatedParams)
     try {
         await client.connect(); // Connect to MongoDB
 
@@ -18,7 +17,6 @@ export const patchUserinDB = async (username, updatedParams) => {
             throw new Error('Account not found'); // Throw an error if no account was updated
         }
 
-        console.log(result)
 
         return await collection.findOne({ username: username });
 
@@ -82,7 +80,6 @@ export const getSubscribersFromDB = async (username) => {
         // Use $in operator to find documents where subscriptions array contains username
         const subscribers = await collection.find({ subscriptions: { $in: [username] } }).toArray();
 
-        console.log(subscribers)
 
         return subscribers; // Return the fetched users as an array
     } catch (error) {
@@ -101,7 +98,6 @@ export const saveBase64Image = async (base64Image, filePath) => {
     const imageBuffer = Buffer.from(matches[2], 'base64');
     await ensureDirectoryExistence(filePath);
     await fs.promises.writeFile(filePath, imageBuffer);
-    // console.log('Image saved at:', filePath);
 };
 
 const ensureDirectoryExistence = async (filePath) => {

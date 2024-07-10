@@ -35,7 +35,6 @@ export const deleteUser = async (req, res) => {
 
 export const updateAccount = async (req, res) => {
     try {
-        console.log("updateAccount");
         const accountUsername = req.params.id;
         const updatedparms = req.body;
 
@@ -113,10 +112,8 @@ export const registerUser = async (req, res) => {
 
 
 export const saveBanner = async (req, res) => {
-    console.log("saveBanner");
     const image = req.body.base64Image;
     const username = req.body.username;
-    console.log('image', image);
     try {
         const imagePath = `uploads/bannerPictures/${username}.png`;
         if (image) {
