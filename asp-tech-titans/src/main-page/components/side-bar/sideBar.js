@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import './sideBar.css';
 import homeIcon from '../../../db/icons/home-icon.svg';
 import forYouIcon from '../../../db/icons/for-you-icon.svg';
-import Subscriptions from '../../../db/icons/subscription-icon.svg';
+import yourChannel from '../../../db/icons/user-channel.svg';
+import deleteIcon from '../../../db/icons/delete-button-icon.svg';
 import ScrollingMenuButton from './scrolling-menu-button/scrollingMenuButton';
 import ScrollingMenu from './scrolling-menu/scrollingMenu';
 import music from '../../../db/icons/headphone-icon.svg';
@@ -16,9 +17,7 @@ import help from '../../../db/icons/question-mark-circle-outline-icon.svg';
 import feedback from '../../../db/icons/pencil-icon.svg';
 import techTitansLogo from '../../../db/techTitansLogo.png';
 import techTitansLogoDM from '../../../db/techTitansLogoDM.png';
-import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../contexts/themeContext';
-import { LoginContext } from '../../../contexts/loginContext';
 import { CurrentPublisherContext } from '../../../publisher-chanel-page/currentPublisherContext';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -34,7 +33,6 @@ import { useNavigate } from 'react-router-dom';
 function Sidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage the menu's open/closed status
   const { darkMode } = useContext(ThemeContext); // Retrieve the darkMode value from ThemeContext
-  const { login } = useContext(LoginContext); // Retrieve the login context
   const { setPublisher } = useContext(CurrentPublisherContext);
   const navigate = useNavigate();
   const [loggedInuser, setLoggedInUser] = useState(null); // State to manage the logged-in user
@@ -83,6 +81,8 @@ function Sidebar() {
       const response = await axios.delete(`http://localhost:80/api/users/${loggedInuser.username}`);
       if (response.status === 200) {
         alert('User deleted successfully');
+        setLoggedInUser(null);
+        navigate('/mainPage', { state: { refresh: Date.now() } });
       }
     } catch (error) {
       alert('Error deleting user');
@@ -104,8 +104,8 @@ function Sidebar() {
         <div className="scrollable-menu">
           <ul className="list-group list-group-flush">
             <li className="list-group-item" onClick={() =>handleHomeClick()}><img src={homeIcon} alt="Home" /> Home</li>
-            <li className="list-group-item"><img src={Subscriptions} alt="Subscriptions" /> Subscriptions</li>
-            <li className="list-group-item" onClick={() =>handleYourChannelClick()}><img src={forYouIcon} alt="For You" /> Your Channel</li>
+            <li className="list-group-item" onClick={() =>handleYourChannelClick()}><img src={yourChannel} alt="Your Channel" /> Your Channel</li>
+            <li className="list-group-item" ><img src={forYouIcon} alt="For You" /> For You</li>
             <div className="divider"></div>
             <div className="categories-label">Categories</div>
             <li className="list-group-item no-icon">Sitcoms</li>
@@ -127,10 +127,12 @@ function Sidebar() {
             <li className="list-group-item"><img src={news} alt="Home" />News</li>
             <li className="list-group-item"><img src={podcast} alt="Home" />Podcast</li>
             <div className="divider"></div>
+            <div className="categories-label">More</div>
             <li className="list-group-item"><img src={settings} alt="Home" />Settings</li>
             <li className="list-group-item"><img src={report} alt="Home" />Report history</li>
             <li className="list-group-item"><img src={help} alt="Home" />Help</li>
-            <li className="list-group-item" onClick={() =>handleDeleteUserClick()} ><img src={feedback} alt="Home" />Delete user </li>        
+            <li className="list-group-item"><img src={feedback} alt="Home" />Feedback</li>
+            <li className="list-group-item" onClick={() =>handleDeleteUserClick()} ><img src={deleteIcon} alt="Home" />Delete user </li>        
              </ul>
         </div>
       </div>

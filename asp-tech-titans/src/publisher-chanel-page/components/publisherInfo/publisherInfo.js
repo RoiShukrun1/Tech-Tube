@@ -77,7 +77,6 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
             alert('Error uploading banner');
         }
     };
-
     const publisherImage = image;
     return (
         <div className="publisher-info-div-pcp">

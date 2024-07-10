@@ -20,17 +20,17 @@ function AddComment({ comments, currentVideoId, currentUser,
     // Function to submit a comment
     const submitComment = async () => {
 
-        // Get the comments for the current video
-        const comments =
-            await axios.get('http://localhost/api/users/' + currentUser.username
-                + '/videos/' + currentVideoId + '/comments');
+        // // Get the comments for the current video
+        // const comments =
+        //     await axios.get('http://localhost/api/users/' + currentUser.username
+        //         + '/videos/' + currentVideoId + '/comments');
 
         // generate a new id for the new comment
         let newId;
-        if(comments.data.length === 0) {
+        if (comments.length === 0) {
             newId = 1;
         } else {
-            newId = comments.data[comments.data.length - 1].id + 1;
+            newId = comments[0].id + 1;
         }
 
         // Create the new comment object
@@ -45,11 +45,6 @@ function AddComment({ comments, currentVideoId, currentUser,
             usersUnLikedId: []
         };
 
-        // Post the new comment to the server
-        const path = 'http://localhost/api/users/' + currentUser.username +
-            '/videos/' + currentVideoId + '/comments';
-        await axios.post(path, newComment);
-
         // Update the videos state
         setVideos(prevVideos => {
             const updatedVideos = [...prevVideos];
@@ -61,6 +56,11 @@ function AddComment({ comments, currentVideoId, currentUser,
             return updatedVideos;
 
         });
+
+        // Post the new comment to the server
+        const path = 'http://localhost/api/users/' + currentUser.username +
+            '/videos/' + currentVideoId + '/comments';
+        await axios.post(path, newComment);
 
         setIsFocused(false);
         setInputValue('');
