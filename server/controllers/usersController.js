@@ -67,6 +67,19 @@ export const registerUser = async (req, res) => {
     session.startTransaction();
     try {
         const { nickname, username, password, subscriptions, image } = req.body;
+
+        // Check if the username is already taken
+        const existingUserByUsername = await User.findOne({ username });
+        if (existingUserByUsername) {
+            return res.status(400).send({ message: 'The username is already in use. Please choose a different one.' });
+        }
+
+        // Check if the nickname is already taken
+        const existingUserByNickname = await User.findOne({ nickname });
+        if (existingUserByNickname) {
+            return res.status(400).send({ message: 'The nickname is already in use. Please choose a different one.' });
+        }
+
         // Create a new User instance with the extracted data
         const newUser = new User({ nickname, username, password, image: null, subscriptions });
         // Save the new user to the database

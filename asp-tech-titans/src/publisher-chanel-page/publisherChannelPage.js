@@ -123,8 +123,12 @@ const PublisherChannelPage = () => {
   }, []);
 
   useEffect(() => {
-    setVideos(videoData);
-  }, [videoData]);
+    if (videoData && publisher) {
+      const filteredVideos = videoData.filter(video => video.publisher === publisher);
+      setVideos(filteredVideos);
+    }
+  }, [videoData, location.state, login, publisher]);
+
 
   // Function to handle video deletion
   const deleteVideo = (videoId) => {

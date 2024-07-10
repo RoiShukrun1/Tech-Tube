@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { VideoDataContext } from '../../../contexts/videoDataContext';
 import { CurrentVideoContext } from '../../currentVideoContext';
+import { Link } from 'react-router-dom';
+
 
 // Function to increment views
 export const incrementViews = async (setVideos, video) => {
@@ -56,6 +58,10 @@ function VideoCard({ video, setMoreInfoPressed, setInputValue }) {
         localStorage.setItem('videoURL', video.videoUploaded)
     };
 
+    const handlePublisherClick = (publisher) => {
+        localStorage.setItem('publisher', publisher)
+      };
+
     // Function to render play icon
     const renderPlayIcon = () => {
         return (
@@ -83,9 +89,11 @@ function VideoCard({ video, setMoreInfoPressed, setInputValue }) {
                 </div>
                 <div className="col">
                     <div className="card-body">
-                        <h5 className="card-title">{video.title}</h5>
-                        <p className="card-text">{video.publisher}</p>
-                        <p className="card-text"><small className="views">{video.views} • {video.date}</small></p>
+                        <h5 className="card-title" onClick={handleClick} >{video.title}</h5>
+                        <Link to="/publisherChannel">
+                        <p className="card-text" onClick={() =>handlePublisherClick(video.publisher)} >{video.publisher} </p>
+                        </Link>
+                        <p className="card-text"><small className="views">{video.views} views • {video.date}</small></p>
                     </div>
                 </div>
             </div>

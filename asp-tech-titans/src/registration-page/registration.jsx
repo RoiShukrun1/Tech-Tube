@@ -57,7 +57,7 @@ export const Registration = () => {
     // Function to handle the nickname input
     const handleNickname = (event) => {
         const newNickname = event.target.value;
-        if (nameValidation(newNickname)){
+        if (nickNameValidation(newNickname)){
             setNicknameMassage("");
             setNicknameImage(false);
         }
@@ -87,6 +87,13 @@ export const Registration = () => {
         else 
           return true;
     } 
+
+    // Function to validate the username
+    const nickNameValidation = (name) => {
+        const namePattern = /^[a-zA-Z0-9]{2,}$/; // Updated regex to include digits
+        return namePattern.test(name);
+    }
+
 
     // Function to handle the password input
     const handlePasswordValidation = (event) => {

@@ -86,6 +86,7 @@ function Sidebar() {
       if (response.status === 200) {
         alert('User deleted successfully');
         setLoggedInUser(null);
+        window.location.reload();
         navigate('/mainPage', { state: { refresh: Date.now() } });
       }
     } catch (error) {
