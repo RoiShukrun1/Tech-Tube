@@ -76,6 +76,7 @@ const ScrollingMenu = ({ isOpen, toggleMenu }) => {
       const response = await axios.delete(`http://localhost:80/api/users/${loggedInuser.username}`);
       if (response.status === 200) {
         alert('User deleted successfully');
+        window.location.reload();
         navigate('/mainPage', { state: { refresh: Date.now() } });
       }
     } catch (error) {

@@ -32,7 +32,7 @@ server.use('/api/users/:id', videoUploadedRoutes); // Use video routes
 server.use('/api/videos',mainPageVideosRouter);
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error(err));
 

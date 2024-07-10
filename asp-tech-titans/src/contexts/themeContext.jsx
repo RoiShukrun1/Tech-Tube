@@ -16,7 +16,13 @@ export const ThemeProvider = ({ children }) => {
 
   /**
    * useEffect hook to apply the dark mode class to the document's root element whenever the darkMode state changes.
+   * Also saves the dark mode state to localStorage.
    */
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(savedDarkMode);
+  }, []);
+
   useEffect(() => {
     if (darkMode) {
       // Apply dark theme
@@ -25,6 +31,7 @@ export const ThemeProvider = ({ children }) => {
       // Apply light theme
       document.documentElement.setAttribute('data-theme', 'light');
     }
+    localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
 
   /**
