@@ -9,7 +9,6 @@ export const saveBase64Image = async (base64Image, filePath) => {
     const imageBuffer = Buffer.from(matches[2], 'base64');
     await ensureDirectoryExistence(filePath);
     await fs.promises.writeFile(filePath, imageBuffer);
-    console.log('Image saved at:', filePath);
 };
 
 const ensureDirectoryExistence = async (filePath) => {

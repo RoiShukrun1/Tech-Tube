@@ -46,7 +46,9 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
                         reader.onloadend = () => {
                             setBase64Image(reader.result);
                         };
-                        reader.readAsDataURL(blob);
+                        if (blob) {
+                        reader.readAsDataURL(blob); 
+                    }
                     })
                     .catch((error) => console.error('Error converting image to base64:', error));
             }
@@ -61,7 +63,9 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
         reader.onloadend = () => {
             setUploadedImage(reader.result); // Store the uploaded image
         };
+        if (file) {
         reader.readAsDataURL(file);
+        }
     };
 
     const handleApplyBanner = async () => {
@@ -71,6 +75,7 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
             if (response.status === 200) {
                 setBannerImageUrl(`${serverBaseUrl}/uploads/bannerPictures/${username}.png`);
                 setUploadedImage(null); // Clear uploaded image after applying
+                // window.location.reload();
                 alert('User upload banner successfully');
             }
         } catch (error) {

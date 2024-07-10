@@ -121,7 +121,6 @@ function Comment({ commentObj, setVideos, currentVideoId, currentUser }) {
                         const userLikedIndex =
                             comment.usersLikedId.findIndex(user => user.username === currentUser.username);
 
-                        console.log(comment)
                         return {
                             ...comment,
                             usersLikedId: userLikedIndex !== -1
