@@ -3,6 +3,7 @@ package com.example.tech_titans_app.ui.entities;
 import android.net.Uri;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
@@ -32,6 +33,7 @@ public class Video {
     private List<Integer> usersLikedId;
     private List<Integer> usersUnlikedId;
 
+    @Ignore
     // Constructor for a simple Video object
     public Video(int id ,Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
         this.id = id;
@@ -46,6 +48,7 @@ public class Video {
         this.usersUnlikedId = new ArrayList<>();
     }
 
+    @Ignore
     // Constructor with description
     public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description) {
         this.thumbnail = thumbnail;
@@ -60,6 +63,7 @@ public class Video {
         this.usersUnlikedId = new ArrayList<>();
     }
 
+    @Ignore
     // Constructor with video upload URI and likes count
     public Video(Uri thumbnail, String title, String publisher,
                  Uri publisherImage, String views,
@@ -146,7 +150,7 @@ public class Video {
         return views;
     }
 
-    public CharSequence getDate() {
+    public String getDate() {
         return date;
     }
 

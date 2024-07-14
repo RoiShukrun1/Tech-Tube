@@ -3,7 +3,7 @@
 //import retrofit2.Retrofit;
 //import retrofit2.converter.gson.GsonConverterFactory;
 //
-//public class UsersAPI {
+//public class VideosAPI {
 //
 //    Retrofit retrofit;
 //    WebServiceAPI webServiceAPI;
@@ -31,6 +31,25 @@
 //            }
 //        });
 //    }
-//
-//
 //}
+//
+//public class UsersAPI {
+//
+//    private Retrofit retrofit;
+//    private WebServiceAPI webServiceAPI;
+//
+//    public UsersAPI() {
+//        retrofit = new Retrofit.Builder()
+//                .baseUrl(R.)
+//                .baseUrl("http://10.0.2.2/") // Use the correct port your server is running on
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        webServiceAPI = retrofit.create(WebServiceAPI.class);
+//    }
+//
+//    public void registerUser(UserData user, Callback<Void> callback) {
+//        Call<Void> call = webServiceAPI.registerUser(user);
+//        call.enqueue(callback);
+//    }
+//}
+//

@@ -37,8 +37,11 @@ import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
+import com.example.tech_titans_app.ui.entities.VideoDB;
+import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
@@ -46,6 +49,8 @@ import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 import androidx.core.content.ContextCompat;
 
 import android.graphics.drawable.Drawable;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,6 +69,11 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private View videoInfo;
     private View comments;
     private RecyclerView recyclerView;
+
+
+
+    VideoDB videoDB;
+    VideoDao videoDao;
 
     /**
      * Method to handle the creation of the activity.
@@ -93,6 +103,27 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         orientationConfigurationChangeListener();
         setSubscribeUI();
         handleEditIconsVisibility();
+
+
+        videoDB = VideoDB.getInstance(this);
+        videoDao = videoDB.videoDao();
+
+        Uri image1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.drawable.image1);
+
+        Uri video1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.raw.video1);
+
+        Uri publisherImage1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+                + R.drawable.rick_astely);
+
+        Video firstVi = new Video(0, video1, image1, "Digitalization; Where to start",
+                "Rick Astley", publisherImage1, "500", "2021-10-01",
+                ", outlining journey effectively.",
+                null,
+                "sport", new ArrayList<>(), "10");
+
+        videoDao.insert(firstVi);
 
     }
 
