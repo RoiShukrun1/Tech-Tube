@@ -24,7 +24,9 @@ export const AddVideo = () => {
           reader.onloadend = () => {
               setBase64Image(reader.result); // Store the Base64 string
           };
+          if (file) {
           reader.readAsDataURL(file);
+          }
       }
 
     const handleSubmit = async (event) => {

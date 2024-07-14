@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { uploadVideo } from '../controllers/videoUploadedController.js';
+import { authenticate } from '../controllers/tokenController.js';
 
 const router = express.Router();
 
@@ -20,6 +21,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/videos', upload.single('videoUploaded'), uploadVideo);
+router.post('/videos', upload.single('videoUploaded'), authenticate, uploadVideo);
 
 export default router;

@@ -3,13 +3,13 @@ import { getVideo, deleteVideo, updateVideo,
     getPublisherVideos, getRelatedVideos, 
     getCatagoryVideos} from '../controllers/videosController.js';
 import commentsRouter from './commentsRouter.js';
-
+import { authenticate } from '../controllers/tokenController.js';
 const videosRouter = express.Router({ mergeParams: true });
 
 videosRouter.route('/:pid')
     .get(getVideo)
-    .delete(deleteVideo)
-    .patch(updateVideo);
+    .delete(authenticate, deleteVideo)
+    .patch(authenticate, updateVideo);
 
 videosRouter.route('/:pid/relatedvideos')
     .get(getRelatedVideos)
