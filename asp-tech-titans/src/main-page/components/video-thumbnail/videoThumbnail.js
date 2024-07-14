@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './videoThumbnail.css';
 import { Link } from 'react-router-dom';
-import { LoginContext } from '../../../contexts/loginContext';
 import { VideoDataContext } from '../../../contexts/videoDataContext';
 import { incrementViews } from '../../../video-watch-page/components/related-videos/videoCard';
 import { CurrentVideoContext } from '../../../video-watch-page/currentVideoContext';
@@ -14,8 +13,7 @@ function getObjectByUrl(jsonData, url) {
 
 const VideoThumbnail = ({ video, onDelete }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { login } = useContext(LoginContext);
-  const { videoData, deleteVideo, setVideoData } = useContext(VideoDataContext);
+  const { videoData, setVideoData } = useContext(VideoDataContext);
   const { setVideoUrl } = useContext(CurrentVideoContext);
   const { setPublisher } = useContext(CurrentPublisherContext);
   const serverBaseUrltype1 = 'http://localhost:80/';

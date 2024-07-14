@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import './add-video.css';
 import { ReactComponent as ImageIcon } from '../images/addimage.svg';
 import { VideoContext } from '../contexts/videoContext';
-import { VideoDataContext } from '../contexts/videoDataContext';
 import { useNavigate } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext';
 import { Link } from 'react-router-dom';
@@ -12,7 +11,6 @@ import axios from 'axios';
 export const AddVideo = () => {
     const [image, setImage] = useState(null);
     const { videoList } = useContext(VideoContext);
-    const { addVideoData } = useContext(VideoDataContext);
     const [base64Image, setBase64Image] = useState(null);
     const mostRecentVideo = videoList.length > 0 ? videoList[videoList.length - 1] : null;
     const navigate = useNavigate();
@@ -54,21 +52,21 @@ export const AddVideo = () => {
         formData.append('usersUnlikes', JSON.stringify([]));
         formData.append('playlist', playlist);
         formData.append('comments', JSON.stringify([]));
-        const newData = {
-            id: parseInt(response.data[response.data.length-1].id, 10) + 1,
-            videoUploaded: mostRecentVideo ? mostRecentVideo.url : '',
-            thumbnail: base64Image,
-            title: title,
-            publisher: login.username,
-            publisherImage: login.image,
-            views: 0,
-            date: new Date().toLocaleDateString(),
-            description: description,
-            usersLikes: [],
-            usersUnlikes: [],
-            playlist: playlist,
-            comments: []
-        };
+        // const newData = {
+        //     id: parseInt(response.data[response.data.length-1].id, 10) + 1,
+        //     videoUploaded: mostRecentVideo ? mostRecentVideo.url : '',
+        //     thumbnail: base64Image,
+        //     title: title,
+        //     publisher: login.username,
+        //     publisherImage: login.image,
+        //     views: 0,
+        //     date: new Date().toLocaleDateString(),
+        //     description: description,
+        //     usersLikes: [],
+        //     usersUnlikes: [],
+        //     playlist: playlist,
+        //     comments: []
+        // };
 
         try {
             const response = await fetch('http://localhost/api/users/:id/videos', {
