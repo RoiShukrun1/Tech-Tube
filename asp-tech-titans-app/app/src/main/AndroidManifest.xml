@@ -18,7 +18,7 @@
         android:theme="@style/Theme.TechTitansApp.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".ui.PublisherChannelActivity"
+            android:name=".ui.mainActivity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,9 +44,9 @@
         <activity
             android:name=".ui.LoginActivity">
         </activity>
-<!--        <activity-->
-<!--            android:name=".ui.PublishChannelActivity">-->
-<!--        </activity>-->
+        <activity
+            android:name=".ui.PublisherChannelActivity">
+        </activity>
     </application>
 
 
