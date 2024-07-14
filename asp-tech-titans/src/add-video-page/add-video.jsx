@@ -35,7 +35,7 @@ export const AddVideo = () => {
         const description = document.getElementById("description").value;
         const playlist = document.getElementById("category").value;
 
-        if (!title || !description || !playlist || !image) {
+        if (!title || !description || !playlist || !image || !mostRecentVideo) {
             alert("All fields are required.");
             return;
         }
