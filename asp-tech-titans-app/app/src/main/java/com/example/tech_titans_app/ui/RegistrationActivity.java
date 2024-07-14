@@ -22,9 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.models.account.UserData;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataArray;
+import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +41,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextView loginRedirectText;
     private TextView guestRedirectText;
     private Uri selectedImageUri;
+    private UsersDataDao usersDataDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,12 @@ public class RegistrationActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.button2);
         loginRedirectText = findViewById(R.id.loginRedirectText);
         guestRedirectText = findViewById(R.id.guestRedirectText);
+
+        UsersDB db = UsersDB.getInstance(this);
+        usersDataDao = db.usersDao();
+
+
+
 
         // Set default image
         uploadPhotoButton.setImageResource(R.drawable.profile);
@@ -222,6 +233,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 selectedImageUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.profile);
             }
             UserData newAccount = new UserData(usersDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
+            UserData testUser = new UserData(0, username, nickname, password, Arrays.asList(), selectedImageUri);
+
+            // Insert the test user into the database
+            usersDataDao.insert(testUser);
+
             UsersDataArray.getInstance().addAccount(newAccount);
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
@@ -253,6 +269,8 @@ public class RegistrationActivity extends AppCompatActivity {
             outState.putParcelable(KEY_IMAGE_URI, selectedImageUri);
         }
     }
+
+
     // Restore the image URI
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -263,5 +281,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 loadImageButton();
             }
         }
+    }
+
+    private void insertTestData() {
+        // Create a test user
+        UserData testUser = new UserData(0, "registration", "registration", "password123", Arrays.asList("sub1", "sub2"), Uri.parse("https://example.com/profile.jpg"));
+
+        // Insert the test user into the database
+        usersDataDao.insert(testUser);
     }
 }

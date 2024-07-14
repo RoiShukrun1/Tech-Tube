@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui.mainActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +23,10 @@ import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
+
+import com.example.tech_titans_app.ui.models.account.UserData;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
@@ -67,16 +72,11 @@ public class MainActivity extends AppCompatActivity {
         // Setup dark mode functionality
         setupDarkMode();
 
-        usersDB = Room.databaseBuilder(getApplicationContext(), UsersDB.class, "usersDb")
-                .allowMainThreadQueries()
-                .build();
+// Get the database instance
+        UsersDB db = UsersDB.getInstance(this);
+        usersDataDao = db.usersDao();
 
-        usersDataDao = usersDB.usersDao();
-
-
-
-
-
+        insertTestData();
     }
 
     private void setupNavigationButtons() {
@@ -93,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, UploadVideoActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void insertTestData() {
+        // Create a test user
+        UserData testUser = new UserData(0, "test_user", "Test", "password123", Arrays.asList("sub1", "sub2"), Uri.parse("https://example.com/profile.jpg"));
+
+        // Insert the test user into the database
+        usersDataDao.insert(testUser);
     }
 
     private void setupSearchBar() {
