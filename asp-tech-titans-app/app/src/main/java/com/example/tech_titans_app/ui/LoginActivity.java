@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
-import com.example.tech_titans_app.ui.models.account.AccountData;
-import com.example.tech_titans_app.ui.models.account.AccountDataArray;
+import com.example.tech_titans_app.ui.models.account.UserData;
+import com.example.tech_titans_app.ui.models.account.UsersDataArray;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.util.List;
@@ -66,9 +66,9 @@ public class LoginActivity extends AppCompatActivity {
     }
     // Method to check login credentials
     private void checkLogin(String username, String password) {
-        AccountDataArray accountDataArray = AccountDataArray.getInstance();
-        List<AccountData> accounts = accountDataArray.getAccountArray();
-        for (AccountData account : accounts) {
+        UsersDataArray usersDataArray = UsersDataArray.getInstance();
+        List<UserData> accounts = usersDataArray.getAccountArray();
+        for (UserData account : accounts) {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 LoggedIn.getInstance().setLoggedInUser(account);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

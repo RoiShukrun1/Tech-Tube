@@ -11,17 +11,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.LoginActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
+import com.example.tech_titans_app.ui.entities.VideoDB;
+import com.example.tech_titans_app.ui.entities.VideoDao;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
+import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
 public class MainActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private VideosListAdapter adapter;
     private ProfileManager profileManager;
+    private VideoDB videoDB;
+    private VideoDao videoDao;
+    private UsersDB usersDB;
+    private UsersDataDao usersDataDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup dark mode functionality
         setupDarkMode();
+
+        usersDB = Room.databaseBuilder(getApplicationContext(), UsersDB.class, "usersDb")
+                .allowMainThreadQueries()
+                .build();
+
+        usersDataDao = usersDB.usersDao();
+
+
+
+
+
     }
 
     private void setupNavigationButtons() {

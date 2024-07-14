@@ -2,11 +2,15 @@ package com.example.tech_titans_app.ui.models.account;
 
 import android.app.Application;
 import android.net.Uri;
-import android.view.View;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.List;
 
-public class AccountData extends Application {
+@Entity()
+public class UserData extends Application {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String username;
     private String nickname;
@@ -14,7 +18,8 @@ public class AccountData extends Application {
     private List<String> subscriptions;
     private Uri profilePicture;
     // Constructor
-  public AccountData(int id, String username, String nickname, String password, List<String> subscriptions, Uri profilePicture) {
+  public UserData(int id, String username, String nickname,
+                  String password, List<String> subscriptions, Uri profilePicture) {
       this.id = id;
       this.username = username;
       this.nickname = nickname;

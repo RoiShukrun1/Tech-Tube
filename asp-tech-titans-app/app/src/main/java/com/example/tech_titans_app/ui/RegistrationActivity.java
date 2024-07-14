@@ -1,6 +1,5 @@
 package com.example.tech_titans_app.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,8 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
-import com.example.tech_titans_app.ui.models.account.AccountData;
-import com.example.tech_titans_app.ui.models.account.AccountDataArray;
+import com.example.tech_titans_app.ui.models.account.UserData;
+import com.example.tech_titans_app.ui.models.account.UsersDataArray;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -217,13 +216,13 @@ public class RegistrationActivity extends AppCompatActivity {
             String nickname = nicknameText.getText().toString();
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
-            AccountDataArray accountDataArray = AccountDataArray.getInstance();
+            UsersDataArray usersDataArray = UsersDataArray.getInstance();
             // Use default image if no image selected
             if (selectedImageUri == null) {
                 selectedImageUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.profile);
             }
-            AccountData newAccount = new AccountData(accountDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
-            AccountDataArray.getInstance().addAccount(newAccount);
+            UserData newAccount = new UserData(usersDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
+            UsersDataArray.getInstance().addAccount(newAccount);
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(intent);
