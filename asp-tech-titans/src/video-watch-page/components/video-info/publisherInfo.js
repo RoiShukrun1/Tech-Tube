@@ -16,6 +16,7 @@ function PublisherInfo({ publisherImage, publisherName, currentUser }) {
    */
     const handlePublisherClick = (publisher) => {
         setPublisher(publisher);
+        localStorage.setItem('publisher', publisher);
     };
 
     const baseServerUrl = 'http://localhost';
