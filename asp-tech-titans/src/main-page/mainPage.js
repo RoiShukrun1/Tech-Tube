@@ -13,7 +13,7 @@ import axios from 'axios';
 const MainPage = () => {
   const location = useLocation();
   const { darkMode } = useContext(ThemeContext);
-  const { videoData, setVideoData, refreshVideoData } = useContext(VideoDataContext);
+  const {setVideoData, refreshVideoData } = useContext(VideoDataContext);
   const [videos, setVideos] = useState([]);
 
 
