@@ -76,10 +76,10 @@ const PublisherInfo = ({ nickname, username, subscribers, videos, banner, image,
                 setBannerImageUrl(`${serverBaseUrl}/uploads/bannerPictures/${username}.png`);
                 setUploadedImage(null); // Clear uploaded image after applying
                 // window.location.reload();
-                alert('User upload banner successfully');
+                alert('Banner uploaded successfully');
             }
         } catch (error) {
-            alert('Error uploading banner');
+            alert('Uploading banner failed');
         }
     };
     const publisherImage = image;
