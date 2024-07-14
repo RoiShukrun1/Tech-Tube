@@ -1,8 +1,7 @@
-package com.example.tech_titans_app.ui.mainActivity;
+package com.example.tech_titans_app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,9 +16,14 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.LoginActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
+import com.example.tech_titans_app.ui.mainActivity.MainActivity;
+import com.example.tech_titans_app.ui.mainActivity.ProfileManager;
+import com.example.tech_titans_app.ui.mainActivity.SearchBarHandler;
+import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
+import com.example.tech_titans_app.ui.mainActivity.DarkModeManager;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class PublisherChannelActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private VideosListAdapter adapter;
     private ProfileManager profileManager;
@@ -28,9 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Setup filter click listeners
-        new FilterUtils().setupFilterClickListeners(findViewById(android.R.id.content));
 
         // Setup search bar functionality
         new SearchBarUtils(findViewById(android.R.id.content));
@@ -64,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
         // Home button to reload the MainActivity
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            Intent intent = new Intent(PublisherChannelActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
         // Add video button to navigate to the UploadVideoActivity
         ImageView addVideoButton = findViewById(R.id.add);
         addVideoButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, UploadVideoActivity.class);
+            Intent intent = new Intent(PublisherChannelActivity.this, UploadVideoActivity.class);
             startActivity(intent);
         });
     }
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set click listener for login text to navigate to LoginActivity
         loginText.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(PublisherChannelActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }
