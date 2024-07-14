@@ -37,9 +37,11 @@ Please keep the command window open to ensure the server remains operational. No
 
 ## Instructions to run (Web):
 
-1. Navigate to the following directory: asp-tech-titans
+1. Navigate to the following directory: 'asp-tech-titans'
 2. Insure you install npm and run the build
-3. enter: 'npm start'
+3. Navigate to the following directory: 'server'
+4. enter: 'npm start'
+5. Open browser and enter 'localhost' in the URL bar
 
 ## Instruction to run (AndroidApp)
 
