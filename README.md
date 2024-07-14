@@ -61,13 +61,13 @@ All of the mendatory features are working in both of the platforms, Including ex
 - Editing Content: To edit the title, description, or a comment, click on the pencil icon next to those fields on the watch page (available for logged-in users only).
 - Deleting a Comment: To delete a comment, click on the X icon next to the comment you want to delete (available only for the publisher of the comment).
 - Edit the video description (Web): Notice the pencil icon near the video title. Click on it to open the option to edit the video description as well. Press the 'more...' option, and an input window with the current description will be shown.
-  
+
   ![image](https://github.com/AvielSegev/Tech-Titans/assets/127956356/34446a8d-4312-4daf-a82b-0fadacb9b6e5)
 - In web The above icons located to the right of the search tab have the following functions, from left to right:
   Toggle dark mode, Upload New Video, Login.
   Additionally, clicking on the publisher's image on both the main page and the video watch page will navigate you to the relevent publisher page.
 - In the App: The login button is located in the bottom right corner,the dark mode button is in the upper left corner, the add video button is in the middle of the bottom section.
-  
+- Important: Please wait for the pages to fully load before making any transactions such as button clicking, etc.
 ## Working process
 
 - First, we analyzed the assignment requirements and divided the work among team members, documenting everything in Jira.
