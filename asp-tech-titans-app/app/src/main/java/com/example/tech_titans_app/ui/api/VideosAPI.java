@@ -69,4 +69,66 @@ public class VideosAPI {
             }
         });
     }
+
+    public void uploadVideo(Video video, Callback<Void> callback) {
+        Call<Void> call = webServiceAPI.uploadVideo(video);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                    Log.e("API_CALL", "API call failed uploadvideo");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void deleteVideoById(String id, Callback<Void> callback) {
+        Call<Void> call = webServiceAPI.deleteVideoById(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                    Log.e("API_CALL", "API call failed deletevideobyid");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void updateVideoById(String id, PatchReqBody newParams) {
+        Call<Void> call = webServiceAPI.updateVideoById(id, newParams.getUpdateParams());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                } else {
+                    Log.e("API_CALL", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("API_CALL", "API call failed" + t.getMessage());
+
+            }
+        });
+    }
+
+
+
 }
