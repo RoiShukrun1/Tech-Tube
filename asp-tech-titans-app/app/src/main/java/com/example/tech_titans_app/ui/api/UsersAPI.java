@@ -1,8 +1,6 @@
 package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.UserResponse;
 import com.example.tech_titans_app.ui.models.account.UserData;
@@ -47,7 +45,13 @@ public class UsersAPI {
                     });
                     externalCallback.onResponse(call, response);
                 } else {
-                    externalCallback.onFailure(call, new Throwable("Registration failed: " + response.message()));
+                    try {
+                        ResponseBody errorBody = response.errorBody();
+                        String errorMessage = errorBody != null ? errorBody.string() : "Error occurred";
+                        externalCallback.onFailure(call, new Throwable(errorMessage));
+                    } catch (Exception e) {
+                        externalCallback.onFailure(call, new Throwable("Registration failed5: " + response.message()));
+                    }
                 }
             }
 
@@ -72,7 +76,13 @@ public class UsersAPI {
                         externalCallback.onFailure(call, new Throwable("Invalid response from server"));
                     }
                 } else {
-                    externalCallback.onFailure(call, new Throwable("Login failed: " + response.message()));
+                    try {
+                        ResponseBody errorBody = response.errorBody();
+                        String errorMessage = errorBody != null ? errorBody.string() : "Unknown error";
+                        externalCallback.onFailure(call, new Throwable(errorMessage));
+                    } catch (Exception e) {
+                        externalCallback.onFailure(call, new Throwable("Login failed: " + response.message()));
+                    }
                 }
             }
 
@@ -94,11 +104,11 @@ public class UsersAPI {
                     callback.onFailure(call, new Throwable("Failed to load profile picture: " + response.message()));
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 callback.onFailure(call, t);
             }
         });
     }
-
 }
