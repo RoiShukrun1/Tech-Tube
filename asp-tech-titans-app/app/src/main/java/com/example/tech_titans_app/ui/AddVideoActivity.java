@@ -17,8 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
-import com.example.tech_titans_app.ui.models.account.AccountData;
-import com.example.tech_titans_app.ui.models.add_video.VideoDataArray;
+import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 
@@ -32,7 +31,7 @@ public class AddVideoActivity extends AppCompatActivity {
     private static final String KEY_THUMBNAIL_URI = "thumbnail_uri";
     private Uri videoUri;
     private Uri thumbnailUri;
-    private AccountData loggedInUser;
+    private UserData loggedInUser;
     private ImageView thumbnailImage;
     private Spinner playlistSpinner;
 
@@ -141,22 +140,22 @@ public class AddVideoActivity extends AppCompatActivity {
         }
 
         if (videoUri != null && thumbnailUri != null) {
-            Video currentVideoData = new Video(
-                    VideosRepository.getInstance().getAllVideos().getValue().size() + 1,
-                    videoUri,
-                    thumbnailUri,  // Use the selected or default thumbnail URI
-                    titleString,
-                    loggedInUser.getNickname(),
-                    loggedInUser.getProfilePicture(),
-                    "0",
-                    formattedDate,
-                    descriptionString,
-                    new ArrayList<>(),
-                    playlistString,  // Set the selected playlist
-                    new ArrayList<>(),
-                    "0"
-            );
-            VideosRepository.getInstance().addVideo(currentVideoData);
+           // Video currentVideoData = new Video(
+                  //  VideosRepository.getInstance().getAllVideos().getValue().size() + 1,
+                   // videoUri,
+                  //  thumbnailUri,  // Use the selected or default thumbnail URI
+                 //   titleString,
+                 //   loggedInUser.getNickname(),
+                 //   loggedInUser.getProfilePicture(),
+                 //   "0",
+                  //  formattedDate,
+                   // descriptionString,
+                   // new ArrayList<>(),
+                   // playlistString,  // Set the selected playlist
+                   // new ArrayList<>(),
+                   // "0"
+          //  );
+           // VideosRepository.getInstance().addVideo(currentVideoData);
             showToastMessage("Video data uploaded successfully!");
             Intent intent = new Intent(AddVideoActivity.this, MainActivity.class);
             startActivity(intent);

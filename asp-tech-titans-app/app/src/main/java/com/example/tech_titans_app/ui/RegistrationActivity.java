@@ -1,6 +1,5 @@
 package com.example.tech_titans_app.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,14 +21,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
-import com.example.tech_titans_app.ui.models.account.AccountData;
-import com.example.tech_titans_app.ui.models.account.AccountDataArray;
+import com.example.tech_titans_app.ui.models.account.UserData;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
+import com.example.tech_titans_app.ui.models.account.UsersDataDao;
+import com.example.tech_titans_app.ui.api.UsersAPI;
+import com.example.tech_titans_app.ui.UriToBase64;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistrationActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RegistrationActivity extends AppCompatActivity implements Callback<Void> {
     private EditText nicknameText, usernameText, passwordText, confirmPasswordText;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAPTURE_IMAGE_REQUEST = 2;
@@ -39,11 +47,15 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextView loginRedirectText;
     private TextView guestRedirectText;
     private Uri selectedImageUri;
+    private UsersDataDao usersDataDao;
+    private String base64Image;
+    private UsersAPI usersAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
         // Initialize the views
         uploadPhotoButton = findViewById(R.id.imageButton);
         nicknameText = findViewById(R.id.nicknameText);
@@ -54,8 +66,14 @@ public class RegistrationActivity extends AppCompatActivity {
         loginRedirectText = findViewById(R.id.loginRedirectText);
         guestRedirectText = findViewById(R.id.guestRedirectText);
 
+        UsersDB db = UsersDB.getInstance(this);
+        usersDataDao = db.usersDao();
+
+        usersAPI = new UsersAPI(this);
+
         // Set default image
         uploadPhotoButton.setImageResource(R.drawable.profile);
+
         // Restore the image URI
         if (savedInstanceState != null) {
             selectedImageUri = savedInstanceState.getParcelable(KEY_IMAGE_URI);
@@ -71,15 +89,15 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmPasswordText.addTextChangedListener(textWatcher);
 
         // Set onClickListener for the Sign-in Button
-        signInButton.setOnClickListener(v -> {
-            register();
-        });
-        //Set redirect to login page
+        signInButton.setOnClickListener(v -> register());
+
+        // Set redirect to login page
         loginRedirectText.setOnClickListener(v -> {
             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(intent);
         });
-        //Set redirect to main page
+
+        // Set redirect to main page
         guestRedirectText.setOnClickListener(v -> {
             Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
             startActivity(intent);
@@ -182,14 +200,14 @@ public class RegistrationActivity extends AppCompatActivity {
         String confirmPassword = confirmPasswordText.getText().toString().trim();
 
         if (nickname.isEmpty() || !isValidName(nickname)) {
-            nicknameText.setError("Nickname must contain only letters and cannot be less then 2 characters");
+            nicknameText.setError("Nickname must contain only letters and cannot be less than 2 characters");
             flag = false;
         } else {
             nicknameText.setError(null);
         }
 
         if (username.isEmpty() || !isValidName(username)) {
-            usernameText.setError("Username must contain only letters and cannot be less then 2 characters");
+            usernameText.setError("Username must contain only letters and cannot be less than 2 characters");
             flag = false;
         } else {
             usernameText.setError(null);
@@ -217,19 +235,31 @@ public class RegistrationActivity extends AppCompatActivity {
             String nickname = nicknameText.getText().toString();
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
-            AccountDataArray accountDataArray = AccountDataArray.getInstance();
-            // Use default image if no image selected
             if (selectedImageUri == null) {
                 selectedImageUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.profile);
             }
-            AccountData newAccount = new AccountData(accountDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
-            AccountDataArray.getInstance().addAccount(newAccount);
-            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+            base64Image = UriToBase64.convertUriToBase64(this, selectedImageUri);
+            UserData newUser = new UserData(0, username, nickname, password, new ArrayList<>(), base64Image);
+            usersAPI.registerUser(newUser, this);
+        } else {
+            Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResponse(Call<Void> call, Response<Void> response) {
+            Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(intent);
-        } else {
-            Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailure(Call<Void> call, Throwable t) {
+        String errorMessage = t.getMessage();
+        if (errorMessage != null && errorMessage.length() > 10) {
+            errorMessage = errorMessage.substring(10);
         }
+        Toast.makeText(RegistrationActivity.this, "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     // Regular expression for password validation
@@ -239,6 +269,7 @@ public class RegistrationActivity extends AppCompatActivity {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
+
     // Regular expression for name validation
     private boolean isValidName(String name) {
         Pattern namePattern = Pattern.compile("^[a-zA-Z]{2,}$");
@@ -249,11 +280,11 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // Save the image URI
         if (selectedImageUri != null) {
             outState.putParcelable(KEY_IMAGE_URI, selectedImageUri);
         }
     }
+
     // Restore the image URI
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
