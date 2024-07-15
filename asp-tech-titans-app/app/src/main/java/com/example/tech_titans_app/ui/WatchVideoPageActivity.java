@@ -133,8 +133,10 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
                 if (response.isSuccessful()) {
                     Video video232 = response.body();
+                    Log.e("API_CALL", "API call suceess");
                 } else {
                     // Handle the case where the response is not successful
+                    Log.e("API_CALL", "API call failed onResponse:");
                 }
             }
 

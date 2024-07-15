@@ -2,6 +2,8 @@ package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.tech_titans_app.R;
@@ -11,6 +13,11 @@ import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.example.tech_titans_app.ui.Converters.usernameDeserializer;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,8 +31,13 @@ public class VideosAPI {
     private VideoDao videoDao;
 
     public VideosAPI(Context context) {
+
+        // Define the type for the custom deserializer
+        Type listType = new TypeToken<List<String>>(){}.getType();
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Uri.class, new UriTypeAdapter())
+                .registerTypeAdapter(listType, new usernameDeserializer())
                 .create();
 
         String baseUrl = context.getString(R.string.base_server_url).trim();
@@ -47,6 +59,7 @@ public class VideosAPI {
                     callback.onResponse(call, response);
                 } else {
                     callback.onFailure(call, new Throwable("Response not successful"));
+                    Log.e("API_CALL", "API call failed getvideobyid");
                 }
             }
 
