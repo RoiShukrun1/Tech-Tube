@@ -2,7 +2,6 @@ package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -48,7 +47,8 @@ public class CommentsAPI {
         Call<Comment> call = webServiceAPI.getCommentById(videoId, commentId);
         call.enqueue(new Callback<Comment>() {
             @Override
-            public void onResponse(@NonNull Call<Comment> call, @NonNull Response<Comment> response) {
+            public void onResponse(@NonNull Call<Comment> call,
+                                   @NonNull Response<Comment> response) {
                 if (response.isSuccessful()) {
                     callback.onResponse(call, response);
                 } else {
@@ -60,6 +60,48 @@ public class CommentsAPI {
             public void onFailure(@NonNull Call<Comment> call, @NonNull Throwable t) {
                 callback.onFailure(call, t);
             }
+        });
+    }
+
+    public void getAllComments(String videoId, Callback<List<Comment>> callback) {
+        Call<List<Comment>> call = webServiceAPI.getAllComments(videoId);
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Comment>> call,
+                                   @NonNull Response<List<Comment>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Comment>> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void deleteCommentById(String videoId, String prevCommentId) {
+        Call<Void> call = webServiceAPI.deleteCommentById(videoId, prevCommentId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+        });
+    }
+
+    public void updateCommentById(String videoId, String prevCommentId, Comment newComment) {
+        Call<Void> call = webServiceAPI.updateCommentById(videoId, prevCommentId, newComment);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
 }

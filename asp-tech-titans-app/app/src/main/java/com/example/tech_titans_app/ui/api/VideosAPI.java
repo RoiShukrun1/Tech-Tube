@@ -114,18 +114,10 @@ public class VideosAPI {
         Call<Void> call = webServiceAPI.updateVideoById(id, newParams.getUpdateParams());
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                } else {
-                    Log.e("API_CALL", response.message());
-                }
-            }
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                Log.e("API_CALL", "API call failed" + t.getMessage());
-
-            }
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
 
