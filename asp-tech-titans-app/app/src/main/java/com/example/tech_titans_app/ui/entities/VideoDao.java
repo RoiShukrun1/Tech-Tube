@@ -21,5 +21,4 @@ public interface VideoDao {
     void update(Video... videos);
     @Delete
     void delete(Video... videos);
-
 }
