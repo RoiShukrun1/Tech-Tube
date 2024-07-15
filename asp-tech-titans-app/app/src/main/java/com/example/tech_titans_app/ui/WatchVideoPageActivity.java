@@ -37,7 +37,9 @@ import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
+import com.example.tech_titans_app.ui.api.CommentsAPI;
 import com.example.tech_titans_app.ui.api.VideosAPI;
+import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.entities.VideoDB;
@@ -126,14 +128,37 @@ public class WatchVideoPageActivity extends AppCompatActivity {
 //
 //        videoDao.insert(firstVi);
 
-        VideosAPI videosAPI = new VideosAPI(this);
 
-        videosAPI.getVideoById("11", new Callback<Video>() {
+
+
+//        VideosAPI videosAPI = new VideosAPI(this);
+//
+//        videosAPI.getVideoById("12", new Callback<Video>() {
+//            @Override
+//            public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
+//                if (response.isSuccessful()) {
+//                    Video video232 = response.body();
+//                    Log.e("API_CALL", "API call success");
+//                } else {
+//                    // Handle the case where the response is not successful
+//                    Log.e("API_CALL", "API call failed onResponse:");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
+//                // Handle the case where the request failed
+//                Log.e("API_CALL", "API call failed: " + t.getMessage());
+//            }
+//        });
+
+        CommentsAPI commentsAPI = new CommentsAPI(this);
+
+        commentsAPI.getCommentById("12", "1", new Callback<Comment>() {
             @Override
-            public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
+            public void onResponse(@NonNull Call<Comment> call, @NonNull Response<Comment> response) {
                 if (response.isSuccessful()) {
-                    Video video232 = response.body();
-                    Log.e("API_CALL", "API call success");
+                    Comment comment = response.body();
                 } else {
                     // Handle the case where the response is not successful
                     Log.e("API_CALL", "API call failed onResponse:");
@@ -141,14 +166,11 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Comment> call, @NonNull Throwable t) {
                 // Handle the case where the request failed
                 Log.e("API_CALL", "API call failed: " + t.getMessage());
             }
         });
-
-
-
 
     }
 

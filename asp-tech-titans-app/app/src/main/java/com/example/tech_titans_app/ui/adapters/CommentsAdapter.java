@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Comment;
-import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.util.List;
 
@@ -75,7 +74,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         Comment comment = commentList.get(position);
         holder.comment.setText(comment.getComment());
         holder.date.setText(comment.getDate());
-        holder.publisher.setText(comment.getPublisherUsername());
+        holder.publisher.setText(comment.getUsername());
 
         Glide.with(holder.itemView.getContext())
                 .load(comment.getImage())

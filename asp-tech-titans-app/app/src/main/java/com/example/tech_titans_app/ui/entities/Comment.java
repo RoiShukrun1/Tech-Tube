@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
@@ -22,40 +24,42 @@ import java.util.List;
 /**
  * Class representing a comment on a video.
  */
+@Entity
 public class Comment {
+    @PrimaryKey(autoGenerate = true)
     public Video parentVideo;
     private int id;
-    private int numberOfLikes;
-    private Uri userImage;
-    private String publisherUsername;
+    private int likes;
+    private Uri image;
+    private String username;
     private String comment;
     private String date;
     private boolean isLiked;
     private boolean isUnliked;
-    private List<Integer> usersLikedId;
-    private List<Integer> usersUnlikedId;
+    private List<String> usersLikedId;
+    private List<String> usersUnlikedId;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
 
     /**
      * Constructor for creating a Comment object.
      *
      * @param id The ID of the comment.
-     * @param numberOfLikes The number of likes the comment has.
+     * @param likes The number of likes the comment has.
      * @param publisherUsername The username of the publisher.
      * @param comment The content of the comment.
      * @param date The date the comment was posted.
      * @param userImagePath The URI of the user's image.
      * @param parent The parent video of the comment.
      */
-    public Comment(int id, int numberOfLikes, String publisherUsername,
+    public Comment(int id, int likes, String publisherUsername,
                    String comment, String date, Uri userImagePath, Video parent) {
         this.parentVideo = parent;
         this.id = id;
-        this.numberOfLikes = numberOfLikes;
-        this.publisherUsername = publisherUsername;
+        this.likes = likes;
+        this.username = publisherUsername;
         this.comment = comment;
         this.date = date;
-        this.userImage = userImagePath;
+        this.image = userImagePath;
         this.usersLikedId = new ArrayList<>();
         this.usersUnlikedId = new ArrayList<>();
     }
@@ -87,7 +91,7 @@ public class Comment {
                     Toast.LENGTH_LONG).show();
         } else {
             getLikesStatus();
-            Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+            String loggedInUserId = loggedIn.getLoggedInUser().getUsername();
             if (isUnliked) {
                 this.getUsersUnlikedId().remove(loggedInUserId);
             }
@@ -116,7 +120,7 @@ public class Comment {
                     Toast.LENGTH_LONG).show();
         } else {
             getLikesStatus();
-            Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+            String loggedInUserId = loggedIn.getLoggedInUser().getUsername();
 
             if (isLiked) {
                 this.getUsersLikedId().remove(loggedInUserId);
@@ -148,7 +152,7 @@ public class Comment {
                 isLiked ? R.drawable.like_selected : R.drawable.like);
         likeTextView.setCompoundDrawablesWithIntrinsicBounds(likeDrawable, null, null, null);
 
-        likeTextView.setText(String.valueOf(this.numberOfLikes));
+        likeTextView.setText(String.valueOf(this.likes));
     }
 
     /**
@@ -161,7 +165,7 @@ public class Comment {
             Toast.makeText(context,
                     "You have to be logged in to delete a comment",
                     Toast.LENGTH_LONG).show();
-        } else if (this.publisherUsername.equals(loggedIn.getLoggedInUser().getUsername())) {
+        } else if (this.username.equals(loggedIn.getLoggedInUser().getUsername())) {
             this.parentVideo.getComments().remove(this);
         } else {
             Toast.makeText(context,
@@ -183,7 +187,7 @@ public class Comment {
                     Toast.LENGTH_LONG).show();
             return;
         }
-        if (this.getPublisherUsername().equals(loggedIn.getLoggedInUser().getUsername())) {
+        if (this.getUsername().equals(loggedIn.getLoggedInUser().getUsername())) {
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(context);
             View dialogView = inflater.inflate(R.layout.watch_page_video_dialog_edit_title, null);
@@ -221,14 +225,14 @@ public class Comment {
      * Increments the number of likes for the comment.
      */
     public void incrementLikes() {
-        this.numberOfLikes += 1;
+        this.likes += 1;
     }
 
     /**
      * Decrements the number of likes for the comment.
      */
     public void decrementLikes() {
-        this.numberOfLikes -= 1;
+        this.likes -= 1;
     }
 
     /**
@@ -236,7 +240,7 @@ public class Comment {
      *
      * @return The list of user IDs who liked the comment.
      */
-    public List<Integer> getUsersLikedId() {
+    public List<String> getUsersLikedId() {
         return usersLikedId;
     }
 
@@ -245,7 +249,7 @@ public class Comment {
      *
      * @param usersLikedId The list of user IDs who liked the comment.
      */
-    public void setUsersLikedId(List<Integer> usersLikedId) {
+    public void setUsersLikedId(List<String> usersLikedId) {
         this.usersLikedId = usersLikedId;
     }
 
@@ -254,7 +258,7 @@ public class Comment {
      *
      * @return The list of user IDs who unliked the comment.
      */
-    public List<Integer> getUsersUnlikedId() {
+    public List<String> getUsersUnlikedId() {
         return usersUnlikedId;
     }
 
@@ -263,7 +267,7 @@ public class Comment {
      *
      * @param usersUnlikedId The list of user IDs who unliked the comment.
      */
-    public void setUsersUnlikedId(List<Integer> usersUnlikedId) {
+    public void setUsersUnlikedId(List<String> usersUnlikedId) {
         this.usersUnlikedId = usersUnlikedId;
     }
 
@@ -279,10 +283,10 @@ public class Comment {
     /**
      * Sets the number of likes for the comment.
      *
-     * @param numberOfLikes The number of likes.
+     * @param likes The number of likes.
      */
-    public void setNumberOfLikes(int numberOfLikes) {
-        this.numberOfLikes = numberOfLikes;
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     /**
@@ -291,7 +295,7 @@ public class Comment {
      * @param imagePath The URI of the user's image.
      */
     public void setImagePath(Uri imagePath) {
-        this.userImage = imagePath;
+        this.image = imagePath;
     }
 
     /**
@@ -317,8 +321,8 @@ public class Comment {
      *
      * @return The number of likes.
      */
-    public int getNumberOfLikes() {
-        return numberOfLikes;
+    public int getLikes() {
+        return likes;
     }
 
     /**
@@ -327,7 +331,7 @@ public class Comment {
      * @return The URI of the user's image.
      */
     public Uri getImage() {
-        return userImage;
+        return image;
     }
 
     /**
@@ -335,17 +339,17 @@ public class Comment {
      *
      * @return The username of the publisher.
      */
-    public String getPublisherUsername() {
-        return publisherUsername;
+    public String getUsername() {
+        return username;
     }
 
     /**
      * Sets the username of the publisher.
      *
-     * @param publisherUsername The username of the publisher.
+     * @param username The username of the publisher.
      */
-    public void setPublisherUsername(String publisherUsername) {
-        this.publisherUsername = publisherUsername;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
