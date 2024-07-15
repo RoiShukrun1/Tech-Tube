@@ -6,7 +6,13 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import okhttp3.ResponseBody;
+
+import com.example.tech_titans_app.ui.UserResponse;
+import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.models.account.UserData;
+
+import java.util.List;
 
 public interface WebServiceAPI {
 
@@ -21,5 +27,11 @@ public interface WebServiceAPI {
 
     @POST("/api/token/")
     Call<UserResponse> loginUser(@Body UserData user);
+
+    @GET("/uploads/profilePictures/{username}.png")
+    Call<ResponseBody> getProfilePicture(@Path("username") String username);
+
+    @GET("/api/videos")
+    Call<List<Video>> getVideos(); // Add this method
 
 }

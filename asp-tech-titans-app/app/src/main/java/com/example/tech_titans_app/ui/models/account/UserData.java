@@ -47,4 +47,7 @@ public class UserData extends Application {
     public String getImage() {
         return image;
     }
+    public void  setImage(String newImage){
+        this.image = newImage;
+    }
 }

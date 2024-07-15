@@ -1,6 +1,10 @@
 package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import com.example.tech_titans_app.ui.TokenManager;
+import com.example.tech_titans_app.ui.UserResponse;
 import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataDao;
@@ -9,9 +13,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import java.util.concurrent.Executors;
-import com.example.tech_titans_app.ui.TokenManager;
+import okhttp3.ResponseBody;
 
+import java.io.InputStream;
+import java.util.concurrent.Executors;
 
 public class UsersAPI {
 
@@ -20,7 +25,6 @@ public class UsersAPI {
     private UsersDataDao usersDataDao;
     private TokenManager tokenManager;
 
-
     public UsersAPI(Context context) {
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:80/") // Use the correct port your server is running on
@@ -28,6 +32,7 @@ public class UsersAPI {
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         usersDataDao = UsersDB.getInstance(context).usersDao();
+        tokenManager = new TokenManager(context); // Initialize TokenManager
     }
 
     public void registerUser(UserData user, Callback<Void> externalCallback) {
@@ -53,28 +58,47 @@ public class UsersAPI {
         });
     }
 
-
-    public void loginUser(UserData user, Callback<Void> externalCallback) {
-        Call<Void> call = webServiceAPI.loginUser(user);
-        call.enqueue(new Callback<Void>() {
+    public void loginUser(UserData user, Callback<UserResponse> externalCallback) {
+        Call<UserResponse> call = webServiceAPI.loginUser(user);
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
-//                    // Save the user to Room database
-//                    Executors.newSingleThreadExecutor().execute(() -> {
-//                        usersDataDao.insert(user);
-//                    });
-                    externalCallback.onResponse(call, response);
+                    UserResponse userResponse = response.body();
+                    if (userResponse != null) {
+                        tokenManager.saveToken(userResponse.getToken());
+                        externalCallback.onResponse(call, response);
+                    } else {
+                        externalCallback.onFailure(call, new Throwable("Invalid response from server"));
+                    }
                 } else {
-                    externalCallback.onFailure(call, new Throwable("Registration failed: " + response.message()));
+                    externalCallback.onFailure(call, new Throwable("Login failed: " + response.message()));
                 }
             }
+
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 externalCallback.onFailure(call, t);
             }
         });
     }
 
+    public void getProfilePicture(String username, Callback<ResponseBody> callback) {
+        Call<ResponseBody> call = webServiceAPI.getProfilePicture(username);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Failed to load profile picture: " + response.message()));
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
 
 }
