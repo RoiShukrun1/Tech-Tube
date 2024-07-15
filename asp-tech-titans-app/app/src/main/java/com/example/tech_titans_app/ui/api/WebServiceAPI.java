@@ -6,6 +6,8 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+
+import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.models.account.UserData;
 
 public interface WebServiceAPI {
@@ -19,4 +21,6 @@ public interface WebServiceAPI {
     @DELETE("/api/users/{id}")
     Call<Void> deleteUserById(@Path("id") String id);
 
+    @GET("/api/users/user/videos/{id}")
+    Call<Video> getVideoById(@Path("id") String id);
 }

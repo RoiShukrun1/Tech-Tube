@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,13 +37,13 @@ import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
+import com.example.tech_titans_app.ui.api.VideosAPI;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
-import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
@@ -50,9 +52,10 @@ import androidx.core.content.ContextCompat;
 
 import android.graphics.drawable.Drawable;
 
-import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class WatchVideoPageActivity extends AppCompatActivity {
@@ -69,8 +72,6 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private View videoInfo;
     private View comments;
     private RecyclerView recyclerView;
-
-
 
     VideoDB videoDB;
     VideoDao videoDao;
@@ -105,25 +106,50 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         handleEditIconsVisibility();
 
 
-        videoDB = VideoDB.getInstance(this);
-        videoDao = videoDB.videoDao();
+//        videoDB = VideoDB.getInstance(this);
+//        videoDao = videoDB.videoDao();
+//
+//        Uri image1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+//                + R.drawable.image1);
+//
+//        Uri video1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+//                + R.raw.video1);
+//
+//        Uri publisherImage1 = Uri.parse("android.resource://com.example.tech_titans_app/"
+//                + R.drawable.rick_astely);
+//
+//        Video firstVi = new Video(1, video1, image1, "Digitalization; Where to start",
+//                "Rick Astley", publisherImage1, "500", "2021-10-01",
+//                ", outlining journey effectively.",
+//                null,
+//                "sport", new ArrayList<>(), "10");
+//
+//        videoDao.insert(firstVi);
 
-        Uri image1 = Uri.parse("android.resource://com.example.tech_titans_app/"
-                + R.drawable.image1);
+        VideosAPI videosAPI = new VideosAPI(this);
 
-        Uri video1 = Uri.parse("android.resource://com.example.tech_titans_app/"
-                + R.raw.video1);
+        videosAPI.getVideoById("13", new Callback<Video>() {
+            @Override
+            public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
+                if (response.isSuccessful()) {
+                    Video video232 = response.body();
+                    thisCurrentVideo = video232;
+                    Log.i("Video title", video232.getTitle());
+                    // Handle the received video object (video232) here
+                } else {
+                    Log.i("Video title", "Response not successful");
+                    // Handle the case where the response is not successful
+                }
+            }
 
-        Uri publisherImage1 = Uri.parse("android.resource://com.example.tech_titans_app/"
-                + R.drawable.rick_astely);
+            @Override
+            public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
+                Log.i("Video title", "Failed to get video");
+            }
+        });
 
-        Video firstVi = new Video(0, video1, image1, "Digitalization; Where to start",
-                "Rick Astley", publisherImage1, "500", "2021-10-01",
-                ", outlining journey effectively.",
-                null,
-                "sport", new ArrayList<>(), "10");
 
-        videoDao.insert(firstVi);
+
 
     }
 
@@ -425,9 +451,9 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             isLiked = false;
         } else {
             isUnliked =
-                    thisCurrentVideo.getUsersUnlikedId().contains(loggedIn.getLoggedInUser().getId());
+                    thisCurrentVideo.getUsersUnlikes().contains(loggedIn.getLoggedInUser().getId());
             isLiked =
-                    thisCurrentVideo.getUsersLikedId().contains(loggedIn.getLoggedInUser().getId());
+                    thisCurrentVideo.getUsersLikes().contains(loggedIn.getLoggedInUser().getId());
         }
     }
 
@@ -458,17 +484,17 @@ public class WatchVideoPageActivity extends AppCompatActivity {
      */
     private void handleLike() {
         getLikesStatus();
-        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+        String loggedInUserId = loggedIn.getLoggedInUser().getUsername();
 
         if (isUnliked) {
-            thisCurrentVideo.getUsersUnlikedId().remove(loggedInUserId);
+            thisCurrentVideo.getUsersUnlikes().remove(loggedInUserId);
         }
         if (isLiked) {
             thisCurrentVideo.decrementLikes();
-            thisCurrentVideo.getUsersLikedId().remove(loggedInUserId);
+            thisCurrentVideo.getUsersLikes().remove(loggedInUserId);
         } else {
             thisCurrentVideo.incrementLikes();
-            thisCurrentVideo.getUsersLikedId().add(loggedInUserId);
+            thisCurrentVideo.getUsersLikes().add(loggedInUserId);
         }
 
         updateLikesButtonsUI();
@@ -479,16 +505,16 @@ public class WatchVideoPageActivity extends AppCompatActivity {
      */
     private void handleUnlike() {
         getLikesStatus();
-        Integer loggedInUserId = loggedIn.getLoggedInUser().getId();
+        String loggedInUserId = loggedIn.getLoggedInUser().getUsername();
 
         if (isLiked) {
-            thisCurrentVideo.getUsersLikedId().remove(loggedInUserId);
+            thisCurrentVideo.getUsersLikes().remove(loggedInUserId);
             thisCurrentVideo.decrementLikes();
         }
         if (isUnliked) {
-            thisCurrentVideo.getUsersUnlikedId().remove(loggedInUserId);
+            thisCurrentVideo.getUsersUnlikes().remove(loggedInUserId);
         } else {
-            thisCurrentVideo.getUsersUnlikedId().add(loggedInUserId);
+            thisCurrentVideo.getUsersUnlikes().add(loggedInUserId);
         }
 
         updateLikesButtonsUI();

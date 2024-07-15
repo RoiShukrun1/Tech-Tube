@@ -30,8 +30,8 @@ public class Video {
     private String playlist;
     private List<Comment> comments;
     private String likes;
-    private List<Integer> usersLikedId;
-    private List<Integer> usersUnlikedId;
+    private List<String> usersLikes;
+    private List<String> usersUnlikes;
 
     @Ignore
     // Constructor for a simple Video object
@@ -44,8 +44,8 @@ public class Video {
         this.views = views;
         this.date = date;
         this.comments = new ArrayList<>();
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
     @Ignore
@@ -59,8 +59,8 @@ public class Video {
         this.date = date;
         this.description = description;
         this.comments = new ArrayList<>();
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
     @Ignore
@@ -78,8 +78,8 @@ public class Video {
         this.videoUploaded = videoUploaded;
         this.comments = new ArrayList<>();
         this.likes = String.valueOf(likes);
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
     // Constructor for a detailed Video object
@@ -100,25 +100,25 @@ public class Video {
         this.playlist = playlist;
         this.comments = comments;
         this.likes = likes;
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
     // Getters and setters for user liked and unliked IDs
-    public List<Integer> getUsersLikedId() {
-        return usersLikedId;
+    public List<String> getUsersLikes() {
+        return usersLikes;
     }
 
-    public void setUsersLikedId(List<Integer> usersLikedId) {
-        this.usersLikedId = usersLikedId;
+    public void setUsersLikes(List<String> usersLikes) {
+        this.usersLikes = usersLikes;
     }
 
-    public List<Integer> getUsersUnlikedId() {
-        return usersUnlikedId;
+    public List<String> getUsersUnlikes() {
+        return usersUnlikes;
     }
 
-    public void setUsersUnlikedId(List<Integer> usersUnlikedId) {
-        this.usersUnlikedId = usersUnlikedId;
+    public void setUsersUnlikes(List<String> usersUnlikes) {
+        this.usersUnlikes = usersUnlikes;
     }
 
     public void setComments(List<Comment> comments) {
