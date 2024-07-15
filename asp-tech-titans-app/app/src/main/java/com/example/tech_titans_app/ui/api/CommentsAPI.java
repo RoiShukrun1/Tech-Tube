@@ -83,8 +83,8 @@ public class CommentsAPI {
         });
     }
 
-    public void deleteCommentById(String videoId, String prevCommentId) {
-        Call<Void> call = webServiceAPI.deleteCommentById(videoId, prevCommentId);
+    public void deleteCommentById(String videoId, String commentId) {
+        Call<Void> call = webServiceAPI.deleteCommentById(videoId, commentId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
@@ -104,4 +104,19 @@ public class CommentsAPI {
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
+
+    public void createNewComment(String videoId, Comment newComment) {
+        Call<Void> call = webServiceAPI.createNewComment(videoId, newComment);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+        });
+    }
+
+
+
+
 }

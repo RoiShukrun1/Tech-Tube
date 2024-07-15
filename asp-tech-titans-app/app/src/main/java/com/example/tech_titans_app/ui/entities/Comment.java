@@ -38,7 +38,6 @@ public class Comment {
     private boolean isUnliked;
     private List<String> usersLikedId;
     private List<String> usersUnlikedId;
-    private final LoggedIn loggedIn = LoggedIn.getInstance();
 
     /**
      * Constructor for creating a Comment object.
@@ -68,12 +67,14 @@ public class Comment {
      * Retrieves the like and unlike status of the comment for the logged-in user.
      */
     public void getLikesStatus() {
-        if (!loggedIn.isLoggedIn()) {
+        if (!LoggedIn.getInstance().isLoggedIn()) {
             isUnliked = false;
             isLiked = false;
         } else {
-            isUnliked = this.getUsersUnlikedId().contains(loggedIn.getLoggedInUser().getId());
-            isLiked = this.getUsersLikedId().contains(loggedIn.getLoggedInUser().getId());
+            isUnliked = this.getUsersUnlikedId()
+                    .contains(LoggedIn.getInstance().getLoggedInUser().getId());
+            isLiked = this.getUsersLikedId()
+                    .contains(LoggedIn.getInstance().getLoggedInUser().getId());
         }
     }
 
@@ -85,13 +86,13 @@ public class Comment {
      * @param context The context of the application.
      */
     public void likeButtonClick(TextView likeTextView, TextView unlikeTextView, Context context) {
-        if (!loggedIn.isLoggedIn()) {
+        if (!LoggedIn.getInstance().isLoggedIn()) {
             Toast.makeText(context,
                     "You have to be logged in to press the like button",
                     Toast.LENGTH_LONG).show();
         } else {
             getLikesStatus();
-            String loggedInUserId = loggedIn.getLoggedInUser().getUsername();
+            String loggedInUserId = LoggedIn.getInstance().getLoggedInUser().getUsername();
             if (isUnliked) {
                 this.getUsersUnlikedId().remove(loggedInUserId);
             }
@@ -114,13 +115,13 @@ public class Comment {
      * @param context The context of the application.
      */
     public void unlikeButtonClick(TextView likeTextView, TextView unlikeTextView, Context context) {
-        if (!loggedIn.isLoggedIn()) {
+        if (!LoggedIn.getInstance().isLoggedIn()) {
             Toast.makeText(context,
                     "You have to be logged in to press the unlike button",
                     Toast.LENGTH_LONG).show();
         } else {
             getLikesStatus();
-            String loggedInUserId = loggedIn.getLoggedInUser().getUsername();
+            String loggedInUserId = LoggedIn.getInstance().getLoggedInUser().getUsername();
 
             if (isLiked) {
                 this.getUsersLikedId().remove(loggedInUserId);
@@ -161,11 +162,11 @@ public class Comment {
      * @param context The context of the application.
      */
     public void deleteComment(Context context) {
-        if (!loggedIn.isLoggedIn()) {
+        if (!LoggedIn.getInstance().isLoggedIn()) {
             Toast.makeText(context,
                     "You have to be logged in to delete a comment",
                     Toast.LENGTH_LONG).show();
-        } else if (this.username.equals(loggedIn.getLoggedInUser().getUsername())) {
+        } else if (this.username.equals(LoggedIn.getInstance().getLoggedInUser().getUsername())) {
             this.parentVideo.getComments().remove(this);
         } else {
             Toast.makeText(context,
@@ -181,13 +182,13 @@ public class Comment {
      * @param CommentTextView The TextView of the comment content.
      */
     public void pencilCommentButtonClick(Context context, TextView CommentTextView) {
-        if (loggedIn.getLoggedInUser() == null) {
+        if (LoggedIn.getInstance().getLoggedInUser() == null) {
             Toast.makeText(context,
                     "You have to be logged in to edit the comment content",
                     Toast.LENGTH_LONG).show();
             return;
         }
-        if (this.getUsername().equals(loggedIn.getLoggedInUser().getUsername())) {
+        if (this.getUsername().equals(LoggedIn.getInstance().getLoggedInUser().getUsername())) {
             // Inflate the dialog layout
             LayoutInflater inflater = LayoutInflater.from(context);
             View dialogView = inflater.inflate(R.layout.watch_page_video_dialog_edit_title, null);

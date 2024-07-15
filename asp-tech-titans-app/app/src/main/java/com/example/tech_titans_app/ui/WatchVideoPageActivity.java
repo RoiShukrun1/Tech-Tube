@@ -136,66 +136,15 @@ public class WatchVideoPageActivity extends AppCompatActivity {
 
         VideosAPI videosAPI = new VideosAPI(this);
 
-//        PatchReqBody patchReqBody = new PatchReqBody("title", "new title");
-//        videosAPI.updateVideoById("12", patchReqBody);
 
 
-//        videosAPI.getVideoById("12", new Callback<Video>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
-//                if (response.isSuccessful()) {
-//                    Video video232 = response.body();
-//                    Log.e("API_CALL", "API call success");
-//                } else {
-//                    // Handle the case where the response is not successful
-//                    Log.e("API_CALL", "API call failed onResponse:");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
-//                // Handle the case where the request failed
-//                Log.e("API_CALL", "API call failed: " + t.getMessage());
-//            }
-//        });
 
         CommentsAPI commentsAPI = new CommentsAPI(this);
 
-//        commentsAPI.getAllComments("12", new Callback<List<Comment>>() {
-//            @Override
-//            public void onResponse(@NonNull Call<List<Comment>> call, @NonNull Response<List<Comment>> response) {
-//                if (response.isSuccessful()) {
-//                    List <Comment> comments = response.body();
-//                } else {
-//                    // Handle the case where the response is not successful
-//                    Log.e("API_CALL", "API call failed onResponse:");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<List<Comment>> call, @NonNull Throwable t) {
-//                // Handle the case where the request failed
-//                Log.e("API_CALL", "API call failed: " + t.getMessage());
-//            }
-//        });
 
-//        commentsAPI.getCommentById("12", "1", new Callback<Comment>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Comment> call, @NonNull Response<Comment> response) {
-//                if (response.isSuccessful()) {
-//                    Comment comment = response.body();
-//                } else {
-//                    // Handle the case where the response is not successful
-//                    Log.e("API_CALL", "API call failed onResponse:");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Comment> call, @NonNull Throwable t) {
-//                // Handle the case where the request failed
-//                Log.e("API_CALL", "API call failed: " + t.getMessage());
-//            }
-//        });
+
+
+
 
     }
 

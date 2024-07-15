@@ -55,9 +55,8 @@ public interface WebServiceAPI {
     @DELETE("/api/users/user/videos/{videoId}/comments/{commentId}")
     Call<Void> deleteCommentById(@Path("videoId") String videoId,
                                  @Path("commentId") String commentId);
-
     @POST("/api/users/user/videos/{videoId}/comments")
-    Call<Void> CreateNewComment(@Path("videoId") String videoId, @Body Comment newComment);
+    Call<Void> createNewComment(@Path("videoId") String videoId, @Body Comment newComment);
 
 
 
