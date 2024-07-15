@@ -90,23 +90,14 @@ public class VideosAPI {
         });
     }
 
-    public void deleteVideoById(String id, Callback<Void> callback) {
+    public void deleteVideoById(String id) {
         Call<Void> call = webServiceAPI.deleteVideoById(id);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    callback.onResponse(call, response);
-                } else {
-                    callback.onFailure(call, new Throwable("Response not successful"));
-                    Log.e("API_CALL", "API call failed deletevideobyid");
-                }
-            }
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                callback.onFailure(call, t);
-            }
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
 
