@@ -128,23 +128,20 @@ public class WatchVideoPageActivity extends AppCompatActivity {
 
         VideosAPI videosAPI = new VideosAPI(this);
 
-        videosAPI.getVideoById("13", new Callback<Video>() {
+        videosAPI.getVideoById("11", new Callback<Video>() {
             @Override
             public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
                 if (response.isSuccessful()) {
                     Video video232 = response.body();
-                    thisCurrentVideo = video232;
-                    Log.i("Video title", video232.getTitle());
-                    // Handle the received video object (video232) here
                 } else {
-                    Log.i("Video title", "Response not successful");
                     // Handle the case where the response is not successful
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
-                Log.i("Video title", "Failed to get video");
+                // Handle the case where the request failed
+                Log.e("API_CALL", "API call failed: " + t.getMessage());
             }
         });
 

@@ -2,8 +2,6 @@ package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.tech_titans_app.R;
@@ -30,9 +28,10 @@ public class VideosAPI {
                 .registerTypeAdapter(Uri.class, new UriTypeAdapter())
                 .create();
 
+        String baseUrl = context.getString(R.string.base_server_url).trim();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
@@ -53,7 +52,6 @@ public class VideosAPI {
 
             @Override
             public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
-                Log.i("Video title", t.getMessage());
                 callback.onFailure(call, t);
             }
         });
