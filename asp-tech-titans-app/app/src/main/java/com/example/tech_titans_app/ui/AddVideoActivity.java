@@ -140,22 +140,22 @@ public class AddVideoActivity extends AppCompatActivity {
         }
 
         if (videoUri != null && thumbnailUri != null) {
-            Video currentVideoData = new Video(
-                    VideosRepository.getInstance().getAllVideos().getValue().size() + 1,
-                    videoUri,
-                    thumbnailUri,  // Use the selected or default thumbnail URI
-                    titleString,
-                    loggedInUser.getNickname(),
-                    loggedInUser.getProfilePicture(),
-                    "0",
-                    formattedDate,
-                    descriptionString,
-                    new ArrayList<>(),
-                    playlistString,  // Set the selected playlist
-                    new ArrayList<>(),
-                    "0"
-            );
-            VideosRepository.getInstance().addVideo(currentVideoData);
+           // Video currentVideoData = new Video(
+                  //  VideosRepository.getInstance().getAllVideos().getValue().size() + 1,
+                   // videoUri,
+                  //  thumbnailUri,  // Use the selected or default thumbnail URI
+                 //   titleString,
+                 //   loggedInUser.getNickname(),
+                 //   loggedInUser.getProfilePicture(),
+                 //   "0",
+                  //  formattedDate,
+                   // descriptionString,
+                   // new ArrayList<>(),
+                   // playlistString,  // Set the selected playlist
+                   // new ArrayList<>(),
+                   // "0"
+          //  );
+           // VideosRepository.getInstance().addVideo(currentVideoData);
             showToastMessage("Video data uploaded successfully!");
             Intent intent = new Intent(AddVideoActivity.this, MainActivity.class);
             startActivity(intent);

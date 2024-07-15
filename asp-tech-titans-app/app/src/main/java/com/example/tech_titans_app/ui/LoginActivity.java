@@ -11,12 +11,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.api.UsersAPI;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.models.account.UserData;
-import com.example.tech_titans_app.ui.models.account.UsersDataArray;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
-import java.util.List;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private TextView registerRedirectText;
     private TextView guestRedirectText;
+    private UsersAPI usersAPI; // Initialize UsersAPI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         registerRedirectText = findViewById(R.id.registerRedirectText);
         guestRedirectText = findViewById(R.id.guestRedirectText);
 
+        // Initialize UsersAPI
+        usersAPI = new UsersAPI(this);
+
         // Set click listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                 checkLogin(username, password);
             }
         });
-        // Set click listener for the redirect to registrtion
+
+        // Set click listener for the redirect to registration
         registerRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         // Set click listener for the redirect to main page
         guestRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,19 +74,28 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     // Method to check login credentials
     private void checkLogin(String username, String password) {
-        UsersDataArray usersDataArray = UsersDataArray.getInstance();
-        List<UserData> accounts = usersDataArray.getAccountArray();
-        for (UserData account : accounts) {
-            if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
-                LoggedIn.getInstance().setLoggedInUser(account);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                return; // Exit the method if login is successful
+        UserData userData = new UserData(0,username, "", password , new ArrayList<>() , "");
+
+        usersAPI.loginUser(userData, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    LoggedIn.getInstance().setLoggedInUser(userData);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

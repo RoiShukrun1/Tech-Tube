@@ -11,6 +11,7 @@ roomCommon = "2.6.1"
 gridlayout = "1.0.0"
 roomRuntime = "2.6.1"
 roomCompiler = "2.6.1"
+roomRuntimeAndroid = "2.7.0-alpha05"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,6 +25,7 @@ room-common = { group = "androidx.room", name = "room-common", version.ref = "ro
 gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

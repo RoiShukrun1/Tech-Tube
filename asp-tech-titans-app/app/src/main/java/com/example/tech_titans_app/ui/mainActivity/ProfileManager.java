@@ -30,7 +30,7 @@ public class ProfileManager {
         if (LoggedIn.getInstance().isLoggedIn()) {
             profileSection.setVisibility(View.VISIBLE);
             loginText.setVisibility(View.GONE);
-            Glide.with(context).load(LoggedIn.getInstance().getLoggedInUser().getProfilePicture()).into(profilePicture);
+            Glide.with(context).load(LoggedIn.getInstance().getLoggedInUser().getImage()).into(profilePicture);
             logoutText.setText(R.string.logout);
         } else {
             profileSection.setVisibility(View.GONE);

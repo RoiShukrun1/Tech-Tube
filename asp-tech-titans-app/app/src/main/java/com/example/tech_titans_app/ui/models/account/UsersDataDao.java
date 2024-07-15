@@ -20,5 +20,4 @@ public interface UsersDataDao {
 
     @Insert
     void insert(UserData userData);
-
 }

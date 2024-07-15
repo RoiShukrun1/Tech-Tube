@@ -1,7 +1,6 @@
 package com.example.tech_titans_app.ui.models.account;
 
 import android.app.Application;
-import android.net.Uri;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -16,17 +15,18 @@ public class UserData extends Application {
     private String nickname;
     private String password;
     private List<String> subscriptions;
-    private Uri profilePicture;
+    private String image;
     // Constructor
   public UserData(int id, String username, String nickname,
-                  String password, List<String> subscriptions, Uri profilePicture) {
+                  String password, List<String> subscriptions, String image) {
       this.id = id;
       this.username = username;
       this.nickname = nickname;
       this.password = password;
       this.subscriptions = subscriptions;
-      this.profilePicture = profilePicture;
+      this.image = image;
   }
+
   // Getter and Setter methods
     public int getId() {
         return id;
@@ -44,7 +44,7 @@ public class UserData extends Application {
     public List<String> getSubscriptions() {
         return subscriptions;
         }
-    public Uri getProfilePicture() {
-        return profilePicture;
+    public String getImage() {
+        return image;
     }
 }

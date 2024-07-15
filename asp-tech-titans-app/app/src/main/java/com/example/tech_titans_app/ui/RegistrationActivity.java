@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -25,13 +26,19 @@ import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataArray;
 import com.example.tech_titans_app.ui.models.account.UsersDataDao;
+import com.example.tech_titans_app.ui.api.UsersAPI;
+import com.example.tech_titans_app.ui.UriToBase64;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistrationActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RegistrationActivity extends AppCompatActivity implements Callback<Void> {
     private EditText nicknameText, usernameText, passwordText, confirmPasswordText;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAPTURE_IMAGE_REQUEST = 2;
@@ -42,6 +49,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextView guestRedirectText;
     private Uri selectedImageUri;
     private UsersDataDao usersDataDao;
+    private String base64Image;
+    private UsersAPI usersAPI; // Initialize UsersAPI
 
 
     @Override
@@ -61,6 +70,7 @@ public class RegistrationActivity extends AppCompatActivity {
         UsersDB db = UsersDB.getInstance(this);
         usersDataDao = db.usersDao();
 
+        usersAPI = new UsersAPI(this); // Pass the context to UsersAPI
 
 
 
@@ -222,29 +232,61 @@ public class RegistrationActivity extends AppCompatActivity {
         return flag;
     }
 
+//    private void register() {
+//        if (validateFields()) {
+//            String nickname = nicknameText.getText().toString();
+//            String username = usernameText.getText().toString();
+//            String password = passwordText.getText().toString();
+//            UsersDataArray usersDataArray = UsersDataArray.getInstance();
+//            // Use default image if no image selected
+//            if (selectedImageUri == null) {
+//                selectedImageUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.profile);
+//            }
+//            UserData newAccount = new UserData(usersDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
+//            UserData testUser = new UserData(0, username, nickname, password, Arrays.asList(), selectedImageUri);
+//
+//            // Insert the test user into the database
+//            usersDataDao.insert(testUser);
+//
+//            UsersDataArray.getInstance().addAccount(newAccount);
+//            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+//            startActivity(intent);
+//        } else {
+//            Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
     private void register() {
         if (validateFields()) {
             String nickname = nicknameText.getText().toString();
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
-            UsersDataArray usersDataArray = UsersDataArray.getInstance();
-            // Use default image if no image selected
             if (selectedImageUri == null) {
                 selectedImageUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.profile);
             }
-            UserData newAccount = new UserData(usersDataArray.getLength() + 1, username, nickname, password, new ArrayList<>(), selectedImageUri);
-            UserData testUser = new UserData(0, username, nickname, password, Arrays.asList(), selectedImageUri);
-
-            // Insert the test user into the database
-            usersDataDao.insert(testUser);
-
-            UsersDataArray.getInstance().addAccount(newAccount);
-            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-            startActivity(intent);
+            base64Image = UriToBase64.convertUriToBase64(this,selectedImageUri);
+            UserData newUser = new UserData(0,username, nickname, password, new ArrayList<>(), base64Image);
+            usersAPI.registerUser(newUser, this);
         } else {
             Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onResponse(Call<Void> call, Response<Void> response) {
+        if (response.isSuccessful()) {
+            Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(RegistrationActivity.this, "Registration failed: " + response.message(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<Void> call, Throwable t) {
+        Toast.makeText(RegistrationActivity.this, "Registration failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     // Regular expression for password validation
@@ -281,13 +323,5 @@ public class RegistrationActivity extends AppCompatActivity {
                 loadImageButton();
             }
         }
-    }
-
-    private void insertTestData() {
-        // Create a test user
-        UserData testUser = new UserData(0, "registration", "registration", "password123", Arrays.asList("sub1", "sub2"), Uri.parse("https://example.com/profile.jpg"));
-
-        // Insert the test user into the database
-        usersDataDao.insert(testUser);
     }
 }
