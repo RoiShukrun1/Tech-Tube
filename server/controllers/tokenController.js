@@ -9,7 +9,7 @@ const login = async (req, res) => {
     if (user && user.password === password) {
       const token = generateToken(user);
       res.cookie('token', token, { httpOnly: true});
-      res.json({ message: 'Login successful', user:{ username: user.username, image: user.image }});
+      res.json({ message: 'Login successful',token: token, user:{ username: user.username, image: user.image }});
     } else {
       res.status(401).json({ message: 'Invalid username or password' });
     }
