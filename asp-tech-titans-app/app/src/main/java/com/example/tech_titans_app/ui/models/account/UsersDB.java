@@ -23,7 +23,7 @@ public abstract class UsersDB extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     UsersDB.class, "usersDb")
-                            .allowMainThreadQueries() // Remove this line for production
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

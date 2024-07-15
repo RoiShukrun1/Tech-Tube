@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
 // Get the database instance
         UsersDB db = UsersDB.getInstance(this);
         usersDataDao = db.usersDao();
-
-        insertTestData();
     }
 
     private void setupNavigationButtons() {
@@ -95,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void insertTestData() {
+//    private void insertTestData() {
         // Create a test user
-        UserData testUser = new UserData(0, "test_user", "Test", "password123", Arrays.asList("sub1", "sub2"), Uri.parse("https://example.com/profile.jpg"));
+  //      UserData testUser = new UserData(0, "test_user", "Test", "password123", Arrays.asList("sub1", "sub2"), Uri.parse("https://example.com/profile.jpg"));
 
         // Insert the test user into the database
-        usersDataDao.insert(testUser);
-    }
+//        usersDataDao.insert(testUser);
+  //  }
 
     private void setupSearchBar() {
         // Initialize search input field

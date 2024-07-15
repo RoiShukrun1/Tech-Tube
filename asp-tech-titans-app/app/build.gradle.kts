@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.gridlayout)
     implementation(libs.room.common)
     implementation(libs.room.runtime)
+    implementation(libs.room.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

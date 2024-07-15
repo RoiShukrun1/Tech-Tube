@@ -230,7 +230,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             profileSection.setVisibility(View.VISIBLE);
             loginText.setVisibility(View.GONE);
             Glide.with(this).load(LoggedIn.getInstance()
-                    .getLoggedInUser().getProfilePicture()).into(profilePicture);
+                    .getLoggedInUser().getImage()).into(profilePicture);
             logoutText.setText(R.string.logout);
         } else {
             profileSection.setVisibility(View.GONE);

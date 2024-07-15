@@ -12,13 +12,17 @@ public interface UsersDataDao {
     @Query("SELECT * FROM userdata WHERE username = :id")
     UserData getUserById(int id);
 
+    @Query("SELECT * FROM userdata WHERE username = :username")
+    UserData getUserByUsername(String username);
+
     @Query("SELECT * FROM userdata")
     List<UserData> getAllUsers();
+    @Query("SELECT image FROM userdata WHERE username = :username")
+    String getUserProfilePicture(String username);
 
     @Delete
     void delete(UserData... users);
 
     @Insert
     void insert(UserData userData);
-
 }

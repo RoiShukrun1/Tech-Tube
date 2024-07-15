@@ -207,11 +207,11 @@ public class Video {
         LoggedIn loggedIn = LoggedIn.getInstance();
         if (loggedIn.getLoggedInUser() != null) {
             int numberOfComments = comments.size();
-            Comment newComment = new Comment(numberOfComments + 1,
-                    0, loggedIn.getLoggedInUser().getUsername(),
-                    comment, Video.getTodayDate(),
-                    loggedIn.getLoggedInUser().getProfilePicture(), this);
-            comments.add(newComment);
+           // Comment newComment = new Comment(numberOfComments + 1,
+                  //  0, loggedIn.getLoggedInUser().getUsername(),
+                    //comment, Video.getTodayDate(),
+                    //loggedIn.getLoggedInUser().getProfilePicture(), this);
+            //comments.add(newComment);
         }
     }
 
