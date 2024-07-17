@@ -28,6 +28,9 @@ import com.example.tech_titans_app.ui.entities.CurrentVideo;
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
     private List<Video> videoList;
     private final CurrentVideo currentVideo = CurrentVideo.getInstance();
+    private final String serverBaseUrl = "http://10.0.2.2/";
+    private final String serverBaseUrl2 = "http://10.0.2.2";
+
 
     /**
      * Constructor for VideosListAdapter.
@@ -84,14 +87,17 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         holder.views.setText(video.getViews());
         holder.date.setText(video.getDate());
 
+        // Construct the URI for the video, thumbnail, and publisher image
+        Uri videoUri = Uri.parse(serverBaseUrl + video.getVideoUploaded());
+        Uri thumbnailUri = Uri.parse(serverBaseUrl +  video.getThumbnail());
+        Uri publisherImageUri = Uri.parse(serverBaseUrl2 +  video.getPublisherImage());
+
         // Load the thumbnail image using Glide
-        Uri thumbnailUri = video.getThumbnail();
         Glide.with(holder.itemView.getContext())
                 .load(thumbnailUri)
                 .into(holder.videoImage);
 
         // Load the publisher image using Glide
-        Uri publisherImageUri = video.getPublisherImage();
         Glide.with(holder.itemView.getContext())
                 .load(publisherImageUri)
                 .into(holder.publisherImage);
@@ -102,6 +108,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
             currentVideo.setCurrentVideo(video);
             currentVideo.getCurrentVideo().incrementViews();
             Intent intent = new Intent(context, WatchVideoPageActivity.class);
+            intent.setData(videoUri); // Pass the video URI to the WatchVideoPageActivity
             context.startActivity(intent);
         });
 
@@ -135,7 +142,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
      */
     @Override
     public int getItemCount() {
-        return videoList.size();
+        return videoList != null ? videoList.size() : 0;
     }
 
     /**

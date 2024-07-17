@@ -59,6 +59,13 @@ public interface WebServiceAPI {
     Call<Void> updateVideoById(@Path("videoId") String videoId,
                                @Body Map<String, String> updateParams);
 
+    @GET("api/videos")
+    Call<List<Video>> get20Videos();
+
+    @GET("/api/videos/all")
+    Call<List<Video>> getAllVideos();
+
+
     /**
      * Sets api fot comments operation.
      */
