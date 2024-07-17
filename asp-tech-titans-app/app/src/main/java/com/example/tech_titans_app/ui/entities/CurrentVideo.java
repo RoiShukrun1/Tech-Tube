@@ -1,5 +1,7 @@
 package com.example.tech_titans_app.ui.entities;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 
 /**
@@ -7,7 +9,7 @@ import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
  */
 public class CurrentVideo {
     private static CurrentVideo instance;
-    private Video currentVideo;
+    private final MutableLiveData<Video> currentVideo = new MutableLiveData<>();
 
     /**
      * Private constructor to initialize the current video.
@@ -17,7 +19,7 @@ public class CurrentVideo {
         if (VideosRepository.getInstance().getAllVideos().getValue() == null) {
             return;
         }
-        currentVideo = VideosRepository.getInstance().getAllVideos().getValue().get(0);
+        currentVideo.setValue(VideosRepository.getInstance().getAllVideos().getValue().get(0));
     }
 
     /**
@@ -37,7 +39,7 @@ public class CurrentVideo {
      *
      * @return The current video.
      */
-    public Video getCurrentVideo() {
+    public MutableLiveData<Video> getCurrentVideo() {
         return currentVideo;
     }
 
@@ -47,6 +49,6 @@ public class CurrentVideo {
      * @param currentVideo The video to set as the current video.
      */
     public void setCurrentVideo(Video currentVideo) {
-        this.currentVideo = currentVideo;
+        this.currentVideo.setValue(currentVideo);
     }
 }

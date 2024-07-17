@@ -45,7 +45,6 @@ public class VideosAPI {
     private String token;
 
 
-
     public VideosAPI(Context context) {
         tokenManager = new TokenManager(context);
         token = tokenManager.getToken();
@@ -91,26 +90,6 @@ public class VideosAPI {
             videoDao = VideoDB.getInstance(context).videoDao();
 
         }
-    }
-
-    public void getVideoById(String id, Callback<Video> callback) {
-        Call<Video> call = webServiceAPI.getVideoById(id);
-        call.enqueue(new Callback<Video>() {
-            @Override
-            public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
-                if (response.isSuccessful()) {
-                    callback.onResponse(call, response);
-                } else {
-                    callback.onFailure(call, new Throwable("Response not successful"));
-                    Log.e("API_CALL", "API call failed getvideobyid");
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
-                callback.onFailure(call, t);
-            }
-        });
     }
 
     public void uploadVideo(File videoFile, String base64Thumbnail, String title, String description, String playlist, String publisher, String publisherImage, Callback<Void> callback) {
@@ -204,13 +183,16 @@ public class VideosAPI {
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
-  
+
     public void getPublisherVideosById(String id, Callback<List<Video>> callback) {
         Call<List<Video>> call = webServiceAPI.getPublisherVideosById(id);
         call.enqueue(new Callback<List<Video>>() {
             @Override
             public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    response.body().forEach(video ->
+                            video.getComments().forEach(comment -> comment.setParentVideo(video)));
                     callback.onResponse(call, response);
                 } else {
                     callback.onFailure(call, new Throwable("Response not successful"));
@@ -225,6 +207,26 @@ public class VideosAPI {
         });
     }
 
+    public void getVideoById(String id, Callback<Video> callback) {
+        Call<Video> call = webServiceAPI.getVideoById(id);
+        call.enqueue(new Callback<Video>() {
+            @Override
+            public void onResponse(@NonNull Call<Video> call, @NonNull Response<Video> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                    Log.e("API_CALL", "API call failed getvideobyid");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Video> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
     public void getAllVideos(Callback<List<Video>> callback) {
         Call<List<Video>> call = webServiceAPI.getAllVideos();
         call.enqueue(new Callback<List<Video>>() {
@@ -232,6 +234,9 @@ public class VideosAPI {
             public void onResponse(@NonNull Call<List<Video>> call,
                                    @NonNull Response<List<Video>> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    response.body().forEach(video ->
+                            video.getComments().forEach(comment -> comment.setParentVideo(video)));
                     callback.onResponse(call, response);
                 } else {
                     callback.onFailure(call, new Throwable("Response not successful"));
@@ -251,6 +256,9 @@ public class VideosAPI {
             public void onResponse(@NonNull Call<List<Video>> call,
                                    @NonNull Response<List<Video>> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    response.body().forEach(video ->
+                            video.getComments().forEach(comment -> comment.setParentVideo(video)));
                     callback.onResponse(call, response);
                 } else {
                     callback.onFailure(call, new Throwable("Response not successful"));
@@ -297,6 +305,9 @@ public class VideosAPI {
             public void onResponse(@NonNull Call<List<Video>> call,
                                    @NonNull Response<List<Video>> response) {
                 if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    response.body().forEach(video ->
+                            video.getComments().forEach(comment -> comment.setParentVideo(video)));
                     callback.onResponse(call, response);
                 } else {
                     callback.onFailure(call, new Throwable("Response not successful"));
@@ -311,5 +322,5 @@ public class VideosAPI {
     }
 
 
-  
+
 }

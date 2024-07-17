@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -94,6 +95,9 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Setup dark mode functionality
         setupDarkMode();
 
+        Log.e("PublisherChannelActivity", "Publisher ID: " + publisherId);
+
+
         if (publisherId != null) {
             fetchPublisherData(publisherId);
             fetchPublisherSubsCount(publisherId);
@@ -104,6 +108,8 @@ public class PublisherChannelActivity extends AppCompatActivity {
         publisherDataLiveData.observe(this, publisherData -> {
             if (publisherData != null) {
                 setupPublisherInfo(publisherData, publisherSubsLiveData.getValue(), videosCountLiveData.getValue());
+            } else {
+                setupPublisherInfoNull();
             }
         });
 
@@ -120,7 +126,47 @@ public class PublisherChannelActivity extends AppCompatActivity {
                 setupPublisherInfo(publisherDataLiveData.getValue(), publisherSubsLiveData.getValue(), videosCount);
             }
         });
+
+        // Set click listener for delete user icon
+        ImageView deleteUserIcon = findViewById(R.id.delete_user_icon);
+        TextView deleteText = findViewById(R.id.delete_user);
+        if (loggedIn.getLoggedInUser() != null) {
+            String loggedInUsername = loggedIn.getLoggedInUser().getUsername();
+            if (publisherId != null && publisherId.equals(loggedInUsername)) {
+                deleteUserIcon.setVisibility(View.VISIBLE);
+                deleteText.setVisibility(View.VISIBLE);
+                deleteUserIcon.setOnClickListener(v -> deleteUser(publisherId));
+            }
+        }
     }
+
+
+    private void deleteUser(String publisherId) {
+        usersAPI.deleteUserById(publisherId, new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(PublisherChannelActivity.this, "User deleted successfully", Toast.LENGTH_SHORT).show();
+                    navigateToMainActivity();
+                    finish();
+                } else {
+                    Toast.makeText(PublisherChannelActivity.this, "Failed to delete user", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Toast.makeText(PublisherChannelActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(PublisherChannelActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Close the current activity
+    }
+
 
     private void fetchPublisherData(String publisherId) {
         usersAPI.getUserById(publisherId, new Callback<UserData>() {
@@ -221,6 +267,43 @@ public class PublisherChannelActivity extends AppCompatActivity {
             // Handle subscribe button click
             // Example: show a Toast message
             Toast.makeText(PublisherChannelActivity.this, "Subscribed to " + username, Toast.LENGTH_SHORT).show();
+
+            // Change button text to "Subscribed"
+            subscribeButton.setText(R.string.subscribed);
+        });
+    }
+
+    private void setupPublisherInfoNull() {
+        // Retrieve views from the layout
+        ImageView bannerImage = findViewById(R.id.banner_image);
+        ImageView publisherImage =  findViewById(R.id.publisher_image);
+        TextView publisherUsername = findViewById(R.id.publisher_username);
+        TextView publisherNickname = findViewById(R.id.publisher_nickname);
+        TextView publisherSubscribesCount = findViewById(R.id.publisher_subscribes_count);
+        TextView publisherVideosCount = findViewById(R.id.publisher_videos_count);
+        Button subscribeButton = findViewById(R.id.btn_subscribe);
+
+
+        String username = "Not Available";
+        String nickname = "Not Available";
+        int subscribesCount = 0; // replace with actual subscribers count
+
+        // Load images (using Glide or any other image loading library)
+        Glide.with(this)
+                .load(R.drawable.no_availiable)
+                .into(publisherImage);
+
+        // Set text for TextViews
+        publisherUsername.setText(username);
+        publisherNickname.setText("@" + nickname);
+        publisherSubscribesCount.setText(String.valueOf(subscribesCount) + " subscribers");
+        publisherVideosCount.setText("videos");
+
+        // Set subscribe button functionality
+        subscribeButton.setOnClickListener(v -> {
+            // Handle subscribe button click
+            // Example: show a Toast message
+            Toast.makeText(PublisherChannelActivity.this, "Can't subscribe to a deleted publisher ", Toast.LENGTH_SHORT).show();
 
             // Change button text to "Subscribed"
             subscribeButton.setText(R.string.subscribed);

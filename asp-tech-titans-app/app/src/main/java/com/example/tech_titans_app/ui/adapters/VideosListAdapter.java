@@ -111,7 +111,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         holder.videoImage.setOnClickListener(v -> {
             Context context = v.getContext();
             currentVideo.setCurrentVideo(video);
-            currentVideo.getCurrentVideo().incrementViews();
+            currentVideo.getCurrentVideo().getValue().incrementViews();
             Intent intent = new Intent(context, WatchVideoPageActivity.class);
             intent.setData(videoUri); // Pass the video URI to the WatchVideoPageActivity
             context.startActivity(intent);

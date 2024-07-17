@@ -9,10 +9,12 @@ import retrofit2.Response;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.AppContext;
 import com.example.tech_titans_app.ui.api.VideosAPI;
+import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.entities.Video;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class RelatedVideosRepository {
     private final MutableLiveData<List<Video>> videos;
     private List<Video> allVideos;
     private VideosAPI videosAPI = new VideosAPI(AppContext.getContext());
+    private CurrentVideo currentVideo;
 
     // Singleton instance
     private static RelatedVideosRepository instance;
@@ -32,7 +35,13 @@ public class RelatedVideosRepository {
     private RelatedVideosRepository() {
         videos = new MutableLiveData<>();
         allVideos = new ArrayList<>();
+        currentVideo = CurrentVideo.getInstance();
         loadVideos();
+
+        // Observe changes to currentVideo
+        currentVideo.getCurrentVideo().observeForever(video -> {
+            loadVideos(); // Reload videos when the current video changes
+        });
     }
 
     // Public method to provide access to the instance
@@ -44,7 +53,8 @@ public class RelatedVideosRepository {
     }
 
     private void loadVideos() {
-        videosAPI.getRelatedVideos("11" ,new Callback<List<Video>>() {
+        videosAPI.getRelatedVideos(String.valueOf(currentVideo.getCurrentVideo().getValue().getId())
+                ,new Callback<List<Video>>() {
             @Override
             public void onResponse(@NonNull Call<List<Video>> call,
                                    @NonNull Response<List<Video>> response) {

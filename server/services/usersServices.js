@@ -11,6 +11,17 @@ export const patchUserinDB = async (username, updatedParams) => {
         const db = client.db('TechTitans');
         const collection = db.collection('users');
 
+        // Check if updatedParams contains 'subscriptions' and convert if necessary
+        if (updatedParams.subscriptions && typeof updatedParams.subscriptions === 'string') {
+            if (updatedParams.subscriptions === '[]') {
+                updatedParams.subscriptions = [];
+            } else {
+                // Assuming the string is in the format "[ab, cd]"
+                const subscriptionsArr = updatedParams.subscriptions.match(/[\w]+/g); // Extracts words (usernames)
+                updatedParams.subscriptions = subscriptionsArr;
+            }
+        }        
+
         const result = await collection.updateOne({ username: username }, { $set: updatedParams });
 
         if (result.matchedCount === 0) {
