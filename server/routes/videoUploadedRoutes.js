@@ -19,8 +19,15 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+// Set the limits for the file size and field size
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 100 * 1024 * 1024, // 100 MB max file size
+        fieldSize: 25 * 1024 * 1024, // 25 MB max field size for each field
+    }
+});
 
-router.post('/videos', upload.single('videoUploaded'), authenticate, uploadVideo);
+router.post('/videos', upload.single('videoUploaded'),authenticate, uploadVideo);
 
 export default router;
