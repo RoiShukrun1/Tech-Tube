@@ -16,9 +16,16 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.example.tech_titans_app.ui.Converters.usernameDeserializer;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +36,7 @@ public class VideosAPI {
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
     private VideoDao videoDao;
+
 
     public VideosAPI(Context context) {
 
@@ -70,22 +78,72 @@ public class VideosAPI {
         });
     }
 
-    public void uploadVideo(Video video, Callback<Void> callback) {
-        Call<Void> call = webServiceAPI.uploadVideo(video);
-        call.enqueue(new Callback<Void>() {
+    public void uploadVideo(File videoFile, String base64Thumbnail, String title, String description, String playlist, String publisher, String publisherImage, Callback<Void> callback) {
+        getHighestID(new Callback<String>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    callback.onResponse(call, response);
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String newIdStr = response.body();
+
+                    // Prepare the parts for the upload request
+                    RequestBody videoRequestBody = RequestBody.create(MediaType.parse("video/*"), videoFile);
+                    MultipartBody.Part videoPart = MultipartBody.Part.createFormData("videoUploaded", videoFile.getName(), videoRequestBody);
+                    RequestBody thumbnailPart = RequestBody.create(MediaType.parse("text/plain"), base64Thumbnail);
+                    RequestBody titlePart = RequestBody.create(MediaType.parse("text/plain"), title);
+                    RequestBody descriptionPart = RequestBody.create(MediaType.parse("text/plain"), description);
+                    RequestBody playlistPart = RequestBody.create(MediaType.parse("text/plain"), playlist);
+                    RequestBody publisherPart = RequestBody.create(MediaType.parse("text/plain"), publisher);
+                    RequestBody publisherImagePart = RequestBody.create(MediaType.parse("text/plain"), publisherImage);
+                    RequestBody viewsPart = RequestBody.create(MediaType.parse("text/plain"), "0");
+                    RequestBody datePart = RequestBody.create(MediaType.parse("text/plain"), new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                    RequestBody usersLikesPart = RequestBody.create(MediaType.parse("application/json"), "[]");
+                    RequestBody usersUnlikesPart = RequestBody.create(MediaType.parse("application/json"), "[]");
+                    RequestBody commentsPart = RequestBody.create(MediaType.parse("application/json"), "[]");
+
+                    // Include the new ID field
+                    RequestBody idPart = RequestBody.create(MediaType.parse("text/plain"), newIdStr);
+
+                    // Make the upload video call
+                    Call<Void> uploadCall = webServiceAPI.uploadVideo(
+                            idPart,
+                            videoPart,
+                            thumbnailPart,
+                            titlePart,
+                            descriptionPart,
+                            playlistPart,
+                            publisherPart,
+                            publisherImagePart,
+                            viewsPart,
+                            datePart,
+                            usersLikesPart,
+                            usersUnlikesPart,
+                            commentsPart
+                    );
+
+                    uploadCall.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                callback.onResponse(call, response);
+                            } else {
+                                callback.onFailure(call, new Throwable("Response not successful"));
+                                Log.e("API_CALL", "API call failed uploadvideo");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                            callback.onFailure(call, t);
+                        }
+                    });
                 } else {
-                    callback.onFailure(call, new Throwable("Response not successful"));
-                    Log.e("API_CALL", "API call failed uploadvideo");
+                    callback.onFailure(null, new Throwable("Failed to get new ID"));
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                callback.onFailure(call, t);
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                callback.onFailure(null, t);
             }
         });
     }
@@ -111,7 +169,51 @@ public class VideosAPI {
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
+    public void getAllVideos(Callback<List<Video>> callback) {
+        Call<List<Video>> call = webServiceAPI.getAllVideos();
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call,
+                                   @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                }
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
 
+    public void getHighestID(Callback<String> callback) {
+        Call<List<Video>> call = webServiceAPI.getAllVideos();
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int highestID = -1;
+                    List<Video> videoList = response.body();
+                    // Find the highest ID
+                    for (Video video : videoList) {
+                        if (video.getId() > highestID) {
+                            highestID = video.getId();
+                        }
+                    }
+                    String newIdStr = String.valueOf(highestID + 1);
+                    callback.onResponse(null, Response.success(newIdStr)); // Pass null for the call parameter
+                } else {
+                    callback.onFailure(null, new Throwable("Failed to get video list or video list is empty")); // Pass null for the call parameter
+                }
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
+                callback.onFailure(null, t); // Pass null for the call parameter
+            }
+        });
+    }
 }

@@ -23,7 +23,7 @@ import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.util.ArrayList;
-
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -116,6 +116,9 @@ public class LoginActivity extends AppCompatActivity {
                         // Show the token in an AlertDialog
                         showTokenAlert(token);
 
+
+                        fetchProfilePicturePath(userData, username);
+
                         // Set logged in user
                         LoggedIn.getInstance().setLoggedInUser(userData);
 
@@ -152,6 +155,36 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
         }
     }
+    private void fetchProfilePicturePath(UserData userData, String username) {
+        usersAPI.getProfilePicture(username, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // Set the profile picture path
+                    String imagePath = "/uploads/profilePictures/" + username + ".png";
+                    userData.setImage(imagePath);
+
+                    // Set logged in user
+                    LoggedIn.getInstance().setLoggedInUser(userData);
+
+                    // Navigate to MainActivity
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+
+                    // Show success toast
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Failed to load profile picture path", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Failed to load profile picture path", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void showTokenAlert(String token) {
         new AlertDialog.Builder(this)
@@ -160,4 +193,5 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
+
 }
