@@ -2,6 +2,7 @@ package com.example.tech_titans_app.ui.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         holder.date.setText(comment.getDate());
         holder.publisher.setText(comment.getUsername());
 
+        String baseUrl = context.getString(R.string.base_server_url_without_ending_slash).trim();
+        Uri CommentImageUri = Uri.parse(baseUrl + comment.getImage().toString());
+
         Glide.with(holder.itemView.getContext())
-                .load(comment.getImage())
+                .load(CommentImageUri)
                 .into(holder.publisherImage);
 
         // Set click listeners for like and unlike buttons

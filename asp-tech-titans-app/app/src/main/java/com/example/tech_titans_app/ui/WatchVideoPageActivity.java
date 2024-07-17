@@ -39,6 +39,7 @@ import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
 import com.example.tech_titans_app.ui.api.CommentsAPI;
 import com.example.tech_titans_app.ui.api.PatchReqBody;
+import com.example.tech_titans_app.ui.api.UsersAPI;
 import com.example.tech_titans_app.ui.api.VideosAPI;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
@@ -47,6 +48,7 @@ import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
+import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 import com.example.tech_titans_app.ui.viewmodels.VideoViewModelVWP;
@@ -78,6 +80,8 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private View videoInfo;
     private View comments;
     private RecyclerView recyclerView;
+    private VideosAPI videosAPI;
+    private UsersAPI usersAPI;
 
     /**
      * Method to handle the creation of the activity.
@@ -91,7 +95,9 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(VideoViewModelVWP.class);
-        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
+        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo().getValue();
+        videosAPI = new VideosAPI(this);
+        usersAPI = new UsersAPI(this);
 
         addSearchBarLogic();
         addBottomBarLogic();
@@ -210,8 +216,24 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
 
-        // Set the URI to the VideoView
-        videoView.setVideoURI(this.thisCurrentVideo.getVideoUploaded());
+        String baseUrl = this.getString(R.string.base_server_url).trim();
+        // Ensure the base URL ends with a "/"
+        if (!baseUrl.endsWith("/")) {
+            baseUrl += "/";
+        }
+
+        // Assuming thisCurrentVideo.getVideoUploaded() returns a relative path
+        String videoPath = thisCurrentVideo.getVideoUploaded().toString();
+        // Ensure there is no leading "/" in videoPath to prevent double slashes
+        if (videoPath.startsWith("/")) {
+            videoPath = videoPath.substring(1);
+        }
+
+        // Combine the base URL with the video path
+        Uri videoUri = Uri.parse(baseUrl + videoPath);
+
+        // Set the combined URI to the VideoView
+        videoView.setVideoURI(videoUri);
 
         // Start the video
         videoView.start();
@@ -362,15 +384,35 @@ public class WatchVideoPageActivity extends AppCompatActivity {
      * Method to set the publisher info.
      */
     public void setPublisherInfo() {
-        Uri publisherImageUri = CurrentVideo.getInstance().getCurrentVideo().getPublisherImage();
+        String baseUrl = this.getString(R.string.base_server_url).trim();
+        // Ensure the base URL ends with a "/"
+        if (!baseUrl.endsWith("/")) {
+            baseUrl += "/";
+        }
+
+        // Get the relative path of the publisher's image from the current video
+        String imageRelativePath =
+                CurrentVideo.getInstance().getCurrentVideo().getValue().getPublisherImage()
+                        .toString().trim();
+        // Ensure there is no leading "/" in imageRelativePath to prevent double slashes
+        if (imageRelativePath.startsWith("/")) {
+            imageRelativePath = imageRelativePath.substring(1);
+        }
+
+        // Combine the base URL with the image path and parse it into a Uri
+        Uri publisherImageUri = Uri.parse(baseUrl + imageRelativePath);
+
+        // Set the publisher image using Glide
         CircleImageView publisherImage = findViewById(R.id.publisher_image_VWP);
         Glide.with(publisherImage.getContext())
                 .load(publisherImageUri)
                 .into(publisherImage);
 
+        // Set the publisher name
         TextView publisherTextView = findViewById(R.id.publisher_name_VWP);
         publisherTextView.setText(this.thisCurrentVideo.getPublisher());
     }
+
 
     /**
      * Method to set the video title.
@@ -407,9 +449,11 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             isLiked = false;
         } else {
             isUnliked =
-                    thisCurrentVideo.getUsersUnlikes().contains(loggedIn.getLoggedInUser().getId());
+                    thisCurrentVideo.getUsersUnlikes()
+                            .contains(loggedIn.getLoggedInUser().getUsername());
             isLiked =
-                    thisCurrentVideo.getUsersLikes().contains(loggedIn.getLoggedInUser().getId());
+                    thisCurrentVideo.getUsersLikes()
+                            .contains(loggedIn.getLoggedInUser().getUsername());
         }
     }
 
@@ -444,6 +488,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
 
         if (isUnliked) {
             thisCurrentVideo.getUsersUnlikes().remove(loggedInUserId);
+            updateUnlikesInDB();
         }
         if (isLiked) {
             thisCurrentVideo.decrementLikes();
@@ -452,7 +497,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             thisCurrentVideo.incrementLikes();
             thisCurrentVideo.getUsersLikes().add(loggedInUserId);
         }
-
+        updateLikesInDB();
         updateLikesButtonsUI();
     }
 
@@ -466,6 +511,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         if (isLiked) {
             thisCurrentVideo.getUsersLikes().remove(loggedInUserId);
             thisCurrentVideo.decrementLikes();
+            updateLikesInDB();
         }
         if (isUnliked) {
             thisCurrentVideo.getUsersUnlikes().remove(loggedInUserId);
@@ -473,7 +519,20 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             thisCurrentVideo.getUsersUnlikes().add(loggedInUserId);
         }
 
+        updateUnlikesInDB();
         updateLikesButtonsUI();
+    }
+
+    public void updateLikesInDB() {
+        PatchReqBody likesArr = new PatchReqBody("usersLikes",
+                thisCurrentVideo.getUsersLikes().toString());
+        videosAPI.updateVideoById(String.valueOf(thisCurrentVideo.getId()), likesArr);
+    }
+
+    public void updateUnlikesInDB() {
+        PatchReqBody unlikesArr = new PatchReqBody("usersUnlikes",
+                thisCurrentVideo.getUsersUnlikes().toString());
+        videosAPI.updateVideoById(String.valueOf(thisCurrentVideo.getId()), unlikesArr);
     }
 
     /**
@@ -525,20 +584,30 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         }
 
         String publisher = thisCurrentVideo.getPublisher();
+        UserData loggedInUser = loggedIn.getLoggedInUser();
 
         isSubscribed =
-                loggedIn.getLoggedInUser().getSubscriptions()
+                loggedInUser.getSubscriptions()
                         .contains(publisher);
 
         if (isSubscribed) {
-            loggedIn.getLoggedInUser().getSubscriptions()
+            loggedInUser.getSubscriptions()
                     .remove(publisher);
         } else {
-            loggedIn.getLoggedInUser().getSubscriptions()
+            loggedInUser.getSubscriptions()
                     .add(publisher);
         }
 
+        updateSubscriptionsInDB();
         setSubscribeUI();
+    }
+
+    public void updateSubscriptionsInDB() {
+        PatchReqBody subscriptionsArr = new PatchReqBody("subscriptions",
+                loggedIn.getLoggedInUser().getSubscriptions().toString());
+
+        usersAPI.updateUserById
+                (String.valueOf(loggedIn.getLoggedInUser().getUsername()), subscriptionsArr);
     }
 
     /**

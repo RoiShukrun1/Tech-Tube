@@ -207,5 +207,16 @@ public class UsersAPI {
         });
     }
 
+    public void updateUserById(String id, PatchReqBody newParams) {
+        Call<Void> call = webServiceAPI.updateUserById(id, newParams.getUpdateParams());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+        });
+    }
+
 
 }

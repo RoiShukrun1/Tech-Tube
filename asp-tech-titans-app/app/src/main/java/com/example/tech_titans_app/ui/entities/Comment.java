@@ -1,5 +1,7 @@
 package com.example.tech_titans_app.ui.entities;
 
+import com.example.tech_titans_app.ui.AppContext;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -16,6 +18,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.AppContext;
+import com.example.tech_titans_app.ui.api.CommentsAPI;
+import com.example.tech_titans_app.ui.api.PatchReqBody;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.util.ArrayList;
@@ -72,9 +77,9 @@ public class Comment {
             isLiked = false;
         } else {
             isUnliked = this.getUsersUnlikedId()
-                    .contains(LoggedIn.getInstance().getLoggedInUser().getId());
+                    .contains(LoggedIn.getInstance().getLoggedInUser().getUsername());
             isLiked = this.getUsersLikedId()
-                    .contains(LoggedIn.getInstance().getLoggedInUser().getId());
+                    .contains(LoggedIn.getInstance().getLoggedInUser().getUsername());
         }
     }
 
@@ -103,6 +108,10 @@ public class Comment {
                 this.incrementLikes();
                 this.getUsersLikedId().add(loggedInUserId);
             }
+            Comment newComment = new Comment(this.id, this.likes,
+                    this.username, this.comment, this.date,
+                    this.image, this.parentVideo);
+            putCommentInDB(newComment);
             updateLikesButtonsUI(likeTextView, unlikeTextView);
         }
     }
@@ -114,7 +123,8 @@ public class Comment {
      * @param unlikeTextView The TextView for the unlike button.
      * @param context The context of the application.
      */
-    public void unlikeButtonClick(TextView likeTextView, TextView unlikeTextView, Context context) {
+    public void unlikeButtonClick(TextView likeTextView,
+                                  TextView unlikeTextView, Context context) {
         if (!LoggedIn.getInstance().isLoggedIn()) {
             Toast.makeText(context,
                     "You have to be logged in to press the unlike button",
@@ -135,6 +145,15 @@ public class Comment {
 
             updateLikesButtonsUI(likeTextView, unlikeTextView);
         }
+    }
+
+    public void putCommentInDB(Comment comment)
+    {
+        // Put the comment in the database
+        Context context = AppContext.getContext();
+        CommentsAPI commentsAPI = new CommentsAPI(context);
+        commentsAPI.updateCommentById(String.valueOf(this.parentVideo.getId()),
+                String.valueOf(comment.getId()), comment);
     }
 
     /**
@@ -242,6 +261,9 @@ public class Comment {
      * @return The list of user IDs who liked the comment.
      */
     public List<String> getUsersLikedId() {
+        if (usersLikedId == null) {
+            usersLikedId = new ArrayList<>();
+        }
         return usersLikedId;
     }
 
@@ -260,6 +282,9 @@ public class Comment {
      * @return The list of user IDs who unliked the comment.
      */
     public List<String> getUsersUnlikedId() {
+        if (usersUnlikedId == null) {
+            usersUnlikedId = new ArrayList<>();
+        }
         return usersUnlikedId;
     }
 
@@ -378,5 +403,33 @@ public class Comment {
      */
     public int getId() {
         return id;
+    }
+
+    public boolean isUnliked() {
+        return isUnliked;
+    }
+
+    public void setUnliked(boolean unliked) {
+        isUnliked = unliked;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public void setImage(Uri image) {
+        this.image = image;
+    }
+
+    public Video getParentVideo() {
+        return parentVideo;
+    }
+
+    public void setParentVideo(Video parentVideo) {
+        this.parentVideo = parentVideo;
     }
 }
