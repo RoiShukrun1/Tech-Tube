@@ -19,7 +19,8 @@ const login = async (req, res) => {
 };
 
 const authenticate = (req, res, next) => {
-  const token = req.cookies.token;
+  console.log(req.headers['authorization']);
+  const token = req.cookies.token || req.headers['authorization'];
   if (!token) return res.status(403).json({ message: 'No token provided' });
 
   try {
@@ -32,7 +33,7 @@ const authenticate = (req, res, next) => {
 };
 
 const checkAuth = async (req, res) => {
-  const token = req.cookies.token;
+  const token = req.cookies.token || req.headers['authorization'] ;
   if (!token) return res.status(200).json({ isAuthenticated: false });
 
   try {
