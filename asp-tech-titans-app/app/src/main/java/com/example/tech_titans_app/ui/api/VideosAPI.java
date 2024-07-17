@@ -188,7 +188,7 @@ public class VideosAPI {
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
-  
+
     public void getPublisherVideosById(String id, Callback<List<Video>> callback) {
         Call<List<Video>> call = webServiceAPI.getPublisherVideosById(id);
         call.enqueue(new Callback<List<Video>>() {
@@ -295,5 +295,5 @@ public class VideosAPI {
     }
 
 
-  
+
 }

@@ -252,7 +252,11 @@ public class Video {
     }
 
     // Getters and setters for likes and other properties
-    public String getLikes() {
+    public String getLikes()
+    {
+        if (likes == null) {
+            likes = String.valueOf(usersLikes.size());
+        }
         return likes;
     }
 
@@ -274,5 +278,18 @@ public class Video {
 
     public String getPlaylist() {
         return playlist;
+    }
+
+
+    public void setThumbnail(Uri thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setPlaylist(String playlist) {
+        this.playlist = playlist;
+    }
+
+    public void setRelatedVideos(List<Video> relatedVideos) {
+        this.relatedVideos = relatedVideos;
     }
 }

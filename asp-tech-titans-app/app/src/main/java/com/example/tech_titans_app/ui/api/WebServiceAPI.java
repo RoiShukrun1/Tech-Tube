@@ -36,6 +36,9 @@ public interface WebServiceAPI {
     @GET("/api/users/{id}")
     Call<UserData> getUserById(@Path("id") String id);
 
+    @PATCH("/api/users/{id}")
+    Call<Void> updateUserById(@Path("id") String id,
+                               @Body Map<String, String> updateParams);
 
     @DELETE("/api/users/{id}")
     Call<Void> deleteUserById(@Path("id") String id);

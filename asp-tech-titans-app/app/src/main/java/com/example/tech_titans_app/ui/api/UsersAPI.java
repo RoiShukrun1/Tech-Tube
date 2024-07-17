@@ -3,6 +3,8 @@ package com.example.tech_titans_app.ui.api;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.tech_titans_app.ui.CheckAuthResponse;
 
 import com.example.tech_titans_app.R;
@@ -141,6 +143,17 @@ public class UsersAPI {
                 Log.e("UsersAPI", "Request failed: " + t.getMessage()); // Log the error
                 callback.onFailure(call, t);
             }
+        });
+    }
+
+    public void updateUserById(String id, PatchReqBody newParams) {
+        Call<Void> call = webServiceAPI.updateUserById(id, newParams.getUpdateParams());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
 
