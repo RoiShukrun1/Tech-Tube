@@ -110,13 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                         String token = userResponse.getToken();
                         tokenManager.saveToken(token);
 
-                        // Log the token to Logcat
-                        Log.d("LoginActivity", "Token received: " + token);
-
-                        // Show the token in an AlertDialog
-                        showTokenAlert(token);
-
-
                         fetchProfilePicturePath(userData, username);
 
                         // Set logged in user
@@ -150,9 +143,9 @@ public class LoginActivity extends AppCompatActivity {
             LoggedIn.getInstance().setLoggedInUser(localUser);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            Toast.makeText(LoginActivity.this, "Login successful (local)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Server is not responding , searching for local user... Login successful (local)", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Server is not responding , searching for local user... Login failed (local user with this username/password does not exist)", Toast.LENGTH_SHORT).show();
         }
     }
     private void fetchProfilePicturePath(UserData userData, String username) {
@@ -185,13 +178,5 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-    private void showTokenAlert(String token) {
-        new AlertDialog.Builder(this)
-                .setTitle("Token Received")
-                .setMessage("Token: " + token)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
-    }
 
 }

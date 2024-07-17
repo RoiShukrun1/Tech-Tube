@@ -140,4 +140,28 @@ public class VideosRepository {
         allVideos.remove(video);
         videos.setValue(allVideos);
     }
+
+    public void deleteVideoById(String videoId, Callback<Void> callback) {
+        videosAPI.deleteVideoById(videoId);
+
+        // Simulate callback handling since `deleteVideoById` doesn't support callback directly
+        // This approach assumes that the deletion will be successful. You may want to adjust this based on your needs.
+        boolean found = false;
+        for (Video video : allVideos) {
+            if (video.getId() == Integer.parseInt(videoId)) {
+                allVideos.remove(video);
+                videos.setValue(allVideos);
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            callback.onResponse(null, Response.success(null));
+        } else {
+            callback.onFailure(null, new Throwable("Delete request not successful"));
+        }
+    }
+
+
 }
