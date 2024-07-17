@@ -39,4 +39,5 @@
     <string name="profile_picture" />
     <string name="publisher_name">publisher_name</string>
     <string name="base_server_url">http://10.0.2.2/</string>
+    <string name="delete_user">Delete User</string>
 </resources>

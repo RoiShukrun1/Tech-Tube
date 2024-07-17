@@ -161,6 +161,26 @@ public class UsersAPI {
         });
     }
 
+    public void deleteUserById(String id, Callback<Void> callback) {
+        Call<Void> call = webServiceAPI.deleteUserById(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Failed to delete user: " + response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+
 
     public void checkAuth(Callback<CheckAuthResponse> callback) {
         String token = tokenManager.getToken();
