@@ -12,21 +12,29 @@ export const patchVideoinDB = async (videoId, updatedParams) => {
 
         // Check if updatedParams contains 'usersLikes' and convert if necessary
         if (updatedParams.usersLikes && typeof updatedParams.usersLikes === 'string') {
-            // Assuming the string is in the format "[ab, cd]"
-            const users = updatedParams.usersLikes.match(/[\w]+/g); // Extracts words (usernames)
-            if (users) {
-                updatedParams.usersLikes = users.map(username => ({ username }));
+            if (updatedParams.usersLikes === '[]') {
+                updatedParams.usersLikes = [];
+            } else {
+                // Assuming the string is in the format "[ab, cd]"
+                const users = updatedParams.usersLikes.match(/[\w]+/g); // Extracts words (usernames)
+                if (users) {
+                    updatedParams.usersLikes = users.map(username => ({ username }));
+                }
             }
         }
 
         // Check if updatedParams contains 'usersLikes' and convert if necessary
-            if (updatedParams.usersUnlikes && typeof updatedParams.usersUnlikes === 'string') {
+        if (updatedParams.usersUnlikes && typeof updatedParams.usersUnlikes === 'string') {
+            if (updatedParams.usersUnlikes === '[]') {
+                updatedParams.usersUnlikes = [];
+            } else {
                 // Assuming the string is in the format "[ab, cd]"
                 const users = updatedParams.usersUnlikes.match(/[\w]+/g); // Extracts words (usernames)
                 if (users) {
                     updatedParams.usersUnlikes = users.map(username => ({ username }));
                 }
             }
+        }
 
         const result = await collection.updateOne({ id: videoId }, { $set: updatedParams });
 
