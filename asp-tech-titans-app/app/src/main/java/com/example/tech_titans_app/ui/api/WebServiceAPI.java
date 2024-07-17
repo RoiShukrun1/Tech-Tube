@@ -70,14 +70,7 @@ public interface WebServiceAPI {
             @Part("usersUnlikes") RequestBody usersUnlikes,
             @Part("comments") RequestBody comments
     );
-  
 
-
-    @GET("api/videos")
-    Call<List<Video>> get20Videos();
-
-    @GET("/api/videos/all")
-    Call<List<Video>> getAllVideos();
 
     @GET("/api/users/user/videos/{videoId}/relatedvideos")
     Call<List<Video>> getRelatedVideos(@Path("videoId") String videoId);
@@ -94,8 +87,6 @@ public interface WebServiceAPI {
     @PATCH("/api/users/user/videos/{videoId}")
     Call<Void> updateVideoById(@Path("videoId") String videoId,
                                @Body Map<String, String> updateParams);
-    @GET("/api/videos/all")
-    Call<List<Video>> getAllVideos();
 
     @GET("api/videos")
     Call<List<Video>> get20Videos();
