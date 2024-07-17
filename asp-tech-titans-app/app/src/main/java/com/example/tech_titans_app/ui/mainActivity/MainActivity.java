@@ -3,6 +3,7 @@ package com.example.tech_titans_app.ui.mainActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,10 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.AppContext;
 import com.example.tech_titans_app.ui.LoginActivity;
+import com.example.tech_titans_app.ui.PublisherChannelActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataDao;
+import com.example.tech_titans_app.ui.utilities.LoggedIn;
+import com.example.tech_titans_app.ui.utilities.LoginValidation;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
 import java.util.Arrays;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ProfileManager profileManager;
     private UsersDB usersDB;
     private UsersDataDao usersDataDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
         addVideoButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, UploadVideoActivity.class);
             startActivity(intent);
+        });
+
+        TextView myChannelButton = findViewById(R.id.mychannel);
+        myChannelButton.setOnClickListener(v -> {
+            LoginValidation.checkLoggedIn(this);
+            if (LoggedIn.getInstance().isLoggedIn()) {
+            Intent intent = new Intent(MainActivity.this, PublisherChannelActivity.class);
+            intent.putExtra("publisher", LoggedIn.getInstance().getLoggedInUser().getUsername()); // Pass the publisher information to the PublisherChannelActivity
+            startActivity(intent);
+            }
         });
     }
 

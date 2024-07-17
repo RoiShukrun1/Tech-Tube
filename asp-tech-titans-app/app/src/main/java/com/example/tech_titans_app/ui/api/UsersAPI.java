@@ -10,9 +10,14 @@ import com.example.tech_titans_app.ui.CheckAuthResponse;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.UserResponse;
+import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataDao;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.ResponseBody;
 import retrofit2.http.Path;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -30,18 +36,35 @@ public class UsersAPI {
     private WebServiceAPI webServiceAPI;
     private UsersDataDao usersDataDao;
     private TokenManager tokenManager;
+    private String token;
 
     public UsersAPI(Context context) {
-
+        tokenManager = new TokenManager(context);
         String baseUrl = context.getString(R.string.base_server_url).trim();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        String token = tokenManager.getToken();
+                        if (token != null) {
+                            Request request = chain.request().newBuilder()
+                                    .addHeader("authorization", token)
+                                    .build();
+                            return chain.proceed(request);
+                        }
+                        return chain.proceed(chain.request());
+                    }
+                })
+                .build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl) // Use the correct port your server is running on
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         usersDataDao = UsersDB.getInstance(context).usersDao();
-        tokenManager = new TokenManager(context); // Initialize TokenManager
     }
 
     public void registerUser(UserData user, Callback<Void> externalCallback) {
