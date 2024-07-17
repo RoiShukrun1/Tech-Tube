@@ -26,7 +26,7 @@ public interface WebServiceAPI {
 
     @POST("/api/users/register")
     Call<Void> registerUser(@Body UserData user);
-    
+
     @GET("/api/users/{id}")
     Call<UserData> getUserById(@Path("id") String id);
 
@@ -38,13 +38,14 @@ public interface WebServiceAPI {
 
     @GET("/uploads/profilePictures/{username}.png")
     Call<ResponseBody> getProfilePicture(@Path("username") String username);
-    
+
     /**
      * Sets api fot videos operation.
      */
-     
+
     @GET("/api/users/user/videos/{id}")
     Call<Video> getVideoById(@Path("id") String id);
+
 
     @GET("api/videos")
     Call<List<Video>> get20Videos();
@@ -54,6 +55,9 @@ public interface WebServiceAPI {
 
     @GET("/api/users/user/videos/{videoId}/relatedvideos")
     Call<List<Video>> getRelatedVideos(@Path("videoId") String videoId);
+
+    @GET("/api/users/{id}/videos")
+    Call<List<Video>> getPublisherVideosById(@Path("id") String id);
     
     @POST("/api/users/user/videos")
     Call<Void> uploadVideo(@Body Video video);
@@ -64,6 +68,13 @@ public interface WebServiceAPI {
     @PATCH("/api/users/user/videos/{videoId}")
     Call<Void> updateVideoById(@Path("videoId") String videoId,
                                @Body Map<String, String> updateParams);
+
+    @GET("api/videos")
+    Call<List<Video>> get20Videos();
+
+    @GET("/api/videos/all")
+    Call<List<Video>> getAllVideos();
+
 
     /**
      * Sets api fot comments operation.

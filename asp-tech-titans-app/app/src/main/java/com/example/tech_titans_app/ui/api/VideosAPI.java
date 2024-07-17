@@ -112,6 +112,26 @@ public class VideosAPI {
         });
     }
 
+    public void getPublisherVideosById(String id, Callback<List<Video>> callback) {
+        Call<List<Video>> call = webServiceAPI.getPublisherVideosById(id);
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                    Log.e("API_CALL", "API call failed getPublisherVideosById");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable throwable) {
+                callback.onFailure(call, throwable);
+            }
+        });
+    }
+
     public void getAllVideos(Callback<List<Video>> callback) {
         Call<List<Video>> call = webServiceAPI.getAllVideos();
         call.enqueue(new Callback<List<Video>>() {
@@ -170,7 +190,6 @@ public class VideosAPI {
             }
         });
     }
-
 
 
 }
