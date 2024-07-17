@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,14 +47,13 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private VideosListAdapter adapter;
     private ProfileManager profileManager;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
-    private UserData publisherData;
-    private List<UserData> publisherSubs;
-    private int videosCount;
+    private MutableLiveData<UserData> publisherDataLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<UserData>> publisherSubsLiveData = new MutableLiveData<>();
+    private MutableLiveData<Integer> videosCountLiveData = new MutableLiveData<>();
     private boolean isSubscribed = false;
     private String base_server_url = "http://10.0.2.2";
     private UsersAPI usersAPI;
     private VideosAPI videosAPI;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +97,29 @@ public class PublisherChannelActivity extends AppCompatActivity {
         if (publisherId != null) {
             fetchPublisherData(publisherId);
             fetchPublisherSubsCount(publisherId);
-            videosCount = fetchPublisherVideosCount(publisherId);
-            setupPublisherInfo(publisherData, publisherSubs, videosCount);
+            fetchPublisherVideosCount(publisherId);
         }
+
+        // Observe changes in publisher data and update UI accordingly
+        publisherDataLiveData.observe(this, publisherData -> {
+            if (publisherData != null) {
+                setupPublisherInfo(publisherData, publisherSubsLiveData.getValue(), videosCountLiveData.getValue());
+            }
+        });
+
+        // Observe changes in publisher subscriptions and update UI accordingly
+        publisherSubsLiveData.observe(this, publisherSubs -> {
+            if (publisherDataLiveData.getValue() != null) {
+                setupPublisherInfo(publisherDataLiveData.getValue(), publisherSubs, videosCountLiveData.getValue());
+            }
+        });
+
+        // Observe changes in videos count and update UI accordingly
+        videosCountLiveData.observe(this, videosCount -> {
+            if (publisherDataLiveData.getValue() != null) {
+                setupPublisherInfo(publisherDataLiveData.getValue(), publisherSubsLiveData.getValue(), videosCount);
+            }
+        });
     }
 
     private void fetchPublisherData(String publisherId) {
@@ -107,8 +128,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<UserData> call,
                                    @NonNull Response<UserData> response) {
                 if (response.isSuccessful()) {
-                    publisherData = response.body();
-                    Log.e("API_CALL", "API call succeeded but user data is null");
+                    publisherDataLiveData.postValue(response.body());
                 } else {
                     Log.e("API_CALL", "API call failed onResponse:");
                 }
@@ -127,8 +147,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<UserData>> call,
                                    @NonNull Response<List<UserData>> response) {
                 if (response.isSuccessful()) {
-                    publisherSubs = response.body();
-                    Log.e("API_CALL", "API call succeeded but user data is null");
+                    publisherSubsLiveData.postValue(response.body());
                 } else {
                     Log.e("API_CALL", "API call failed onResponse:");
                 }
@@ -141,15 +160,16 @@ public class PublisherChannelActivity extends AppCompatActivity {
         });
     }
 
-    private int fetchPublisherVideosCount(String publisherId) {
+    private void fetchPublisherVideosCount(String publisherId) {
         videosAPI.getPublisherVideosById(publisherId, new Callback<List<Video>>() {
             @Override
             public void onResponse(@NonNull Call<List<Video>> call,
                                    @NonNull Response<List<Video>> response) {
                 if (response.isSuccessful()) {
                     List<Video> videos = response.body();
-                    videosCount = videos.size();
-                    Log.e("API_CALL", "API call succeeded but user data is null");
+                    if (videos != null) {
+                        videosCountLiveData.postValue(videos.size());
+                    }
                 } else {
                     Log.e("API_CALL", "API call failed onResponse:");
                 }
@@ -160,11 +180,9 @@ public class PublisherChannelActivity extends AppCompatActivity {
                 Log.e("API_CALL", "API call failed: " + t.getMessage());
             }
         });
-        return videosCount;
     }
 
-
-    private void setupPublisherInfo(UserData publisherData, List<UserData> publisherSubs, int videosCount) {
+    private void setupPublisherInfo(UserData publisherData, List<UserData> publisherSubs, Integer videosCount) {
         // Retrieve views from the layout
         ImageView bannerImage = findViewById(R.id.banner_image);
         ImageView publisherImage = findViewById(R.id.publisher_image);
@@ -178,7 +196,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         String publisherImageUrl = publisherData.getImage();
         String username = publisherData.getUsername();
         String nickname = publisherData.getNickname();
-        int subscribesCount = publisherSubs.size(); // replace with actual subscribers count
+        int subscribesCount = publisherSubs != null ? publisherSubs.size() : 0; // replace with actual subscribers count
 
         // Load images (using Glide or any other image loading library)
         Glide.with(this)
@@ -188,8 +206,8 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Set text for TextViews
         publisherUsername.setText(username);
         publisherNickname.setText("@" + nickname);
-        publisherSubscribesCount.setText(subscribesCount);
-        publisherVideosCount.setText(videosCount);
+        publisherSubscribesCount.setText(String.valueOf(subscribesCount) + " subscribers");
+        publisherVideosCount.setText(String.valueOf(videosCount) + " videos");
 
         // Set subscribe button functionality
         subscribeButton.setOnClickListener(v -> {
@@ -259,4 +277,3 @@ public class PublisherChannelActivity extends AppCompatActivity {
         DarkModeManager darkModeManager = new DarkModeManager(this, darkModeButton);
     }
 }
-

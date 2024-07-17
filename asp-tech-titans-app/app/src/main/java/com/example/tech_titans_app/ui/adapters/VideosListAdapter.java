@@ -85,7 +85,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         // Set video details to the holder views
         holder.videoTitle.setText(video.getTitle());
         holder.publisher.setText(video.getPublisher());
-        holder.views.setText(video.getViews());
+        holder.views.setText(video.getViews() + " views");
         holder.date.setText(video.getDate());
 
         // Construct the URI for the video, thumbnail, and publisher image
