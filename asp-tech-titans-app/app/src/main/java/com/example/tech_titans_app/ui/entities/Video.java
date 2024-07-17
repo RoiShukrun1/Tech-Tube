@@ -3,6 +3,7 @@ package com.example.tech_titans_app.ui.entities;
 import android.net.Uri;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
@@ -29,9 +30,10 @@ public class Video {
     private String playlist;
     private List<Comment> comments;
     private String likes;
-    private List<Integer> usersLikedId;
-    private List<Integer> usersUnlikedId;
+    private List<String> usersLikes;
+    private List<String> usersUnlikes;
 
+    @Ignore
     // Constructor for a simple Video object
     public Video(int id ,Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
         this.id = id;
@@ -42,10 +44,11 @@ public class Video {
         this.views = views;
         this.date = date;
         this.comments = new ArrayList<>();
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
+    @Ignore
     // Constructor with description
     public Video(Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date, String description) {
         this.thumbnail = thumbnail;
@@ -56,10 +59,11 @@ public class Video {
         this.date = date;
         this.description = description;
         this.comments = new ArrayList<>();
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
+    @Ignore
     // Constructor with video upload URI and likes count
     public Video(Uri thumbnail, String title, String publisher,
                  Uri publisherImage, String views,
@@ -74,8 +78,8 @@ public class Video {
         this.videoUploaded = videoUploaded;
         this.comments = new ArrayList<>();
         this.likes = String.valueOf(likes);
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
     // Constructor for a detailed Video object
@@ -96,25 +100,25 @@ public class Video {
         this.playlist = playlist;
         this.comments = comments;
         this.likes = likes;
-        this.usersLikedId = new ArrayList<>();
-        this.usersUnlikedId = new ArrayList<>();
+        this.usersLikes = new ArrayList<>();
+        this.usersUnlikes = new ArrayList<>();
     }
 
     // Getters and setters for user liked and unliked IDs
-    public List<Integer> getUsersLikedId() {
-        return usersLikedId;
+    public List<String> getUsersLikes() {
+        return usersLikes;
     }
 
-    public void setUsersLikedId(List<Integer> usersLikedId) {
-        this.usersLikedId = usersLikedId;
+    public void setUsersLikes(List<String> usersLikes) {
+        this.usersLikes = usersLikes;
     }
 
-    public List<Integer> getUsersUnlikedId() {
-        return usersUnlikedId;
+    public List<String> getUsersUnlikes() {
+        return usersUnlikes;
     }
 
-    public void setUsersUnlikedId(List<Integer> usersUnlikedId) {
-        this.usersUnlikedId = usersUnlikedId;
+    public void setUsersUnlikes(List<String> usersUnlikes) {
+        this.usersUnlikes = usersUnlikes;
     }
 
     public void setComments(List<Comment> comments) {
@@ -146,7 +150,7 @@ public class Video {
         return views;
     }
 
-    public CharSequence getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -203,11 +207,11 @@ public class Video {
         LoggedIn loggedIn = LoggedIn.getInstance();
         if (loggedIn.getLoggedInUser() != null) {
             int numberOfComments = comments.size();
-            Comment newComment = new Comment(numberOfComments + 1,
-                    0, loggedIn.getLoggedInUser().getUsername(),
-                    comment, Video.getTodayDate(),
-                    loggedIn.getLoggedInUser().getProfilePicture(), this);
-            comments.add(newComment);
+           // Comment newComment = new Comment(numberOfComments + 1,
+                  //  0, loggedIn.getLoggedInUser().getUsername(),
+                    //comment, Video.getTodayDate(),
+                    //loggedIn.getLoggedInUser().getProfilePicture(), this);
+            //comments.add(newComment);
         }
     }
 

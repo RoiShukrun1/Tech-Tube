@@ -1,10 +1,10 @@
 package com.example.tech_titans_app.ui.utilities;
 
-import com.example.tech_titans_app.ui.models.account.AccountData;
+import com.example.tech_titans_app.ui.models.account.UserData;
 
 public class LoggedIn {
     private static LoggedIn instance;
-    private AccountData loggedInUser;
+    private UserData loggedInUser;
     private LogoutListener logoutListener;
 
     private LoggedIn() {}
@@ -16,11 +16,11 @@ public class LoggedIn {
         return instance;
     }
 
-    public AccountData getLoggedInUser() {
+    public UserData getLoggedInUser() {
         return loggedInUser;
     }
 
-    public void setLoggedInUser(AccountData loggedInUser) {
+    public void setLoggedInUser(UserData loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 
