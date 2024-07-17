@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.List;
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
@@ -79,7 +83,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
      * @param position The position in the adapter.
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Video video = videoList.get(position);
 
         // Set video details to the holder views
@@ -136,8 +140,22 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
 
         // Set click listener for remove icon to delete the video
         holder.removeIcon.setOnClickListener(v -> {
-            VideosRepository.getInstance().deleteVideo(video);
-            notifyDataSetChanged();
+            Log.e("check pah", "here");
+            VideosRepository.getInstance().deleteVideoById(String.valueOf(video.getId()), new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    // Refresh the video list
+                    videoList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, videoList.size());
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    // Handle failure (optional)
+                    Log.e("API_CALL", "Failed to delete video: " + t.getMessage());
+                }
+            });
         });
     }
 

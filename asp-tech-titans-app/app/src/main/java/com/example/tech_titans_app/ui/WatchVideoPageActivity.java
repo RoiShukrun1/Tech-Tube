@@ -1,11 +1,16 @@
 package com.example.tech_titans_app.ui;
 
+import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,6 +34,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,6 +71,8 @@ import retrofit2.Response;
 
 
 public class WatchVideoPageActivity extends AppCompatActivity {
+    private static final int PERMISSION_REQUEST_CODE = 1;
+
     private VideoViewModelVWP videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
@@ -210,8 +218,24 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
 
-        // Set the URI to the VideoView
-        videoView.setVideoURI(this.thisCurrentVideo.getVideoUploaded());
+        String baseUrl = this.getString(R.string.base_server_url).trim();
+        // Ensure the base URL ends with a "/"
+        if (!baseUrl.endsWith("/")) {
+            baseUrl += "/";
+        }
+
+        // Assuming thisCurrentVideo.getVideoUploaded() returns a relative path
+        String videoPath = thisCurrentVideo.getVideoUploaded().toString();
+        // Ensure there is no leading "/" in videoPath to prevent double slashes
+        if (videoPath.startsWith("/")) {
+            videoPath = videoPath.substring(1);
+        }
+
+        // Combine the base URL with the video path
+        Uri videoUri = Uri.parse(baseUrl + videoPath);
+
+        // Set the combined URI to the VideoView
+        videoView.setVideoURI(videoUri);
 
         // Start the video
         videoView.start();
@@ -367,7 +391,6 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         Glide.with(publisherImage.getContext())
                 .load(publisherImageUri)
                 .into(publisherImage);
-
         TextView publisherTextView = findViewById(R.id.publisher_name_VWP);
         publisherTextView.setText(this.thisCurrentVideo.getPublisher());
     }
@@ -509,12 +532,46 @@ public class WatchVideoPageActivity extends AppCompatActivity {
      * Method to handle the "Download" click event.
      */
     public void downloadButtonClick() {
-        Toast.makeText(this,
-                "Will be implemented after data will migrate to server side." +
-                        " needs an http/s path",
-                Toast.LENGTH_LONG).show();
+        if (checkPermission()) {
+            startDownload();
+        } else {
+            requestPermission();
+        }
     }
 
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startDownload();
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void startDownload() {
+
+        String videoUrl = "http://10.0.2.2/uploads/uploadedVideos/" + thisCurrentVideo.getId() + ".mp4";
+        Uri uri = Uri.parse(videoUrl);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setTitle("Downloading Video");
+        request.setDescription("Downloading video file...");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video.mp4");
+
+        DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        long downloadId = downloadManager.enqueue(request);
+    }
     /**
      * Method to handle the "Subscribe" click event.
      */

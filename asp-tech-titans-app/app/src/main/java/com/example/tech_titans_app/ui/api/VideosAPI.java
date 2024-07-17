@@ -42,11 +42,13 @@ public class VideosAPI {
     private VideoDao videoDao;
     private TokenManager tokenManager;
 
+    private String token;
+
 
 
     public VideosAPI(Context context) {
         tokenManager = new TokenManager(context);
-
+        token = tokenManager.getToken();
         // Define the type for the custom deserializer
         Type listType = new TypeToken<List<String>>(){}.getType();
 
@@ -56,27 +58,39 @@ public class VideosAPI {
                 .create();
 
         String baseUrl = context.getString(R.string.base_server_url).trim();
+        if (token != null) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public okhttp3.Response intercept(Chain chain) throws IOException {
+                            String token = tokenManager.getToken();
+                            Log.e("token", token);
+                            Request request = chain.request().newBuilder()
+                                    .addHeader("authorization", token)
+                                    .build();
+                            return chain.proceed(request);
+                        }
+                    })
+                    .build();
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public okhttp3.Response intercept(Chain chain) throws IOException {
-                        String token = tokenManager.getToken();
-                        Log.e ("token", token);
-                        Request request = chain.request().newBuilder()
-                                .addHeader("authorization", token)
-                                .build();
-                        return chain.proceed(request);
-                    }
-                })
-                .build();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
+                    .build();
+            webServiceAPI = retrofit.create(WebServiceAPI.class);
+            videoDao = VideoDB.getInstance(context).videoDao();
+        }
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
-                .build();
-        webServiceAPI = retrofit.create(WebServiceAPI.class);
-        videoDao = VideoDB.getInstance(context).videoDao();
+        else {
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+            webServiceAPI = retrofit.create(WebServiceAPI.class);
+            videoDao = VideoDB.getInstance(context).videoDao();
+
+        }
     }
 
     public void getVideoById(String id, Callback<Video> callback) {

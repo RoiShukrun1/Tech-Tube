@@ -203,6 +203,13 @@ public class PublisherChannelActivity extends AppCompatActivity {
                 .load(base_server_url + publisherImageUrl)
                 .into(publisherImage);
 
+
+        Log.e("image" ,base_server_url + "/uploads/bannerPictures/" + username + ".png" );
+        Glide.with(this)
+                .load(base_server_url + "/uploads/bannerPictures/" + username + ".png")
+                .error(R.drawable.defaultbanner) // Set your default banner image here
+                .into(bannerImage);
+
         // Set text for TextViews
         publisherUsername.setText(username);
         publisherNickname.setText("@" + nickname);
