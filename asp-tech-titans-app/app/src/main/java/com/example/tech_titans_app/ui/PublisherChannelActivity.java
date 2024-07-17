@@ -52,9 +52,9 @@ public class PublisherChannelActivity extends AppCompatActivity {
         adapter = new VideosListAdapter();
         lstVideos.setAdapter(adapter);
 
-        // Initialize ViewModel and observe changes in the video list
-        videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
-        videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
+//        // Initialize ViewModel and observe changes in the video list
+//        videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
+//        videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
 
         // Setup navigation buttons
         setupNavigationButtons();

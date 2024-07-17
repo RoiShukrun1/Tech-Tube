@@ -142,6 +142,24 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         CommentsAPI commentsAPI = new CommentsAPI(this);
 
 
+        videosAPI.getAllVideos(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful()) {
+                    List <Video> videos = response.body();
+                } else {
+                    // Handle the case where the response is not successful
+                    Log.e("API_CALL", "API call failed onResponse:");
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
+                // Handle the case where the request failed
+                Log.e("API_CALL", "API call failed: " + t.getMessage());
+            }
+        });
+
+
 
 
 
