@@ -70,6 +70,13 @@ public interface WebServiceAPI {
             @Part("usersUnlikes") RequestBody usersUnlikes,
             @Part("comments") RequestBody comments
     );
+  
+    @GET("/api/users/{id}/videos")
+    Call<List<Video>> getPublisherVideosById(@Path("id") String id);
+    
+    @POST("/api/users/user/videos")
+    Call<Void> uploadVideo(@Body Video video);
+    
     @DELETE("/api/users/user/videos/{id}")
     Call<Void> deleteVideoById(@Path("id") String id);
 
@@ -78,6 +85,13 @@ public interface WebServiceAPI {
                                @Body Map<String, String> updateParams);
     @GET("/api/videos/all")
     Call<List<Video>> getAllVideos();
+
+    @GET("api/videos")
+    Call<List<Video>> get20Videos();
+
+    @GET("/api/videos/all")
+    Call<List<Video>> getAllVideos();
+
 
     /**
      * Sets api fot comments operation.

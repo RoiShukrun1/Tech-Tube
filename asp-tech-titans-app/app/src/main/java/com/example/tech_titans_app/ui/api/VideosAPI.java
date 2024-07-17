@@ -190,8 +190,49 @@ public class VideosAPI {
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
         });
     }
+  
+    public void getPublisherVideosById(String id, Callback<List<Video>> callback) {
+        Call<List<Video>> call = webServiceAPI.getPublisherVideosById(id);
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                    Log.e("API_CALL", "API call failed getPublisherVideosById");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable throwable) {
+                callback.onFailure(call, throwable);
+            }
+        });
+    }
+
     public void getAllVideos(Callback<List<Video>> callback) {
         Call<List<Video>> call = webServiceAPI.getAllVideos();
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call,
+                                   @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Response not successful"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void get20Videos(Callback<List<Video>> callback) {
+        Call<List<Video>> call = webServiceAPI.get20Videos();
         call.enqueue(new Callback<List<Video>>() {
             @Override
             public void onResponse(@NonNull Call<List<Video>> call,
