@@ -624,6 +624,10 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             showLoginToast("You have to be logged in to subscribe");
             return;
         }
+        if (loggedIn.getLoggedInUser().getUsername().equals(thisCurrentVideo.getPublisher())) {
+            showLoginToast("You can't subscribe to your own channel");
+            return;
+        }
 
         String publisher = thisCurrentVideo.getPublisher();
         UserData loggedInUser = loggedIn.getLoggedInUser();
