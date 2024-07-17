@@ -3,6 +3,8 @@ package com.example.tech_titans_app.ui.api;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.tech_titans_app.ui.CheckAuthResponse;
 
 import com.example.tech_titans_app.R;
@@ -17,7 +19,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.ResponseBody;
+import retrofit2.http.Path;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class UsersAPI {
@@ -118,6 +122,45 @@ public class UsersAPI {
             }
         });
     }
+
+    public void getUserById(String id, Callback<UserData> callback){
+        Call<UserData> call = webServiceAPI.getUserById(id);
+        call.enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(@NonNull Call<UserData> call, @NonNull Response<UserData> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Failed to load profile picture: " + response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserData> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void getUserSubsById(String id, Callback<List<UserData>> callback){
+        Call<List<UserData>> call = webServiceAPI.getUserSubsById(id);
+        call.enqueue(new Callback<List<UserData>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<UserData>> call, @NonNull Response<List<UserData>> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(call, response);
+                } else {
+                    callback.onFailure(call, new Throwable("Failed to load profile picture: " + response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<UserData>> call, @NonNull Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
 
     public void checkAuth(Callback<CheckAuthResponse> callback) {
         String token = tokenManager.getToken();
