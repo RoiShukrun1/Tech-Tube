@@ -16,6 +16,7 @@ public class SearchBarUtils {
     private final EditText searchInput;
     private final ImageView darkMode;
     private final ImageView logo;
+    private final View filters;
 
     /**
      * Constructor to initialize UI elements.
@@ -30,6 +31,7 @@ public class SearchBarUtils {
         searchInput = rootView.findViewById(R.id.search_input);
         darkMode = rootView.findViewById(R.id.dark_mode);
         logo = rootView.findViewById(R.id.logo);
+        filters = rootView.findViewById(R.id.filters);
 
         // Setup search bar functionality
         setupSearchBar();
@@ -46,6 +48,7 @@ public class SearchBarUtils {
             darkMode.setVisibility(View.GONE);
             logo.setVisibility(View.GONE);
             searchInput.requestFocus(); // Focus on the search input field
+            filters.setVisibility(View.GONE);
         });
 
         // When the back button is clicked, hide the search layout and show other elements
@@ -54,6 +57,7 @@ public class SearchBarUtils {
             searchIcon.setVisibility(View.VISIBLE);
             darkMode.setVisibility(View.VISIBLE);
             logo.setVisibility(View.VISIBLE);
+            filters.setVisibility(View.VISIBLE);
         });
     }
 }
