@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.tech_titans_app.ui.entities.Video;
+import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
 
 import java.util.List;
 
@@ -46,5 +47,15 @@ public class MainVideoViewModel extends ViewModel {
      */
     public void filterVideos(String query) {
         repository.searchVideos(query);
+    }
+
+    /**
+     * Returns a LiveData object containing the list of videos by a specific publisher.
+     *
+     * @param publisher The publisher's name to filter videos.
+     * @return LiveData containing the list of videos by the publisher.
+     */
+    public LiveData<List<Video>> getPublisherVideos(String publisher) {
+        return repository.getPublisherVideos(publisher);
     }
 }

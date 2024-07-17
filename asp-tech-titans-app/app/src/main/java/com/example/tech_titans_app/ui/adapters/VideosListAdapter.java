@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.AppContext;
 import com.example.tech_titans_app.ui.WatchVideoPageActivity;
+import com.example.tech_titans_app.ui.PublisherChannelActivity;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.VideosRepository;
@@ -30,7 +32,6 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     private final CurrentVideo currentVideo = CurrentVideo.getInstance();
     private final String serverBaseUrl = "http://10.0.2.2/";
     private final String serverBaseUrl2 = "http://10.0.2.2";
-
 
     /**
      * Constructor for VideosListAdapter.
@@ -84,13 +85,13 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         // Set video details to the holder views
         holder.videoTitle.setText(video.getTitle());
         holder.publisher.setText(video.getPublisher());
-        holder.views.setText(video.getViews());
+        holder.views.setText(video.getViews() + " views");
         holder.date.setText(video.getDate());
 
         // Construct the URI for the video, thumbnail, and publisher image
         Uri videoUri = Uri.parse(serverBaseUrl + video.getVideoUploaded());
-        Uri thumbnailUri = Uri.parse(serverBaseUrl +  video.getThumbnail());
-        Uri publisherImageUri = Uri.parse(serverBaseUrl2 +  video.getPublisherImage());
+        Uri thumbnailUri = Uri.parse(serverBaseUrl + video.getThumbnail());
+        Uri publisherImageUri = Uri.parse(serverBaseUrl2 + video.getPublisherImage());
 
         // Load the thumbnail image using Glide
         Glide.with(holder.itemView.getContext())
@@ -102,13 +103,21 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
                 .load(publisherImageUri)
                 .into(holder.publisherImage);
 
-        // Set click listener to navigate to the watch video page and increment views
-        holder.itemView.setOnClickListener(v -> {
+        // Set click listener for the video thumbnail to navigate to the watch video page
+        holder.videoImage.setOnClickListener(v -> {
             Context context = v.getContext();
             currentVideo.setCurrentVideo(video);
             currentVideo.getCurrentVideo().getValue().incrementViews();
             Intent intent = new Intent(context, WatchVideoPageActivity.class);
             intent.setData(videoUri); // Pass the video URI to the WatchVideoPageActivity
+            context.startActivity(intent);
+        });
+
+        // Set click listener for the publisher image to navigate to the publisher channel page
+        holder.publisherImage.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, PublisherChannelActivity.class);
+            intent.putExtra("publisher", video.getPublisher()); // Pass the publisher information to the PublisherChannelActivity
             context.startActivity(intent);
         });
 
@@ -126,12 +135,9 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         }
 
         // Set click listener for remove icon to delete the video
-        holder.removeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VideosRepository.getInstance().deleteVideo(video);
-                notifyDataSetChanged();
-            }
+        holder.removeIcon.setOnClickListener(v -> {
+            VideosRepository.getInstance().deleteVideo(video);
+            notifyDataSetChanged();
         });
     }
 

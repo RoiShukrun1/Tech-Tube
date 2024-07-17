@@ -61,6 +61,26 @@ public class VideosRepository {
         });
     }
 
+    public MutableLiveData<List<Video>> getPublisherVideos(String publisher) {
+        MutableLiveData<List<Video>> publisherVideos = new MutableLiveData<>();
+        videosAPI.getPublisherVideosById(publisher, new Callback<List<Video>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    publisherVideos.setValue(response.body());
+                } else {
+                    Log.e("API_CALL", "API call failed getPublisherVideosById onResponse:");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
+                Log.e("API_CALL", "API call failed getPublisherVideosById: " + t.getMessage());
+            }
+        });
+        return publisherVideos;
+    }
+
     private void load20VideosFromAPI() {
         videosAPI.get20Videos(new Callback<List<Video>>() {
             @Override

@@ -1,5 +1,6 @@
 package com.example.tech_titans_app.ui.mainActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.ImageView;
@@ -10,9 +11,9 @@ public class DarkModeManager {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    public DarkModeManager(Context context, ImageView darkModeButton) {
+    public DarkModeManager(Activity activity, ImageView darkModeButton) {
         // Initialize SharedPreferences and editor
-        sharedPreferences = context.getSharedPreferences("themeSharedPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = activity.getSharedPreferences("themeSharedPrefs", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         // Check and apply current theme setting
@@ -33,7 +34,7 @@ public class DarkModeManager {
                 editor.putBoolean("isDarkModeOn", true);
             }
             editor.apply();
-            ((MainActivity) context).recreate();
+            activity.recreate();
         });
     }
 }
