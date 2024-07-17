@@ -1,6 +1,9 @@
 package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.example.tech_titans_app.ui.CheckAuthResponse;
 import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.UserResponse;
 import com.example.tech_titans_app.ui.models.account.UserData;
@@ -13,7 +16,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.ResponseBody;
 
-import java.io.InputStream;
 import java.util.concurrent.Executors;
 
 public class UsersAPI {
@@ -50,7 +52,7 @@ public class UsersAPI {
                         String errorMessage = errorBody != null ? errorBody.string() : "Error occurred";
                         externalCallback.onFailure(call, new Throwable(errorMessage));
                     } catch (Exception e) {
-                        externalCallback.onFailure(call, new Throwable("Registration failed5: " + response.message()));
+                        externalCallback.onFailure(call, new Throwable("Registration failed: " + response.message()));
                     }
                 }
             }
@@ -107,6 +109,31 @@ public class UsersAPI {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onFailure(call, t);
+            }
+        });
+    }
+
+    public void checkAuth(Callback<CheckAuthResponse> callback) {
+        String token = tokenManager.getToken();
+        Log.d("UsersAPI", "Retrieved token: " + token); // Log the token
+
+        if (token == null || token.isEmpty()) {
+            callback.onFailure(null, new Throwable("Token not available"));
+            return;
+        }
+
+        Call<CheckAuthResponse> call = webServiceAPI.checkAuth(token);
+        call.enqueue(new Callback<CheckAuthResponse>() {
+            @Override
+            public void onResponse(Call<CheckAuthResponse> call, Response<CheckAuthResponse> response) {
+                Log.d("UsersAPI", "Response code: " + response.code()); // Log the response code
+                callback.onResponse(call, response);
+            }
+
+            @Override
+            public void onFailure(Call<CheckAuthResponse> call, Throwable t) {
+                Log.e("UsersAPI", "Request failed: " + t.getMessage()); // Log the error
                 callback.onFailure(call, t);
             }
         });

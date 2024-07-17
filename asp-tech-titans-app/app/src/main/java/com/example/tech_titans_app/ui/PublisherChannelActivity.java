@@ -24,7 +24,7 @@ import com.example.tech_titans_app.ui.mainActivity.ProfileManager;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarHandler;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.mainActivity.DarkModeManager;
-import com.example.tech_titans_app.ui.models.account.AccountData;
+import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
@@ -33,7 +33,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private VideosListAdapter adapter;
     private ProfileManager profileManager;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
-    private AccountData publisherData;
+    private UserData publisherData;
     private boolean isSubscribed = false;
 
     @Override
