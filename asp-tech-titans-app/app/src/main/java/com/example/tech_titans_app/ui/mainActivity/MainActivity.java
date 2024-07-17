@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         // Get the database instance
         UsersDB db = UsersDB.getInstance(this);
         usersDataDao = db.usersDao();
+        AppContext.init(this);
     }
 
     private void setupNavigationButtons() {

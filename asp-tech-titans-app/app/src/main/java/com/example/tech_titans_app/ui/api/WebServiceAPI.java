@@ -71,6 +71,17 @@ public interface WebServiceAPI {
             @Part("comments") RequestBody comments
     );
   
+
+
+    @GET("api/videos")
+    Call<List<Video>> get20Videos();
+
+    @GET("/api/videos/all")
+    Call<List<Video>> getAllVideos();
+
+    @GET("/api/users/user/videos/{videoId}/relatedvideos")
+    Call<List<Video>> getRelatedVideos(@Path("videoId") String videoId);
+
     @GET("/api/users/{id}/videos")
     Call<List<Video>> getPublisherVideosById(@Path("id") String id);
     

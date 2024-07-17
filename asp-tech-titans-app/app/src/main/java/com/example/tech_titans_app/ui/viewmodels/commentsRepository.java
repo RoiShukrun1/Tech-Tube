@@ -2,7 +2,6 @@ package com.example.tech_titans_app.ui.viewmodels;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 
@@ -23,10 +22,6 @@ public class commentsRepository {
     public void loadComments(Video currentVideo) {
         comments.setValue(currentVideo.getComments());
         allComments = currentVideo.getComments();
-    }
-
-    public MutableLiveData<List<Comment>> getAllComments() {
-        return comments;
     }
 
     public MutableLiveData<List<Comment>> getAllcomments() {
