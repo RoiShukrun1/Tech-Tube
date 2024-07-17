@@ -32,7 +32,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_comments);
 
-        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
+        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo().getValue();
 
         initiateCommentsSection();
 

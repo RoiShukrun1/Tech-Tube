@@ -42,8 +42,6 @@ public class VideosAPI {
     private VideoDao videoDao;
     private TokenManager tokenManager;
 
-
-
     public VideosAPI(Context context) {
         tokenManager = new TokenManager(context);
 

@@ -91,7 +91,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_watch_video_page);
 
         videoViewModel = new ViewModelProvider(this).get(VideoViewModelVWP.class);
-        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
+        thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo().getValue();
 
         addSearchBarLogic();
         addBottomBarLogic();
@@ -362,7 +362,8 @@ public class WatchVideoPageActivity extends AppCompatActivity {
      * Method to set the publisher info.
      */
     public void setPublisherInfo() {
-        Uri publisherImageUri = CurrentVideo.getInstance().getCurrentVideo().getPublisherImage();
+        Uri publisherImageUri =
+                CurrentVideo.getInstance().getCurrentVideo().getValue().getPublisherImage();
         CircleImageView publisherImage = findViewById(R.id.publisher_image_VWP);
         Glide.with(publisherImage.getContext())
                 .load(publisherImageUri)
