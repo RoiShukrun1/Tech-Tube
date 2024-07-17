@@ -78,9 +78,6 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private View comments;
     private RecyclerView recyclerView;
 
-    VideoDB videoDB;
-    VideoDao videoDao;
-
     /**
      * Method to handle the creation of the activity.
      *
@@ -109,61 +106,6 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         orientationConfigurationChangeListener();
         setSubscribeUI();
         handleEditIconsVisibility();
-
-
-//        videoDB = VideoDB.getInstance(this);
-//        videoDao = videoDB.videoDao();
-//
-//        Uri image1 = Uri.parse("android.resource://com.example.tech_titans_app/"
-//                + R.drawable.image1);
-//
-//        Uri video1 = Uri.parse("android.resource://com.example.tech_titans_app/"
-//                + R.raw.video1);
-//
-//        Uri publisherImage1 = Uri.parse("android.resource://com.example.tech_titans_app/"
-//                + R.drawable.rick_astely);
-//
-//        Video firstVi = new Video(1, video1, image1, "Digitalization; Where to start",
-//                "Rick Astley", publisherImage1, "500", "2021-10-01",
-//                ", outlining journey effectively.",
-//                null,
-//                "sport", new ArrayList<>(), "10");
-//
-//        videoDao.insert(firstVi);
-
-
-
-
-        VideosAPI videosAPI = new VideosAPI(this);
-
-
-
-
-        CommentsAPI commentsAPI = new CommentsAPI(this);
-
-
-        videosAPI.getAllVideos(new Callback<List<Video>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Video>> call, @NonNull Response<List<Video>> response) {
-                if (response.isSuccessful()) {
-                    List <Video> videos = response.body();
-                } else {
-                    // Handle the case where the response is not successful
-                    Log.e("API_CALL", "API call failed onResponse:");
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
-                // Handle the case where the request failed
-                Log.e("API_CALL", "API call failed: " + t.getMessage());
-            }
-        });
-
-
-
-
-
-
     }
 
     /**
