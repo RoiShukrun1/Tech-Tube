@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.adapters.UriTypeAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.VideoDB;
@@ -22,6 +23,9 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -36,9 +40,12 @@ public class VideosAPI {
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
     private VideoDao videoDao;
+    private TokenManager tokenManager;
+
 
 
     public VideosAPI(Context context) {
+        tokenManager = new TokenManager(context);
 
         // Define the type for the custom deserializer
         Type listType = new TypeToken<List<String>>(){}.getType();
@@ -50,9 +57,23 @@ public class VideosAPI {
 
         String baseUrl = context.getString(R.string.base_server_url).trim();
 
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        String token = tokenManager.getToken();
+                        Log.e ("token", token);
+                        Request request = chain.request().newBuilder()
+                                .addHeader("authorization", token)
+                                .build();
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         videoDao = VideoDB.getInstance(context).videoDao();
