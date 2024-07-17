@@ -1,15 +1,21 @@
 package com.example.tech_titans_app.ui.api;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.PUT;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Header;
 import okhttp3.ResponseBody;
 
+import com.example.tech_titans_app.ui.CheckAuthResponse;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.UserResponse;
 import com.example.tech_titans_app.ui.entities.Video;
@@ -30,6 +36,7 @@ public interface WebServiceAPI {
     @GET("/api/users/{id}")
     Call<UserData> getUserById(@Path("id") String id);
 
+
     @DELETE("/api/users/{id}")
     Call<Void> deleteUserById(@Path("id") String id);
 
@@ -45,6 +52,25 @@ public interface WebServiceAPI {
 
     @GET("/api/users/user/videos/{id}")
     Call<Video> getVideoById(@Path("id") String id);
+
+    @Multipart
+    @POST("/api/users/:id/videos")
+    Call<Void> uploadVideo(
+            @Part("id") RequestBody id,
+            @Part MultipartBody.Part videoUploaded,
+            @Part("thumbnail") RequestBody thumbnail,
+            @Part("title") RequestBody title,
+            @Part("description") RequestBody description,
+            @Part("playlist") RequestBody playlist,
+            @Part("publisher") RequestBody publisher,
+            @Part("publisherImage") RequestBody publisherImage,
+            @Part("views") RequestBody views,
+            @Part("date") RequestBody date,
+            @Part("usersLikes") RequestBody usersLikes,
+            @Part("usersUnlikes") RequestBody usersUnlikes,
+            @Part("comments") RequestBody comments
+    );
+  
 
 
     @GET("api/videos")
@@ -64,10 +90,12 @@ public interface WebServiceAPI {
     
     @DELETE("/api/users/user/videos/{id}")
     Call<Void> deleteVideoById(@Path("id") String id);
-    
+
     @PATCH("/api/users/user/videos/{videoId}")
     Call<Void> updateVideoById(@Path("videoId") String videoId,
                                @Body Map<String, String> updateParams);
+    @GET("/api/videos/all")
+    Call<List<Video>> getAllVideos();
 
     @GET("api/videos")
     Call<List<Video>> get20Videos();
@@ -95,5 +123,8 @@ public interface WebServiceAPI {
                                  @Path("commentId") String commentId);
     @POST("/api/users/user/videos/{videoId}/comments")
     Call<Void> createNewComment(@Path("videoId") String videoId, @Body Comment newComment);
+
+    @GET("/api/token/checkAuth")
+    Call <CheckAuthResponse> checkAuth(@Header("Authorization") String token);
 
 }

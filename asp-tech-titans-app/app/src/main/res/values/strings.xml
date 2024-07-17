@@ -8,10 +8,11 @@
     <string name="login_success">Login successful</string>
     <string name="login_error">Please enter both username and password</string>
     <string-array name="spinner_options">
-        <item>Add to playlist:</item>
-        <item>Music</item>
-        <item>Sport</item>
-        <item>Study</item>
+        <item>Select category:</item>
+        <item>Consoles and PC</item>
+        <item>Software and Apps</item>
+        <item>Gadgets</item>
+        <item>Any</item>
     </string-array>
     <string name="channel_name_views_time">Channel Name • Views • Time</string>
     <string name="video_title">Video Title</string>

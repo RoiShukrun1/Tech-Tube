@@ -119,7 +119,7 @@
         android:layout_marginStart="16dp"
         android:textColor="@color/text_primary"
         android:layout_marginTop="20dp"
-        android:text="Add to playlist:"
+        android:text="Select category:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
