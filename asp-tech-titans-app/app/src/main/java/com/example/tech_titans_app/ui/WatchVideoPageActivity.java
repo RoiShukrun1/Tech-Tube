@@ -49,6 +49,7 @@ import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
+import com.example.tech_titans_app.ui.viewmodels.VideoViewModelVWP;
 
 
 import androidx.core.content.ContextCompat;
@@ -64,7 +65,7 @@ import retrofit2.Response;
 
 
 public class WatchVideoPageActivity extends AppCompatActivity {
-    private MainVideoViewModel videoViewModel;
+    private VideoViewModelVWP videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
     private boolean isLiked;
@@ -89,7 +90,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_watch_video_page);
 
-        videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
+        videoViewModel = new ViewModelProvider(this).get(VideoViewModelVWP.class);
         thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo();
 
         addSearchBarLogic();

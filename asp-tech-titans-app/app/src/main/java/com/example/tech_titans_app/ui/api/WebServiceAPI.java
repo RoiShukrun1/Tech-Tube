@@ -51,6 +51,9 @@ public interface WebServiceAPI {
 
     @GET("/api/videos/all")
     Call<List<Video>> getAllVideos();
+
+    @GET("/api/users/user/videos/{videoId}/relatedvideos")
+    Call<List<Video>> getRelatedVideos(@Path("videoId") String videoId);
     
     @POST("/api/users/user/videos")
     Call<Void> uploadVideo(@Body Video video);

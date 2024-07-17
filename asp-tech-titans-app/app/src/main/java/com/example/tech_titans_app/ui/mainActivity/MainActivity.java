@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.AppContext;
 import com.example.tech_titans_app.ui.LoginActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 // Get the database instance
         UsersDB db = UsersDB.getInstance(this);
         usersDataDao = db.usersDao();
+        AppContext.init(this);
     }
 
     private void setupNavigationButtons() {
