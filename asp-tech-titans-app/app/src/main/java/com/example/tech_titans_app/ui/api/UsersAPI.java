@@ -1,6 +1,8 @@
 package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
+
+import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.UserResponse;
 import com.example.tech_titans_app.ui.models.account.UserData;
@@ -24,8 +26,11 @@ public class UsersAPI {
     private TokenManager tokenManager;
 
     public UsersAPI(Context context) {
+
+        String baseUrl = context.getString(R.string.base_server_url).trim();
+
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:80/") // Use the correct port your server is running on
+                .baseUrl(baseUrl) // Use the correct port your server is running on
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
