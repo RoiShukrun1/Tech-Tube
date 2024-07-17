@@ -1,11 +1,15 @@
 package com.example.tech_titans_app.ui.entities;
 
+import android.content.Context;
 import android.net.Uri;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.tech_titans_app.ui.AppContext;
+import com.example.tech_titans_app.ui.api.PatchReqBody;
+import com.example.tech_titans_app.ui.api.VideosAPI;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.text.SimpleDateFormat;
@@ -230,6 +234,12 @@ public class Video {
         int numOfViews = Integer.parseInt(this.views);
         numOfViews++;
         this.views = String.valueOf(numOfViews);
+
+        // Update the views count in the database
+        PatchReqBody newViewsParam = new PatchReqBody("views", this.views);
+        Context appContext = AppContext.getContext();
+        VideosAPI videosAPI = new VideosAPI(appContext);
+        videosAPI.updateVideoById(String.valueOf(this.id), newViewsParam);
     }
 
     public void decrementViews() {
