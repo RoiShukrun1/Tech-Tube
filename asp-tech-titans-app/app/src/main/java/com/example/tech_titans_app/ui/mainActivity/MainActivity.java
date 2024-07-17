@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui.mainActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,17 +13,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.LoginActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
+import com.example.tech_titans_app.ui.entities.VideoDB;
+import com.example.tech_titans_app.ui.entities.VideoDao;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
+import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
+
+import com.example.tech_titans_app.ui.models.account.UserData;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private MainVideoViewModel videoViewModel;
     private VideosListAdapter adapter;
     private ProfileManager profileManager;
+    private VideoDB videoDB;
+    private VideoDao videoDao;
+    private UsersDB usersDB;
+    private UsersDataDao usersDataDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup dark mode functionality
         setupDarkMode();
+
+// Get the database instance
+        UsersDB db = UsersDB.getInstance(this);
+        usersDataDao = db.usersDao();
     }
 
     private void setupNavigationButtons() {
@@ -75,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+//    private void insertTestData() {
+        // Create a test user
+  //      UserData testUser = new UserData(0, "test_user", "Test", "password123", Arrays.asList("sub1", "sub2"), Uri.parse("https://example.com/profile.jpg"));
+
+        // Insert the test user into the database
+//        usersDataDao.insert(testUser);
+  //  }
 
     private void setupSearchBar() {
         // Initialize search input field
