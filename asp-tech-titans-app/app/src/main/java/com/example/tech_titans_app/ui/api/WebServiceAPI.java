@@ -36,6 +36,9 @@ public interface WebServiceAPI {
     @GET("/api/users/{id}")
     Call<UserData> getUserById(@Path("id") String id);
 
+    @GET("/api/users/{id}")
+    Call<List<UserData>> getUserSubsById(@Path("id") String id);
+
 
     @DELETE("/api/users/{id}")
     Call<Void> deleteUserById(@Path("id") String id);
