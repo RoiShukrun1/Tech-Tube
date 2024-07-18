@@ -145,9 +145,11 @@ public class Comment {
         }
     }
 
+    /**
+     * Updates the UI of the like and unlike buttons.
+     */
     public void putCommentInDB()
     {
-        // Put the comment in the database
         Context context = AppContext.getContext();
         CommentsAPI commentsAPI = new CommentsAPI(context);
         Comment newComment = new Comment(this.getId(), this.getLikes(), this.getUsername(),
@@ -195,6 +197,9 @@ public class Comment {
                     "You are not the publisher of this comment",
                     Toast.LENGTH_LONG).show();
         }
+        CommentsAPI commentsAPI = new CommentsAPI(context);
+        commentsAPI.deleteCommentById(String.valueOf(this.parentVideo.getId()),
+                String.valueOf(this.id));
     }
 
     /**
@@ -231,6 +236,7 @@ public class Comment {
                         String newContent = editCommentInput.getText().toString();
                         this.setComment(newContent);
                         CommentTextView.setText(this.getComment());
+                        putCommentInDB();
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -242,6 +248,18 @@ public class Comment {
                     "You are not the publisher of this comment",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void addCommentToDB() {
+        Video parentVideo = this.parentVideo;
+        String videoId = String.valueOf(this.parentVideo.getId());
+
+        Context context = AppContext.getContext();
+        CommentsAPI commentsAPI = new CommentsAPI(context);
+
+        this.setParentVideo(null);
+        commentsAPI.createNewComment(videoId, this);
+        this.setParentVideo(parentVideo);
     }
 
     /**
