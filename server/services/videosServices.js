@@ -36,6 +36,15 @@ export const patchVideoinDB = async (videoId, updatedParams) => {
             }
         }
 
+        // Check if updatedParams contains views as string and convert to intager if necessary
+        if (updatedParams.views && typeof updatedParams.views === 'string') {
+            if (updatedParams.views === '' && updatedParams.views) {
+                updatedParams.views = 0;
+            } else {
+                updatedParams.views = parseInt(updatedParams.views);
+            }
+        }        
+
         const result = await collection.updateOne({ id: videoId }, { $set: updatedParams });
 
         if (result.matchedCount === 0) {
