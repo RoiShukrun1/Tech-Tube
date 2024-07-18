@@ -11,6 +11,7 @@ public class VideoDataArray {
     private VideoDataArray() {
         videoDataArray = new ArrayList<>();
     }
+
     public static synchronized VideoDataArray getInstance() {
         if (instance == null) {
             instance = new VideoDataArray();

@@ -12,12 +12,14 @@ public class UsersDataArray extends Application {
     private UsersDataArray() {
         userDataArray = new ArrayList<>();
     }
+
     public static synchronized UsersDataArray getInstance() {
         if (instance == null) {
             instance = new UsersDataArray();
         }
         return instance;
     }
+
     public List<UserData> getAccountArray() {
         return userDataArray;
     }

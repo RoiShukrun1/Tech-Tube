@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.List;
+
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
 
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
@@ -65,7 +66,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     /**
      * Creates and returns a ViewHolder object for a video item view.
      *
-     * @param parent The parent view group.
+     * @param parent   The parent view group.
      * @param viewType The view type.
      * @return A new ViewHolder object.
      */
@@ -79,7 +80,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     /**
      * Binds the data to the ViewHolder for the specified position.
      *
-     * @param holder The ViewHolder to bind data to.
+     * @param holder   The ViewHolder to bind data to.
      * @param position The position in the adapter.
      */
     @Override

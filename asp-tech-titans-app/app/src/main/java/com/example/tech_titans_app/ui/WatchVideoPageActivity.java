@@ -66,6 +66,7 @@ import com.example.tech_titans_app.ui.api.CommentsAPI;
 
 
 import androidx.core.content.ContextCompat;
+
 import android.graphics.drawable.Drawable;
 
 
@@ -211,15 +212,15 @@ public class WatchVideoPageActivity extends AppCompatActivity {
      *
      * @param profileSection The profile section of the activity.
      * @param profilePicture The profile picture of the user.
-     * @param logoutText The logout text view.
-     * @param loginText The login text view.
+     * @param logoutText     The logout text view.
+     * @param loginText      The login text view.
      */
     private void updateUI(LinearLayout profileSection, ImageView profilePicture,
                           TextView logoutText, TextView loginText) {
         if (LoggedIn.getInstance().isLoggedIn()) {
             profileSection.setVisibility(View.VISIBLE);
             loginText.setVisibility(View.GONE);
-            fetchAndLoadProfilePicture(LoggedIn.getInstance().getLoggedInUser().getUsername(),profilePicture); // Fetch profile picture from server
+            fetchAndLoadProfilePicture(LoggedIn.getInstance().getLoggedInUser().getUsername(), profilePicture); // Fetch profile picture from server
             logoutText.setText(R.string.logout);
         } else {
             profileSection.setVisibility(View.GONE);
@@ -239,6 +240,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                     loadProfilePictureFromLocal(username, profilePicture);
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 loadProfilePictureFromLocal(username, profilePicture);
@@ -648,16 +650,19 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     }
 
     private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -667,19 +672,25 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             }
         }
     }
+
     private void startDownload() {
 
-        String videoUrl = "http://10.0.2.2/uploads/uploadedVideos/" + thisCurrentVideo.getId() + ".mp4";
+        String videoUrl = "http://10.0.2.2/uploads/uploadedVideos/" +
+                thisCurrentVideo.getId() + ".mp4";
         Uri uri = Uri.parse(videoUrl);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setTitle("Downloading Video");
         request.setDescription("Downloading video file...");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video.mp4");
+        request.setNotificationVisibility
+                (DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir
+                (Environment.DIRECTORY_DOWNLOADS, "video.mp4");
 
-        DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager downloadManager =
+                (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         long downloadId = downloadManager.enqueue(request);
     }
+
     /**
      * Method to handle the "Subscribe" click event.
      */
@@ -718,6 +729,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                     setSubscribeUI();
                 }
             }
+
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 showLoginToast("Failed to subscribe to the channel");

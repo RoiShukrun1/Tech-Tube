@@ -39,7 +39,8 @@ public class CommentsAPI {
         tokenManager = new TokenManager(context);
         token = tokenManager.getToken();
 
-        Type listType = new TypeToken<List<String>>(){}.getType();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Uri.class, new UriTypeAdapter())
@@ -68,8 +69,7 @@ public class CommentsAPI {
                     .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
                     .build();
             webServiceAPI = retrofit.create(WebServiceAPI.class);
-        }
-        else {
+        } else {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -124,10 +124,12 @@ public class CommentsAPI {
         Call<Void> call = webServiceAPI.deleteCommentById(videoId, commentId);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            }
         });
     }
 
@@ -135,10 +137,12 @@ public class CommentsAPI {
         Call<Void> call = webServiceAPI.updateCommentById(videoId, prevCommentId, newComment);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            }
         });
     }
 
@@ -146,14 +150,14 @@ public class CommentsAPI {
         Call<Void> call = webServiceAPI.createNewComment(videoId, newComment);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            }
         });
     }
-
-
 
 
 }

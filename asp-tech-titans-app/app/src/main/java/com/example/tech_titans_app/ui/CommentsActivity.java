@@ -27,6 +27,7 @@ public class CommentsActivity extends AppCompatActivity {
     private CommentsAdapter commentsAdapter;
     private Video thisCurrentVideo;
     private final LoggedIn loggedIn = LoggedIn.getInstance();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
