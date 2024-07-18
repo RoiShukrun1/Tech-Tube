@@ -316,10 +316,22 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Initialize search input field
         EditText searchInput = findViewById(R.id.search_input);
 
-        // Create and set TextWatcher for search input
-        SearchBarHandler searchBarHandler = new SearchBarHandler(videoViewModel);
-        searchInput.addTextChangedListener(searchBarHandler);
+        // Create and set OnEditorActionListener for search input
+        searchInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE ||
+                    (event != null && event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
+                            event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER)) {
+                // Redirect to MainActivity and perform search
+                String query = searchInput.getText().toString();
+                Intent intent = new Intent(PublisherChannelActivity.this, MainActivity.class);
+                intent.putExtra("SEARCH_QUERY", query);
+                startActivity(intent);
+                return true;
+            }
+            return false;
+        });
     }
+
 
     private void setupProfileSection() {
         // Get references to profile section views
