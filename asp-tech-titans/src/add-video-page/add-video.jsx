@@ -116,13 +116,13 @@ export const AddVideo = () => {
                     ></textarea>
 
                     <div className="category-container">
-                        <h2>Catgory:</h2>
+                        <h2>Category:</h2>
                         <select name="category" id="category">
                             <option value="" disabled selected>Select video catagory</option>
-                            <option value="music">Consoles & PC</option>
-                            <option value="sport">Software and Apps</option>
-                            <option value="study">Gadgets</option>
-                            <option value="study">Any</option>
+                            <option value="Consoles and PC">Consoles and PC</option>
+                            <option value="Software and Apps">Software and Apps</option>
+                            <option value="Gadgets">Gadgets</option>
+                            <option value="Any">Any</option>
 
                         </select>
                     </div>
