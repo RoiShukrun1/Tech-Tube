@@ -1,4 +1,5 @@
 import User from '../models/usersModel.js';
+import DeletedUser from '../models/deleteUserModel.js';
 import fs from 'fs';
 import path from 'path';
 import { saveBase64Image } from '../services/usersServices.js';
@@ -25,6 +26,8 @@ export const deleteUser = async (req, res) => {
     try {
         const userUsername = req.params.id;
         await deleteUserFromDB(userUsername);
+
+        await DeletedUser.create({ username: userUsername });
 
         res.status(200).json({ message: 'user deleted successfully' }); // Send success message
     } catch (error) {
@@ -67,6 +70,11 @@ export const registerUser = async (req, res) => {
     try {
         const { nickname, username, password, subscriptions, image } = req.body;
 
+        const existingDeletedUser = await DeletedUser.findOne({ username });
+        if (existingDeletedUser) {
+          throw new Error('Username has been used before and cannot be reused');
+        }    
+
         // Check if the username is already taken
         const existingUserByUsername = await User.findOne({ username });
         if (existingUserByUsername) {
@@ -78,12 +86,10 @@ export const registerUser = async (req, res) => {
         if (existingUserByNickname) {
             return res.status(400).send({ message: 'The nickname is already in use. Please choose a different one.' });
         }
-
         // Create a new User instance with the extracted data
         const newUser = new User({ nickname, username, password, image: null, subscriptions });
         // Save the new user to the database
         await newUser.save({ session });
-
         // Save the Base64 image to disk
         const imagePath = `uploads/profilePictures/${username}.png`;
         if (image) {
@@ -100,7 +106,6 @@ export const registerUser = async (req, res) => {
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
-        
         if (error.code === 11000) {
             const field = Object.keys(error.keyValue)[0];
             return res.status(400).send({ message: `The ${field} is already in use. Please choose a different one.` });
@@ -125,3 +130,6 @@ export const saveBanner = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+
+
