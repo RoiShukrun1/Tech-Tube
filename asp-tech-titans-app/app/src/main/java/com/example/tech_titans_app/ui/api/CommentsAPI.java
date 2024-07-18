@@ -71,13 +71,11 @@ public class CommentsAPI {
         }
         else {
 
-
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             webServiceAPI = retrofit.create(WebServiceAPI.class);
-
         }
     }
 

@@ -108,8 +108,8 @@ public class Comment {
                 this.incrementLikes();
                 this.getUsersLikedId().add(loggedInUserId);
             }
-            putCommentInDB();
             updateLikesButtonsUI(likeTextView, unlikeTextView);
+            putCommentInDB();
         }
     }
 
@@ -141,6 +141,7 @@ public class Comment {
             }
 
             updateLikesButtonsUI(likeTextView, unlikeTextView);
+            putCommentInDB();
         }
     }
 
@@ -149,9 +150,13 @@ public class Comment {
         // Put the comment in the database
         Context context = AppContext.getContext();
         CommentsAPI commentsAPI = new CommentsAPI(context);
+        Comment newComment = new Comment(this.getId(), this.getLikes(), this.getUsername(),
+                this.getComment(), this.getDate(), this.getImage(), null);
+        newComment.setUsersLikedId(this.getUsersLikedId());
+        newComment.setUsersUnlikedId(this.getUsersUnlikedId());
         commentsAPI.updateCommentById
                 (String.valueOf(this.parentVideo.getId()),
-                        String.valueOf(this.id), this);
+                        String.valueOf(this.id), newComment);
     }
 
     /**

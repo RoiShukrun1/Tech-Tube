@@ -53,9 +53,12 @@ import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
+import com.example.tech_titans_app.ui.mainActivity.ProfileManager;
+import com.example.tech_titans_app.ui.mainActivity.SearchBarHandler;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
+import com.example.tech_titans_app.ui.utilities.LoginValidation;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 import com.example.tech_titans_app.ui.viewmodels.VideoViewModelVWP;
 
@@ -90,6 +93,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private VideosAPI videosAPI;
     private UsersAPI usersAPI;
+//    private ProfileManager profileManager;
 
     /**
      * Method to handle the creation of the activity.
@@ -121,7 +125,77 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         orientationConfigurationChangeListener();
         setSubscribeUI();
         handleEditIconsVisibility();
+
+
+
+//        // Setup navigation buttons
+//        setupNavigationButtons();
+//
+//        // Setup search bar functionality
+//        setupSearchBar();
+//
+//        // Setup profile section logic
+//        setupProfileSection();
     }
+
+//    private void setupNavigationButtons() {
+//        // Home button to reload the MainActivity
+//        TextView homeButton = findViewById(R.id.home);
+//        homeButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//        });
+//
+//        // Add video button to navigate to the UploadVideoActivity
+//        ImageView addVideoButton = findViewById(R.id.add);
+//        addVideoButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, UploadVideoActivity.class);
+//            startActivity(intent);
+//        });
+//
+//        TextView myChannelButton = findViewById(R.id.mychannel);
+//        myChannelButton.setOnClickListener(v -> {
+//            LoginValidation.checkLoggedIn(this);
+//            if (LoggedIn.getInstance().isLoggedIn()) {
+//                Intent intent = new Intent(this, PublisherChannelActivity.class);
+//                intent.putExtra("publisher", LoggedIn.getInstance().getLoggedInUser().getUsername()); // Pass the publisher information to the PublisherChannelActivity
+//                startActivity(intent);
+//            }
+//        });
+//    }
+//
+//    private void setupSearchBar() {
+//        // Initialize search input field
+//        EditText searchInput = findViewById(R.id.search_input);
+//
+//        // Create and set TextWatcher for search input
+//        SearchBarHandler searchBarHandler = new SearchBarHandler(videoViewModel);
+//        searchInput.addTextChangedListener(searchBarHandler);
+//    }
+//
+//    private void setupProfileSection() {
+//        // Get references to profile section views
+//        LinearLayout profileSection = findViewById(R.id.profile_section);
+//        ImageView profilePicture = findViewById(R.id.profile_picture);
+//        TextView logoutText = findViewById(R.id.logout_text);
+//        TextView loginText = findViewById(R.id.login);
+//
+//        // Initialize ProfileManager and update UI
+//        profileManager = new ProfileManager(this, profileSection, profilePicture, logoutText, loginText);
+//        profileManager.updateUI();
+//
+//        // Set click listener for profile section to handle logout
+//        profileSection.setOnClickListener(v -> {
+//            profileManager.handleLogout();
+//            profileManager.updateUI();
+//        });
+//
+//        // Set click listener for login text to navigate to LoginActivity
+//        loginText.setOnClickListener(v -> {
+//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//            startActivity(intent);
+//        });
+//    }
 
     /**
      * Method to handle the configuration change of the device.
