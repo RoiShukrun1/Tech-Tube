@@ -56,6 +56,7 @@ import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
+import com.example.tech_titans_app.ui.utilities.LoginValidation;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 import com.example.tech_titans_app.ui.viewmodels.VideoViewModelVWP;
 
@@ -90,6 +91,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private VideosAPI videosAPI;
     private UsersAPI usersAPI;
+    private CommentsAPI commentsAPI;
 
     /**
      * Method to handle the creation of the activity.
@@ -106,6 +108,7 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo().getValue();
         videosAPI = new VideosAPI(this);
         usersAPI = new UsersAPI(this);
+        commentsAPI = new CommentsAPI(this);
 
         addSearchBarLogic();
         addBottomBarLogic();
@@ -298,6 +301,12 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         TextView PencilDescriptionTextView = findViewById(R.id.editDescription);
         PencilDescriptionTextView.setOnClickListener(v -> pencilDescriptionButtonClick());
 
+        ImageView publisherImage = findViewById(R.id.publisher_image_VWP);
+        publisherImage.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PublisherChannelActivity.class);
+            intent.putExtra("publisher", thisCurrentVideo.getPublisher());
+            startActivity(intent);
+        });
     }
 
     /**
@@ -339,6 +348,16 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                     new Intent(WatchVideoPageActivity.this,
                             UploadVideoActivity.class);
             startActivity(intent);
+        });
+
+        TextView myChannelButton = findViewById(R.id.mychannel);
+        myChannelButton.setOnClickListener(v -> {
+            LoginValidation.checkLoggedIn(this);
+            if (LoggedIn.getInstance().isLoggedIn()) {
+                Intent intent = new Intent(this, PublisherChannelActivity.class);
+                intent.putExtra("publisher", LoggedIn.getInstance().getLoggedInUser().getUsername()); // Pass the publisher information to the PublisherChannelActivity
+                startActivity(intent);
+            }
         });
 
         LinearLayout profileSection = findViewById(R.id.profile_section);

@@ -34,6 +34,7 @@ import com.example.tech_titans_app.ui.mainActivity.SearchBarHandler;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.mainActivity.DarkModeManager;
 import com.example.tech_titans_app.ui.models.account.UserData;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 
@@ -56,11 +57,13 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private UsersAPI usersAPI;
     private VideosAPI videosAPI;
 
+    private UsersDB usersDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publisher_channel);
-
+        usersDB = UsersDB.getInstance(this);
         usersAPI = new UsersAPI(this);
         videosAPI = new VideosAPI(this);
 
@@ -146,6 +149,9 @@ public class PublisherChannelActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
+                    deleteUserFromLocalDb(publisherId);
+                    loggedIn.logOut();
+
                     Toast.makeText(PublisherChannelActivity.this, "User deleted successfully", Toast.LENGTH_SHORT).show();
                     navigateToMainActivity();
                     finish();
@@ -267,7 +273,6 @@ public class PublisherChannelActivity extends AppCompatActivity {
             // Handle subscribe button click
             // Example: show a Toast message
             Toast.makeText(PublisherChannelActivity.this, "Subscribed to " + username, Toast.LENGTH_SHORT).show();
-
             // Change button text to "Subscribed"
             subscribeButton.setText(R.string.subscribed);
         });
@@ -357,6 +362,14 @@ public class PublisherChannelActivity extends AppCompatActivity {
             Intent intent = new Intent(PublisherChannelActivity.this, LoginActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void deleteUserFromLocalDb(String publisherId) {
+        // Assuming username is being used as the identifier here
+        UserData userToDelete = usersDB.usersDao().getUserByUsername(publisherId);
+        if (userToDelete != null) {
+            usersDB.usersDao().delete(userToDelete);
+        }
     }
 
     private void setupDarkMode() {

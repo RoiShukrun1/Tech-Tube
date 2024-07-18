@@ -2,20 +2,27 @@ package com.example.tech_titans_app.ui.api;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.tech_titans_app.R;
+import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.adapters.UriTypeAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
+import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.example.tech_titans_app.ui.Converters.usernameDeserializer;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,8 +32,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CommentsAPI {
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
+    private TokenManager tokenManager;
+    private String token;
 
     public CommentsAPI(Context context) {
+        tokenManager = new TokenManager(context);
+        token = tokenManager.getToken();
+
         Type listType = new TypeToken<List<String>>(){}.getType();
 
         Gson gson = new GsonBuilder()
@@ -36,11 +48,37 @@ public class CommentsAPI {
 
         String baseUrl = context.getString(R.string.base_server_url).trim();
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        webServiceAPI = retrofit.create(WebServiceAPI.class);
+        if (token != null) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public okhttp3.Response intercept(Chain chain) throws IOException {
+                            String token = tokenManager.getToken();
+                            Log.e("token", token);
+                            Request request = chain.request().newBuilder()
+                                    .addHeader("authorization", token)
+                                    .build();
+                            return chain.proceed(request);
+                        }
+                    })
+                    .build();
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
+                    .build();
+            webServiceAPI = retrofit.create(WebServiceAPI.class);
+        }
+        else {
+
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+            webServiceAPI = retrofit.create(WebServiceAPI.class);
+
+        }
     }
 
     public void getCommentById(String videoId, String commentId, Callback<Comment> callback) {
