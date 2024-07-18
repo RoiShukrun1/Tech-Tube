@@ -294,6 +294,11 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Load images (using Glide or any other image loading library)
         Glide.with(this)
                 .load(R.drawable.no_availiable)
+                .into(bannerImage);
+
+        // Load images (using Glide or any other image loading library)
+        Glide.with(this)
+                .load(R.drawable.no_availiable)
                 .into(publisherImage);
 
         // Set text for TextViews
