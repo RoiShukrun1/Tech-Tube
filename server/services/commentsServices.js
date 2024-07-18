@@ -28,8 +28,6 @@ export const putCommentinDB = async (videoId, commentId, newComment) => {
             }
         }        
 
-        console.log(newComment);
-
         const commentIdtoNum = parseInt(commentId);
 
         const result = await collection.updateOne(
