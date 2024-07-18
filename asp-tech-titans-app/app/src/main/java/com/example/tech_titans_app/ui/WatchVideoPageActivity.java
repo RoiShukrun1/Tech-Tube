@@ -809,6 +809,12 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                         thisCurrentVideo.setDescription(newDescription);
                         TextView DescriptionTextView = findViewById(R.id.video_description);
                         DescriptionTextView.setText(thisCurrentVideo.getDescription());
+
+                        PatchReqBody patchDescription = new PatchReqBody("description",
+                                thisCurrentVideo.getDescription());
+
+                        videosAPI.updateVideoById(String.valueOf(thisCurrentVideo.getId()),
+                                patchDescription);
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -854,6 +860,11 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                         String newTitle = editTitleInput.getText().toString();
                         thisCurrentVideo.setTitle(newTitle);
                         setVideoTitle();
+
+                        PatchReqBody patchTitle = new PatchReqBody("title", newTitle);
+
+                        videosAPI.updateVideoById(String.valueOf(thisCurrentVideo.getId()),
+                                patchTitle);
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -880,7 +891,8 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         TextView pencilTitleTextView = findViewById(R.id.editTitle);
         TextView pencilDescriptionTextView = findViewById(R.id.editDescription);
 
-        if (loggedIn.isLoggedIn() && thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+        if (loggedIn.isLoggedIn() && thisCurrentVideo.getPublisher()
+                .equals(loggedIn.getLoggedInUser().getUsername())) {
             pencilTitleTextView.setVisibility(View.VISIBLE);
             pencilDescriptionTextView.setVisibility(View.VISIBLE);
         } else {
