@@ -23,8 +23,8 @@ Tech-Tube is a comprehensive video-sharing platform inspired by YouTube. It allo
 - New web pages added: publisher channel page and searched videos page.
 
 ## New features
-- Android new publisher page.
-- Connecting all android activities to working with the server.
+- Android - publisher page.
+- Android - Connecting all activities to work with the server.
 
 # Getting Started
 
