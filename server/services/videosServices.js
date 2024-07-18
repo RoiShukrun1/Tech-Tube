@@ -91,9 +91,10 @@ export const deleteVideoFromDB = async (videoId) => {
 
         const result = await collection.deleteOne({ id: videoId });
 
-        if (result.deletedCount === 0) {
-            throw new Error('video not found'); // Throw an error if no account was deleted
-        }
+        // if (result.deletedCount === 0) {
+        //     throw new Error('video not found'); // Throw an error if no account was deleted
+        // }
+        return result.status(200).json({ message: 'video deleted successfully' });
     } catch (error) {
         console.error('Error deleting video:', error);
         throw error; // Throw the error to be handled by the caller

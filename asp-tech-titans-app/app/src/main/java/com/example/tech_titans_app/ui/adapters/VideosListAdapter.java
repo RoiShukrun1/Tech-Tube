@@ -140,24 +140,23 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         }
 
         // Set click listener for remove icon to delete the video
-        holder.removeIcon.setOnClickListener(v -> {
-            Log.e("check pah", "here");
-            VideosRepository.getInstance().deleteVideoById(String.valueOf(video.getId()), new Callback<Void>() {
-                @Override
-                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                    // Refresh the video list
-                    videoList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, videoList.size());
-                }
+        holder.removeIcon.setOnClickListener(v ->
+                VideosRepository.getInstance()
+                        .deleteVideoById(String.valueOf(video.getId()), new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                // Refresh the video list
+                videoList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, videoList.size());
+            }
 
-                @Override
-                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                    // Handle failure (optional)
-                    Log.e("API_CALL", "Failed to delete video: " + t.getMessage());
-                }
-            });
-        });
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                // Handle failure (optional)
+                Log.e("API_CALL", "Failed to delete video: " + t.getMessage());
+            }
+        }));
     }
 
     /**
