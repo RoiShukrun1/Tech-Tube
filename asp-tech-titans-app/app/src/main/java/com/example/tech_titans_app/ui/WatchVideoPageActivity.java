@@ -45,6 +45,7 @@ import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
+import com.example.tech_titans_app.ui.api.CommentsAPI;
 import com.example.tech_titans_app.ui.api.PatchReqBody;
 import com.example.tech_titans_app.ui.api.UsersAPI;
 import com.example.tech_titans_app.ui.api.VideosAPI;
@@ -96,7 +97,6 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private UsersAPI usersAPI;
     private CommentsAPI commentsAPI;
     private Context context;
-
 
     private UsersDataDao usersDataDao;
 
@@ -660,8 +660,8 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         }
     }
     private void startDownload() {
-
-        String videoUrl = "http://10.0.2.2/uploads/uploadedVideos/" + thisCurrentVideo.getId() + ".mp4";
+        String baseUrl = context.getString(R.string.base_server_url).trim();
+        String videoUrl = baseUrl+"uploads/uploadedVideos/" + thisCurrentVideo.getId() + ".mp4";
         Uri uri = Uri.parse(videoUrl);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setTitle("Downloading Video");
