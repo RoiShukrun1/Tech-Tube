@@ -52,6 +52,7 @@ import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 
+import com.example.tech_titans_app.ui.mainActivity.SearchBarHandler;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
@@ -119,7 +120,9 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         commentsAPI = new CommentsAPI(this);
         this.usersDataDao = UsersDB.getInstance(context).usersDao(); // Initialize UsersDataDao
 
-        addSearchBarLogic();
+        new SearchBarUtils(findViewById(android.R.id.content));
+
+        setupSearchBar();
         addBottomBarLogic();
         initiateVideoPlayer();
         initiateRelatedVideos();
@@ -350,22 +353,24 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     /**
      * Method to add search bar logic to the activity.
      */
-    public void addSearchBarLogic() {
-        new SearchBarUtils(findViewById(android.R.id.content));
+    private void setupSearchBar() {
+        // Initialize search input field
         EditText searchInput = findViewById(R.id.search_input);
-        searchInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                videoViewModel.filterVideos(charSequence.toString());
+        // Create and set OnEditorActionListener for search input
+        searchInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
+                    (event != null && event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
+                            event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER)) {
+                // Redirect to MainActivity and perform search
+                String query = searchInput.getText().toString();
+                Intent intent = new Intent(WatchVideoPageActivity.this,
+                        MainActivity.class);
+                intent.putExtra("SEARCH_QUERY", query);
+                startActivity(intent);
+                return true;
             }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            return false;
         });
     }
 
@@ -375,9 +380,11 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     public void addBottomBarLogic() {
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
-            Intent intent =
-                    new Intent(WatchVideoPageActivity.this, MainActivity.class);
+            Intent intent = new Intent(WatchVideoPageActivity.this,
+                    MainActivity.class);
+            intent.putExtra("SEARCH_QUERY", ""); // Ensure the search query is reset
             startActivity(intent);
+            finish(); // Finish the current activity to ensure it is properly reset
         });
 
         ImageView addVideoButton = findViewById(R.id.add);
@@ -681,28 +688,41 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             showLoginToast("You have to be logged in to subscribe");
             return;
         }
-        if (loggedIn.getLoggedInUser().getUsername().equals(thisCurrentVideo.getPublisher())) {
-            showLoginToast("You can't subscribe to your own channel");
-            return;
-        }
 
         String publisher = thisCurrentVideo.getPublisher();
         UserData loggedInUser = loggedIn.getLoggedInUser();
 
-        isSubscribed =
-                loggedInUser.getSubscriptions()
-                        .contains(publisher);
-
-        if (isSubscribed) {
-            loggedInUser.getSubscriptions()
-                    .remove(publisher);
-        } else {
-            loggedInUser.getSubscriptions()
-                    .add(publisher);
+        if (loggedInUser.getUsername().equals(publisher)) {
+            showLoginToast("You can't subscribe to your own channel");
+            return;
         }
 
-        updateSubscriptionsInDB();
-        setSubscribeUI();
+        usersAPI.getUserById(publisher, new Callback<UserData>() {
+            @Override
+            public void onResponse(@NonNull Call<UserData> call,
+                                   @NonNull Response<UserData> response) {
+                if (response.body() == null) {
+                    showLoginToast("The publisher is not available.");
+                } else {
+                    isSubscribed =
+                            loggedInUser.getSubscriptions()
+                                    .contains(publisher);
+                    if (isSubscribed) {
+                        loggedInUser.getSubscriptions()
+                                .remove(publisher);
+                    } else {
+                        loggedInUser.getSubscriptions()
+                                .add(publisher);
+                    }
+                    updateSubscriptionsInDB();
+                    setSubscribeUI();
+                }
+            }
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                showLoginToast("Failed to subscribe to the channel");
+            }
+        });
     }
 
     /**
@@ -796,6 +816,12 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                         thisCurrentVideo.setDescription(newDescription);
                         TextView DescriptionTextView = findViewById(R.id.video_description);
                         DescriptionTextView.setText(thisCurrentVideo.getDescription());
+
+                        PatchReqBody patchDescription = new PatchReqBody("description",
+                                thisCurrentVideo.getDescription());
+
+                        videosAPI.updateVideoById(String.valueOf(thisCurrentVideo.getId()),
+                                patchDescription);
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -841,6 +867,11 @@ public class WatchVideoPageActivity extends AppCompatActivity {
                         String newTitle = editTitleInput.getText().toString();
                         thisCurrentVideo.setTitle(newTitle);
                         setVideoTitle();
+
+                        PatchReqBody patchTitle = new PatchReqBody("title", newTitle);
+
+                        videosAPI.updateVideoById(String.valueOf(thisCurrentVideo.getId()),
+                                patchTitle);
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -867,7 +898,8 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         TextView pencilTitleTextView = findViewById(R.id.editTitle);
         TextView pencilDescriptionTextView = findViewById(R.id.editDescription);
 
-        if (loggedIn.isLoggedIn() && thisCurrentVideo.getPublisher().equals(loggedIn.getLoggedInUser().getUsername())) {
+        if (loggedIn.isLoggedIn() && thisCurrentVideo.getPublisher()
+                .equals(loggedIn.getLoggedInUser().getUsername())) {
             pencilTitleTextView.setVisibility(View.VISIBLE);
             pencilDescriptionTextView.setVisibility(View.VISIBLE);
         } else {
