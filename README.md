@@ -15,15 +15,16 @@ Tech-Tube is a comprehensive video-sharing platform inspired by YouTube. It allo
 - User Profiles
 - Commenting and Liking Videos
 - Dark Mode Support
+- Storing new user, video, and comment records in dedicated server.
+- Recording user actions such as liking, unliking, and subscribing in the server.
+- Supporting data modifications in the server: video titles, descriptions, comment content, and more.
+- In the side bar menu, users can navigate to their channel page and delete their account.
+- In the main page user can view the 10 most view videos and 10 random videos - total 20 videos.
+- New web pages added: publisher channel page and searched videos page.
 
 ## New features
-User actions are now processed on a server that stores and retrieves data from a dedicated MongoDB server. This enables:
-- Storing new user, video, and comment records.
-- Recording user actions such as liking, unliking, and subscribing.
-- Supporting data modifications: video titles, descriptions, comment content, and more.
-- In the side bar menu, users can navigate to their channel page and delete their account.
-- In the main page user can view the 10 most view videos and 10 random videos.
-- New web pages added: publisher channel page and searched videos page.
+- Android new publisher page.
+- Connecting all android activities to working with the server.
 
 # Getting Started
 
@@ -45,14 +46,17 @@ Please keep the command window open to ensure the server remains operational. No
 
 ## Instruction to run (AndroidApp)
 
-1. Navigate to the following directory: asp-tech-titans-app
-2. Add android emulator from version 9.0 and above
-3. Add a configuration that runs the deafault activity and pair it to the emulator
-4. Run the App using the play button or by pressing shift+F10
+1. Navigate to the following directory: 'server'
+2. enter: 'npm start'
+3. Navigate to the following directory: asp-tech-titans-app
+4. Add android emulator from version 9.0 and above
+5. Add a configuration that runs the deafault activity and pair it to the emulator
+6. Run the App using the play button or by pressing shift+F10
 
 ## Be aware
 
-All of the mendatory features are working in both of the platforms, Including extra features along. Some of the extra features aren't fully inplemented, please ignore those.
+All of the mendatory features are working in both of the platforms, Including extra features along. It possible that some of the extra features aren't fully inplemented, please ignore those.
+The feature for deleting a video in the Android app has been successfully implemented. Please note that the UI does not immediately reflect the deletion. However, if you return to the main page and then navigate back to 'My Channel', you will see that the video has been removed
 
 ## Basic instractions for the app and web
 - Registration: To create an account, navigate to the login screen and click on the "Create Account" link at the bottom of the page.
