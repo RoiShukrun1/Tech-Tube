@@ -154,7 +154,8 @@ public class UsersAPI {
                 if (response.isSuccessful()) {
                     callback.onResponse(call, response);
                 } else {
-                    callback.onFailure(call, new Throwable("Failed to load profile picture: " + response.message()));
+                    callback.onFailure(call,
+                            new Throwable("Failed to load profile picture: " + response.message()));
                 }
             }
 

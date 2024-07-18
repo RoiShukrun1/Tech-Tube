@@ -681,28 +681,41 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             showLoginToast("You have to be logged in to subscribe");
             return;
         }
-        if (loggedIn.getLoggedInUser().getUsername().equals(thisCurrentVideo.getPublisher())) {
-            showLoginToast("You can't subscribe to your own channel");
-            return;
-        }
 
         String publisher = thisCurrentVideo.getPublisher();
         UserData loggedInUser = loggedIn.getLoggedInUser();
 
-        isSubscribed =
-                loggedInUser.getSubscriptions()
-                        .contains(publisher);
-
-        if (isSubscribed) {
-            loggedInUser.getSubscriptions()
-                    .remove(publisher);
-        } else {
-            loggedInUser.getSubscriptions()
-                    .add(publisher);
+        if (loggedInUser.getUsername().equals(publisher)) {
+            showLoginToast("You can't subscribe to your own channel");
+            return;
         }
 
-        updateSubscriptionsInDB();
-        setSubscribeUI();
+        usersAPI.getUserById(publisher, new Callback<UserData>() {
+            @Override
+            public void onResponse(@NonNull Call<UserData> call,
+                                   @NonNull Response<UserData> response) {
+                if (response.body() == null) {
+                    showLoginToast("The publisher is not available.");
+                } else {
+                    isSubscribed =
+                            loggedInUser.getSubscriptions()
+                                    .contains(publisher);
+                    if (isSubscribed) {
+                        loggedInUser.getSubscriptions()
+                                .remove(publisher);
+                    } else {
+                        loggedInUser.getSubscriptions()
+                                .add(publisher);
+                    }
+                    updateSubscriptionsInDB();
+                    setSubscribeUI();
+                }
+            }
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                showLoginToast("Failed to subscribe to the channel");
+            }
+        });
     }
 
     /**
