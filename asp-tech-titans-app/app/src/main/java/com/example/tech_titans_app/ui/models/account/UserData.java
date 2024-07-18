@@ -50,4 +50,23 @@ public class UserData extends Application {
     public void  setImage(String newImage){
         this.image = newImage;
     }
+    public void setSubscriptions(List<String> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

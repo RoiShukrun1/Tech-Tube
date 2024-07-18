@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -111,6 +112,23 @@ public class LoginActivity extends AppCompatActivity {
                         tokenManager.saveToken(token);
 
                         fetchProfilePicturePath(userData, username);
+
+                        usersAPI.getUserById(username, new Callback<UserData>() {
+                            @Override
+                            public void onResponse(@NonNull Call<UserData> call,
+                                                   @NonNull Response<UserData> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    userData.setSubscriptions(response.body().getSubscriptions());
+                                }
+
+                            }
+                            @Override
+                            public void onFailure(Call<UserData> call, Throwable t) {
+                                Toast.makeText(LoginActivity.this,
+                                        "Failed to get subscription",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                         // Set logged in user
                         LoggedIn.getInstance().setLoggedInUser(userData);
