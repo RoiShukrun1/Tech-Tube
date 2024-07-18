@@ -58,8 +58,8 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private UsersAPI usersAPI;
     private VideosAPI videosAPI;
     private String publisherId;
-
     private UsersDB usersDB;
+    private UserData publisherData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +187,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
                                    @NonNull Response<UserData> response) {
                 if (response.isSuccessful()) {
                     publisherDataLiveData.postValue(response.body());
+                    publisherData = response.body();
                 } else {
                     Log.e("API_CALL", "API call failed onResponse:");
                 }
@@ -396,20 +397,22 @@ public class PublisherChannelActivity extends AppCompatActivity {
         String publisher = publisherId;
         UserData loggedInUser = loggedIn.getLoggedInUser();
 
-        isSubscribed =
-                loggedInUser.getSubscriptions()
-                        .contains(publisher);
-
-        if (isSubscribed) {
-            loggedInUser.getSubscriptions()
-                    .remove(publisher);
+        if (publisherData == null) {
+            showLoginToast("The publisher is not available.");
         } else {
-            loggedInUser.getSubscriptions()
-                    .add(publisher);
+            isSubscribed =
+                    loggedInUser.getSubscriptions()
+                            .contains(publisher);
+            if (isSubscribed) {
+                loggedInUser.getSubscriptions()
+                        .remove(publisher);
+            } else {
+                loggedInUser.getSubscriptions()
+                        .add(publisher);
+            }
+            updateSubscriptionsInDB();
+            setSubscribeUI();
         }
-
-        updateSubscriptionsInDB();
-        setSubscribeUI();
     }
 
     public void updateSubscriptionsInDB() {
