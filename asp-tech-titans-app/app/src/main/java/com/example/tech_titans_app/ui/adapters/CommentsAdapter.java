@@ -78,7 +78,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         holder.publisher.setText(comment.getUsername());
 
         String baseUrl = context.getString(R.string.base_server_url_without_ending_slash).trim();
-        Uri CommentImageUri = Uri.parse(baseUrl + comment.getImage().toString());
+
+        Uri CommentImageUri;
+        if (comment.getImage() != null) {
+            CommentImageUri = Uri.parse(baseUrl + comment.getImage().toString());
+        } else {
+            CommentImageUri = null;
+        }
 
         Glide.with(holder.itemView.getContext())
                 .load(CommentImageUri)
