@@ -146,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
                     checkLoginLocal(username, password);
                 }
             }
-
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 checkLoginLocal(username, password);
@@ -156,14 +155,14 @@ public class LoginActivity extends AppCompatActivity {
 
     // Method to check login credentials locally
     private void checkLoginLocal(String username, String password) {
-        UserData localUser = usersDataDao.getUserByUsername(username); // Assuming you have a method getUserByUsername
+        UserData localUser = usersDataDao.getUserByUsername(username);
         if (localUser != null && localUser.getPassword().equals(password)) {
             LoggedIn.getInstance().setLoggedInUser(localUser);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(LoginActivity.this, "Server is not responding , searching for local user... Login successful (local)", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(LoginActivity.this, "Server is not responding , searching for local user... Login failed (local user with this username/password does not exist)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "username/password does not exist / server offline , searching for local user... no local user found", Toast.LENGTH_SHORT).show();
         }
     }
     private void fetchProfilePicturePath(UserData userData, String username) {
