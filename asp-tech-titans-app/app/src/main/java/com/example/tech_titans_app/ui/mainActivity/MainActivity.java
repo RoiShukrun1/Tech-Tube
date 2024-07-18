@@ -75,10 +75,25 @@ public class MainActivity extends AppCompatActivity {
         // Setup dark mode functionality
         setupDarkMode();
 
+        // Handle search query from Intent
+        handleSearchQueryFromIntent();
+
         // Get the database instance
         UsersDB db = UsersDB.getInstance(this);
         usersDataDao = db.usersDao();
         AppContext.init(this);
+    }
+
+    private void handleSearchQueryFromIntent() {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("SEARCH_QUERY")) {
+            String searchQuery = intent.getStringExtra("SEARCH_QUERY");
+            if (searchQuery != null) {
+                videoViewModel.filterVideos(searchQuery);
+            } else {
+                videoViewModel.filterVideos(""); // Handle the case where the search query is empty
+            }
+        }
     }
 
     private void setupNavigationButtons() {
@@ -86,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
         TextView homeButton = findViewById(R.id.home);
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            intent.putExtra("SEARCH_QUERY", ""); // Ensure the search query is reset
             startActivity(intent);
+            finish(); // Finish the current activity to ensure it is properly reset
         });
 
         // Add video button to navigate to the UploadVideoActivity

@@ -199,7 +199,7 @@ public class RegistrationActivity extends AppCompatActivity implements Callback<
         String password = passwordText.getText().toString().trim();
         String confirmPassword = confirmPasswordText.getText().toString().trim();
 
-        if (nickname.isEmpty() || !isValidName(nickname)) {
+        if (nickname.isEmpty() || !isValidNickname(nickname)) {
             nicknameText.setError("Nickname must contain only letters and cannot be less than 2 characters");
             flag = false;
         } else {
@@ -270,9 +270,15 @@ public class RegistrationActivity extends AppCompatActivity implements Callback<
         return matcher.matches();
     }
 
-    // Regular expression for name validation
+    // Regular expression for username validation
     private boolean isValidName(String name) {
         Pattern namePattern = Pattern.compile("^[a-zA-Z]{2,}$");
+        return namePattern.matcher(name).matches();
+    }
+
+    // Regular expression for nickname validation
+    private boolean isValidNickname(String name) {
+        Pattern namePattern = Pattern.compile("^[a-zA-Z0-9]{2,}$");
         return namePattern.matcher(name).matches();
     }
 

@@ -10,6 +10,7 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.TokenManager;
 import com.example.tech_titans_app.ui.Converters.UriTypeAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
+import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -75,6 +76,7 @@ public class CommentsAPI {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             webServiceAPI = retrofit.create(WebServiceAPI.class);
+
         }
     }
 
