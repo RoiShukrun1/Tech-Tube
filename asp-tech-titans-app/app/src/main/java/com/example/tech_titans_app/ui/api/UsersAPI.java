@@ -203,8 +203,6 @@ public class UsersAPI {
         });
     }
 
-
-
     public void checkAuth(Callback<CheckAuthResponse> callback) {
         String token = tokenManager.getToken();
         Log.d("UsersAPI", "Retrieved token: " + token); // Log the token

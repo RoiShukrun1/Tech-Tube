@@ -1,4 +1,4 @@
-package com.example.tech_titans_app.ui.adapters;
+package com.example.tech_titans_app.ui.Converters;
 
 import android.net.Uri;
 

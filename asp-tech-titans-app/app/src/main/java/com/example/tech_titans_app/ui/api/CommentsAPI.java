@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.TokenManager;
-import com.example.tech_titans_app.ui.adapters.UriTypeAdapter;
+import com.example.tech_titans_app.ui.Converters.UriTypeAdapter;
 import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.google.gson.Gson;
@@ -70,7 +70,6 @@ public class CommentsAPI {
             webServiceAPI = retrofit.create(WebServiceAPI.class);
         }
         else {
-
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.TokenManager;
-import com.example.tech_titans_app.ui.adapters.UriTypeAdapter;
+import com.example.tech_titans_app.ui.Converters.UriTypeAdapter;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.VideoDB;
 import com.example.tech_titans_app.ui.entities.VideoDao;

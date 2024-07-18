@@ -108,11 +108,8 @@ public class Comment {
                 this.incrementLikes();
                 this.getUsersLikedId().add(loggedInUserId);
             }
-            Comment newComment = new Comment(this.id, this.likes,
-                    this.username, this.comment, this.date,
-                    this.image, this.parentVideo);
-            putCommentInDB(newComment);
             updateLikesButtonsUI(likeTextView, unlikeTextView);
+            putCommentInDB();
         }
     }
 
@@ -144,16 +141,24 @@ public class Comment {
             }
 
             updateLikesButtonsUI(likeTextView, unlikeTextView);
+            putCommentInDB();
         }
     }
 
-    public void putCommentInDB(Comment comment)
+    /**
+     * Updates the UI of the like and unlike buttons.
+     */
+    public void putCommentInDB()
     {
-        // Put the comment in the database
         Context context = AppContext.getContext();
         CommentsAPI commentsAPI = new CommentsAPI(context);
-        commentsAPI.updateCommentById(String.valueOf(this.parentVideo.getId()),
-                String.valueOf(comment.getId()), comment);
+        Comment newComment = new Comment(this.getId(), this.getLikes(), this.getUsername(),
+                this.getComment(), this.getDate(), this.getImage(), null);
+        newComment.setUsersLikedId(this.getUsersLikedId());
+        newComment.setUsersUnlikedId(this.getUsersUnlikedId());
+        commentsAPI.updateCommentById
+                (String.valueOf(this.parentVideo.getId()),
+                        String.valueOf(this.id), newComment);
     }
 
     /**
@@ -192,6 +197,9 @@ public class Comment {
                     "You are not the publisher of this comment",
                     Toast.LENGTH_LONG).show();
         }
+        CommentsAPI commentsAPI = new CommentsAPI(context);
+        commentsAPI.deleteCommentById(String.valueOf(this.parentVideo.getId()),
+                String.valueOf(this.id));
     }
 
     /**
@@ -228,6 +236,7 @@ public class Comment {
                         String newContent = editCommentInput.getText().toString();
                         this.setComment(newContent);
                         CommentTextView.setText(this.getComment());
+                        putCommentInDB();
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
@@ -239,6 +248,18 @@ public class Comment {
                     "You are not the publisher of this comment",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void addCommentToDB() {
+        Video parentVideo = this.parentVideo;
+        String videoId = String.valueOf(this.parentVideo.getId());
+
+        Context context = AppContext.getContext();
+        CommentsAPI commentsAPI = new CommentsAPI(context);
+
+        this.setParentVideo(null);
+        commentsAPI.createNewComment(videoId, this);
+        this.setParentVideo(parentVideo);
     }
 
     /**

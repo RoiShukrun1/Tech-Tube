@@ -8,6 +8,26 @@ export const putCommentinDB = async (videoId, commentId, newComment) => {
         const db = client.db('TechTitans');
         const collection = db.collection('videos');
 
+        // Check if updatedParams contains 'usersLikedId' and convert if necessary
+        if (newComment.usersLikedId) {
+            if (newComment.usersLikedId === '[]') {
+                newComment.usersLikedId = [];
+            } else {
+                newComment.usersLikedId = 
+                newComment.usersLikedId.map(username => ({ username }));
+            }
+        }
+
+        // Check if updatedParams contains 'usersUnlikedId' and convert if necessary
+        if (newComment.usersUnlikedId) {
+            if (newComment.usersUnlikedId === '[]') {
+                newComment.usersUnlikedId = [];
+            } else {
+                newComment.usersUnlikedId = 
+                newComment.usersUnlikedId.map(username => ({ username }));
+            }
+        }        
+
         const commentIdtoNum = parseInt(commentId);
 
         const result = await collection.updateOne(
@@ -75,7 +95,7 @@ export const getCommentsFromDB = async (videoId) => {
 // Define the function to delete a specific comment from MongoDB
 export const deleteCommentFromDB = async (videoId, commentId) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);
-    
+
     try {
         // Connect to MongoDB
         await client.connect();
@@ -120,13 +140,15 @@ export const addCommentToDB = async (videoId, newComment) => {
 
         const result = await collection.updateOne(
             { id: videoId },
-            { $push: 
-                { comments: {
-                    $each: [newComment],
-                    $position: 0
-                } 
-            } 
-        }
+            {
+                $push:
+                {
+                    comments: {
+                        $each: [newComment],
+                        $position: 0
+                    }
+                }
+            }
         );
 
         if (result.matchedCount === 0) {

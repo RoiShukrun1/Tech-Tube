@@ -19,7 +19,6 @@ const login = async (req, res) => {
 };
 
 const authenticate = (req, res, next) => {
-  console.log(req.headers['authorization']);
   const token = req.cookies.token || req.headers['authorization'];
   if (!token) return res.status(403).json({ message: 'No token provided' });
 

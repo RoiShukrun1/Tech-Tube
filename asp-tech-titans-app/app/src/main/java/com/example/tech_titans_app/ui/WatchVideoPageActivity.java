@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -46,29 +45,27 @@ import com.bumptech.glide.Glide;
 import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
 
-import com.example.tech_titans_app.ui.api.CommentsAPI;
 import com.example.tech_titans_app.ui.api.PatchReqBody;
 import com.example.tech_titans_app.ui.api.UsersAPI;
 import com.example.tech_titans_app.ui.api.VideosAPI;
-import com.example.tech_titans_app.ui.entities.Comment;
 import com.example.tech_titans_app.ui.entities.Video;
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
-import com.example.tech_titans_app.ui.entities.VideoDB;
-import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
+
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.models.account.UserData;
 import com.example.tech_titans_app.ui.models.account.UsersDB;
 import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
+
 import com.example.tech_titans_app.ui.utilities.LoginValidation;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
 import com.example.tech_titans_app.ui.viewmodels.VideoViewModelVWP;
 
 
 import androidx.core.content.ContextCompat;
-
 import android.graphics.drawable.Drawable;
+
 
 import java.io.InputStream;
 import java.util.List;
@@ -79,10 +76,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class WatchVideoPageActivity extends AppCompatActivity {
-    private static final int PERMISSION_REQUEST_CODE = 1;
 
+    private static final int PERMISSION_REQUEST_CODE = 1;
     private VideoViewModelVWP videoViewModel;
     private Video thisCurrentVideo;
     private VideosListAdapter adapter;
@@ -684,6 +680,10 @@ public class WatchVideoPageActivity extends AppCompatActivity {
             showLoginToast("You have to be logged in to subscribe");
             return;
         }
+        if (loggedIn.getLoggedInUser().getUsername().equals(thisCurrentVideo.getPublisher())) {
+            showLoginToast("You can't subscribe to your own channel");
+            return;
+        }
 
         String publisher = thisCurrentVideo.getPublisher();
         UserData loggedInUser = loggedIn.getLoggedInUser();
@@ -704,13 +704,21 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         setSubscribeUI();
     }
 
+    /**
+     * Updates the subscriptions of the logged-in user in the database.
+     * <p>
+     * This method creates a {@link PatchReqBody} object with the current user's subscriptions
+     * and sends an update request to the user API to update the subscriptions in the database.
+     * </p>
+     */
     public void updateSubscriptionsInDB() {
+        LoggedIn loggedIn = LoggedIn.getInstance();
         PatchReqBody subscriptionsArr = new PatchReqBody("subscriptions",
                 loggedIn.getLoggedInUser().getSubscriptions().toString());
 
-        usersAPI.updateUserById
-                (String.valueOf(loggedIn.getLoggedInUser().getUsername()), subscriptionsArr);
+        usersAPI.updateUserById(String.valueOf(loggedIn.getLoggedInUser().getUsername()), subscriptionsArr);
     }
+
 
     /**
      * Method to set the subscribe UI.
