@@ -25,6 +25,7 @@ import com.example.tech_titans_app.R;
 import com.example.tech_titans_app.ui.LoginActivity;
 import com.example.tech_titans_app.ui.UploadVideoActivity;
 import com.example.tech_titans_app.ui.adapters.VideosListAdapter;
+import com.example.tech_titans_app.ui.api.PatchReqBody;
 import com.example.tech_titans_app.ui.api.UsersAPI;
 import com.example.tech_titans_app.ui.api.VideosAPI;
 import com.example.tech_titans_app.ui.entities.Video;
@@ -56,6 +57,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private String base_server_url = "http://10.0.2.2";
     private UsersAPI usersAPI;
     private VideosAPI videosAPI;
+    private String publisherId;
 
     private UsersDB usersDB;
 
@@ -69,7 +71,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
 
         // Retrieve the publisher information from the intent
         Intent intent = getIntent();
-        String publisherId = intent.getStringExtra("publisher");
+        publisherId = intent.getStringExtra("publisher");
 
         // Setup search bar functionality
         new SearchBarUtils(findViewById(android.R.id.content));
@@ -98,7 +100,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Setup dark mode functionality
         setupDarkMode();
 
-        Log.e("PublisherChannelActivity", "Publisher ID: " + publisherId);
+        setSubscribeUI();
 
 
         if (publisherId != null) {
@@ -141,6 +143,10 @@ public class PublisherChannelActivity extends AppCompatActivity {
                 deleteUserIcon.setOnClickListener(v -> deleteUser(publisherId));
             }
         }
+
+        // Set click listener for subscribe button
+        Button subscribeButton = findViewById(R.id.btn_subscribe);
+        subscribeButton.setOnClickListener(v -> subscribeButtonClick());
     }
 
 
@@ -267,15 +273,6 @@ public class PublisherChannelActivity extends AppCompatActivity {
         publisherNickname.setText("@" + nickname);
         publisherSubscribesCount.setText(String.valueOf(subscribesCount) + " subscribers");
         publisherVideosCount.setText(String.valueOf(videosCount) + " videos");
-
-        // Set subscribe button functionality
-        subscribeButton.setOnClickListener(v -> {
-            // Handle subscribe button click
-            // Example: show a Toast message
-            Toast.makeText(PublisherChannelActivity.this, "Subscribed to " + username, Toast.LENGTH_SHORT).show();
-            // Change button text to "Subscribed"
-            subscribeButton.setText(R.string.subscribed);
-        });
     }
 
     private void setupPublisherInfoNull() {
@@ -303,16 +300,6 @@ public class PublisherChannelActivity extends AppCompatActivity {
         publisherNickname.setText("@" + nickname);
         publisherSubscribesCount.setText(String.valueOf(subscribesCount) + " subscribers");
         publisherVideosCount.setText("videos");
-
-        // Set subscribe button functionality
-        subscribeButton.setOnClickListener(v -> {
-            // Handle subscribe button click
-            // Example: show a Toast message
-            Toast.makeText(PublisherChannelActivity.this, "Can't subscribe to a deleted publisher ", Toast.LENGTH_SHORT).show();
-
-            // Change button text to "Subscribed"
-            subscribeButton.setText(R.string.subscribed);
-        });
     }
 
     private void setupNavigationButtons() {
@@ -335,10 +322,22 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Initialize search input field
         EditText searchInput = findViewById(R.id.search_input);
 
-        // Create and set TextWatcher for search input
-        SearchBarHandler searchBarHandler = new SearchBarHandler(videoViewModel);
-        searchInput.addTextChangedListener(searchBarHandler);
+        // Create and set OnEditorActionListener for search input
+        searchInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE ||
+                    (event != null && event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
+                            event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER)) {
+                // Redirect to MainActivity and perform search
+                String query = searchInput.getText().toString();
+                Intent intent = new Intent(PublisherChannelActivity.this, MainActivity.class);
+                intent.putExtra("SEARCH_QUERY", query);
+                startActivity(intent);
+                return true;
+            }
+            return false;
+        });
     }
+
 
     private void setupProfileSection() {
         // Get references to profile section views
@@ -378,5 +377,82 @@ public class PublisherChannelActivity extends AppCompatActivity {
 
         // Initialize DarkModeManager
         DarkModeManager darkModeManager = new DarkModeManager(this, darkModeButton);
+    }
+
+    /**
+     * Method to handle the "Subscribe" click event.
+     */
+    public void subscribeButtonClick() {
+        if (!loggedIn.isLoggedIn()) {
+            showLoginToast("You have to be logged in to subscribe");
+            return;
+        }
+
+        if (loggedIn.getLoggedInUser().getUsername().equals(publisherId)) {
+            showLoginToast("You can't subscribe to your own channel");
+            return;
+        }
+
+        String publisher = publisherId;
+        UserData loggedInUser = loggedIn.getLoggedInUser();
+
+        isSubscribed =
+                loggedInUser.getSubscriptions()
+                        .contains(publisher);
+
+        if (isSubscribed) {
+            loggedInUser.getSubscriptions()
+                    .remove(publisher);
+        } else {
+            loggedInUser.getSubscriptions()
+                    .add(publisher);
+        }
+
+        updateSubscriptionsInDB();
+        setSubscribeUI();
+    }
+
+    public void updateSubscriptionsInDB() {
+        PatchReqBody subscriptionsArr = new PatchReqBody("subscriptions",
+                loggedIn.getLoggedInUser().getSubscriptions().toString());
+
+        usersAPI.updateUserById
+                (String.valueOf(loggedIn.getLoggedInUser().getUsername()), subscriptionsArr);
+    }
+
+    /**
+     * Method to set the subscribe UI.
+     */
+    public void setSubscribeUI() {
+        String publisher = publisherId;
+        if (loggedIn.isLoggedIn()) {
+            isSubscribed =
+                    loggedIn.getLoggedInUser().getSubscriptions()
+                            .contains(publisher);
+        } else {
+            isSubscribed = false;
+        }
+
+        Button subscribeButton = findViewById(R.id.btn_subscribe);
+        if (isSubscribed) {
+            // Subscribed state: text color black, background white, text "Subscribed"
+            subscribeButton.setTextColor(getResources().getColor(R.color.gray));
+            subscribeButton.setBackgroundResource(R.drawable.unsub_but);
+            subscribeButton.setText(R.string.subscribed);
+        } else {
+            // Not subscribed state: text color white, background black, text "Subscribe"
+            subscribeButton.setTextColor(getResources().getColor(R.color.gray));
+            subscribeButton.setBackgroundResource(R.drawable.sub_but);
+            subscribeButton.setText(R.string.subscribe);
+        }
+    }
+
+    /**
+     * Method to show a toast message.
+     *
+     * @param message The message to be shown.
+     */
+    private void showLoginToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

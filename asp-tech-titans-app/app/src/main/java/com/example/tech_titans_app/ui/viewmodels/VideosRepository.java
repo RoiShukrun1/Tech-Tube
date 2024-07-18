@@ -107,6 +107,7 @@ public class VideosRepository {
 
     public void searchVideos(String query) {
         if (query == null || query.isEmpty()) {
+            Log.e("search:   ", "searchVideos: query is null or empty");
             videos.setValue(allVideos);
             return;
         }
