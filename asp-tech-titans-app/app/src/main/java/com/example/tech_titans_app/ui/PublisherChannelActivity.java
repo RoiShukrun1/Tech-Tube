@@ -324,7 +324,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
 
         // Create and set OnEditorActionListener for search input
         searchInput.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE ||
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
                     (event != null && event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
                             event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER)) {
                 // Redirect to MainActivity and perform search
