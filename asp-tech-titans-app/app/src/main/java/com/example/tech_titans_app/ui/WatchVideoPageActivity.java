@@ -8,7 +8,10 @@ import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -55,6 +58,8 @@ import com.example.tech_titans_app.ui.entities.VideoDao;
 import com.example.tech_titans_app.ui.mainActivity.MainActivity;
 import com.example.tech_titans_app.ui.mainActivity.SearchBarUtils;
 import com.example.tech_titans_app.ui.models.account.UserData;
+import com.example.tech_titans_app.ui.models.account.UsersDB;
+import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 import com.example.tech_titans_app.ui.utilities.LoginValidation;
 import com.example.tech_titans_app.ui.viewmodels.MainVideoViewModel;
@@ -65,9 +70,11 @@ import androidx.core.content.ContextCompat;
 
 import android.graphics.drawable.Drawable;
 
+import java.io.InputStream;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,6 +99,10 @@ public class WatchVideoPageActivity extends AppCompatActivity {
     private VideosAPI videosAPI;
     private UsersAPI usersAPI;
     private CommentsAPI commentsAPI;
+    private Context context;
+
+
+    private UsersDataDao usersDataDao;
 
     /**
      * Method to handle the creation of the activity.
@@ -103,12 +114,13 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_watch_video_page);
-
+        context = this;
         videoViewModel = new ViewModelProvider(this).get(VideoViewModelVWP.class);
         thisCurrentVideo = CurrentVideo.getInstance().getCurrentVideo().getValue();
         videosAPI = new VideosAPI(this);
         usersAPI = new UsersAPI(this);
         commentsAPI = new CommentsAPI(this);
+        this.usersDataDao = UsersDB.getInstance(context).usersDao(); // Initialize UsersDataDao
 
         addSearchBarLogic();
         addBottomBarLogic();
@@ -207,14 +219,43 @@ public class WatchVideoPageActivity extends AppCompatActivity {
         if (LoggedIn.getInstance().isLoggedIn()) {
             profileSection.setVisibility(View.VISIBLE);
             loginText.setVisibility(View.GONE);
-            Glide.with(this).load(LoggedIn.getInstance()
-                    .getLoggedInUser().getImage()).into(profilePicture);
+            fetchAndLoadProfilePicture(LoggedIn.getInstance().getLoggedInUser().getUsername(),profilePicture); // Fetch profile picture from server
             logoutText.setText(R.string.logout);
         } else {
             profileSection.setVisibility(View.GONE);
             loginText.setVisibility(View.VISIBLE);
         }
     }
+
+    private void fetchAndLoadProfilePicture(String username, ImageView profilePicture) {
+        usersAPI.getProfilePicture(username, new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    InputStream inputStream = response.body().byteStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    profilePicture.post(() -> Glide.with(context).load(bitmap).into(profilePicture)); // Load bitmap into ImageView using Glide
+                } else {
+                    loadProfilePictureFromLocal(username, profilePicture);
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                loadProfilePictureFromLocal(username, profilePicture);
+            }
+        });
+    }
+
+    // Load profile picture from local Room database if server is not responding
+    private void loadProfilePictureFromLocal(String username, ImageView profilePicture) {
+        AsyncTask.execute(() -> {
+            String imagePath = usersDataDao.getUserProfilePicture(username);
+            if (imagePath != null) {
+                profilePicture.post(() -> Glide.with(context).load(imagePath).into(profilePicture));
+            }
+        });
+    }
+
 
     /**
      * Method to initiate the video player.
