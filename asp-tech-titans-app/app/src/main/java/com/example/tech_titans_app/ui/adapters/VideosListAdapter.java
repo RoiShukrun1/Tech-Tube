@@ -153,7 +153,6 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
 
             @Override
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                // Handle failure (optional)
                 Log.e("API_CALL", "Failed to delete video: " + t.getMessage());
             }
         }));
