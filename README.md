@@ -56,7 +56,6 @@ Please keep the command window open to ensure the server remains operational. No
 ## Be aware
 
 All of the mendatory features are working in both of the platforms, Including extra features along. It possible that some of the extra features aren't fully inplemented, please ignore those.
-The feature for deleting a video in the Android app has been successfully implemented. Please note that the UI does not immediately reflect the deletion. However, if you return to the main page and then navigate back to 'My Channel', you will see that the video has been removed
 To download a video on Android 10 and above, please first grant the app permission to store data first.
 
 ## Basic instractions for the app and web
