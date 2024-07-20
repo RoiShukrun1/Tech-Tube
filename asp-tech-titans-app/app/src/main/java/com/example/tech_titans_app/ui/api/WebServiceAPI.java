@@ -41,6 +41,9 @@ public interface WebServiceAPI {
                               @Body Map<String, String> updateParams);
 
     @GET("/api/users/{id}")
+
+                               @Body Map<String, String> updateParams);
+    @GET("/api/users/{id}/subscribers")
     Call<List<UserData>> getUserSubsById(@Path("id") String id);
 
     @DELETE("/api/users/{id}")

@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,7 +55,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private MutableLiveData<List<UserData>> publisherSubsLiveData = new MutableLiveData<>();
     private MutableLiveData<Integer> videosCountLiveData = new MutableLiveData<>();
     private boolean isSubscribed = false;
-    private String base_server_url = "http://10.0.2.2";
+    private String base_server_url ;
     private UsersAPI usersAPI;
     private VideosAPI videosAPI;
     private String publisherId;
@@ -69,6 +70,8 @@ public class PublisherChannelActivity extends AppCompatActivity {
         usersAPI = new UsersAPI(this);
         videosAPI = new VideosAPI(this);
 
+        Context context = AppContext.getContext();
+        base_server_url = context.getString(R.string.base_server_url_without_ending_slash).trim();
         // Retrieve the publisher information from the intent
         Intent intent = getIntent();
         publisherId = intent.getStringExtra("publisher");
@@ -87,7 +90,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         // Initialize ViewModel and observe changes in the video list
         videoViewModel = new ViewModelProvider(this).get(MainVideoViewModel.class);
         videoViewModel.getPublisherVideos(publisherId).observe(this, videos -> adapter.setVideos(videos));
-
+        videoViewModel.getAllVideos().observe(this, videos -> adapter.setVideos(videos));
         // Setup navigation buttons
         setupNavigationButtons();
 
@@ -101,6 +104,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         setupDarkMode();
 
         setSubscribeUI();
+
 
 
         if (publisherId != null) {
@@ -207,6 +211,8 @@ public class PublisherChannelActivity extends AppCompatActivity {
                                    @NonNull Response<List<UserData>> response) {
                 if (response.isSuccessful()) {
                     publisherSubsLiveData.postValue(response.body());
+                    int subs = response.body().size();
+                    Log.e("subs", String.valueOf(subs));
                 } else {
                     Log.e("API_CALL", "API call failed onResponse:");
                 }
@@ -249,13 +255,13 @@ public class PublisherChannelActivity extends AppCompatActivity {
         TextView publisherNickname = findViewById(R.id.publisher_nickname);
         TextView publisherSubscribesCount = findViewById(R.id.publisher_subscribes_count);
         TextView publisherVideosCount = findViewById(R.id.publisher_videos_count);
-        Button subscribeButton = findViewById(R.id.btn_subscribe);
 
         // Sample data for the publisher, replace with actual data retrieval
         String publisherImageUrl = publisherData.getImage();
         String username = publisherData.getUsername();
         String nickname = publisherData.getNickname();
-        int subscribesCount = publisherSubs != null ? publisherSubs.size() : 0; // replace with actual subscribers count
+        int subscribesCount = publisherSubs != null ? publisherSubs.size() : 0;
+
 
         // Load images (using Glide or any other image loading library)
         Glide.with(this)
@@ -266,7 +272,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         Log.e("image", base_server_url + "/uploads/bannerPictures/" + username + ".png");
         Glide.with(this)
                 .load(base_server_url + "/uploads/bannerPictures/" + username + ".png")
-                .error(R.drawable.defaultbanner) // Set your default banner image here
+                .error(R.drawable.defaultbanner)
                 .into(bannerImage);
 
         // Set text for TextViews
@@ -453,6 +459,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
             subscribeButton.setBackgroundResource(R.drawable.sub_but);
             subscribeButton.setText(R.string.subscribe);
         }
+        fetchPublisherSubsCount(publisherId);
     }
 
     /**

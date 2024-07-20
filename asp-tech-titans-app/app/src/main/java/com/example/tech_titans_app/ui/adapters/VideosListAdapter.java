@@ -1,6 +1,7 @@
 package com.example.tech_titans_app.ui.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,8 +37,8 @@ import com.example.tech_titans_app.ui.entities.CurrentVideo;
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
     private List<Video> videoList;
     private final CurrentVideo currentVideo = CurrentVideo.getInstance();
-    private final String serverBaseUrl = "http://10.0.2.2/";
-    private final String serverBaseUrl2 = "http://10.0.2.2";
+    private String serverBaseUrl = "http://10.0.2.2/";
+    private String serverBaseUrl2 = "http://10.0.2.2";
 
     /**
      * Constructor for VideosListAdapter.
@@ -92,6 +94,11 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         holder.publisher.setText(video.getPublisher());
         holder.views.setText(video.getViews() + " views");
         holder.date.setText(video.getDate());
+
+        Context contextApp = AppContext.getContext();
+        serverBaseUrl2 = contextApp.getString(R.string.base_server_url_without_ending_slash).trim();
+        serverBaseUrl = contextApp.getString(R.string.base_server_url).trim();
+
 
         // Construct the URI for the video, thumbnail, and publisher image
         Uri videoUri = Uri.parse(serverBaseUrl + video.getVideoUploaded());
