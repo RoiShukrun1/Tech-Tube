@@ -106,6 +106,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         setSubscribeUI();
 
 
+
         if (publisherId != null) {
             fetchPublisherData(publisherId);
             fetchPublisherSubsCount(publisherId);
@@ -210,6 +211,8 @@ public class PublisherChannelActivity extends AppCompatActivity {
                                    @NonNull Response<List<UserData>> response) {
                 if (response.isSuccessful()) {
                     publisherSubsLiveData.postValue(response.body());
+                    int subs = response.body().size();
+                    Log.e("subs", String.valueOf(subs));
                 } else {
                     Log.e("API_CALL", "API call failed onResponse:");
                 }
@@ -252,13 +255,13 @@ public class PublisherChannelActivity extends AppCompatActivity {
         TextView publisherNickname = findViewById(R.id.publisher_nickname);
         TextView publisherSubscribesCount = findViewById(R.id.publisher_subscribes_count);
         TextView publisherVideosCount = findViewById(R.id.publisher_videos_count);
-        Button subscribeButton = findViewById(R.id.btn_subscribe);
 
         // Sample data for the publisher, replace with actual data retrieval
         String publisherImageUrl = publisherData.getImage();
         String username = publisherData.getUsername();
         String nickname = publisherData.getNickname();
-        int subscribesCount = publisherSubs != null ? publisherSubs.size() : 0; // replace with actual subscribers count
+        int subscribesCount = publisherSubs != null ? publisherSubs.size() : 0;
+
 
         // Load images (using Glide or any other image loading library)
         Glide.with(this)
@@ -269,7 +272,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
         Log.e("image" ,base_server_url + "/uploads/bannerPictures/" + username + ".png" );
         Glide.with(this)
                 .load(base_server_url + "/uploads/bannerPictures/" + username + ".png")
-                .error(R.drawable.defaultbanner) // Set your default banner image here
+                .error(R.drawable.defaultbanner)
                 .into(bannerImage);
 
         // Set text for TextViews
@@ -456,6 +459,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
             subscribeButton.setBackgroundResource(R.drawable.sub_but);
             subscribeButton.setText(R.string.subscribe);
         }
+        fetchPublisherSubsCount(publisherId);
     }
 
     /**
