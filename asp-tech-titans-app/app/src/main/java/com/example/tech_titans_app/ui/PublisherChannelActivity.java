@@ -269,7 +269,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
                 .into(publisherImage);
 
 
-        Log.e("image" ,base_server_url + "/uploads/bannerPictures/" + username + ".png" );
+        Log.e("image", base_server_url + "/uploads/bannerPictures/" + username + ".png");
         Glide.with(this)
                 .load(base_server_url + "/uploads/bannerPictures/" + username + ".png")
                 .error(R.drawable.defaultbanner)
@@ -285,7 +285,7 @@ public class PublisherChannelActivity extends AppCompatActivity {
     private void setupPublisherInfoNull() {
         // Retrieve views from the layout
         ImageView bannerImage = findViewById(R.id.banner_image);
-        ImageView publisherImage =  findViewById(R.id.publisher_image);
+        ImageView publisherImage = findViewById(R.id.publisher_image);
         TextView publisherUsername = findViewById(R.id.publisher_username);
         TextView publisherNickname = findViewById(R.id.publisher_nickname);
         TextView publisherSubscribesCount = findViewById(R.id.publisher_subscribes_count);

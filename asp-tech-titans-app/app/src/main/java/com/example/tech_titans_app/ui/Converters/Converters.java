@@ -35,10 +35,12 @@ public class Converters {
     public String[] toStringArray(String concatenated) {
         return concatenated != null ? concatenated.split(",") : null;
     }
+
     @TypeConverter
     public String fromUri(Uri uri) {
         return uri != null ? uri.toString() : null;
     }
+
     @TypeConverter
     public Uri toUri(String uriString) {
         return uriString != null ? Uri.parse(uriString) : null;
@@ -50,7 +52,8 @@ public class Converters {
             return null;
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Video>>() {}.getType();
+        Type type = new TypeToken<List<Video>>() {
+        }.getType();
         return gson.toJson(videos, type);
     }
 
@@ -60,7 +63,8 @@ public class Converters {
             return null;
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Video>>() {}.getType();
+        Type type = new TypeToken<List<Video>>() {
+        }.getType();
         return gson.fromJson(videoString, type);
     }
 
@@ -70,7 +74,8 @@ public class Converters {
             return null;
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Comment>>() {}.getType();
+        Type type = new TypeToken<List<Comment>>() {
+        }.getType();
         return gson.toJson(comments, type);
     }
 
@@ -80,7 +85,8 @@ public class Converters {
             return null;
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Comment>>() {}.getType();
+        Type type = new TypeToken<List<Comment>>() {
+        }.getType();
         return gson.fromJson(commentString, type);
     }
 
@@ -90,7 +96,8 @@ public class Converters {
             return null;
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Integer>>() {}.getType();
+        Type type = new TypeToken<List<Integer>>() {
+        }.getType();
         return gson.toJson(integers, type);
     }
 
@@ -100,7 +107,8 @@ public class Converters {
             return null;
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Integer>>() {}.getType();
+        Type type = new TypeToken<List<Integer>>() {
+        }.getType();
         return gson.fromJson(integerString, type);
     }
 }

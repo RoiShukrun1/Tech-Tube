@@ -94,6 +94,7 @@ export const deleteVideoFromDB = async (videoId) => {
         if (result.deletedCount === 0) {
             throw new Error('video not found'); // Throw an error if no account was deleted
         }
+        
     } catch (error) {
         console.error('Error deleting video:', error);
         throw error; // Throw the error to be handled by the caller

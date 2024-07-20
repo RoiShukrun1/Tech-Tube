@@ -23,6 +23,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -49,7 +50,8 @@ public class VideosAPI {
         tokenManager = new TokenManager(context);
         token = tokenManager.getToken();
         // Define the type for the custom deserializer
-        Type listType = new TypeToken<List<String>>(){}.getType();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Uri.class, new UriTypeAdapter())
@@ -78,9 +80,7 @@ public class VideosAPI {
                     .build();
             webServiceAPI = retrofit.create(WebServiceAPI.class);
             videoDao = VideoDB.getInstance(context).videoDao();
-        }
-
-        else {
+        } else {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -166,10 +166,12 @@ public class VideosAPI {
         Call<Void> call = webServiceAPI.deleteVideoById(id);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            }
         });
     }
 
@@ -177,10 +179,12 @@ public class VideosAPI {
         Call<Void> call = webServiceAPI.updateVideoById(id, newParams.getUpdateParams());
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            }
         });
     }
 
@@ -242,6 +246,7 @@ public class VideosAPI {
                     callback.onFailure(call, new Throwable("Response not successful"));
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
                 callback.onFailure(call, t);
@@ -292,12 +297,14 @@ public class VideosAPI {
                     callback.onFailure(null, new Throwable("Failed to get video list or video list is empty")); // Pass null for the call parameter
                 }
             }
-                      @Override
+
+            @Override
             public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
                 callback.onFailure(null, t); // Pass null for the call parameter
             }
         });
     }
+
     public void getRelatedVideos(String videoId, Callback<List<Video>> callback) {
         Call<List<Video>> call = webServiceAPI.getRelatedVideos(videoId);
         call.enqueue(new Callback<List<Video>>() {
@@ -320,7 +327,6 @@ public class VideosAPI {
             }
         });
     }
-
 
 
 }

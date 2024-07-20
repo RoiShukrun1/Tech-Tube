@@ -73,6 +73,7 @@ public class ProfileManager {
                     loadProfilePictureFromLocal(username);
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 loadProfilePictureFromLocal(username);

@@ -7,7 +7,8 @@ public class LoggedIn {
     private UserData loggedInUser;
     private LogoutListener logoutListener;
 
-    private LoggedIn() {}
+    private LoggedIn() {
+    }
 
     public static synchronized LoggedIn getInstance() {
         if (instance == null) {

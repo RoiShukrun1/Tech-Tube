@@ -51,7 +51,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     /**
      * Creates and returns a ViewHolder object, inflating the comment layout.
      *
-     * @param parent The parent ViewGroup.
+     * @param parent   The parent ViewGroup.
      * @param viewType The view type of the new View.
      * @return A new ViewHolder that holds a View of the given view type.
      */
@@ -66,7 +66,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     /**
      * Binds the data to the ViewHolder at the specified position.
      *
-     * @param holder The ViewHolder which should be updated.
+     * @param holder   The ViewHolder which should be updated.
      * @param position The position of the item within the adapter's data set.
      */
     @SuppressLint("NotifyDataSetChanged")

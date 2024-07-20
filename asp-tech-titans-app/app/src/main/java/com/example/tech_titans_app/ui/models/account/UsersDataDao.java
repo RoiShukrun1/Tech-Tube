@@ -17,6 +17,7 @@ public interface UsersDataDao {
 
     @Query("SELECT * FROM userdata")
     List<UserData> getAllUsers();
+
     @Query("SELECT image FROM userdata WHERE username = :username")
     String getUserProfilePicture(String username);
 

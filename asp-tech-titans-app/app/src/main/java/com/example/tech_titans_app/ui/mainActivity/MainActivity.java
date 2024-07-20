@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         myChannelButton.setOnClickListener(v -> {
             LoginValidation.checkLoggedIn(this);
             if (LoggedIn.getInstance().isLoggedIn()) {
-            Intent intent = new Intent(MainActivity.this, PublisherChannelActivity.class);
-            intent.putExtra("publisher", LoggedIn.getInstance().getLoggedInUser().getUsername()); // Pass the publisher information to the PublisherChannelActivity
-            startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, PublisherChannelActivity.class);
+                intent.putExtra("publisher", LoggedIn.getInstance().getLoggedInUser().getUsername()); // Pass the publisher information to the PublisherChannelActivity
+                startActivity(intent);
             }
         });
     }

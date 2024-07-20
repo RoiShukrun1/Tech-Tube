@@ -31,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.List;
+
 import com.example.tech_titans_app.ui.entities.CurrentVideo;
 
 public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.ViewHolder> {
@@ -67,7 +68,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     /**
      * Creates and returns a ViewHolder object for a video item view.
      *
-     * @param parent The parent view group.
+     * @param parent   The parent view group.
      * @param viewType The view type.
      * @return A new ViewHolder object.
      */
@@ -81,7 +82,7 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
     /**
      * Binds the data to the ViewHolder for the specified position.
      *
-     * @param holder The ViewHolder to bind data to.
+     * @param holder   The ViewHolder to bind data to.
      * @param position The position in the adapter.
      */
     @Override
@@ -146,23 +147,22 @@ public class VideosListAdapter extends RecyclerView.Adapter<VideosListAdapter.Vi
         }
 
         // Set click listener for remove icon to delete the video
-        holder.removeIcon.setOnClickListener(v -> {
-            VideosRepository.getInstance().deleteVideoById(String.valueOf(video.getId()), new Callback<Void>() {
-                @Override
-                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                    // Refresh the video list
-                    videoList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, videoList.size());
-                }
+        holder.removeIcon.setOnClickListener(v ->
+                VideosRepository.getInstance()
+                        .deleteVideoById(String.valueOf(video.getId()), new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                // Refresh the video list
+                videoList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, videoList.size());
+            }
 
-                @Override
-                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                    // Handle failure (optional)
-                    Log.e("API_CALL", "Failed to delete video: " + t.getMessage());
-                }
-            });
-        });
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("API_CALL", "Failed to delete video: " + t.getMessage());
+            }
+        }));
     }
 
     /**

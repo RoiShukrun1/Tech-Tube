@@ -146,7 +146,7 @@ public class UsersAPI {
         });
     }
 
-    public void getUserById(String id, Callback<UserData> callback){
+    public void getUserById(String id, Callback<UserData> callback) {
         Call<UserData> call = webServiceAPI.getUserById(id);
         call.enqueue(new Callback<UserData>() {
             @Override
@@ -166,7 +166,7 @@ public class UsersAPI {
         });
     }
 
-    public void getUserSubsById(String id, Callback<List<UserData>> callback){
+    public void getUserSubsById(String id, Callback<List<UserData>> callback) {
         Call<List<UserData>> call = webServiceAPI.getUserSubsById(id);
         call.enqueue(new Callback<List<UserData>>() {
             @Override
@@ -233,10 +233,12 @@ public class UsersAPI {
         Call<Void> call = webServiceAPI.updateUserById(id, newParams.getUpdateParams());
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {}
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {}
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            }
         });
     }
 

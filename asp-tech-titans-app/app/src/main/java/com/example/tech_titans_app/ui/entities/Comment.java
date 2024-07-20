@@ -47,13 +47,13 @@ public class Comment {
     /**
      * Constructor for creating a Comment object.
      *
-     * @param id The ID of the comment.
-     * @param likes The number of likes the comment has.
+     * @param id                The ID of the comment.
+     * @param likes             The number of likes the comment has.
      * @param publisherUsername The username of the publisher.
-     * @param comment The content of the comment.
-     * @param date The date the comment was posted.
-     * @param userImagePath The URI of the user's image.
-     * @param parent The parent video of the comment.
+     * @param comment           The content of the comment.
+     * @param date              The date the comment was posted.
+     * @param userImagePath     The URI of the user's image.
+     * @param parent            The parent video of the comment.
      */
     public Comment(int id, int likes, String publisherUsername,
                    String comment, String date, Uri userImagePath, Video parent) {
@@ -86,9 +86,9 @@ public class Comment {
     /**
      * Handles the like button click event.
      *
-     * @param likeTextView The TextView for the like button.
+     * @param likeTextView   The TextView for the like button.
      * @param unlikeTextView The TextView for the unlike button.
-     * @param context The context of the application.
+     * @param context        The context of the application.
      */
     public void likeButtonClick(TextView likeTextView, TextView unlikeTextView, Context context) {
         if (!LoggedIn.getInstance().isLoggedIn()) {
@@ -116,9 +116,9 @@ public class Comment {
     /**
      * Handles the unlike button click event.
      *
-     * @param likeTextView The TextView for the like button.
+     * @param likeTextView   The TextView for the like button.
      * @param unlikeTextView The TextView for the unlike button.
-     * @param context The context of the application.
+     * @param context        The context of the application.
      */
     public void unlikeButtonClick(TextView likeTextView,
                                   TextView unlikeTextView, Context context) {
@@ -148,8 +148,7 @@ public class Comment {
     /**
      * Updates the UI of the like and unlike buttons.
      */
-    public void putCommentInDB()
-    {
+    public void putCommentInDB() {
         Context context = AppContext.getContext();
         CommentsAPI commentsAPI = new CommentsAPI(context);
         Comment newComment = new Comment(this.getId(), this.getLikes(), this.getUsername(),
@@ -164,7 +163,7 @@ public class Comment {
     /**
      * Updates the UI of the like and unlike buttons.
      *
-     * @param likeTextView The TextView for the like button.
+     * @param likeTextView   The TextView for the like button.
      * @param unlikeTextView The TextView for the unlike button.
      */
     public void updateLikesButtonsUI(TextView likeTextView, TextView unlikeTextView) {
@@ -205,7 +204,7 @@ public class Comment {
     /**
      * Handles the pencil button click event for editing the comment content.
      *
-     * @param context The context of the application.
+     * @param context         The context of the application.
      * @param CommentTextView The TextView of the comment content.
      */
     public void pencilCommentButtonClick(Context context, TextView CommentTextView) {

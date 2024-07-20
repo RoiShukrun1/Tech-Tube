@@ -54,18 +54,20 @@ public class RelatedVideosRepository {
 
     private void loadVideos() {
         videosAPI.getRelatedVideos(String.valueOf(currentVideo.getCurrentVideo().getValue().getId())
-                ,new Callback<List<Video>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Video>> call,
-                                   @NonNull Response<List<Video>> response) {
-                if (response.isSuccessful()) {
-                    allVideos = response.body();
-                    videos.setValue(allVideos);
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {}
-        });
+                , new Callback<List<Video>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Video>> call,
+                                           @NonNull Response<List<Video>> response) {
+                        if (response.isSuccessful()) {
+                            allVideos = response.body();
+                            videos.setValue(allVideos);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Video>> call, @NonNull Throwable t) {
+                    }
+                });
     }
 
     public MutableLiveData<List<Video>> getAllVideos() {

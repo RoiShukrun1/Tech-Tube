@@ -39,7 +39,7 @@ public class Video {
 
     @Ignore
     // Constructor for a simple Video object
-    public Video(int id ,Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
+    public Video(int id, Uri thumbnail, String title, String publisher, Uri publisherImage, String views, String date) {
         this.id = id;
         this.thumbnail = thumbnail;
         this.title = title;
@@ -264,8 +264,7 @@ public class Video {
     }
 
     // Getters and setters for likes and other properties
-    public String getLikes()
-    {
+    public String getLikes() {
         if (likes == null) {
             likes = String.valueOf(usersLikes.size());
         }

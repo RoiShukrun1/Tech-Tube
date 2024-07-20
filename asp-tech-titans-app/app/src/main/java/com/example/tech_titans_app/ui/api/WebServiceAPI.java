@@ -38,6 +38,10 @@ public interface WebServiceAPI {
 
     @PATCH("/api/users/{id}")
     Call<Void> updateUserById(@Path("id") String id,
+                              @Body Map<String, String> updateParams);
+
+    @GET("/api/users/{id}")
+
                                @Body Map<String, String> updateParams);
     @GET("/api/users/{id}/subscribers")
     Call<List<UserData>> getUserSubsById(@Path("id") String id);
@@ -82,10 +86,10 @@ public interface WebServiceAPI {
 
     @GET("/api/users/{id}/videos")
     Call<List<Video>> getPublisherVideosById(@Path("id") String id);
-    
+
     @POST("/api/users/user/videos")
     Call<Void> uploadVideo(@Body Video video);
-    
+
     @DELETE("/api/users/user/videos/{id}")
     Call<Void> deleteVideoById(@Path("id") String id);
 
@@ -114,13 +118,15 @@ public interface WebServiceAPI {
     @PUT("/api/users/user/videos/{videoId}/comments/{commentId}")
     Call<Void> updateCommentById(@Path("videoId") String videoId,
                                  @Path("commentId") String commentId, @Body Comment newComment);
+
     @DELETE("/api/users/user/videos/{videoId}/comments/{commentId}")
     Call<Void> deleteCommentById(@Path("videoId") String videoId,
                                  @Path("commentId") String commentId);
+
     @POST("/api/users/user/videos/{videoId}/comments")
     Call<Void> createNewComment(@Path("videoId") String videoId, @Body Comment newComment);
 
     @GET("/api/token/checkAuth")
-    Call <CheckAuthResponse> checkAuth(@Header("Authorization") String token);
+    Call<CheckAuthResponse> checkAuth(@Header("Authorization") String token);
 
 }

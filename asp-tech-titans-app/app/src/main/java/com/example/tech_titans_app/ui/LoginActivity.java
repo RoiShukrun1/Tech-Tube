@@ -24,6 +24,7 @@ import com.example.tech_titans_app.ui.models.account.UsersDataDao;
 import com.example.tech_titans_app.ui.utilities.LoggedIn;
 
 import java.util.ArrayList;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -122,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
                             }
+
                             @Override
                             public void onFailure(Call<UserData> call, Throwable t) {
                                 Toast.makeText(LoginActivity.this,
@@ -165,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "username/password does not exist / server offline , searching for local user... no local user found", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void fetchProfilePicturePath(UserData userData, String username) {
         usersAPI.getProfilePicture(username, new Callback<ResponseBody>() {
             @Override
