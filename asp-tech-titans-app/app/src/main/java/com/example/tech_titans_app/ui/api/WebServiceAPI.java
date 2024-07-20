@@ -40,9 +40,6 @@ public interface WebServiceAPI {
     Call<Void> updateUserById(@Path("id") String id,
                               @Body Map<String, String> updateParams);
 
-    @GET("/api/users/{id}")
-
-                               @Body Map<String, String> updateParams);
     @GET("/api/users/{id}/subscribers")
     Call<List<UserData>> getUserSubsById(@Path("id") String id);
 
