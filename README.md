@@ -57,6 +57,7 @@ Please keep the command window open to ensure the server remains operational. No
 
 All of the mendatory features are working in both of the platforms, Including extra features along. It possible that some of the extra features aren't fully inplemented, please ignore those.
 To download a video on Android 10 and above, please first grant the app permission to store data first.
+User that deleted their account won't have integral parts of his info in his publisher channel page, but his videos will remain displayed!
 
 ## Basic instractions for the app and web
 - Registration: To create an account, navigate to the login screen and click on the "Create Account" link at the bottom of the page.
