@@ -128,23 +128,13 @@ export const getMainPageVideosFromDB = async () => {
 
         const db = client.db('TechTitans');
         const collection = db.collection('videos');
-
-        // Step 1: Fetch top 10 videos by views
         const topVideos = await collection.find({}).sort({ views: -1 }).limit(10).toArray();
-
-        // Step 2: Add the top 10 video ids to an array
         const topVideoIds = topVideos.map(video => video._id);
-
-        // Step 3: Fetch 10 random videos excluding the top 10
         const randomVideos = await collection.aggregate([
             { $match: { _id: { $nin: topVideoIds } } },
             { $sample: { size: 10 } }
         ]).toArray();
-
-        // Combine top 10 and random 10 videos
         const combinedVideos = [...topVideos, ...randomVideos];
-
-        // You can now use combinedVideos array as per your requirement
         return combinedVideos;
 
     } catch (error) {
@@ -199,7 +189,27 @@ export const getRelatedVideosFromDB = async (videoId) => {
         await client.close(); // Close the MongoDB client connection
     }
 };
-
+export const getRandomVideosFromDB = async (videoId) => {
+    const client = new MongoClient(process.env.CONNECTION_STRING);
+    try {
+        await client.connect(); // Connect to MongoDB
+        const db = client.db('TechTitans');
+        const collection = db.collection('videos');
+        // Fetch the video corresponding to the given videoId to exclude it from the random selection
+        const video = await collection.findOne({ id: videoId });
+        // Fetch random videos, excluding the current video
+        const randomVideos = await collection.aggregate([
+            { $match: { id: { $ne: video.id } } },  // Exclude the current video
+            { $sample: { size: 10 } }  // Select 10 random videos
+        ]).toArray();
+        return randomVideos; 
+    } catch (error) {
+        console.error('Error fetching videos:', error);
+        throw error; 
+    } finally {
+        await client.close(); // Close the MongoDB client connection
+    }
+};
 
 export const getCatagoryVideosFromDB = async (videoCatagory) => {
     const client = new MongoClient(process.env.CONNECTION_STRING);

@@ -1,6 +1,8 @@
 import { getVideoFromDB, getMainPageVideosFromDB, deleteVideoFromDB,
      patchVideoinDB, getPublisherVideosFromDB, getallVideosFromDB, 
-     getRelatedVideosFromDB,getCatagoryVideosFromDB } from '../services/videosServices.js';
+     getRelatedVideosFromDB,getCatagoryVideosFromDB,getRandomVideosFromDB } from '../services/videosServices.js';
+
+import { sendWatchEvent } from '../services/cppServerService.js';
 
 export const getVideo = async (req, res) => {
     try {
@@ -83,11 +85,33 @@ export const getAllVideos = async (req, res) => {
 export const getRelatedVideos = async (req, res) => {
     try {
         const videoId = req.params.pid;
-        const videos = await getRelatedVideosFromDB(videoId);
+        let relatedVideos = [];
 
-        res.status(200).json(videos);
+        if (req.user && req.user.username) {
+            const relatedVideoIds = await sendWatchEvent(req.user.username, videoId);
+            const relatedVideosPromises = relatedVideoIds.map(id => getVideoFromDB(id));
+            relatedVideos = await Promise.all(relatedVideosPromises);
+            relatedVideos = relatedVideos.filter(video => video !== null);
+            if (relatedVideos.length > 10 ) {
+                relatedVideos.sort((a, b) => b.views - a.views);  // Assuming 'views' is a field in the video object
+                relatedVideos = relatedVideos.slice(0, 10);
+            }
+            if (relatedVideos.length < 6) {
+                const remainingCount = 10 - relatedVideos.length;
+                const additionalRelatedVideos = await getRandomVideosFromDB(videoId);
+                const additionalVideos = additionalRelatedVideos.filter(
+                    video => !relatedVideos.some(v => v.id === video.id)
+                ).slice(0, remainingCount);
+
+                relatedVideos = relatedVideos.concat(additionalVideos);
+            }
+        } else {
+            // User is not logged in, fetch related videos directly from the DB
+            relatedVideos = await getRandomVideosFromDB(videoId);
+        }
+        res.status(200).json(relatedVideos);
     } catch (error) {
-        console.error('Error fetching videos:', error);
+        console.error('Error fetching related videos:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };

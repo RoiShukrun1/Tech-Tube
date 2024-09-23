@@ -31,6 +31,25 @@ const authenticate = (req, res, next) => {
   }
 };
 
+const optionalAuthenticate = (req, res, next) => {
+  const token = req.cookies.token || req.headers['authorization'];
+
+  if (token) {
+      try {
+          const decoded = verifyToken(token);
+          req.user = { id: decoded.id, username: decoded.username };  
+      } catch (err) {
+          console.error('Token verification failed:', err);
+      }
+  } else {
+      console.log('No token provided, proceeding without authentication');
+  }
+
+  next();  
+};
+
+
+
 const checkAuth = async (req, res) => {
   const token = req.cookies.token || req.headers['authorization'] ;
   if (!token) return res.status(200).json({ isAuthenticated: false });
@@ -49,4 +68,4 @@ const logout = (req, res) => {
   res.json({ message: 'Logout successful' });
 };
 
-export { login, authenticate, checkAuth, logout };
+export { login, authenticate, checkAuth, logout , optionalAuthenticate};
