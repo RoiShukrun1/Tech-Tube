@@ -93,7 +93,7 @@ export const getRelatedVideos = async (req, res) => {
             relatedVideos = await Promise.all(relatedVideosPromises);
             relatedVideos = relatedVideos.filter(video => video !== null);
             if (relatedVideos.length > 10 ) {
-                relatedVideos.sort((a, b) => b.views - a.views);  // Assuming 'views' is a field in the video object
+                relatedVideos.sort((a, b) => b.views - a.views);  
                 relatedVideos = relatedVideos.slice(0, 10);
             }
             if (relatedVideos.length < 6) {
@@ -109,6 +109,7 @@ export const getRelatedVideos = async (req, res) => {
             // User is not logged in, fetch related videos directly from the DB
             relatedVideos = await getRandomVideosFromDB(videoId);
         }
+        relatedVideos.sort((a, b) => b.views - a.views);  
         res.status(200).json(relatedVideos);
     } catch (error) {
         console.error('Error fetching related videos:', error);
