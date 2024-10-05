@@ -20,38 +20,16 @@ Tech-Tube is a comprehensive video-sharing platform inspired by YouTube. It allo
 - Supporting data modifications in the server: video titles, descriptions, comment content, and more.
 - In the side bar menu, users can navigate to their channel page and delete their account.
 - In the main page user can view the 10 most view videos and 10 random videos - total 20 videos.
-- New web pages added: publisher channel page and searched videos page.
+- Publisher channel page and searched videos page.
 
 ## New features
-- Android - publisher page.
-- Android - Connecting all activities to work with the server.
+- Multi-thread functuallity using cpp server.
+- For you videos suggested in the video watching page.
 
 # Getting Started
 
-## Instructions to run (Server):
-Please note that the server is crucial for the client-side functionality. Running the client without the server may lead to unexpected errors.
-
-1. Navigate to the following directory: Server.
-2. Ensure all dependencies mentioned in the package.json are installed.
-3. enter: 'npm start'
-Please keep the command window open to ensure the server remains operational. Note that the server is running on port 80.
-
-## Instructions to run (Web):
-
-1. Navigate to the following directory: 'asp-tech-titans'
-2. Insure you install npm and run the build
-3. Navigate to the following directory: 'server'
-4. enter: 'npm start'
-5. Open browser and enter 'localhost' in the URL bar
-
-## Instruction to run (AndroidApp)
-
-1. Navigate to the following directory: 'server'
-2. enter: 'npm start'
-3. Navigate to the following directory: asp-tech-titans-app
-4. Add android emulator from version 9.0 and above
-5. Add a configuration that runs the deafault activity and pair it to the emulator
-6. Run the App using the play button or by pressing shift+F10
+## Running instructions - link:
+https://github.com/AvielSegev/Tech-Titans/wiki
 
 ## Be aware
 
