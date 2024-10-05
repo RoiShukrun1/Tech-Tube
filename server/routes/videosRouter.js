@@ -3,7 +3,7 @@ import { getVideo, deleteVideo, updateVideo,
     getPublisherVideos, getRelatedVideos, 
     getCatagoryVideos} from '../controllers/videosController.js';
 import commentsRouter from './commentsRouter.js';
-import { authenticate } from '../controllers/tokenController.js';
+import { authenticate, optionalAuthenticate } from '../controllers/tokenController.js';
 const videosRouter = express.Router({ mergeParams: true });
 
 videosRouter.route('/:pid')
@@ -12,7 +12,7 @@ videosRouter.route('/:pid')
     .patch(authenticate, updateVideo);
 
 videosRouter.route('/:pid/relatedvideos')
-    .get(getRelatedVideos)
+    .get(optionalAuthenticate, getRelatedVideos)
 
 videosRouter.route('/:pid/catagoryvideos')
     .get(getCatagoryVideos)
