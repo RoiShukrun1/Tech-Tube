@@ -1,6 +1,6 @@
 # TechTube
 Welcome to our project!
-For more organized info about the project please navigate to the repository Wiki.
+**For more organized info about the project and Running instructions please navigate to the repository Wiki : https://github.com/AvielSegev/Tech-Titans/wiki.**
 Here is a brief inforamtion about the project:
 
 This repository contains the Tech-Tube project, a web and Android application that replicates the core functionalities of YouTube.
@@ -25,9 +25,6 @@ Tech-Tube is a comprehensive video-sharing platform inspired by YouTube. It allo
 - Publisher channel page and searched videos page.
 - Multi-thread functuallity using cpp server.
 - For you videos suggested in the video watching page.
-
-## Running instructions - link:
-https://github.com/AvielSegev/Tech-Titans/wiki
 
 ## Working process
 
