@@ -1,6 +1,8 @@
 # TechTube
 Welcome to our project!
 
+**The team members and developers of this project are Aviel Segev, Roi Shukrun, and Kobi Hadad.**
+
 **For more organized info about the project and Running instructions please navigate to the repository Wiki : https://github.com/AvielSegev/Tech-Titans/wiki.**
 
 Here is a brief inforamtion about the project:
